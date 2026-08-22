@@ -2,7 +2,7 @@
   "name": "zerotosaas-theme",
   "displayName": "ZeroToSaaS Accessibility Theme Suite",
   "description": "Medically optimized, WCAG AAA compliant themes with Semantic Cognitive Status (Safe, Caution, Warning, Panic) and contextual file-type adaptation.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "zerotosaas",
   "author": {
     "name": "Sarvasv Technologies Pvt Ltd (ZeroToSaaS.in)",
@@ -311,7 +311,8 @@
   },
   "packageManager": "pnpm@11.22.0",
   "scripts": {
-    "build": "node scripts/generate-themes.js && node scripts/generate-gallery.js",
+    "build": "node scripts/generate-themes.js && node scripts/update-ide-configs.js && node scripts/generate-gallery.js",
+    "update-ide-configs": "node scripts/update-ide-configs.js",
     "validate": "node scripts/validate-contrast.js",
     "gallery": "node scripts/generate-gallery.js",
     "package": "vsce package --no-git-tag-version",

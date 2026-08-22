@@ -1,7 +1,7 @@
 {
   "$schema": "vscode://schemas/color-theme",
   "name": "ZeroToSaaS High Contrast (ISO 9241-303)",
-  "type": "hcLight",
+  "type": "light",
   "author": "Sarvasv Technologies Pvt Ltd (ZeroToSaaS.in)",
   "license": "AGPL-3.0",
   "semanticHighlighting": true,

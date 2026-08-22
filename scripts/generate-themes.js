@@ -1496,7 +1496,7 @@ function buildThemeJson(theme) {
   return {
     $schema: 'vscode://schemas/color-theme',
     name: theme.name,
-    type: theme.type === 'hc-light' ? 'hcLight' : 'light',
+    type: 'light',
     author: 'Sarvasv Technologies Pvt Ltd (ZeroToSaaS.in)',
     license: 'AGPL-3.0',
     semanticHighlighting: true,
