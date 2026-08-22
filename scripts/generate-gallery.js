@@ -11,34 +11,26 @@ const path = require('path');
 const THEMES_DIR = path.join(__dirname, '..', 'themes');
 const OUTPUT_HTML = path.join(__dirname, '..', 'docs', 'previews', 'gallery.html');
 
-// Read all 10 theme JSONs
+// Read all 10 theme definitions
 const themeFiles = [
-  { id: 'default', file: 'zerotosaas-light.json', name: 'ZeroToSaaS Light (Default)', icon: '💡', swatch: '#0B4F9C', systems: ['all', 'oklch', 'colorbrewer', 'fm100'] },
-  { id: 'green', file: 'zerotosaas-green.json', name: 'Forest Calm (Green)', icon: '🌲', swatch: '#096032', systems: ['all', 'oklch', 'colorbrewer', 'fm100'] },
-  { id: 'yellow', file: 'zerotosaas-yellow.json', name: 'Golden Sand (Yellow)', icon: '☀️', swatch: '#6E4E00', systems: ['all', 'oklch', 'colorbrewer'] },
-  { id: 'orange', file: 'zerotosaas-orange.json', name: 'Terracotta (Orange)', icon: '🔥', swatch: '#943800', systems: ['all', 'oklch'] },
-  { id: 'brown', file: 'zerotosaas-brown.json', name: 'Warm Sepia (Brown)', icon: '☕', swatch: '#5C2C06', systems: ['all', 'oklch', 'fm100'] },
-  { id: 'purple', file: 'zerotosaas-purple.json', name: 'Royal Plum (Purple)', icon: '🔮', swatch: '#6B21A8', systems: ['all', 'oklch'] },
-  { id: 'blue', file: 'zerotosaas-blue.json', name: 'Oceanic Steel (Blue)', icon: '🌊', swatch: '#0E5A8A', systems: ['all', 'oklch', 'fm100'] },
-  { id: 'deuteranopia', file: 'zerotosaas-deuteranopia.json', name: 'Deuteranopia Safe (Blue/Amber)', icon: '🌐', swatch: '#0043A4', systems: ['all', 'paultol'] },
-  { id: 'protanopia', file: 'zerotosaas-protanopia.json', name: 'Protanopia Safe (Magenta/Teal)', icon: '🌐', swatch: '#8C0064', systems: ['all', 'paultol'] },
-  { id: 'high-contrast', file: 'zerotosaas-high-contrast.json', name: 'High Contrast (ISO 9241-303)', icon: '⚡', swatch: '#002D80', systems: ['all', 'colorbrewer'] }
+  { id: 'default', file: 'zerotosaas-light.json', name: 'ZeroToSaaS Light (Default)', icon: '💡', swatch: '#0B4F9C', systems: ['oklch', 'colorbrewer', 'fm100'], cvd: 'standard', desc: 'Cobalt-Slate balanced core palette' },
+  { id: 'green', file: 'zerotosaas-green.json', name: 'Forest Calm (Green)', icon: '🌲', swatch: '#096032', systems: ['oklch', 'colorbrewer', 'fm100'], cvd: 'standard', desc: 'Restful botanical green palette' },
+  { id: 'yellow', file: 'zerotosaas-yellow.json', name: 'Golden Sand (Yellow)', icon: '☀️', swatch: '#6E4E00', systems: ['oklch', 'colorbrewer'], cvd: 'standard', desc: 'High-acuity warm amber-gold' },
+  { id: 'orange', file: 'zerotosaas-orange.json', name: 'Terracotta (Orange)', icon: '🔥', swatch: '#943800', systems: ['oklch'], cvd: 'standard', desc: 'Warm earth terracotta tone' },
+  { id: 'brown', file: 'zerotosaas-brown.json', name: 'Warm Sepia (Brown)', icon: '☕', swatch: '#5C2C06', systems: ['oklch', 'fm100'], cvd: 'standard', desc: 'Earthy sepia low-strain palette' },
+  { id: 'purple', file: 'zerotosaas-purple.json', name: 'Royal Plum (Purple)', icon: '🔮', swatch: '#6B21A8', systems: ['oklch'], cvd: 'standard', desc: 'Deep royal plum chromatic balance' },
+  { id: 'blue', file: 'zerotosaas-blue.json', name: 'Oceanic Steel (Blue)', icon: '🌊', swatch: '#0E5A8A', systems: ['oklch', 'fm100'], cvd: 'standard', desc: 'Cool steel oceanic blue' },
+  { id: 'deuteranopia', file: 'zerotosaas-deuteranopia.json', name: 'Deuteranopia Safe (Blue/Amber)', icon: '🌐', swatch: '#0043A4', systems: ['paultol'], cvd: 'deuteranopia', desc: 'SRON 470nm/600nm isolated axes' },
+  { id: 'protanopia', file: 'zerotosaas-protanopia.json', name: 'Protanopia Safe (Magenta/Teal)', icon: '🌐', swatch: '#8C0064', systems: ['paultol'], cvd: 'protanopia', desc: 'SRON Magenta/Teal photoreceptor isolation' },
+  { id: 'high-contrast', file: 'zerotosaas-high-contrast.json', name: 'High Contrast (ISO 9241-303)', icon: '⚡', swatch: '#002D80', systems: ['colorbrewer'], cvd: 'high-contrast', desc: 'Maximum 18.25:1 text acuity' }
 ];
-
-const themesData = {};
-themeFiles.forEach(t => {
-  const filePath = path.join(THEMES_DIR, t.file);
-  if (fs.existsSync(filePath)) {
-    themesData[t.id] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  }
-});
 
 const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZeroToSaaS Accessibility Theme Suite — Interactive Showcase & Live Playground</title>
+  <title>ZeroToSaaS Accessibility Theme Suite — Interactive Gallery & Playground</title>
   <style>
     :root {
       --font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
@@ -49,109 +41,109 @@ const htmlContent = `<!DOCTYPE html>
       font-family: var(--font-sans);
       background: #F8FAFC;
       color: #0F172A;
-      padding: 1.5rem 2rem;
-      line-height: 1.5;
+      padding: 1.25rem 1.5rem;
+      line-height: 1.45;
     }
-    .container {
-      max-width: 1440px;
-      margin: 0 auto;
-    }
-    .header {
+    .top-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      padding-bottom: 1.25rem;
-      margin-bottom: 1.5rem;
+      align-items: center;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.25rem;
       border-bottom: 1px solid #E2E8F0;
     }
-    .header h1 {
-      font-size: 1.75rem;
+    .top-header h1 {
+      font-size: 1.5rem;
       color: #075985;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
-    .header p { color: #475569; font-size: 0.95rem; margin-top: 0.25rem; }
-    .header-links {
-      display: flex;
-      gap: 0.75rem;
-    }
+    .header-links { display: flex; gap: 0.5rem; }
     .link-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      padding: 0.4rem 0.85rem;
+      padding: 0.35rem 0.75rem;
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
       text-decoration: none;
       background: #FFFFFF;
       color: #0369A1;
       border: 1px solid #BAE6FD;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
       transition: all 0.15s ease;
     }
-    .link-btn:hover {
-      background: #E0F2FE;
-      border-color: #7DD3FC;
+    .link-btn:hover { background: #E0F2FE; border-color: #7DD3FC; }
+
+    /* 2-Column Responsive Grid Layout */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    @media (max-width: 1080px) {
+      .app-layout { grid-template-columns: 1fr; }
     }
 
-    /* Control Panel Cards */
-    .controls-panel {
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-    }
-    .control-row {
+    /* Left Sidebar: Controls & System Filters */
+    .sidebar {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+      gap: 1rem;
     }
-    .control-row:last-child { margin-bottom: 0; }
-    .control-label {
-      font-size: 0.8rem;
+    .panel-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .panel-title {
+      font-size: 0.82rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      color: #475569;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-bottom: 1px solid #F1F5F9;
+      padding-bottom: 0.4rem;
+    }
+
+    /* System Tabs & Theme Buttons */
+    .system-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 0.85rem;
+    }
+    .system-group:last-child { margin-bottom: 0; }
+    .system-title {
+      font-size: 0.78rem;
+      font-weight: 700;
       color: #64748B;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
     }
-    .keyboard-hint {
-      font-size: 0.75rem;
-      font-weight: normal;
-      color: #94A3B8;
-      text-transform: none;
-      margin-left: auto;
-    }
-    kbd {
-      background: #F1F5F9;
-      border: 1px solid #CBD5E1;
-      border-radius: 3px;
-      padding: 1px 5px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-    }
-
-    /* Segmented Radio Tabs */
-    .segmented-group {
+    .theme-chip-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.35rem;
     }
-    .tab-btn {
+    .theme-chip {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.45rem 0.85rem;
-      border-radius: 8px;
-      font-size: 0.875rem;
+      gap: 0.35rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid #E2E8F0;
@@ -159,51 +151,143 @@ const htmlContent = `<!DOCTYPE html>
       color: #334155;
       transition: all 0.15s ease;
       user-select: none;
+      text-align: left;
     }
-    .tab-btn:hover {
+    .theme-chip:hover {
       background: #F1F5F9;
       border-color: #CBD5E1;
       color: #0F172A;
     }
-    .tab-btn.active {
+    .theme-chip.active {
       background: #0284C7;
       color: #FFFFFF;
       border-color: #0284C7;
-      box-shadow: 0 2px 4px rgba(2,132,199,0.25);
+      box-shadow: 0 1px 3px rgba(2,132,199,0.25);
     }
-    .swatch-dot {
-      width: 12px;
-      height: 12px;
+    .swatch-circle {
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.85);
       box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
       display: inline-block;
+      flex-shrink: 0;
     }
 
-    /* Sub Row: Language & Feature Toggles */
-    .sub-controls {
+    /* CVD Selection Cards */
+    .cvd-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .cvd-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.65rem;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      background: #F8FAFC;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: all 0.15s ease;
+    }
+    .cvd-item:hover { background: #F1F5F9; border-color: #CBD5E1; }
+    .cvd-item.active {
+      background: #E0F2FE;
+      border-color: #0284C7;
+      color: #0369A1;
+      font-weight: 600;
+    }
+    .cvd-info { display: flex; flex-direction: column; }
+    .cvd-name { font-weight: 600; }
+    .cvd-sub { font-size: 0.72rem; color: #64748B; }
+
+    /* Live Telemetry Card */
+    .telemetry-card {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 0.65rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .tel-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tel-label { color: #64748B; }
+    .tel-val { font-weight: 700; color: #0369A1; }
+
+    /* Right Column: Viewport & Tabbed Interface */
+    .viewport {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .view-tabs-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .main-tabs { display: flex; gap: 0.4rem; }
+    .main-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .main-tab-btn:hover { background: #F1F5F9; color: #0F172A; }
+    .main-tab-btn.active {
+      background: #0284C7;
+      color: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(2,132,199,0.25);
+    }
+
+    /* Sub-bar for Code Editor: Languages & Toggles */
+    .code-subbar {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
-      margin-top: 0.75rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid #F1F5F9;
+      gap: 0.65rem;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 0.45rem 0.75rem;
     }
-    .lang-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-    .lang-btn {
-      padding: 0.3rem 0.65rem;
+    .lang-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .lang-chip {
+      padding: 0.25rem 0.55rem;
       border-radius: 5px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       border: 1px solid #E2E8F0;
-      background: #FFFFFF;
+      background: #F8FAFC;
       color: #475569;
       cursor: pointer;
       font-family: var(--font-mono);
+      transition: all 0.15s ease;
     }
-    .lang-btn.active {
+    .lang-chip:hover { background: #F1F5F9; color: #0F172A; }
+    .lang-chip.active {
       background: #0F172A;
       color: #FFFFFF;
       border-color: #0F172A;
@@ -211,97 +295,180 @@ const htmlContent = `<!DOCTYPE html>
     .toggles-group {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      font-size: 0.82rem;
+      gap: 0.85rem;
+      font-size: 0.78rem;
       color: #334155;
     }
     .toggle-label {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.3rem;
       cursor: pointer;
       font-weight: 500;
+      user-select: none;
     }
 
-    /* Telemetry Bar */
-    .telemetry-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
+    /* =========================================================================
+       TAB 1: LIVE SAMPLE DASHBOARD
+       ========================================================================= */
+    .dashboard-container {
       background: #FFFFFF;
       border: 1px solid #E2E8F0;
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      margin-bottom: 1rem;
-      font-size: 0.82rem;
-      font-family: var(--font-mono);
-      color: #334155;
+      border-radius: 10px;
+      padding: 1.25rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      transition: background 0.15s ease, color 0.15s ease;
     }
-    .telemetry-chip {
+    .dash-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.85rem;
+    }
+    .metric-card {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      background: #F8FAFC;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .metric-label { font-size: 0.78rem; font-weight: 600; color: #64748B; text-transform: uppercase; }
+    .metric-val { font-size: 1.45rem; font-weight: 700; color: #0F172A; font-family: var(--font-mono); }
+    .metric-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      background: #F1F5F9;
-      padding: 0.2rem 0.5rem;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 1px 6px;
       border-radius: 4px;
-      border: 1px solid #E2E8F0;
+      align-self: flex-start;
     }
-    .telemetry-chip strong { color: #0369A1; }
 
-    /* IDE Editor Mockup */
-    .editor-card {
-      border-radius: 10px;
+    /* Data Table */
+    .dash-table-wrap {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .dash-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: left;
+    }
+    .dash-table th {
+      background: #F1F5F9;
+      padding: 0.5rem 0.75rem;
+      font-weight: 700;
+      color: #475569;
+      border-bottom: 1px solid #E2E8F0;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+    .dash-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .dash-table tr:last-child td { border-bottom: none; }
+    .table-mono { font-family: var(--font-mono); font-size: 0.78rem; }
+
+    /* Interactive Elements in Dashboard */
+    .dash-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #F1F5F9;
+    }
+    .dash-btn-group { display: flex; gap: 0.5rem; }
+    .btn {
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+    }
+    .btn-primary { background: #0284C7; color: #FFFFFF; }
+    .btn-secondary { background: #F1F5F9; color: #334155; border-color: #CBD5E1; }
+    .dash-search-input {
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
+      font-size: 0.82rem;
+      font-family: var(--font-sans);
+      outline: none;
+      width: 220px;
+    }
+
+    /* =========================================================================
+       TAB 2: LIVE CODE IDE EDITOR (Single-Line Compact Row Spacing)
+       ========================================================================= */
+    .editor-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       border: 1px solid #CBD5E1;
       font-family: var(--font-mono);
-      font-size: 13.5px;
+      font-size: 12.5px;
       transition: background 0.15s ease, color 0.15s ease;
     }
     .editor-topbar {
-      padding: 0.6rem 1rem;
+      padding: 0.45rem 0.85rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid rgba(0,0,0,0.08);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
     }
-    .window-dots {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-    }
+    .window-dots { display: flex; gap: 5px; align-items: center; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
     .dot-red { background: #FF5F56; }
     .dot-yellow { background: #FFBD2E; }
     .dot-green { background: #27C93F; }
 
+    /* Single-Line Compact Spacing: No white-space: pre on body */
     .editor-body {
-      padding: 1.25rem;
-      white-space: pre;
+      padding: 0.75rem 1rem;
       overflow-x: auto;
-      line-height: 1.65;
+      line-height: 1.35;
+      font-size: 12.5px;
     }
-
-    .line { display: flex; align-items: baseline; }
+    .line {
+      display: flex;
+      align-items: baseline;
+      min-height: 19px;
+      line-height: 1.35;
+      margin: 0;
+      padding: 1px 0;
+    }
     .ln {
-      width: 2.75rem;
+      width: 2.25rem;
       user-select: none;
       opacity: 0.45;
       text-align: right;
-      padding-right: 1.25rem;
+      padding-right: 0.75rem;
+      font-size: 11.5px;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
     }
-    .code { flex: 1; }
+    .code {
+      flex: 1;
+      white-space: pre;
+      font-family: var(--font-mono);
+    }
 
-    /* Indent Shading */
-    .indent-odd { background-color: rgba(0,0,0,0.035); display: inline-block; }
+    /* Alternating Indent Guides */
+    .indent-odd { background-color: rgba(11, 79, 156, 0.05); display: inline-block; }
     .indent-even { background-color: transparent; display: inline-block; }
     .no-indent .indent-odd { background-color: transparent; }
 
@@ -321,257 +488,527 @@ const htmlContent = `<!DOCTYPE html>
     /* Error lens inline */
     .error-lens {
       font-style: italic;
-      font-size: 0.9em;
-      margin-left: 1rem;
+      font-size: 0.88em;
+      margin-left: 0.85rem;
       opacity: 0.9;
     }
     .error-lens-err { color: #990014; }
     .error-lens-warn { color: #8C3800; }
     .no-error-lens .error-lens { display: none; }
+    .no-firewall .status-panic { background: transparent !important; border: none !important; color: inherit !important; }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="header">
-      <div>
-        <h1>🔬 ZeroToSaaS Quad-System Interactive Theme Showcase</h1>
-        <p>Test all 10 accessible themes across OkLCH, Paul Tol CVD-Safe, ColorBrewer IA, and Farnsworth-Munsell 100-Hue systems with <strong>1 click</strong>.</p>
-      </div>
-      <div class="header-links">
-        <a href="../Validation.md" class="link-btn">📊 Validation Report</a>
-        <a href="../Guidelines.md" class="link-btn">🏥 Medical Guidelines</a>
-        <a href="../../README.md" class="link-btn">🏠 README</a>
-      </div>
+  <div class="top-header">
+    <div>
+      <h1>🔬 ZeroToSaaS Quad-System Interactive Gallery</h1>
+      <p style="font-size:0.85rem; color:#64748B;">Explore all 10 themes across OkLCH, Paul Tol CVD, ColorBrewer, and FM 100-Hue systems.</p>
     </div>
-
-    <!-- Control Panel -->
-    <div class="controls-panel">
-      <!-- 1. System Filter -->
-      <div class="control-row">
-        <div class="control-label">
-          <span>🏛️ 1. Select Color Science Framework:</span>
-        </div>
-        <div class="segmented-group" id="system-filters">
-          <button class="tab-btn active" data-system="all">✨ All Systems (10 Themes)</button>
-          <button class="tab-btn" data-system="oklch">📐 OkLCH Lightness Invariant</button>
-          <button class="tab-btn" data-system="paultol">🧪 Paul Tol CVD-Safe (SRON)</button>
-          <button class="tab-btn" data-system="colorbrewer">🎨 ColorBrewer IA Scales</button>
-          <button class="tab-btn" data-system="fm100">👁️ FM 100-Hue (Clinical)</button>
-        </div>
-      </div>
-
-      <!-- 2. Theme Selector -->
-      <div class="control-row">
-        <div class="control-label">
-          <span>🎨 2. Select Theme Variation:</span>
-          <span class="keyboard-hint">Keyboard: Press keys <kbd>1</kbd>–<kbd>9</kbd> or <kbd>←</kbd> <kbd>→</kbd></span>
-        </div>
-        <div class="segmented-group" id="theme-tabs">
-          <!-- Dynamically populated / filtered -->
-        </div>
-      </div>
-
-      <!-- 3. Language & Feature Toggles -->
-      <div class="sub-controls">
-        <div class="lang-tabs" id="lang-tabs">
-          <button class="lang-btn active" data-lang="python">Python</button>
-          <button class="lang-btn" data-lang="typescript">TypeScript React</button>
-          <button class="lang-btn" data-lang="rust">Rust</button>
-          <button class="lang-btn" data-lang="sql">SQL</button>
-          <button class="lang-btn" data-lang="audit">Audit Logs</button>
-          <button class="lang-btn" data-lang="config">Cargo.toml</button>
-        </div>
-        <div class="toggles-group">
-          <label class="toggle-label"><input type="checkbox" id="toggle-error-lens" checked> Error Lens Badges</label>
-          <label class="toggle-label"><input type="checkbox" id="toggle-indent" checked> Alternating Indent Shading</label>
-          <label class="toggle-label"><input type="checkbox" id="toggle-firewall" checked> Human Firewall Trapping</label>
-        </div>
-      </div>
+    <div class="header-links">
+      <a href="../Validation.md" class="link-btn">📊 Validation Report</a>
+      <a href="../Guidelines.md" class="link-btn">🏥 Medical Guidelines</a>
+      <a href="../../README.md" class="link-btn">🏠 README</a>
     </div>
+  </div>
 
-    <!-- Live Telemetry Inspector Bar -->
-    <div class="telemetry-bar" id="telemetry-bar">
-      <span class="telemetry-chip">Canvas: <strong id="tel-canvas">#FCFCFD</strong> [OkLCH: <strong id="tel-oklch">L=98.9% C=0.003 h=264°</strong>]</span>
-      <span class="telemetry-chip">Base Contrast: <strong id="tel-contrast">17.30:1 (WCAG AAA)</strong></span>
-      <span class="telemetry-chip">Paul Tol Separation: <strong id="tel-paultol">ΔE ≥ 0.18</strong></span>
-      <span class="telemetry-chip">Active System Compatibility: <strong id="tel-systems">OkLCH • ColorBrewer • FM 100-Hue</strong></span>
-    </div>
-
-    <!-- Live IDE Editor Card -->
-    <div class="editor-card" id="editor-card">
-      <div class="editor-topbar" id="editor-topbar">
-        <div class="window-dots">
-          <span class="dot dot-red"></span>
-          <span class="dot dot-yellow"></span>
-          <span class="dot dot-green"></span>
-          <span id="editor-filename" style="margin-left: 0.75rem;">data_pipeline.py — ZeroToSaaS Light (Default)</span>
+  <!-- 2-Column App Layout -->
+  <div class="app-layout">
+    
+    <!-- LEFT COLUMN: System & Theme Selectors -->
+    <aside class="sidebar">
+      
+      <!-- Section 1: 4 Color Science Systems -->
+      <div class="panel-card">
+        <div class="panel-title">
+          <span>🏛️ 1. The 4 Color Science Systems</span>
         </div>
-        <span id="editor-badge" class="status-tag status-safe">100% WCAG AAA Compliant</span>
+        
+        <div class="system-group">
+          <div class="system-title">📐 OkLCH (Oklab Uniform Lightness)</div>
+          <div class="theme-chip-list">
+            <button class="theme-chip active" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Default</button>
+            <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
+            <button class="theme-chip" data-theme="yellow"><span class="swatch-circle" style="background:#6E4E00"></span> Gold</button>
+            <button class="theme-chip" data-theme="orange"><span class="swatch-circle" style="background:#943800"></span> Terracotta</button>
+            <button class="theme-chip" data-theme="brown"><span class="swatch-circle" style="background:#5C2C06"></span> Sepia</button>
+            <button class="theme-chip" data-theme="purple"><span class="swatch-circle" style="background:#6B21A8"></span> Plum</button>
+            <button class="theme-chip" data-theme="blue"><span class="swatch-circle" style="background:#0E5A8A"></span> Steel</button>
+          </div>
+        </div>
+
+        <div class="system-group">
+          <div class="system-title">🧪 Paul Tol's CVD-Safe (SRON)</div>
+          <div class="theme-chip-list">
+            <button class="theme-chip" data-theme="deuteranopia"><span class="swatch-circle" style="background:#0043A4"></span> Deuteranopia (Blue/Amber)</button>
+            <button class="theme-chip" data-theme="protanopia"><span class="swatch-circle" style="background:#8C0064"></span> Protanopia (Magenta/Teal)</button>
+          </div>
+        </div>
+
+        <div class="system-group">
+          <div class="system-title">🎨 ColorBrewer Framework (IA Scales)</div>
+          <div class="theme-chip-list">
+            <button class="theme-chip" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Light</button>
+            <button class="theme-chip" data-theme="high-contrast"><span class="swatch-circle" style="background:#002D80"></span> High Contrast</button>
+            <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
+            <button class="theme-chip" data-theme="yellow"><span class="swatch-circle" style="background:#6E4E00"></span> Gold</button>
+          </div>
+        </div>
+
+        <div class="system-group">
+          <div class="system-title">👁️ Farnsworth-Munsell 100-Hue (Clinical)</div>
+          <div class="theme-chip-list">
+            <button class="theme-chip" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Default</button>
+            <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
+            <button class="theme-chip" data-theme="brown"><span class="swatch-circle" style="background:#5C2C06"></span> Sepia</button>
+            <button class="theme-chip" data-theme="blue"><span class="swatch-circle" style="background:#0E5A8A"></span> Steel</button>
+          </div>
+        </div>
       </div>
-      <div class="editor-body" id="editor-body">
-        <!-- Rendered Code Content -->
+
+      <!-- Section 2: Color Blindness & Clinical Calibration -->
+      <div class="panel-card">
+        <div class="panel-title">
+          <span>👁️ 2. Color Blindness & Calibration</span>
+        </div>
+        <div class="cvd-list">
+          <div class="cvd-item active" data-theme="default">
+            <span class="swatch-circle" style="background:#0B4F9C"></span>
+            <div class="cvd-info">
+              <span class="cvd-name">Standard Trichromatic</span>
+              <span class="cvd-sub">Normal vision • 100% WCAG AAA</span>
+            </div>
+          </div>
+          <div class="cvd-item" data-theme="deuteranopia">
+            <span class="swatch-circle" style="background:#0043A4"></span>
+            <div class="cvd-info">
+              <span class="cvd-name">Deuteranopia (Green-Weak)</span>
+              <span class="cvd-sub">~6% of males • Blue/Amber 470nm/600nm</span>
+            </div>
+          </div>
+          <div class="cvd-item" data-theme="protanopia">
+            <span class="swatch-circle" style="background:#8C0064"></span>
+            <div class="cvd-info">
+              <span class="cvd-name">Protanopia (Red-Weak)</span>
+              <span class="cvd-sub">~2% of males • Magenta/Teal isolation</span>
+            </div>
+          </div>
+          <div class="cvd-item" data-theme="high-contrast">
+            <span class="swatch-circle" style="background:#002D80"></span>
+            <div class="cvd-info">
+              <span class="cvd-name">High Contrast (ISO 9241-303)</span>
+              <span class="cvd-sub">Low vision • Maximum 18.25:1 contrast</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <!-- Live Telemetry Card -->
+      <div class="telemetry-card">
+        <div class="tel-row">
+          <span class="tel-label">Canvas Color:</span>
+          <span class="tel-val" id="tel-canvas">#FCFCFD</span>
+        </div>
+        <div class="tel-row">
+          <span class="tel-label">OkLCH Uniformity:</span>
+          <span class="tel-val" id="tel-oklch">L=98.9% C=0.003</span>
+        </div>
+        <div class="tel-row">
+          <span class="tel-label">Base Contrast:</span>
+          <span class="tel-val" id="tel-contrast">17.30:1 (AAA)</span>
+        </div>
+        <div class="tel-row">
+          <span class="tel-label">Paul Tol Distance:</span>
+          <span class="tel-val" id="tel-paultol">ΔE ≥ 0.18</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT COLUMN: Interactive Viewport -->
+    <main class="viewport">
+      
+      <!-- View Switcher Tabs Header -->
+      <div class="view-tabs-header">
+        <div class="main-tabs">
+          <button class="main-tab-btn" id="btn-tab-dash">📊 1. Sample Dashboard</button>
+          <button class="main-tab-btn active" id="btn-tab-code">💻 2. IDE Code Editor</button>
+        </div>
+        <span style="font-size:0.75rem; color:#64748B;">Keyboard: <kbd>1</kbd>–<kbd>9</kbd> switch themes</span>
+      </div>
+
+      <!-- VIEW 1: SAMPLE DASHBOARD PREVIEW -->
+      <div class="dashboard-container" id="view-dashboard" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E2E8F0; padding-bottom:0.75rem;">
+          <div>
+            <h2 id="dash-title" style="font-size:1.15rem; font-weight:700;">ZeroToSaaS Enterprise Telemetry Dashboard</h2>
+            <p style="font-size:0.8rem; color:#64748B;">Real-time infrastructure health, cognitive status logs, and contract validation.</p>
+          </div>
+          <span id="dash-badge" class="status-tag status-safe">100% WCAG AAA Compliant</span>
+        </div>
+
+        <!-- Metrics Cards -->
+        <div class="dash-metrics-grid">
+          <div class="metric-card" id="m-card-1">
+            <span class="metric-label">Cluster Nodes</span>
+            <span class="metric-val" id="m-val-1">128 / 128</span>
+            <span class="metric-badge status-safe">Safe (🟢) 100% Online</span>
+          </div>
+          <div class="metric-card" id="m-card-2">
+            <span class="metric-label">Memory Utilization</span>
+            <span class="metric-val" id="m-val-2">42.8 GB</span>
+            <span class="metric-badge status-caution">Caution (🟡) 78% Peak</span>
+          </div>
+          <div class="metric-card" id="m-card-3">
+            <span class="metric-label">Pending Ingestion</span>
+            <span class="metric-val" id="m-val-3">1,492 / sec</span>
+            <span class="metric-badge status-warning">Warning (🟠) Rate Limit</span>
+          </div>
+          <div class="metric-card" id="m-card-4">
+            <span class="metric-label">Security Alerts</span>
+            <span class="metric-val" id="m-val-4">0 Critical</span>
+            <span class="metric-badge status-panic">Panic (🔴) Trapped</span>
+          </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="dash-table-wrap">
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Status</th>
+                <th>Cluster UUID</th>
+                <th>Avg Latency</th>
+                <th>Security Verification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>auth-pipeline-v2</strong></td>
+                <td><span class="status-tag status-safe">Safe (🟢) Verified</span></td>
+                <td class="table-mono">e8a1f2b4-7c9d-4e1a-8f3b-0123456789ab</td>
+                <td class="table-mono">1.24 ms</td>
+                <td><span style="color:#0B6229; font-weight:600;">✓ Pass</span></td>
+              </tr>
+              <tr>
+                <td><strong>session-cache-redis</strong></td>
+                <td><span class="status-tag status-caution">Caution (🟡) Elevated</span></td>
+                <td class="table-mono">9b2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6e</td>
+                <td class="table-mono">4.88 ms</td>
+                <td><span style="color:#784A00; font-weight:600;">! Review</span></td>
+              </tr>
+              <tr>
+                <td><strong>async-export-worker</strong></td>
+                <td><span class="status-tag status-warning">Warning (🟠) Retrying</span></td>
+                <td class="table-mono">3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d</td>
+                <td class="table-mono">14.10 ms</td>
+                <td><span style="color:#8C3800; font-weight:600;">⚠ Deprecated</span></td>
+              </tr>
+              <tr>
+                <td><strong>key-vault-scanner</strong></td>
+                <td><span class="status-tag status-panic">Panic (🔴) Blocked</span></td>
+                <td class="table-mono">7f8a9b0c-1d2e-3f4a-5b6c-7d8e9f0a1b2c</td>
+                <td class="table-mono">0.12 ms</td>
+                <td><span style="color:#990014; font-weight:bold;">⛔ Key Trapped</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Dashboard Action Row -->
+        <div class="dash-actions-row">
+          <input type="text" class="dash-search-input" placeholder="Search services or UUIDs..." value="cluster-us-east-1">
+          <div class="dash-btn-group">
+            <button class="btn btn-secondary">Export Telemetry</button>
+            <button class="btn btn-primary" id="dash-action-btn">Deploy Configuration</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: LIVE CODE IDE EDITOR -->
+      <div id="view-code">
+        <!-- Sub-bar: Language Combo-Radio-Tabs & Feature Toggles -->
+        <div class="code-subbar">
+          <div class="lang-chips" id="lang-chips">
+            <button class="lang-chip active" data-lang="python">Python</button>
+            <button class="lang-chip" data-lang="typescript">TypeScript React</button>
+            <button class="lang-chip" data-lang="rust">Rust</button>
+            <button class="lang-chip" data-lang="go">Go</button>
+            <button class="lang-chip" data-lang="sql">SQL</button>
+            <button class="lang-chip" data-lang="audit">Audit Log</button>
+            <button class="lang-chip" data-lang="config">Cargo.toml</button>
+          </div>
+          <div class="toggles-group">
+            <label class="toggle-label"><input type="checkbox" id="toggle-error-lens" checked> Error Lens</label>
+            <label class="toggle-label"><input type="checkbox" id="toggle-indent" checked> Alternating Indents</label>
+            <label class="toggle-label"><input type="checkbox" id="toggle-firewall" checked> Human Firewall</label>
+          </div>
+        </div>
+
+        <!-- IDE Editor Mockup Card (Single-Line Compact Row Spacing) -->
+        <div class="editor-card" id="editor-card" style="margin-top: 0.65rem;">
+          <div class="editor-topbar" id="editor-topbar">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+              <span id="editor-filename" style="margin-left: 0.65rem;">data_pipeline.py — ZeroToSaaS Light</span>
+            </div>
+            <span id="editor-badge" class="status-tag status-safe">100% WCAG AAA Compliant</span>
+          </div>
+          <div class="editor-body" id="editor-body">
+            <!-- Dynamically populated with long, comprehensive single-line code blocks -->
+          </div>
+        </div>
+      </div>
+
+    </main>
   </div>
 
   <script>
     const themeMetadata = ${JSON.stringify(themeFiles)};
     
-    // Code samples database
+    // Large, Comprehensive Single-Line Code Samples Database
     const codeSamples = {
       python: {
         filename: 'data_pipeline.py',
-        code: (t) => \`
-<div class="line"><span class="ln">1</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">import</span> <span style="color:\${t.fg};">os</span>, <span style="color:\${t.fg};">sys</span>, <span style="color:\${t.fg};">hashlib</span></span></div>
-<div class="line"><span class="ln">2</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">from</span> <span style="color:\${t.fg};">dataclasses</span> <span style="color:\${t.keyword}; font-weight:bold;">import</span> <span style="color:\${t.type}; font-weight:bold;">dataclass</span></span></div>
-<div class="line"><span class="ln">3</span><span class="code"></span></div>
-<div class="line"><span class="ln">4</span><span class="code"><span style="color:\${t.type}; font-weight:bold;">@dataclass</span></span></div>
-<div class="line"><span class="ln">5</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">class</span> <span style="color:\${t.type}; font-weight:bold;">PipelineTelemetry</span>:</span></div>
-<div class="line"><span class="ln">6</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.fg};">cluster_id</span>: <span style="color:\${t.type};">str</span></span></div>
-<div class="line"><span class="ln">7</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.fg};">worker_count</span>: <span style="color:\${t.type};">int</span> = <span style="color:\${t.constant}; font-weight:bold;">128</span></span></div>
-<div class="line"><span class="ln">8</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.fg};">api_key</span>: <span style="color:\${t.type};">str</span> = <span class="status-panic" style="background:\${t.panicBg}; color:\${t.panicFg};">"AIzaSyD9x82kL90aXyZ1..."</span> <span class="error-lens error-lens-err">🔴 [Panic] Secret Key Hardcoded in Source</span></span></div>
-<div class="line"><span class="ln">9</span><span class="code"></span></div>
-<div class="line"><span class="ln">10</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">def</span> <span style="color:\${t.func}; font-weight:bold;">process_telemetry_batch</span>(<span style="color:\${t.param};">records</span>: <span style="color:\${t.type};">list</span>) -> <span style="color:\${t.type};">bool</span>:</span></div>
-<div class="line"><span class="ln">11</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.comment};"># Validated against Cynthia Brewer diverging scale</span></span></div>
-<div class="line"><span class="ln">12</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="status-tag status-safe">Safe (🟢)</span> <span style="color:\${t.type}; font-weight:bold;">Strict Contract Verified</span></span></div>
-<div class="line"><span class="ln">13</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.keyword}; font-weight:bold;">if not</span> <span style="color:\${t.param};">records</span>:</span></div>
-<div class="line"><span class="ln">14</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.keyword}; font-weight:bold;">return</span> <span style="color:\${t.constant}; font-weight:bold;">False</span></span></div>
-<div class="line"><span class="ln">15</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.keyword}; font-weight:bold;">return</span> <span style="color:\${t.constant}; font-weight:bold;">True</span></span></div>\`
+        code: (t) => [
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">import</span> <span style="color:' + t.fg + ';">os</span>, <span style="color:' + t.fg + ';">sys</span>, <span style="color:' + t.fg + ';">hashlib</span>, <span style="color:' + t.fg + ';">uuid</span>, <span style="color:' + t.fg + ';">typing</span></span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">from</span> <span style="color:' + t.fg + ';">dataclasses</span> <span style="color:' + t.keyword + '; font-weight:bold;">import</span> <span style="color:' + t.type + '; font-weight:bold;">dataclass</span>, <span style="color:' + t.type + '; font-weight:bold;">field</span></span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">from</span> <span style="color:' + t.fg + ';">datetime</span> <span style="color:' + t.keyword + '; font-weight:bold;">import</span> <span style="color:' + t.type + '; font-weight:bold;">datetime</span>, <span style="color:' + t.type + '; font-weight:bold;">timezone</span></span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"><span style="color:' + t.comment + ';"># =========================================================================</span></span></div>',
+          '<div class="line"><span class="ln">6</span><span class="code"><span style="color:' + t.comment + ';"># ZeroToSaaS Quad-System Python Pipeline Calibration</span></span></div>',
+          '<div class="line"><span class="ln">7</span><span class="code"><span style="color:' + t.comment + ';"># =========================================================================</span></span></div>',
+          '<div class="line"><span class="ln">8</span><span class="code"><span style="color:' + t.type + '; font-weight:bold;">@dataclass</span>(<span style="color:' + t.param + ';">frozen</span>=<span style="color:' + t.constant + '; font-weight:bold;">True</span>)</span></div>',
+          '<div class="line"><span class="ln">9</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">class</span> <span style="color:' + t.type + '; font-weight:bold;">SecurityTelemetryRecord</span>:</span></div>',
+          '<div class="line"><span class="ln">10</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.comment + ';">"""Immutable cluster node security record with cognitive status tags."""</span></span></div>',
+          '<div class="line"><span class="ln">11</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">cluster_uuid</span>: <span style="color:' + t.type + ';">str</span> = <span style="color:' + t.string + ';">"e8a1f2b4-7c9d-4e1a-8f3b-0123456789ab"</span></span></div>',
+          '<div class="line"><span class="ln">12</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">worker_count</span>: <span style="color:' + t.type + ';">int</span> = <span style="color:' + t.constant + '; font-weight:bold;">128</span></span></div>',
+          '<div class="line"><span class="ln">13</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">is_active</span>: <span style="color:' + t.type + ';">bool</span> = <span style="color:' + t.constant + '; font-weight:bold;">True</span></span></div>',
+          '<div class="line"><span class="ln">14</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">vault_api_key</span>: <span style="color:' + t.type + ';">str</span> = <span class="status-panic" style="background:' + t.panicBg + '; color:' + t.panicFg + ';">"AIzaSyD9x82kL90aXyZ1..."</span> <span class="error-lens error-lens-err">🔴 [Panic] Secret Key Exposed</span></span></div>',
+          '<div class="line"><span class="ln">15</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">raw_session_jwt</span>: <span style="color:' + t.type + ';">str</span> = <span style="color:' + t.string + ';">"unverified_session_bearer_token"</span> <span class="error-lens error-lens-warn">🟠 [Warning] Unextracted Raw String</span></span></div>',
+          '<div class="line"><span class="ln">16</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">17</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">async def</span> <span style="color:' + t.func + '; font-weight:bold;">process_telemetry_batch</span>(</span></div>',
+          '<div class="line"><span class="ln">18</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">records</span>: <span style="color:' + t.type + ';">list</span>[<span style="color:' + t.type + ';">SecurityTelemetryRecord</span>],</span></div>',
+          '<div class="line"><span class="ln">19</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">max_retries</span>: <span style="color:' + t.type + ';">int</span> = <span style="color:' + t.constant + '; font-weight:bold;">5</span>,</span></div>',
+          '<div class="line"><span class="ln">20</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">enforce_firewall</span>: <span style="color:' + t.type + ';">bool</span> = <span style="color:' + t.constant + '; font-weight:bold;">True</span></span></div>',
+          '<div class="line"><span class="ln">21</span><span class="code">) -> <span style="color:' + t.type + ';">dict</span>[<span style="color:' + t.type + ';">str</span>, <span style="color:' + t.type + ';">typing.Any</span>]:</span></div>',
+          '<div class="line"><span class="ln">22</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.comment + ';"># Indent Level 1 Shaded: Verified safe schema contract</span></span></div>',
+          '<div class="line"><span class="ln">23</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="status-tag status-safe">Safe (🟢)</span> <span style="color:' + t.type + '; font-weight:bold;">VerifiedContract</span> = <span style="color:' + t.func + '; font-weight:bold;">validate_batch_contracts</span>(<span style="color:' + t.param + ';">records</span>)</span></div>',
+          '<div class="line"><span class="ln">24</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">results_map</span> = {}</span></div>',
+          '<div class="line"><span class="ln">25</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">for</span> <span style="color:' + t.fg + ';">rec</span> <span style="color:' + t.keyword + '; font-weight:bold;">in</span> <span style="color:' + t.param + ';">records</span>:</span></div>',
+          '<div class="line"><span class="ln">26</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.comment + ';"># Indent Level 2 Transparent: Dynamic evaluation & branch check</span></span></div>',
+          '<div class="line"><span class="ln">27</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="status-tag status-caution">Caution (🟡)</span> <span style="color:' + t.keyword + '; font-weight:bold;">if not</span> <span style="color:' + t.fg + ';">rec</span>.<span style="color:' + t.fg + ';">is_active</span>:</span></div>',
+          '<div class="line"><span class="ln">28</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.comment + ';"># Indent Level 3 Shaded: Alert & retry logging</span></span></div>',
+          '<div class="line"><span class="ln">29</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="status-tag status-warning">Warning (🟠)</span> <span style="color:' + t.func + '; font-weight:bold;">log_node_warning</span>(<span style="color:' + t.string + ';">f"Skipping inactive node: {rec.cluster_uuid}"</span>)</span></div>',
+          '<div class="line"><span class="ln">30</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">continue</span></span></div>',
+          '<div class="line"><span class="ln">31</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">try</span>:</span></div>',
+          '<div class="line"><span class="ln">32</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">hashed_payload</span> = <span style="color:' + t.fg + ';">hashlib</span>.<span style="color:' + t.func + ';">sha256</span>(<span style="color:' + t.fg + ';">rec</span>.<span style="color:' + t.fg + ';">cluster_uuid</span>.<span style="color:' + t.func + ';">encode</span>()).<span style="color:' + t.func + ';">hexdigest</span>()</span></div>',
+          '<div class="line"><span class="ln">33</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">results_map</span>[<span style="color:' + t.fg + ';">rec</span>.<span style="color:' + t.fg + ';">cluster_uuid</span>] = <span style="color:' + t.fg + ';">hashed_payload</span></span></div>',
+          '<div class="line"><span class="ln">34</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">except</span> <span style="color:' + t.type + '; font-weight:bold;">Exception</span> <span style="color:' + t.keyword + '; font-weight:bold;">as</span> <span style="color:' + t.fg + ';">err</span>:</span></div>',
+          '<div class="line"><span class="ln">35</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="status-tag status-panic">Panic (🔴)</span> <span style="color:' + t.func + '; font-weight:bold;">log_critical_fault</span>(<span style="color:' + t.string + ';">"Telemetry calculation crashed"</span>, <span style="color:' + t.param + ';">error</span>=<span style="color:' + t.fg + ';">err</span>)</span></div>',
+          '<div class="line"><span class="ln">36</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">return</span> {<span style="color:' + t.string + ';">"status"</span>: <span style="color:' + t.string + ';">"SUCCESS"</span>, <span style="color:' + t.string + ';">"records_processed"</span>: <span style="color:' + t.func + ';">len</span>(<span style="color:' + t.fg + ';">results_map</span>)}</span></div>'
+        ].join('')
       },
       typescript: {
         filename: 'DashboardWidget.tsx',
-        code: (t) => \`
-<div class="line"><span class="ln">1</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">import</span> <span style="color:\${t.fg};">React</span>, { <span style="color:\${t.func};">useState</span>, <span style="color:\${t.func};">useEffect</span> } <span style="color:\${t.keyword}; font-weight:bold;">from</span> <span style="color:\${t.string};">"react"</span>;</span></div>
-<div class="line"><span class="ln">2</span><span class="code"></span></div>
-<div class="line"><span class="ln">3</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">interface</span> <span style="color:\${t.type}; font-weight:bold;">SessionProps</span> {</span></div>
-<div class="line"><span class="ln">4</span><span class="code">    <span style="color:\${t.fg};">sessionId</span>: <span style="color:\${t.type};">string</span>;</span></div>
-<div class="line"><span class="ln">5</span><span class="code">    <span style="color:\${t.fg};">activeTenants</span>: <span style="color:\${t.type};">number</span>;</span></div>
-<div class="line"><span class="ln">6</span><span class="code">}</span></div>
-<div class="line"><span class="ln">7</span><span class="code"></span></div>
-<div class="line"><span class="ln">8</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">export const</span> <span style="color:\${t.func}; font-weight:bold;">DashboardWidget</span> = ({ <span style="color:\${t.param};">sessionId</span>, <span style="color:\${t.param};">activeTenants</span> }: <span style="color:\${t.type};">SessionProps</span>) => {</span></div>
-<div class="line"><span class="ln">9</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.keyword}; font-weight:bold;">const</span> [<span style="color:\${t.fg};">status</span>, <span style="color:\${t.func};">setStatus</span>] = <span style="color:\${t.func};">useState</span>(<span style="color:\${t.string};">"IDLE"</span>);</span></div>
-<div class="line"><span class="ln">10</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.keyword}; font-weight:bold;">return</span> (</span></div>
-<div class="line"><span class="ln">11</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;<span style="color:\${t.type}; font-weight:bold;">div</span> <span style="color:\${t.func};">className</span>=<span style="color:\${t.string};">"dashboard-container"</span>&gt;</span></div>
-<div class="line"><span class="ln">12</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;<span style="color:\${t.type}; font-weight:bold;">h2</span>&gt;ZeroToSaaS Telemetry: {<span style="color:\${t.param};">sessionId</span>}&lt;/<span style="color:\${t.type}; font-weight:bold;">h2</span>&gt;</span></div>
-<div class="line"><span class="ln">13</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;/<span style="color:\${t.type}; font-weight:bold;">div</span>&gt;</span></div>
-<div class="line"><span class="ln">14</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span>);</span></div>
-<div class="line"><span class="ln">15</span><span class="code">};</span></div>\`
+        code: (t) => [
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">import</span> <span style="color:' + t.fg + ';">React</span>, { <span style="color:' + t.func + ';">useState</span>, <span style="color:' + t.func + ';">useEffect</span>, <span style="color:' + t.func + ';">useMemo</span>, <span style="color:' + t.func + ';">useCallback</span> } <span style="color:' + t.keyword + '; font-weight:bold;">from</span> <span style="color:' + t.string + ';">"react"</span>;</span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">import</span> { <span style="color:' + t.type + ';">ClusterMetrics</span>, <span style="color:' + t.type + ';">CognitiveStatus</span>, <span style="color:' + t.type + ';">TelemetryPayload</span> } <span style="color:' + t.keyword + '; font-weight:bold;">from</span> <span style="color:' + t.string + ';">"@zerotosaas/telemetry"</span>;</span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"><span style="color:' + t.comment + ';">// Type-Safe Interface Contract</span></span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">export interface</span> <span style="color:' + t.type + '; font-weight:bold;">TelemetryProps</span> {</span></div>',
+          '<div class="line"><span class="ln">6</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">clusterId</span>: <span style="color:' + t.type + ';">string</span>;</span></div>',
+          '<div class="line"><span class="ln">7</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">activeNodes</span>: <span style="color:' + t.type + ';">number</span>;</span></div>',
+          '<div class="line"><span class="ln">8</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">onStatusChange</span>?: (<span style="color:' + t.param + ';">status</span>: <span style="color:' + t.type + ';">CognitiveStatus</span>) => <span style="color:' + t.type + ';">void</span>;</span></div>',
+          '<div class="line"><span class="ln">9</span><span class="code">}</span></div>',
+          '<div class="line"><span class="ln">10</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">11</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">export const</span> <span style="color:' + t.func + '; font-weight:bold;">DashboardWidget</span>: <span style="color:' + t.type + ';">React.FC</span>&lt;<span style="color:' + t.type + ';">TelemetryProps</span>&gt; = ({</span></div>',
+          '<div class="line"><span class="ln">12</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">clusterId</span>,</span></div>',
+          '<div class="line"><span class="ln">13</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">activeNodes</span>,</span></div>',
+          '<div class="line"><span class="ln">14</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">onStatusChange</span></span></div>',
+          '<div class="line"><span class="ln">15</span><span class="code">}) => {</span></div>',
+          '<div class="line"><span class="ln">16</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> [<span style="color:' + t.fg + ';">healthState</span>, <span style="color:' + t.func + ';">setHealthState</span>] = <span style="color:' + t.func + ';">useState</span>&lt;<span style="color:' + t.type + ';">string</span>&gt;(<span style="color:' + t.string + ';">"OPTIMAL"</span>);</span></div>',
+          '<div class="line"><span class="ln">17</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> [<span style="color:' + t.fg + ';">records</span>, <span style="color:' + t.func + ';">setRecords</span>] = <span style="color:' + t.func + ';">useState</span>&lt;<span style="color:' + t.type + ';">TelemetryPayload</span>[]&gt;([]);</span></div>',
+          '<div class="line"><span class="ln">18</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">19</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> <span style="color:' + t.func + '; font-weight:bold;">handleSync</span> = <span style="color:' + t.func + ';">useCallback</span>(<span style="color:' + t.keyword + '; font-weight:bold;">async</span> () => {</span></div>',
+          '<div class="line"><span class="ln">20</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">try</span> {</span></div>',
+          '<div class="line"><span class="ln">21</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> <span style="color:' + t.fg + ';">res</span> = <span style="color:' + t.keyword + '; font-weight:bold;">await</span> <span style="color:' + t.func + '; font-weight:bold;">fetch</span>(<span style="color:' + t.string + ';">"/api/v1/telemetry/" + clusterId</span>);</span></div>',
+          '<div class="line"><span class="ln">22</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> <span style="color:' + t.fg + ';">data</span> = <span style="color:' + t.keyword + '; font-weight:bold;">await</span> <span style="color:' + t.fg + ';">res</span>.<span style="color:' + t.func + ';">json</span>();</span></div>',
+          '<div class="line"><span class="ln">23</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.func + ';">setRecords</span>(<span style="color:' + t.fg + ';">data</span>.<span style="color:' + t.fg + ';">items</span>);</span></div>',
+          '<div class="line"><span class="ln">24</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>} <span style="color:' + t.keyword + '; font-weight:bold;">catch</span> (<span style="color:' + t.fg + ';">err</span>) {</span></div>',
+          '<div class="line"><span class="ln">25</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.func + ';">setHealthState</span>(<span style="color:' + t.string + ';">"DEGRADED"</span>);</span></div>',
+          '<div class="line"><span class="ln">26</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>}</span></div>',
+          '<div class="line"><span class="ln">27</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span>}, [<span style="color:' + t.param + ';">clusterId</span>]);</span></div>',
+          '<div class="line"><span class="ln">28</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">29</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">return</span> (</span></div>',
+          '<div class="line"><span class="ln">30</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;<span style="color:' + t.type + '; font-weight:bold;">div</span> <span style="color:' + t.func + ';">className</span>=<span style="color:' + t.string + ';">"widget-panel-root"</span>&gt;</span></div>',
+          '<div class="line"><span class="ln">31</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;<span style="color:' + t.type + '; font-weight:bold;">header</span> <span style="color:' + t.func + ';">className</span>=<span style="color:' + t.string + ';">"flex justify-between items-center"</span>&gt;</span></div>',
+          '<div class="line"><span class="ln">32</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;<span style="color:' + t.type + '; font-weight:bold;">h3</span>&gt;Cluster: {<span style="color:' + t.param + ';">clusterId</span>}&lt;/<span style="color:' + t.type + '; font-weight:bold;">h3</span>&gt;</span></div>',
+          '<div class="line"><span class="ln">33</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>&lt;<span style="color:' + t.type + '; font-weight:bold;">span</span> <span style="color:' + t.func + ';">className</span>=<span style="color:' + t.string + ';">"status-tag status-safe"</span>&gt;Safe (🟢)&lt;/<span style="color:' + t.type + '; font-weight:bold;">span</span>&gt;</span></div>',
+          '<div class="line"><span class="ln">36</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span>);</span></div>',
+          '<div class="line"><span class="ln">37</span><span class="code">};</span></div>'
+        ].join('')
       },
       rust: {
-        filename: 'engine.rs',
-        code: (t) => \`
-<div class="line"><span class="ln">1</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">pub struct</span> <span style="color:\${t.type}; font-weight:bold;">ExecutionEngine</span> {</span></div>
-<div class="line"><span class="ln">2</span><span class="code">    <span style="color:\${t.fg};">cluster_uuid</span>: <span style="color:\${t.type};">Uuid</span>,</span></div>
-<div class="line"><span class="ln">3</span><span class="code">    <span style="color:\${t.fg};">worker_threads</span>: <span style="color:\${t.type};">usize</span>,</span></div>
-<div class="line"><span class="ln">4</span><span class="code">}</span></div>
-<div class="line"><span class="ln">5</span><span class="code"></span></div>
-<div class="line"><span class="ln">6</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">impl</span> <span style="color:\${t.type}; font-weight:bold;">ExecutionEngine</span> {</span></div>
-<div class="line"><span class="ln">7</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.keyword}; font-weight:bold;">pub fn</span> <span style="color:\${t.func}; font-weight:bold;">new</span>(<span style="color:\${t.param};">threads</span>: <span style="color:\${t.type};">usize</span>) -> <span style="color:\${t.type};">Result</span>&lt;<span style="color:\${t.type};">Self</span>, <span style="color:\${t.type};">EngineError</span>&gt; {</span></div>
-<div class="line"><span class="ln">8</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.type};">Ok</span>(<span style="color:\${t.type};">Self</span> {</span></div>
-<div class="line"><span class="ln">9</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.fg};">cluster_uuid</span>: <span style="color:\${t.func};">Uuid::new_v4</span>(),</span></div>
-<div class="line"><span class="ln">10</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:\${t.fg};">worker_threads</span>: <span style="color:\${t.param};">threads</span>,</span></div>
-<div class="line"><span class="ln">11</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>})</span></div>
-<div class="line"><span class="ln">12</span><span class="code">    <span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span>}</span></div>
-<div class="line"><span class="ln">13</span><span class="code">}</span></div>\`
+        filename: 'execution_engine.rs',
+        code: (t) => [
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">use</span> <span style="color:' + t.fg + ';">std</span>::<span style="color:' + t.fg + ';">sync</span>::<span style="color:' + t.type + ';">Arc</span>;</span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">use</span> <span style="color:' + t.fg + ';">tokio</span>::<span style="color:' + t.fg + ';">sync</span>::{<span style="color:' + t.type + ';">RwLock</span>, <span style="color:' + t.type + ';">mpsc</span>};</span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">use</span> <span style="color:' + t.fg + ';">uuid</span>::<span style="color:' + t.type + ';">Uuid</span>;</span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">use</span> <span style="color:' + t.fg + ';">serde</span>::{<span style="color:' + t.type + ';">Serialize</span>, <span style="color:' + t.type + ';">Deserialize</span>};</span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">6</span><span class="code"><span style="color:' + t.type + '; font-weight:bold;">#[derive(Debug, Clone, Serialize, Deserialize)]</span></span></div>',
+          '<div class="line"><span class="ln">7</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">pub struct</span> <span style="color:' + t.type + '; font-weight:bold;">ExecutionEngine</span>&lt;<span style="color:' + t.param + ';">&apos;a</span>&gt; {</span></div>',
+          '<div class="line"><span class="ln">8</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">pub</span> <span style="color:' + t.fg + ';">engine_uuid</span>: <span style="color:' + t.type + ';">Uuid</span>,</span></div>',
+          '<div class="line"><span class="ln">9</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">pub</span> <span style="color:' + t.fg + ';">cluster_name</span>: &<span style="color:' + t.param + ';">&apos;a</span> <span style="color:' + t.type + ';">str</span>,</span></div>',
+          '<div class="line"><span class="ln">10</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">pub</span> <span style="color:' + t.fg + ';">concurrency_limit</span>: <span style="color:' + t.type + ';">usize</span>,</span></div>',
+          '<div class="line"><span class="ln">11</span><span class="code">}</span></div>',
+          '<div class="line"><span class="ln">12</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">13</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">impl</span>&lt;<span style="color:' + t.param + ';">&apos;a</span>&gt; <span style="color:' + t.type + '; font-weight:bold;">ExecutionEngine</span>&lt;<span style="color:' + t.param + ';">&apos;a</span>&gt; {</span></div>',
+          '<div class="line"><span class="ln">14</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">pub fn</span> <span style="color:' + t.func + '; font-weight:bold;">init_cluster</span>(<span style="color:' + t.param + ';">name</span>: &<span style="color:' + t.param + ';">&apos;a</span> <span style="color:' + t.type + ';">str</span>, <span style="color:' + t.param + ';">workers</span>: <span style="color:' + t.type + ';">usize</span>) -> <span style="color:' + t.type + ';">Result</span>&lt;<span style="color:' + t.type + ';">Self</span>, <span style="color:' + t.type + ';">EngineError</span>&gt; {</span></div>',
+          '<div class="line"><span class="ln">15</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">if</span> <span style="color:' + t.param + ';">workers</span> == <span style="color:' + t.constant + '; font-weight:bold;">0</span> {</span></div>',
+          '<div class="line"><span class="ln">16</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">return</span> <span style="color:' + t.type + ';">Err</span>(<span style="color:' + t.type + ';">EngineError</span>::<span style="color:' + t.type + ';">InvalidWorkerCount</span>);</span></div>',
+          '<div class="line"><span class="ln">17</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>}</span></div>',
+          '<div class="line"><span class="ln">18</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">Ok</span>(<span style="color:' + t.type + ';">Self</span> {</span></div>',
+          '<div class="line"><span class="ln">19</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">engine_uuid</span>: <span style="color:' + t.func + ';">Uuid::new_v4</span>(),</span></div>',
+          '<div class="line"><span class="ln">20</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">cluster_name</span>: <span style="color:' + t.param + ';">name</span>,</span></div>',
+          '<div class="line"><span class="ln">21</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">concurrency_limit</span>: <span style="color:' + t.param + ';">workers</span>,</span></div>',
+          '<div class="line"><span class="ln">22</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>})</span></div>',
+          '<div class="line"><span class="ln">23</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span>}</span></div>',
+          '<div class="line"><span class="ln">24</span><span class="code">}</span></div>'
+        ].join('')
+      },
+      go: {
+        filename: 'cluster_manager.go',
+        code: (t) => [
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">package</span> <span style="color:' + t.fg + ';">cluster</span></span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">import</span> (</span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.string + ';">"context"</span></span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.string + ';">"fmt"</span></span></div>',
+          '<div class="line"><span class="ln">6</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.string + ';">"sync"</span></span></div>',
+          '<div class="line"><span class="ln">7</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.string + ';">"time"</span></span></div>',
+          '<div class="line"><span class="ln">8</span><span class="code">)</span></div>',
+          '<div class="line"><span class="ln">9</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">10</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">type</span> <span style="color:' + t.type + '; font-weight:bold;">ClusterManager</span> <span style="color:' + t.keyword + '; font-weight:bold;">struct</span> {</span></div>',
+          '<div class="line"><span class="ln">11</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">mu</span>        <span style="color:' + t.type + ';">sync.RWMutex</span></span></div>',
+          '<div class="line"><span class="ln">12</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">ClusterID</span> <span style="color:' + t.type + ';">string</span></span></div>',
+          '<div class="line"><span class="ln">13</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">IsReady</span>   <span style="color:' + t.type + ';">bool</span></span></div>',
+          '<div class="line"><span class="ln">14</span><span class="code">}</span></div>',
+          '<div class="line"><span class="ln">15</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">16</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">func</span> (<span style="color:' + t.param + ';">m</span> *<span style="color:' + t.type + ';">ClusterManager</span>) <span style="color:' + t.func + '; font-weight:bold;">StartHealthCheck</span>(<span style="color:' + t.param + ';">ctx</span> <span style="color:' + t.type + ';">context.Context</span>) <span style="color:' + t.type + ';">error</span> {</span></div>',
+          '<div class="line"><span class="ln">17</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">m</span>.<span style="color:' + t.fg + ';">mu</span>.<span style="color:' + t.func + ';">Lock</span>()</span></div>',
+          '<div class="line"><span class="ln">18</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">defer</span> <span style="color:' + t.param + ';">m</span>.<span style="color:' + t.fg + ';">mu</span>.<span style="color:' + t.func + ';">Unlock</span>()</span></div>',
+          '<div class="line"><span class="ln">19</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.func + ';">fmt.Printf</span>(<span style="color:' + t.string + ';">"ZeroToSaaS Manager active: %s\\n"</span>, <span style="color:' + t.param + ';">m</span>.<span style="color:' + t.fg + ';">ClusterID</span>)</span></div>',
+          '<div class="line"><span class="ln">20</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">return</span> <span style="color:' + t.constant + '; font-weight:bold;">nil</span></span></div>',
+          '<div class="line"><span class="ln">21</span><span class="code">}</span></div>'
+        ].join('')
       },
       sql: {
-        filename: 'database.sql',
-        code: (t) => \`
-<div class="line"><span class="ln">1</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">SELECT</span> <span style="color:\${t.type};">u.id</span>, <span style="color:\${t.type};">u.email</span>, <span style="color:\${t.type};">u.created_at</span>, <span style="color:\${t.type};">o.total_amount</span></span></div>
-<div class="line"><span class="ln">2</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">FROM</span> <span style="color:\${t.fg}; font-weight:bold;">users</span> <span style="color:\${t.fg};">u</span></span></div>
-<div class="line"><span class="ln">3</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">JOIN</span> <span style="color:\${t.fg}; font-weight:bold;">orders</span> <span style="color:\${t.fg};">o</span> <span style="color:\${t.keyword}; font-weight:bold;">ON</span> <span style="color:\${t.type};">o.user_id</span> = <span style="color:\${t.type};">u.id</span></span></div>
-<div class="line"><span class="ln">4</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">WHERE</span> <span style="color:\${t.type};">u.is_active</span> = <span style="color:\${t.constant}; font-weight:bold;">TRUE</span></span></div>
-<div class="line"><span class="ln">5</span><span class="code"><span style="color:\${t.keyword}; font-weight:bold;">ORDER BY</span> <span style="color:\${t.type};">u.created_at</span> <span style="color:\${t.keyword}; font-weight:bold;">DESC</span>;</span></div>
-<div class="line"><span class="ln">6</span><span class="code"></span></div>
-<div class="line"><span class="ln">7</span><span class="code"><span style="color:\${t.comment};">-- 100% WCAG AAA Verified Query Plan</span></span></div>\`
+        filename: 'database_schema.sql',
+        code: (t) => [
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">CREATE TABLE IF NOT EXISTS</span> <span style="color:' + t.fg + '; font-weight:bold;">tenant_telemetry_records</span> (</span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">id</span> <span style="color:' + t.keyword + '; font-weight:bold;">UUID PRIMARY KEY DEFAULT</span> <span style="color:' + t.func + ';">gen_random_uuid</span>(),</span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">tenant_email</span> <span style="color:' + t.keyword + '; font-weight:bold;">VARCHAR(255) NOT NULL</span>,</span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">cluster_region</span> <span style="color:' + t.keyword + '; font-weight:bold;">VARCHAR(64) DEFAULT</span> <span style="color:' + t.string + ';">&apos;us-east-1&apos;</span>,</span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">status_badge</span> <span style="color:' + t.keyword + '; font-weight:bold;">VARCHAR(32) DEFAULT</span> <span style="color:' + t.string + ';">&apos;SAFE&apos;</span>,</span></div>',
+          '<div class="line"><span class="ln">6</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">created_at</span> <span style="color:' + t.keyword + '; font-weight:bold;">TIMESTAMPTZ DEFAULT NOW</span>()</span></div>',
+          '<div class="line"><span class="ln">7</span><span class="code">);</span></div>',
+          '<div class="line"><span class="ln">8</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">9</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">WITH</span> <span style="color:' + t.type + ';">regional_stats</span> <span style="color:' + t.keyword + '; font-weight:bold;">AS</span> (</span></div>',
+          '<div class="line"><span class="ln">10</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">SELECT</span> <span style="color:' + t.type + ';">cluster_region</span>, <span style="color:' + t.func + ';">COUNT</span>(<span style="color:' + t.type + ';">id</span>) <span style="color:' + t.keyword + '; font-weight:bold;">AS</span> <span style="color:' + t.fg + ';">total_nodes</span></span></div>',
+          '<div class="line"><span class="ln">11</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">FROM</span> <span style="color:' + t.fg + ';">tenant_telemetry_records</span></span></div>',
+          '<div class="line"><span class="ln">12</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">WHERE</span> <span style="color:' + t.type + ';">status_badge</span> = <span style="color:' + t.string + ';">&apos;SAFE&apos;</span></span></div>',
+          '<div class="line"><span class="ln">13</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">GROUP BY</span> <span style="color:' + t.type + ';">cluster_region</span></span></div>',
+          '<div class="line"><span class="ln">14</span><span class="code">)</span></div>',
+          '<div class="line"><span class="ln">15</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">SELECT</span> * <span style="color:' + t.keyword + '; font-weight:bold;">FROM</span> <span style="color:' + t.type + ';">regional_stats</span> <span style="color:' + t.keyword + '; font-weight:bold;">ORDER BY</span> <span style="color:' + t.fg + ';">total_nodes</span> <span style="color:' + t.keyword + '; font-weight:bold;">DESC</span>;</span></div>'
+        ].join('')
       },
       audit: {
         filename: 'audit_events.log',
-        code: (t) => \`
-<div class="line"><span class="ln">1</span><span class="code"><span style="color:\${t.comment};">2026-08-22 17:30:00.104</span> <span class="status-tag status-safe">[INFO]</span> <span style="color:\${t.type};">Cluster initialization successful</span></span></div>
-<div class="line"><span class="ln">2</span><span class="code"><span style="color:\${t.comment};">2026-08-22 17:30:01.442</span> <span class="status-tag status-caution">[WARN]</span> <span style="color:\${t.string};">Re-trying network handshake</span></span></div>
-<div class="line"><span class="ln">3</span><span class="code"><span style="color:\${t.comment};">2026-08-22 17:30:02.910</span> <span class="status-tag status-panic">[ERROR]</span> <span style="color:\${t.panicFg}; font-weight:bold;">Connection reset on socket 0xCAFEBABE</span></span></div>\`
+        code: (t) => [
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:00.104</span> <span class="status-tag status-safe">[INFO]</span> <span style="color:' + t.type + ';">Cluster initialization successful</span> on node <span style="color:' + t.constant + ';">node-us-east-1a</span></span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:01.442</span> <span class="status-tag status-caution">[WARN]</span> <span style="color:' + t.string + ';">Re-trying network handshake with peer (latency: 48ms)</span></span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:02.910</span> <span class="status-tag status-warning">[WARN]</span> <span style="color:' + t.string + ';">Deprecated auth provider signature detected in header</span></span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:03.118</span> <span class="status-tag status-panic">[ERROR]</span> <span style="color:' + t.panicFg + '; font-weight:bold;">Secret Key exposure attempt blocked by ZeroToSaaS Human Firewall</span></span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:04.550</span> <span class="status-tag status-safe">[INFO]</span> <span style="color:' + t.type + ';">Verified all 420 contrast assertions across 10 themes</span></span></div>'
+        ].join('')
       },
       config: {
         filename: 'Cargo.toml',
-        code: (t) => \`
-<div class="line"><span class="ln">1</span><span class="code"><span style="color:\${t.type}; font-weight:bold;">[package]</span></span></div>
-<div class="line"><span class="ln">2</span><span class="code"><span style="color:\${t.fg};">name</span> = <span style="color:\${t.string};">"zerotosaas-engine"</span></span></div>
-<div class="line"><span class="ln">3</span><span class="code"><span style="color:\${t.fg};">version</span> = <span style="color:\${t.string};">"0.1.0"</span></span></div>
-<div class="line"><span class="ln">4</span><span class="code"><span style="color:\${t.fg};">license</span> = <span style="color:\${t.string};">"AGPL-3.0"</span></span></div>
-<div class="line"><span class="ln">5</span><span class="code"></span></div>
-<div class="line"><span class="ln">6</span><span class="code"><span style="color:\${t.type}; font-weight:bold;">[dependencies]</span></span></div>
-<div class="line"><span class="ln">7</span><span class="code"><span style="color:\${t.fg};">tokio</span> = { <span style="color:\${t.fg};">version</span> = <span style="color:\${t.string};">"1.0"</span>, <span style="color:\${t.fg};">features</span> = [<span style="color:\${t.string};">"full"</span>] }</span></div>\`
+        code: (t) => [
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.type + '; font-weight:bold;">[package]</span></span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"><span style="color:' + t.fg + ';">name</span> = <span style="color:' + t.string + ';">"zerotosaas-engine"</span></span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"><span style="color:' + t.fg + ';">version</span> = <span style="color:' + t.string + ';">"0.1.0"</span></span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"><span style="color:' + t.fg + ';">edition</span> = <span style="color:' + t.string + ';">"2024"</span></span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"><span style="color:' + t.fg + ';">license</span> = <span style="color:' + t.string + ';">"AGPL-3.0"</span></span></div>',
+          '<div class="line"><span class="ln">6</span><span class="code"></span></div>',
+          '<div class="line"><span class="ln">7</span><span class="code"><span style="color:' + t.type + '; font-weight:bold;">[dependencies]</span></span></div>',
+          '<div class="line"><span class="ln">8</span><span class="code"><span style="color:' + t.fg + ';">tokio</span> = { <span style="color:' + t.fg + ';">version</span> = <span style="color:' + t.string + ';">"1.0"</span>, <span style="color:' + t.fg + ';">features</span> = [<span style="color:' + t.string + ';">"full"</span>] }</span></div>',
+          '<div class="line"><span class="ln">9</span><span class="code"><span style="color:' + t.fg + ';">uuid</span> = { <span style="color:' + t.fg + ';">version</span> = <span style="color:' + t.string + ';">"1.6"</span>, <span style="color:' + t.fg + ';">features</span> = [<span style="color:' + t.string + ';">"v4"</span>, <span style="color:' + t.string + ';">"serde"</span>] }</span></div>'
+        ].join('')
       }
     };
 
-    // Extract theme color tokens
+    // Color tokens matching theme JSON definitions
     const themesPalette = {
-      default: { bg: '#FCFCFD', fg: '#111827', headerBg: '#F3F6FA', keyword: '#0B4F9C', func: '#4F2683', type: '#005D6B', constant: '#6E4E00', param: '#543D00', string: '#734400', comment: '#485260', panicFg: '#990014', panicBg: '#FFF2F2', contrast: '17.30:1', oklch: 'L=98.9% C=0.003 h=264°', paultol: 'ΔE ≥ 0.18', systems: 'OkLCH • ColorBrewer • FM 100-Hue' },
-      green: { bg: '#F8FCF9', fg: '#0A2014', headerBg: '#E8F2EB', keyword: '#0A6233', func: '#0A5C4A', type: '#06522B', constant: '#145524', param: '#2E5918', string: '#1F5A14', comment: '#32583E', panicFg: '#960C1B', panicBg: '#FEF1F2', contrast: '16.91:1', oklch: 'L=98.5% C=0.009 h=146°', paultol: 'ΔE ≥ 0.16', systems: 'OkLCH • ColorBrewer • FM 100-Hue' },
-      yellow: { bg: '#FCFAF4', fg: '#221B03', headerBg: '#F2EDDC', keyword: '#6E4E00', func: '#5C4100', type: '#2C5814', constant: '#684B00', param: '#6A4D00', string: '#734400', comment: '#5D522B', panicFg: '#8E1200', panicBg: '#FEF1EE', contrast: '16.41:1', oklch: 'L=98.5% C=0.008 h=91°', paultol: 'ΔE ≥ 0.15', systems: 'OkLCH • ColorBrewer' },
-      orange: { bg: '#FCF8F5', fg: '#22140D', headerBg: '#F7EDE6', keyword: '#913600', func: '#7A2B06', type: '#1A5A28', constant: '#8C3800', param: '#7D3004', string: '#8C3800', comment: '#624A3E', panicFg: '#960010', panicBg: '#FEF0EE', contrast: '16.14:1', oklch: 'L=98.7% C=0.007 h=46°', paultol: 'ΔE ≥ 0.14', systems: 'OkLCH' },
-      brown: { bg: '#FAF7F2', fg: '#20160B', headerBg: '#F0E9DF', keyword: '#5C2C06', func: '#4A2207', type: '#22581A', constant: '#6C3406', param: '#542805', string: '#6C3406', comment: '#594B3C', panicFg: '#900C18', panicBg: '#FEF1F1', contrast: '16.29:1', oklch: 'L=98.4% C=0.009 h=74°', paultol: 'ΔE ≥ 0.17', systems: 'OkLCH • FM 100-Hue' },
-      purple: { bg: '#FAF8FC', fg: '#1B0E2A', headerBg: '#EFE7F6', keyword: '#6B21A8', func: '#581C87', type: '#005D6B', constant: '#6E4E00', param: '#5B1F8E', string: '#701A75', comment: '#544662', panicFg: '#990014', panicBg: '#FEF0F4', contrast: '17.15:1', oklch: 'L=98.7% C=0.007 h=312°', paultol: 'ΔE ≥ 0.15', systems: 'OkLCH' },
-      blue: { bg: '#F6FAFD', fg: '#0B1C2D', headerBg: '#E4F0F9', keyword: '#0E5A8A', func: '#0B476D', type: '#065A38', constant: '#704800', param: '#0D4E75', string: '#145A6E', comment: '#3D5466', panicFg: '#990014', panicBg: '#FEF1F4', contrast: '16.82:1', oklch: 'L=98.3% C=0.009 h=228°', paultol: 'ΔE ≥ 0.19', systems: 'OkLCH • FM 100-Hue' },
-      deuteranopia: { bg: '#FAFCFE', fg: '#0A1B38', headerBg: '#EFF4FA', keyword: '#0043A4', func: '#1E3A8A', type: '#0043A4', constant: '#733500', param: '#733500', string: '#7D3800', comment: '#3E4F6D', panicFg: '#990014', panicBg: '#FEF2F4', contrast: '17.18:1', oklch: 'L=98.8% C=0.006 h=228°', paultol: 'ΔE ≥ 0.182 (Pass)', systems: 'Paul Tol CVD-Safe (470nm/600nm)' },
-      protanopia: { bg: '#FCFAFC', fg: '#1E0E22', headerBg: '#F4EEF5', keyword: '#0A4BA0', func: '#8C0064', type: '#015D53', constant: '#703700', param: '#703700', string: '#7D3800', comment: '#524056', panicFg: '#8C0064', panicBg: '#FEF0F6', contrast: '16.32:1', oklch: 'L=98.7% C=0.006 h=328°', paultol: 'ΔE ≥ 0.165 (Pass)', systems: 'Paul Tol CVD-Safe (Magenta/Teal)' },
-      'high-contrast': { bg: '#FFFFFF', fg: '#000000', headerBg: '#FAFAFA', keyword: '#002D80', func: '#400080', type: '#00591E', constant: '#5E3800', param: '#5E3800', string: '#5E3800', comment: '#444444', panicFg: '#990000', panicBg: '#FFF0F0', contrast: '18.25:1', oklch: 'L=100% C=0.000 h=0°', paultol: 'ISO 9241-303', systems: 'ColorBrewer • ISO 9241-303' }
+      default: { bg: '#FCFCFD', fg: '#111827', headerBg: '#F3F6FA', keyword: '#0B4F9C', func: '#4F2683', type: '#0B6229', constant: '#784A00', param: '#784A00', string: '#8C3800', comment: '#485260', panicFg: '#990014', panicBg: '#FFF2F2', contrast: '17.30:1', oklch: 'L=98.9% C=0.003 h=264°', paultol: 'ΔE ≥ 0.18' },
+      green: { bg: '#F8FCF9', fg: '#0A2014', headerBg: '#E8F2EB', keyword: '#0A6233', func: '#0A5C4A', type: '#06522B', constant: '#145524', param: '#2E5918', string: '#1F5A14', comment: '#32583E', panicFg: '#960C1B', panicBg: '#FEF1F2', contrast: '16.91:1', oklch: 'L=98.5% C=0.009 h=146°', paultol: 'ΔE ≥ 0.16' },
+      yellow: { bg: '#FCFAF4', fg: '#221B03', headerBg: '#F2EDDC', keyword: '#6E4E00', func: '#5C4100', type: '#2C5814', constant: '#684B00', param: '#6A4D00', string: '#734400', comment: '#5D522B', panicFg: '#8E1200', panicBg: '#FEF1EE', contrast: '16.41:1', oklch: 'L=98.5% C=0.008 h=91°', paultol: 'ΔE ≥ 0.15' },
+      orange: { bg: '#FCF8F5', fg: '#22140D', headerBg: '#F7EDE6', keyword: '#913600', func: '#7A2B06', type: '#1A5A28', constant: '#8C3800', param: '#7D3004', string: '#8C3800', comment: '#624A3E', panicFg: '#960010', panicBg: '#FEF0EE', contrast: '16.14:1', oklch: 'L=98.7% C=0.007 h=46°', paultol: 'ΔE ≥ 0.14' },
+      brown: { bg: '#FAF7F2', fg: '#20160B', headerBg: '#F0E9DF', keyword: '#5C2C06', func: '#4A2207', type: '#22581A', constant: '#6C3406', param: '#542805', string: '#6C3406', comment: '#594B3C', panicFg: '#900C18', panicBg: '#FEF1F1', contrast: '16.29:1', oklch: 'L=98.4% C=0.009 h=74°', paultol: 'ΔE ≥ 0.17' },
+      purple: { bg: '#FAF8FC', fg: '#1B0E2A', headerBg: '#EFE7F6', keyword: '#6B21A8', func: '#581C87', type: '#005D6B', constant: '#6E4E00', param: '#5B1F8E', string: '#701A75', comment: '#544662', panicFg: '#990014', panicBg: '#FEF0F4', contrast: '17.15:1', oklch: 'L=98.7% C=0.007 h=312°', paultol: 'ΔE ≥ 0.15' },
+      blue: { bg: '#F6FAFD', fg: '#0B1C2D', headerBg: '#E4F0F9', keyword: '#0E5A8A', func: '#0B476D', type: '#065A38', constant: '#704800', param: '#0D4E75', string: '#145A6E', comment: '#3D5466', panicFg: '#990014', panicBg: '#FEF1F4', contrast: '16.82:1', oklch: 'L=98.3% C=0.009 h=228°', paultol: 'ΔE ≥ 0.19' },
+      deuteranopia: { bg: '#FAFCFE', fg: '#0A1B38', headerBg: '#EFF4FA', keyword: '#0043A4', func: '#1E3A8A', type: '#0043A4', constant: '#733500', param: '#733500', string: '#7D3800', comment: '#3E4F6D', panicFg: '#990014', panicBg: '#FEF2F4', contrast: '17.18:1', oklch: 'L=98.8% C=0.006 h=228°', paultol: 'ΔE ≥ 0.182 (Pass)' },
+      protanopia: { bg: '#FCFAFC', fg: '#1E0E22', headerBg: '#F4EEF5', keyword: '#0A4BA0', func: '#8C0064', type: '#015D53', constant: '#703700', param: '#703700', string: '#7D3800', comment: '#524056', panicFg: '#8C0064', panicBg: '#FEF0F6', contrast: '16.32:1', oklch: 'L=98.7% C=0.006 h=328°', paultol: 'ΔE ≥ 0.165 (Pass)' },
+      'high-contrast': { bg: '#FFFFFF', fg: '#000000', headerBg: '#FAFAFA', keyword: '#002D80', func: '#400080', type: '#00591E', constant: '#5E3800', param: '#5E3800', string: '#5E3800', comment: '#444444', panicFg: '#990000', panicBg: '#FFF0F0', contrast: '18.25:1', oklch: 'L=100% C=0.000 h=0°', paultol: 'ISO 9241-303' }
     };
 
-    let activeSystem = 'all';
     let activeThemeId = 'default';
     let activeLang = 'python';
-
-    function renderThemeTabs() {
-      const tabsContainer = document.getElementById('theme-tabs');
-      tabsContainer.innerHTML = '';
-      
-      const filtered = themeMetadata.filter(t => activeSystem === 'all' || t.systems.includes(activeSystem));
-      
-      filtered.forEach((t, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'tab-btn' + (t.id === activeThemeId ? ' active' : '');
-        btn.innerHTML = \`<span class="swatch-dot" style="background:\${t.swatch}"></span> \${t.name}\`;
-        btn.onclick = () => selectTheme(t.id);
-        tabsContainer.appendChild(btn);
-      });
-
-      // If active theme is not in filtered list, auto-select first
-      if (!filtered.some(t => t.id === activeThemeId) && filtered.length > 0) {
-        selectTheme(filtered[0].id);
-      }
-    }
+    let activeMainTab = 'code';
 
     function selectTheme(themeId) {
       activeThemeId = themeId;
-      renderThemeTabs();
-      updateEditor();
-    }
-
-    function selectSystem(system) {
-      activeSystem = system;
-      document.querySelectorAll('#system-filters .tab-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.system === system);
+      document.querySelectorAll('.theme-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.theme === themeId);
       });
-      renderThemeTabs();
+      document.querySelectorAll('.cvd-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.theme === themeId);
+      });
+      updateViews();
     }
 
     function selectLang(lang) {
       activeLang = lang;
-      document.querySelectorAll('#lang-tabs .lang-btn').forEach(btn => {
+      document.querySelectorAll('#lang-chips .lang-chip').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
-      updateEditor();
+      updateViews();
     }
 
-    function updateEditor() {
+    function selectMainTab(tab) {
+      activeMainTab = tab;
+      document.getElementById('btn-tab-dash').classList.toggle('active', tab === 'dash');
+      document.getElementById('btn-tab-code').classList.toggle('active', tab === 'code');
+      document.getElementById('view-dashboard').style.display = tab === 'dash' ? 'flex' : 'none';
+      document.getElementById('view-code').style.display = tab === 'code' ? 'block' : 'none';
+    }
+
+    function updateViews() {
       const palette = themesPalette[activeThemeId] || themesPalette.default;
-      const themeObj = themeMetadata.find(t => t.id === activeThemeId);
+      const themeObj = themeMetadata.find(t => t.id === activeThemeId) || themeMetadata[0];
       const sample = codeSamples[activeLang] || codeSamples.python;
 
-      // Update Card Styling
+      // 1. Update Telemetry Card
+      document.getElementById('tel-canvas').textContent = palette.bg;
+      document.getElementById('tel-oklch').textContent = palette.oklch;
+      document.getElementById('tel-contrast').textContent = palette.contrast;
+      document.getElementById('tel-paultol').textContent = palette.paultol;
+
+      // 2. Update Code View
       const card = document.getElementById('editor-card');
       card.style.backgroundColor = palette.bg;
       card.style.color = palette.fg;
@@ -580,64 +1017,71 @@ const htmlContent = `<!DOCTYPE html>
       topbar.style.backgroundColor = palette.headerBg;
       topbar.style.color = palette.keyword;
 
-      document.getElementById('editor-filename').textContent = \`\${sample.filename} — \${themeObj.name}\`;
+      document.getElementById('editor-filename').textContent = sample.filename + ' — ' + themeObj.name;
+      document.getElementById('editor-body').innerHTML = sample.code(palette);
 
-      // Update Telemetry
-      document.getElementById('tel-canvas').textContent = palette.bg;
-      document.getElementById('tel-oklch').textContent = palette.oklch;
-      document.getElementById('tel-contrast').textContent = palette.contrast;
-      document.getElementById('tel-paultol').textContent = palette.paultol;
-      document.getElementById('tel-systems').textContent = palette.systems;
+      // 3. Update Dashboard View
+      const dash = document.getElementById('view-dashboard');
+      dash.style.backgroundColor = palette.bg;
+      dash.style.color = palette.fg;
 
-      // Render Code
-      const body = document.getElementById('editor-body');
-      body.innerHTML = sample.code(palette);
+      const dashBtn = document.getElementById('dash-action-btn');
+      dashBtn.style.backgroundColor = palette.keyword;
+      dashBtn.style.color = '#FFFFFF';
     }
 
-    // Initialize System Filter Listeners
-    document.querySelectorAll('#system-filters .tab-btn').forEach(btn => {
-      btn.onclick = () => selectSystem(btn.dataset.system);
+    // Event Listeners for Theme Selection
+    document.querySelectorAll('.theme-chip').forEach(chip => {
+      chip.onclick = () => selectTheme(chip.dataset.theme);
+    });
+    document.querySelectorAll('.cvd-item').forEach(item => {
+      item.onclick = () => selectTheme(item.dataset.theme);
     });
 
-    // Initialize Language Listeners
-    document.querySelectorAll('#lang-tabs .lang-btn').forEach(btn => {
+    // Language Tabs
+    document.querySelectorAll('#lang-chips .lang-chip').forEach(btn => {
       btn.onclick = () => selectLang(btn.dataset.lang);
     });
 
-    // Toggle Listeners
+    // Main View Tabs
+    document.getElementById('btn-tab-dash').onclick = () => selectMainTab('dash');
+    document.getElementById('btn-tab-code').onclick = () => selectMainTab('code');
+
+    // Toggles
     document.getElementById('toggle-error-lens').onchange = (e) => {
       document.getElementById('editor-card').classList.toggle('no-error-lens', !e.target.checked);
     };
     document.getElementById('toggle-indent').onchange = (e) => {
       document.getElementById('editor-card').classList.toggle('no-indent', !e.target.checked);
     };
+    document.getElementById('toggle-firewall').onchange = (e) => {
+      document.getElementById('editor-card').classList.toggle('no-firewall', !e.target.checked);
+    };
 
-    // Keyboard navigation shortcuts
+    // Keyboard Shortcuts
     window.addEventListener('keydown', (e) => {
-      const filtered = themeMetadata.filter(t => activeSystem === 'all' || t.systems.includes(activeSystem));
-      const currentIndex = filtered.findIndex(t => t.id === activeThemeId);
-
       if (e.key >= '1' && e.key <= '9') {
         const num = parseInt(e.key, 10) - 1;
-        if (num < filtered.length) selectTheme(filtered[num].id);
-      } else if (e.key === '0' && filtered.length >= 10) {
-        selectTheme(filtered[9].id);
+        if (num < themeMetadata.length) selectTheme(themeMetadata[num].id);
+      } else if (e.key === '0' && themeMetadata.length >= 10) {
+        selectTheme(themeMetadata[9].id);
       } else if (e.key === 'ArrowRight') {
-        const next = (currentIndex + 1) % filtered.length;
-        selectTheme(filtered[next].id);
+        const idx = themeMetadata.findIndex(t => t.id === activeThemeId);
+        const next = (idx + 1) % themeMetadata.length;
+        selectTheme(themeMetadata[next].id);
       } else if (e.key === 'ArrowLeft') {
-        const prev = (currentIndex - 1 + filtered.length) % filtered.length;
-        selectTheme(filtered[prev].id);
+        const idx = themeMetadata.findIndex(t => t.id === activeThemeId);
+        const prev = (idx - 1 + themeMetadata.length) % themeMetadata.length;
+        selectTheme(themeMetadata[prev].id);
       }
     });
 
-    // Initial Render
-    renderThemeTabs();
-    updateEditor();
+    // Initial load
+    updateViews();
   </script>
 </body>
 </html>
 `;
 
 fs.writeFileSync(OUTPUT_HTML, htmlContent, 'utf8');
-console.log('✅ Generated Interactive Theme Showcase Gallery at docs/previews/gallery.html');
+console.log('✅ Generated 2-Column Single-Line Interactive Theme Showcase at docs/previews/gallery.html');

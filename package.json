@@ -311,7 +311,7 @@
   },
   "packageManager": "pnpm@11.22.0",
   "scripts": {
-    "build": "node scripts/generate-themes.js",
+    "build": "node scripts/generate-themes.js && node scripts/generate-gallery.js",
     "validate": "node scripts/validate-contrast.js",
     "gallery": "node scripts/generate-gallery.js",
     "package": "vsce package --no-git-tag-version"
