@@ -309,9 +309,13 @@
       }
     }
   },
+  "packageManager": "pnpm@11.22.0",
   "scripts": {
     "build": "node scripts/generate-themes.js",
     "validate": "node scripts/validate-contrast.js",
-    "package": "npx @vscode/vsce package --no-git-tag-version"
+    "package": "vsce package --no-git-tag-version"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.9.2"
   }
 }

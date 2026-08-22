@@ -214,7 +214,7 @@ Recommended `settings.json` configuration:
 Every theme release is mathematically asserted via our automated relative luminance validation engine:
 
 ```bash
-npm run validate
+pnpm run validate
 ```
 
 ```
@@ -287,14 +287,17 @@ codium --install-extension zerotosaas-theme-0.1.0.vsix
 git clone https://github.com/zerotosaas/vsx-theme-zerotosaas.git
 cd vsx-theme-zerotosaas
 
+# Install dependencies
+pnpm install
+
 # Generate all 10 theme JSONs
-npm run build
+pnpm run build
 
 # Run automated WCAG AAA relative luminance assertions
-npm run validate
+pnpm run validate
 
 # Package into VSIX extension bundle
-npm run package
+pnpm run package
 ```
 
 ---
