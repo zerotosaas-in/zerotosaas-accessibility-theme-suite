@@ -12,3 +12,5 @@ Welcome to the official documentation portal for the **ZeroToSaaS Accessibility 
 - 📊 **[Automated Quad-System Validation Report](Validation.md)**
 - 🏥 **[Medical & Ophthalmic Guidelines](Guidelines.md)**
 - 🗺️ **[Engineering Roadmap & Architecture](TODO.md)**
+- ✍️ **[Individual Contributor License Agreement (ICLA)](CLA-INDIVIDUAL.md)**
+- 🏢 **[Corporate Contributor License Agreement (CCLA)](CLA-CORPORATE.md)**

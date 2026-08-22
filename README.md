@@ -478,3 +478,16 @@ When contributing source files or creating derivative tools, attach the AGPLv3 h
   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 -->
 ```
+
+---
+
+## 🤝 Contributing & Contributor License Agreements (CLA)
+
+We welcome contributions from developers, color scientists, accessibility researchers, and organizations worldwide.
+
+To ensure long-term legal protection and open distribution under **AGPL-3.0**, all contributors must execute a Contributor License Agreement prior to having pull requests merged:
+
+- ✍️ **Individual Contributors**: Please review and sign the [**Individual Contributor License Agreement (ICLA.md)**](ICLA.md).
+- 🏢 **Corporate / Entity Contributors**: If you are contributing on behalf of your employer or corporation, please have an authorized corporate officer execute the [**Corporate Contributor License Agreement (CCLA.md)**](CCLA.md).
+
+Signed agreements can be submitted directly via pull request or by emailing `legal@zerotosaas.in`.
