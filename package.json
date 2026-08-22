@@ -313,6 +313,7 @@
   "scripts": {
     "build": "node scripts/generate-themes.js",
     "validate": "node scripts/validate-contrast.js",
+    "gallery": "node scripts/generate-gallery.js",
     "package": "vsce package --no-git-tag-version"
   },
   "devDependencies": {
