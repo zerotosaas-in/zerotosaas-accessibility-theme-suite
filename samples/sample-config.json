@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "zerotosaas-cloud-service",
+  "version": "1.0.0",
+  "description": "ZeroToSaaS High Performance Cloud Orchestrator",
+  "main": "./dist/index.js",
+  "cluster": {
+    "nodeId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "datacenter": "us-east-virginia",
+    "primary": true,
+    "maxReplicas": 8,
+    "autoScale": {
+      "enabled": true,
+      "minInstances": 2,
+      "maxInstances": 16,
+      "targetCpuUtilization": 0.75
+    }
+  },
+  "security": {
+    "tlsVersion": "TLSv1.3",
+    "ciphers": [
+      "TLS_AES_256_GCM_SHA384",
+      "TLS_CHACHA20_POLY1305_SHA256"
+    ],
+    "enableStrictTransportSecurity": true,
+    "maxHeaderSizeKilobytes": 16
+  },
+  "database": {
+    "driver": "postgres",
+    "host": "db-cluster.internal.net",
+    "port": 5432,
+    "databaseName": "zerotosaas_core",
+    "sslMode": "require",
+    "pool": {
+      "min": 5,
+      "max": 50,
+      "idleTimeoutMillis": 30000
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceConfiguration xmlns="http://zerotosaas.dev/schema/v1"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://zerotosaas.dev/schema/v1 config.xsd">
+  
+  <clusterIdentity id="cluster-eu-west-primary" version="1.4.0">
+    <nodeUUID>d41d8cd9-8f00-b204-e980-0998ecf8427e</nodeUUID>
+    <regionName>eu-west-1</regionName>
+    <isPrimaryMaster>true</isPrimaryMaster>
+  </clusterIdentity>
+
+  <securityPolicies>
+    <authenticationProvider type="jwt-bearer">
+      <tokenIssuer>https://auth.zerotosaas.dev</tokenIssuer>
+      <signatureAlgorithm>RS256</signatureAlgorithm>
+      <expirationTimeoutSeconds>86400</expirationTimeoutSeconds>
+    </authenticationProvider>
+
+    <firewallRules enabled="true">
+      <allowedCidrBlock>10.0.0.0/16</allowedCidrBlock>
+      <allowedCidrBlock>192.168.1.0/24</allowedCidrBlock>
+      <rateLimitPerMinute>10000</rateLimitPerMinute>
+    </firewallRules>
+  </securityPolicies>
+
+  <databaseConnections>
+    <connectionPool minSize="10" maxSize="100" idleTimeoutMs="30000">
+      <endpointHost>postgres.prod.internal</endpointHost>
+      <endpointPort>5432</endpointPort>
+      <databaseName>saas_primary_db</databaseName>
+    </connectionPool>
+  </databaseConnections>
+
+</serviceConfiguration>

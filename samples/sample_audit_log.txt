@@ -1,0 +1,7 @@
+[2026-08-21T21:00:00.124Z] INFO  [zerotosaas.cluster.bootstrap] Bootstrapping cluster node primary-eu-west-1
+[2026-08-21T21:00:01.450Z] INFO  [zerotosaas.database.connection] Connection pool initialized with 50 active workers
+[2026-08-21T21:00:02.890Z] WARN  [zerotosaas.auth.session] Deprecated session token presented by client ip 192.168.1.104
+[2026-08-21T21:00:03.112Z] ERROR [zerotosaas.security.filter] Failed authentication signature verification
+[2026-08-21T21:00:04.990Z] INFO  [zerotosaas.stream.pipeline] Processed 14,200 telemetry events in 184ms
+[2026-08-21T21:00:05.331Z] INFO  [zerotosaas.billing.sync] Successfully synchronized Stripe monthly invoice ledger
+[2026-08-21T21:00:06.012Z] INFO  [zerotosaas.cluster.health] All system metrics reporting 100% nominal state

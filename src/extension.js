@@ -1,0 +1,1224 @@
+// Copyright (C) 2026 Sarvasv Technologies Pvt Ltd (ZeroToSaaS.in)
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+//
+// You should have received a copy of the GNU Affero General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+const vscode = require('vscode');
+const child_process = require('child_process');
+const path = require('path');
+
+// Semantic Cognitive Status Decoration Types
+let safeDecorationType;
+let cautionDecorationType;
+let warningDecorationType;
+let panicDecorationType;
+let commentDecorationType;
+
+// Odd-Sequence Indent Column Decoration Type
+let oddIndentDecorationType;
+
+// Inline Diagnostic Lens (Error Lens) Decoration Types
+let errorLensDecorationType;
+let warningLensDecorationType;
+let infoLensDecorationType;
+let hintLensDecorationType;
+
+// Git Blame Cache for Error Lens
+const gitBlameCache = new Map();
+const MAX_CACHE_SIZE = 500;
+
+// Performance Constants
+const OVERSCAN_LINES = 60;
+const FULL_DOC_LINE_THRESHOLD = 500;
+
+// Performance Timers
+let documentChangeDebounceTimer = null;
+let selectionChangeDebounceTimer = null;
+let scrollThrottleTimer = null;
+
+function scheduleDocumentUpdate(editor, delayMs = 180) {
+  if (documentChangeDebounceTimer) {
+    clearTimeout(documentChangeDebounceTimer);
+  }
+  documentChangeDebounceTimer = setTimeout(() => {
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor && editor && activeEditor.document.uri.toString() === editor.document.uri.toString()) {
+      updateDecorations(activeEditor);
+    }
+  }, delayMs);
+}
+
+function scheduleSelectionUpdate(editor, delayMs = 50) {
+  if (selectionChangeDebounceTimer) {
+    clearTimeout(selectionChangeDebounceTimer);
+  }
+  selectionChangeDebounceTimer = setTimeout(() => {
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor && editor && activeEditor.document.uri.toString() === editor.document.uri.toString()) {
+      updateDecorations(activeEditor);
+    }
+  }, delayMs);
+}
+
+function formatTimeAgo(epochSeconds) {
+  const diffSec = Math.floor(Date.now() / 1000) - epochSeconds;
+  if (diffSec < 60) return 'just now';
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `${diffMin}m ago`;
+  const diffHours = Math.floor(diffMin / 60);
+  if (diffHours < 24) return `${diffHours}h ago`;
+  const diffDays = Math.floor(diffHours / 24);
+  if (diffDays < 30) return `${diffDays}d ago`;
+  const diffMonths = Math.floor(diffDays / 30);
+  if (diffMonths < 12) return `${diffMonths}mo ago`;
+  const diffYears = Math.floor(diffDays / 365);
+  return `${diffYears}y ago`;
+}
+
+function parsePorcelainBlame(output) {
+  const lines = output.split('\n');
+  const firstLine = lines[0] || '';
+  const hash = firstLine.split(' ')[0] || '';
+  const isUncommitted = /^0+$/.test(hash) || !hash;
+
+  if (isUncommitted) {
+    return 'You (Uncommitted Changes)';
+  }
+
+  let author = 'Unknown';
+  let authorTime = 0;
+  let summary = '';
+
+  for (const line of lines) {
+    if (line.startsWith('author ')) {
+      author = line.substring(7).trim();
+    } else if (line.startsWith('author-time ')) {
+      authorTime = parseInt(line.substring(12).trim(), 10) || 0;
+    } else if (line.startsWith('summary ')) {
+      summary = line.substring(8).trim();
+    }
+  }
+
+  const shortHash = hash.substring(0, 7);
+  const timeStr = authorTime > 0 ? formatTimeAgo(authorTime) : '';
+  const summaryPart = summary ? ` (${summary})` : '';
+
+  return `${author}${timeStr ? `, ${timeStr}` : ''} [${shortHash}]${summaryPart}`;
+}
+
+function fetchGitBlameForLine(filePath, lineOneIndexed, docVersion, callback) {
+  if (!filePath) return null;
+  const cacheKey = `${filePath}:${lineOneIndexed}:${docVersion}`;
+  if (gitBlameCache.has(cacheKey)) {
+    return gitBlameCache.get(cacheKey);
+  }
+
+  try {
+    const cwd = path.dirname(filePath);
+    child_process.execFile(
+      'git',
+      ['blame', '-L', `${lineOneIndexed},${lineOneIndexed}`, '--porcelain', '--', path.basename(filePath)],
+      { cwd, timeout: 2000 },
+      (err, stdout) => {
+        if (err || !stdout) {
+          gitBlameCache.set(cacheKey, null);
+          return;
+        }
+        const blameText = parsePorcelainBlame(stdout);
+        if (gitBlameCache.size >= MAX_CACHE_SIZE) {
+          gitBlameCache.clear();
+        }
+        gitBlameCache.set(cacheKey, blameText);
+        if (callback) {
+          callback(blameText);
+        }
+      }
+    );
+  } catch (e) {
+    gitBlameCache.set(cacheKey, null);
+  }
+
+  return null;
+}
+
+function getCurrentThemeId() {
+  const workbenchConfig = vscode.workspace.getConfiguration('workbench');
+  const cfgTheme = workbenchConfig.get('colorTheme');
+  if (cfgTheme) return cfgTheme;
+
+  if (vscode.window.activeColorTheme && vscode.window.activeColorTheme.kind !== undefined) {
+    return vscode.window.activeColorTheme.kind === vscode.ColorThemeKind.HighContrastLight
+      ? 'high-contrast'
+      : 'light';
+  }
+
+  return '';
+}
+
+function getThemePalette(themeId) {
+  const tid = (themeId || '').toLowerCase();
+
+  if (tid.includes('high-contrast')) {
+    return {
+      oddIndentBg: '#EBEBEB',
+      safe: { fg: '#00591E', bg: '#EBF8EE', border: '#000000' },
+      caution: { fg: '#5E3800', bg: '#FEF7E2', border: '#000000' },
+      warning: { fg: '#7A2E00', bg: '#FFF0E5', border: '#000000' },
+      panic: { fg: '#8B0000', bg: '#FFEBEB', border: '#000000' },
+      info: { fg: '#002D80', bg: '#F2F2F2', border: '#002D80' }
+    };
+  }
+
+  if (tid.includes('deuteranopia')) {
+    return {
+      oddIndentBg: '#E5EEF9',
+      safe: { fg: '#0043A4', bg: '#F1F6FE', border: '#A6CEFD' },
+      caution: { fg: '#733500', bg: '#FEF8F1', border: '#FED5B2' },
+      warning: { fg: '#7D3800', bg: '#FFF8F1', border: '#FEC99A' },
+      panic: { fg: '#8A2500', bg: '#FFF4EF', border: '#FFB899' },
+      info: { fg: '#0043A4', bg: '#F1F6FE', border: '#A6CEFD' }
+    };
+  }
+
+  if (tid.includes('protanopia')) {
+    return {
+      oddIndentBg: '#F0E5F2',
+      safe: { fg: '#015D53', bg: '#F1FAF8', border: '#A3ECE0' },
+      caution: { fg: '#703700', bg: '#FEF8F0', border: '#FDDDB0' },
+      warning: { fg: '#7D3800', bg: '#FFF7F0', border: '#FDCD9E' },
+      panic: { fg: '#8C0064', bg: '#FDF2F9', border: '#F9B7E3' },
+      info: { fg: '#0A4BA0', bg: '#F4EEF5', border: '#C5A3CA' }
+    };
+  }
+
+  if (tid.includes('tritanopia')) {
+    return {
+      oddIndentBg: '#E2EFF1',
+      safe: { fg: '#005D6B', bg: '#F1FAF9', border: '#A6E5EE' },
+      caution: { fg: '#543D00', bg: '#FEF9EC', border: '#FCE6A8' },
+      warning: { fg: '#941800', bg: '#FFF3EE', border: '#FFC8B8' },
+      panic: { fg: '#A00028', bg: '#FEF1F3', border: '#FBBCC9' },
+      info: { fg: '#005D6B', bg: '#EDF5F6', border: '#A6E5EE' }
+    };
+  }
+
+  if (tid.includes('brown') || tid.includes('sepia')) {
+    return {
+      oddIndentBg: '#EFE6D7',
+      safe: { fg: '#1F612B', bg: '#F2FAF3', border: '#B8E5BE' },
+      caution: { fg: '#6A4400', bg: '#FEF8EB', border: '#FDE0A8' },
+      warning: { fg: '#783A00', bg: '#FFF5EB', border: '#FDC498' },
+      panic: { fg: '#8F1500', bg: '#FEF1EE', border: '#FBBDB0' },
+      info: { fg: '#783A00', bg: '#F3EDE2', border: '#D5C4AE' }
+    };
+  }
+
+  if (tid.includes('green') || tid.includes('forest')) {
+    return {
+      oddIndentBg: '#E2F0E7',
+      safe: { fg: '#0B6032', bg: '#EBF8EE', border: '#A6E4BE' },
+      caution: { fg: '#5B4700', bg: '#FEFAEB', border: '#FCE7A6' },
+      warning: { fg: '#7C3B00', bg: '#FFF6EB', border: '#FDC79B' },
+      panic: { fg: '#960C1B', bg: '#FEF1F2', border: '#FBBBC2' },
+      info: { fg: '#0B6032', bg: '#E8F2EB', border: '#BCD9C5' }
+    };
+  }
+
+  if (tid.includes('purple') || tid.includes('plum')) {
+    return {
+      oddIndentBg: '#EDE4F4',
+      safe: { fg: '#0A5E36', bg: '#EDFAF1', border: '#ABE5C2' },
+      caution: { fg: '#6A4400', bg: '#FEF9ED', border: '#FDE1AB' },
+      warning: { fg: '#843400', bg: '#FFF5EB', border: '#FDC395' },
+      panic: { fg: '#910A3E', bg: '#FDF2F7', border: '#FAB7D2' },
+      info: { fg: '#5B2188', bg: '#EDE6F3', border: '#CBBED5' }
+    };
+  }
+
+  if (tid.includes('yellow') || tid.includes('sand')) {
+    return {
+      oddIndentBg: '#EFE9D2',
+      safe: { fg: '#1A612D', bg: '#F1FAF3', border: '#B4E6C1' },
+      caution: { fg: '#694700', bg: '#FEFAEB', border: '#FDE2A8' },
+      warning: { fg: '#7D3900', bg: '#FFF5EB', border: '#FDC599' },
+      panic: { fg: '#911200', bg: '#FEF1EE', border: '#FBBCB0' },
+      info: { fg: '#6E4300', bg: '#F2EDDC', border: '#D0C39C' }
+    };
+  }
+
+  if (tid.includes('orange') || tid.includes('terracotta')) {
+    return {
+      oddIndentBg: '#EFE2D4',
+      safe: { fg: '#186133', bg: '#F2FAF4', border: '#B3E6C3' },
+      caution: { fg: '#6E4200', bg: '#FEF9ED', border: '#FDE1AA' },
+      warning: { fg: '#8A3B00', bg: '#FFF5ED', border: '#FDC79E' },
+      panic: { fg: '#931505', bg: '#FEF1EF', border: '#FBBCB3' },
+      info: { fg: '#8A3B00', bg: '#F3E7DC', border: '#D0B9A4' }
+    };
+  }
+
+  // Default: ZeroToSaaS Light (Default Cobalt-Slate)
+  return {
+    oddIndentBg: '#ECF1F9',
+    safe: { fg: '#0B6229', bg: '#F1FAF3', border: '#B4E6C3' },
+    caution: { fg: '#784A00', bg: '#FEF9EE', border: '#FDE4A3' },
+    warning: { fg: '#8C3800', bg: '#FFF6EE', border: '#FDCBA6' },
+    panic: { fg: '#990014', bg: '#FFF2F2', border: '#FCA5A5' },
+    info: { fg: '#0B4F9C', bg: '#F3F6FA', border: '#D8E1ED' }
+  };
+}
+
+function initDecorations(context) {
+  disposeDecorations();
+
+  const currentTheme = getCurrentThemeId();
+  const palette = getThemePalette(currentTheme);
+  const cfg = vscode.workspace.getConfiguration('zerotosaas');
+  const wholeLineBg = cfg.get('errorLens.showEntireLineBackground', false);
+
+  // Status Tokens with Alpha-blended backgrounds for smooth selection merging
+  safeDecorationType = vscode.window.createTextEditorDecorationType({
+    backgroundColor: palette.safe.bg + 'D9',
+    borderRadius: '3px',
+    border: `1px solid ${palette.safe.border}`,
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  cautionDecorationType = vscode.window.createTextEditorDecorationType({
+    backgroundColor: palette.caution.bg + 'D9',
+    borderRadius: '3px',
+    border: `1px solid ${palette.caution.border}`,
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  warningDecorationType = vscode.window.createTextEditorDecorationType({
+    backgroundColor: palette.warning.bg + 'D9',
+    borderRadius: '3px',
+    border: `1px solid ${palette.warning.border}`,
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  panicDecorationType = vscode.window.createTextEditorDecorationType({
+    backgroundColor: palette.panic.bg + 'D9',
+    borderRadius: '3px',
+    border: `1px solid ${palette.panic.border}`,
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  // Odd-Sequence Indent Column with Alpha
+  oddIndentDecorationType = vscode.window.createTextEditorDecorationType({
+    backgroundColor: palette.oddIndentBg + 'B3',
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  // Error Lens Types
+  errorLensDecorationType = vscode.window.createTextEditorDecorationType({
+    isWholeLine: wholeLineBg,
+    backgroundColor: wholeLineBg ? palette.panic.bg : undefined,
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  warningLensDecorationType = vscode.window.createTextEditorDecorationType({
+    isWholeLine: wholeLineBg,
+    backgroundColor: wholeLineBg ? palette.warning.bg : undefined,
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  infoLensDecorationType = vscode.window.createTextEditorDecorationType({
+    isWholeLine: wholeLineBg,
+    backgroundColor: wholeLineBg ? palette.info.bg : undefined,
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  // Italic Comment Decoration Type (Guarantees italics across all languages)
+  commentDecorationType = vscode.window.createTextEditorDecorationType({
+    fontStyle: 'italic',
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
+  context.subscriptions.push(
+    safeDecorationType,
+    cautionDecorationType,
+    warningDecorationType,
+    panicDecorationType,
+    commentDecorationType,
+    oddIndentDecorationType,
+    errorLensDecorationType,
+    warningLensDecorationType,
+    infoLensDecorationType,
+    hintLensDecorationType
+  );
+}
+
+function disposeDecorations() {
+  if (safeDecorationType) safeDecorationType.dispose();
+  if (cautionDecorationType) cautionDecorationType.dispose();
+  if (warningDecorationType) warningDecorationType.dispose();
+  if (panicDecorationType) panicDecorationType.dispose();
+  if (commentDecorationType) commentDecorationType.dispose();
+  if (oddIndentDecorationType) oddIndentDecorationType.dispose();
+  if (errorLensDecorationType) errorLensDecorationType.dispose();
+  if (warningLensDecorationType) warningLensDecorationType.dispose();
+  if (infoLensDecorationType) infoLensDecorationType.dispose();
+  if (hintLensDecorationType) hintLensDecorationType.dispose();
+}
+
+/**
+ * Calculates the active target chunks to decorate.
+ * - For files <= FULL_DOC_LINE_THRESHOLD: scans entire document (0 scroll overhead).
+ * - For files > FULL_DOC_LINE_THRESHOLD: scans visible ranges + OVERSCAN_LINES buffer.
+ */
+function getTargetChunks(editor) {
+  const doc = editor.document;
+  const lineCount = doc.lineCount;
+
+  if (lineCount <= FULL_DOC_LINE_THRESHOLD) {
+    const lastLineLength = doc.lineAt(lineCount - 1).text.length;
+    return [{
+      startLine: 0,
+      endLine: lineCount - 1,
+      startOffset: 0,
+      text: doc.getText(),
+      range: new vscode.Range(0, 0, lineCount - 1, lastLineLength)
+    }];
+  }
+
+  const visibleRanges = editor.visibleRanges || [];
+  if (visibleRanges.length === 0) {
+    const endLine = Math.min(lineCount - 1, OVERSCAN_LINES);
+    const range = new vscode.Range(0, 0, endLine, doc.lineAt(endLine).text.length);
+    return [{
+      startLine: 0,
+      endLine,
+      startOffset: 0,
+      text: doc.getText(range),
+      range
+    }];
+  }
+
+  // Expand each visible range by overscan buffer and merge overlaps
+  const intervals = visibleRanges.map(vr => ({
+    startLine: Math.max(0, vr.start.line - OVERSCAN_LINES),
+    endLine: Math.min(lineCount - 1, vr.end.line + OVERSCAN_LINES)
+  })).sort((a, b) => a.startLine - b.startLine);
+
+  const merged = [];
+  let current = intervals[0];
+
+  for (let i = 1; i < intervals.length; i++) {
+    const next = intervals[i];
+    if (next.startLine <= current.endLine + 1) {
+      current.endLine = Math.max(current.endLine, next.endLine);
+    } else {
+      merged.push(current);
+      current = next;
+    }
+  }
+  merged.push(current);
+
+  return merged.map(m => {
+    const startPos = new vscode.Position(m.startLine, 0);
+    const endPos = doc.lineAt(m.endLine).range.end;
+    const range = new vscode.Range(startPos, endPos);
+    return {
+      startLine: m.startLine,
+      endLine: m.endLine,
+      startOffset: doc.offsetAt(startPos),
+      text: doc.getText(range),
+      range
+    };
+  });
+}
+
+/**
+ * Returns all character ranges belonging to comments across languages
+ * so that comments are NEVER decorated with background highlights.
+ */
+function findCommentRanges(text, langId, doc, baseOffset = 0) {
+  const commentRanges = [];
+
+  // Single-line comments (// ..., # ..., -- ..., ; ...)
+  const singleLineCommentPattern = /(\/\/[^\r\n]*|#[^\r\n]*|--[^\r\n]*|;[^\r\n]*)/g;
+  let match;
+  while ((match = singleLineCommentPattern.exec(text)) !== null) {
+    const start = doc.positionAt(baseOffset + match.index);
+    const end = doc.positionAt(baseOffset + match.index + match[0].length);
+    commentRanges.push(new vscode.Range(start, end));
+  }
+
+  // Multi-line block comments (/* ... */)
+  const blockCommentPattern = /\/\*[\s\S]*?\*\//g;
+  while ((match = blockCommentPattern.exec(text)) !== null) {
+    const start = doc.positionAt(baseOffset + match.index);
+    const end = doc.positionAt(baseOffset + match.index + match[0].length);
+    commentRanges.push(new vscode.Range(start, end));
+  }
+
+  // Python multi-line docstrings (""" ... """ or ''' ... ''')
+  if (langId === 'python') {
+    const docstringPattern = /("""[\s\S]*?"""|'''[\s\S]*?''')/g;
+    while ((match = docstringPattern.exec(text)) !== null) {
+      const start = doc.positionAt(baseOffset + match.index);
+      const end = doc.positionAt(baseOffset + match.index + match[0].length);
+      commentRanges.push(new vscode.Range(start, end));
+    }
+  }
+
+  return commentRanges;
+}
+
+function isInsideComment(range, commentRanges) {
+  return commentRanges.some(c => c.contains(range.start) || c.intersection(range));
+}
+
+/**
+ * Subtracts active user selections from decoration ranges so that selecting
+ * text visually shows the native editor selection highlight without being
+ * obscured by decoration background badges.
+ */
+function subtractSelectionsFromRanges(ranges, selections) {
+  const activeSelections = (selections || []).filter(s => s && !s.isEmpty);
+  if (activeSelections.length === 0 || ranges.length === 0) {
+    return ranges;
+  }
+
+  let current = ranges;
+
+  for (const sel of activeSelections) {
+    const next = [];
+    for (const r of current) {
+      const intersection = r.intersection(sel);
+      if (!intersection || intersection.isEmpty) {
+        next.push(r);
+        continue;
+      }
+
+      // Case 1: Selection is strictly inside range -> split into two pieces (left & right)
+      if (sel.start.isAfter(r.start) && sel.end.isBefore(r.end)) {
+        next.push(new vscode.Range(r.start, sel.start));
+        next.push(new vscode.Range(sel.end, r.end));
+      }
+      // Case 2: Selection starts before or at range start, and ends before range end -> keep remaining right piece
+      else if (sel.start.isBeforeOrEqual(r.start) && sel.end.isBefore(r.end)) {
+        next.push(new vscode.Range(sel.end, r.end));
+      }
+      // Case 3: Selection starts after range start, and ends at or after range end -> keep remaining left piece
+      else if (sel.start.isAfter(r.start) && sel.end.isAfterOrEqual(r.end)) {
+        next.push(new vscode.Range(r.start, sel.start));
+      }
+      // Case 4: Selection completely covers range -> omit
+    }
+    current = next;
+  }
+
+  return current;
+}
+
+function updateDecorations(editor) {
+  if (!editor || !editor.document) return;
+
+  const doc = editor.document;
+  const langId = doc.languageId;
+  const tabSize = Number(editor.options.tabSize) || 2;
+  const cfg = vscode.workspace.getConfiguration('zerotosaas');
+
+  const enableStatusBadges = cfg.get('statusBadges.enabled', true);
+  const enableIndentShading = cfg.get('indentShading.enabled', true);
+  const enableErrorLens = cfg.get('errorLens.enabled', true);
+  const showSeverityBadge = cfg.get('errorLens.showSeverityBadge', true);
+  const showGitBlame = cfg.get('errorLens.showGitBlame', true);
+
+  const currentTheme = vscode.workspace.getConfiguration('workbench').get('colorTheme') || '';
+  const palette = getThemePalette(currentTheme);
+
+  // Compute active target chunks (Adaptive full-document or visible viewport + overscan buffer)
+  const chunks = getTargetChunks(editor);
+  if (chunks.length === 0) return;
+
+  const safeRanges = [];
+  const cautionRanges = [];
+  const warningRanges = [];
+  const panicRanges = [];
+  const oddIndentRanges = [];
+  const allCommentRanges = [];
+
+  // =========================================================================
+  // 1. ALTERNATING INDENT SHADING (Supports both Tabs and Spaces)
+  // =========================================================================
+  if (enableIndentShading) {
+    for (const chunk of chunks) {
+      for (let lineIdx = chunk.startLine; lineIdx <= chunk.endLine; lineIdx++) {
+        const line = doc.lineAt(lineIdx);
+        if (line.isEmptyOrWhitespace) continue;
+
+        const leadingWsText = line.text.substring(0, line.firstNonWhitespaceCharacterIndex);
+        let level = 0;
+        let charIdx = 0;
+
+        while (charIdx < leadingWsText.length) {
+          const char = leadingWsText[charIdx];
+          if (char === '\t') {
+            if (level % 2 === 0) {
+              oddIndentRanges.push(
+                new vscode.Range(new vscode.Position(lineIdx, charIdx), new vscode.Position(lineIdx, charIdx + 1))
+              );
+            }
+            level++;
+            charIdx++;
+          } else if (char === ' ') {
+            const nextNonSpace = leadingWsText.slice(charIdx).search(/[^ ]/);
+            const spaceCount = nextNonSpace === -1 ? leadingWsText.length - charIdx : nextNonSpace;
+            const spacesForLevel = Math.min(spaceCount, tabSize > 0 ? tabSize : 2);
+            if (level % 2 === 0) {
+              oddIndentRanges.push(
+                new vscode.Range(new vscode.Position(lineIdx, charIdx), new vscode.Position(lineIdx, charIdx + spacesForLevel))
+              );
+            }
+            level++;
+            charIdx += spacesForLevel;
+          } else {
+            charIdx++;
+          }
+        }
+      }
+    }
+  }
+
+  // =========================================================================
+  // 2. STATUS TOKENS (Safe, Caution, Warning, Panic)
+  // =========================================================================
+  if (enableStatusBadges) {
+    const isSourceCode = [
+      'typescript', 'javascript', 'typescriptreact', 'javascriptreact',
+      'python', 'rust', 'go', 'kotlin', 'swift', 'dart', 'sql', 'html'
+    ].includes(langId) || /\.(ts|tsx|js|jsx|py|rs|go|kt|swift|dart|sql|html)$/i.test(doc.fileName);
+
+    for (const chunk of chunks) {
+      const text = chunk.text;
+      const baseOffset = chunk.startOffset;
+      let match;
+
+      // Identify comment spans for this chunk
+      const commentRanges = findCommentRanges(text, langId, doc, baseOffset);
+      allCommentRanges.push(...commentRanges);
+
+      // Collect Quoted Strings First
+      const stringRanges = [];
+      if (isSourceCode) {
+        const stringPattern = /(["'`])(?:\\.|(?!\1)[^\\\r\n])*\1/g;
+        while ((match = stringPattern.exec(text)) !== null) {
+          const startPos = doc.positionAt(baseOffset + match.index);
+          const endPos = doc.positionAt(baseOffset + match.index + match[0].length);
+          const range = new vscode.Range(startPos, endPos);
+          if (!isInsideComment(range, commentRanges)) {
+            stringRanges.push(range);
+          }
+        }
+      }
+
+      // PANIC (🔴): UUIDs, Hex Codes, Secret Tokens, and True Regex Literals
+      const uuidRegex = /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/g;
+      while ((match = uuidRegex.exec(text)) !== null) {
+        const range = new vscode.Range(
+          doc.positionAt(baseOffset + match.index),
+          doc.positionAt(baseOffset + match.index + match[0].length)
+        );
+        if (!isInsideComment(range, commentRanges)) {
+          panicRanges.push(range);
+        }
+      }
+
+      const hexPattern = /(#[0-9a-fA-F]{3,8}\b|0x[0-9a-fA-F]+\b)/g;
+      while ((match = hexPattern.exec(text)) !== null) {
+        const range = new vscode.Range(
+          doc.positionAt(baseOffset + match.index),
+          doc.positionAt(baseOffset + match.index + match[0].length)
+        );
+        if (!isInsideComment(range, commentRanges)) {
+          panicRanges.push(range);
+        }
+      }
+
+      // Extended High-Entropy & Provider Secret Scanners (Human Firewall)
+      const secretPatterns = [
+        /\b(sk_live_[a-zA-Z0-9_]+|(postgres|postgresql|mongodb(\+srv)?|redis|amqp|mysql):\/\/[^\s"']+|SECRET[a-zA-Z0-9_]*\s*=\s*["'][^"']+["'])/gi,
+        /\b(AKIA|ABIA|ACCA|ASIA)[0-9A-Z]{16}\b/g,
+        /\bgh[pousr]_[A-Za-z0-9_]{36,255}\b/g,
+        /\bxox[baprs]-[0-9a-zA-Z-]{10,72}\b/g,
+        /\beyJ[A-Za-z0-9-_=]+\.eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*\b/g,
+        /\bAIza[0-9A-Za-z-_]{35}\b/g,
+        /-----BEGIN (?:[A-Z0-9_-]+ )?PRIVATE KEY-----/g,
+        /\bBearer\s+[a-zA-Z0-9_\-\.]{20,}\b/gi
+      ];
+
+      for (const pattern of secretPatterns) {
+        while ((match = pattern.exec(text)) !== null) {
+          const range = new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + match[0].length)
+          );
+          if (!isInsideComment(range, commentRanges)) {
+            panicRanges.push(range);
+          }
+        }
+      }
+
+      // True Regex Literals
+      if (['javascript', 'typescript', 'javascriptreact', 'typescriptreact'].includes(langId)) {
+        const jsRegexPattern = /(?:=|\(|\{|\[|:|,|&&|\|\||\?|!|\breturn\b|\bmatch\b|\btest\b|\bexec\b|\breplace\b|\bsearch\b)\s*(\/(?![*\/])(?:\\.|[^\\\/\r\n])+\/[gimsuy]*)/g;
+        while ((match = jsRegexPattern.exec(text)) !== null) {
+          const regexStr = match[1];
+          const regexIndex = baseOffset + match.index + match[0].indexOf(regexStr);
+          const range = new vscode.Range(doc.positionAt(regexIndex), doc.positionAt(regexIndex + regexStr.length));
+          if (!isInsideComment(range, commentRanges) && !stringRanges.some(s => s.contains(range.start))) {
+            panicRanges.push(range);
+          }
+        }
+      } else if (langId === 'python') {
+        const pyRegexPattern = /re\.compile\([^\)]+\)/g;
+        while ((match = pyRegexPattern.exec(text)) !== null) {
+          const range = new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + match[0].length)
+          );
+          if (!isInsideComment(range, commentRanges)) {
+            panicRanges.push(range);
+          }
+        }
+      }
+
+      // WARNING (🟠): Non-secret hardcoded strings
+      for (const strRange of stringRanges) {
+        const isAlreadyPanic = panicRanges.some(p => p.intersection(strRange));
+        if (!isAlreadyPanic) {
+          warningRanges.push(strRange);
+        }
+      }
+
+      // CAUTION (🟡) & PANIC (🔴): Environment Files
+      if (langId === 'dotenv' || /\.env(\.[a-zA-Z0-9_-]+)?$/i.test(doc.fileName)) {
+        const envKeyPattern = /^[A-Z0-9_]+(?=\s*=)/gm;
+        while ((match = envKeyPattern.exec(text)) !== null) {
+          const keyName = match[0];
+          const range = new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + keyName.length)
+          );
+          if (!isInsideComment(range, commentRanges)) {
+            if (/(SECRET|TOKEN|KEY|AUTH|PASSWORD|PASSWD|PASS|PRIVATE|DATABASE|CREDENTIAL|APIKEY|API_KEY|CERT|SALT|PASSPHRASE)/i.test(keyName)) {
+              panicRanges.push(range);
+            } else {
+              cautionRanges.push(range);
+            }
+          }
+        }
+
+        const envSecretValuePattern = /^[A-Z0-9_]*(SECRET|TOKEN|KEY|AUTH|PASSWORD|PASSWD|PASS|PRIVATE|DATABASE|CREDENTIAL|APIKEY|API_KEY|CERT|SALT|PASSPHRASE)[A-Z0-9_]*\s*=\s*(.+)$/gim;
+        while ((match = envSecretValuePattern.exec(text)) !== null) {
+          const valueStr = match[2].trim();
+          const valueIndex = baseOffset + match.index + match[0].indexOf(valueStr);
+          const range = new vscode.Range(doc.positionAt(valueIndex), doc.positionAt(valueIndex + valueStr.length));
+          if (!isInsideComment(range, commentRanges) && !panicRanges.some(p => p.contains(range.start))) {
+            panicRanges.push(range);
+          }
+        }
+      }
+
+      // CONFIG FILES: Sensitive Key Highlighting
+      if (['toml', 'yaml', 'json', 'ini'].includes(langId) || /\.(toml|yaml|yml|json|ini)$/i.test(doc.fileName)) {
+        const sensitiveConfigKeyPattern = /^[ \t]*([a-zA-Z0-9_-]*(SECRET|TOKEN|KEY|AUTH|PASSWORD|PASSWD|PASS|PRIVATE|DATABASE|CREDENTIAL|APIKEY|API_KEY|CERT|SALT|PASSPHRASE)[a-zA-Z0-9_-]*)(?=\s*[:=])/gim;
+        while ((match = sensitiveConfigKeyPattern.exec(text)) !== null) {
+          const keyName = match[1];
+          const keyIndex = baseOffset + match.index + match[0].indexOf(keyName);
+          const range = new vscode.Range(doc.positionAt(keyIndex), doc.positionAt(keyIndex + keyName.length));
+          if (!isInsideComment(range, commentRanges) && !panicRanges.some(p => p.contains(range.start))) {
+            panicRanges.push(range);
+          }
+        }
+      }
+
+      // Function parameters
+      if (['typescript', 'typescriptreact', 'javascript', 'javascriptreact'].includes(langId)) {
+        const paramPattern = /(?<=\()([a-zA-Z0-9_]+)(?=\s*:\s*[a-zA-Z0-9_<>]+|\s*,\s*|\s*\))/g;
+        while ((match = paramPattern.exec(text)) !== null) {
+          const range = new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + match[0].length)
+          );
+          if (!isInsideComment(range, commentRanges)) {
+            cautionRanges.push(range);
+          }
+        }
+      }
+
+      // LOG FILES (.log)
+      if (langId === 'log' || doc.fileName.endsWith('.log')) {
+        const logPanicPattern = /\b(FATAL|CRITICAL|EMERGENCY|ERROR|EXCEPTION)\b/g;
+        while ((match = logPanicPattern.exec(text)) !== null) {
+          panicRanges.push(new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + match[0].length)
+          ));
+        }
+
+        const logWarnPattern = /\b(WARN|WARNING)\b/g;
+        while ((match = logWarnPattern.exec(text)) !== null) {
+          warningRanges.push(new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + match[0].length)
+          ));
+        }
+
+        const logSafePattern = /\b(INFO|SUCCESS|OK|PASSED)\b/g;
+        while ((match = logSafePattern.exec(text)) !== null) {
+          safeRanges.push(new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + match[0].length)
+          ));
+        }
+
+        const logCautionPattern = /\b(DEBUG|TRACE|NOTICE)\b/g;
+        while ((match = logCautionPattern.exec(text)) !== null) {
+          cautionRanges.push(new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + match[0].length)
+          ));
+        }
+      }
+
+      // SAFE (🟢): Types, Interfaces, Structs & Markdown Code Blocks
+      if (['typescript', 'typescriptreact'].includes(langId)) {
+        const typeDefPattern = /\b(interface|type|class|enum)\s+([A-Za-z0-9_]+)/g;
+        while ((match = typeDefPattern.exec(text)) !== null) {
+          const typeName = match[2];
+          const nameIndex = baseOffset + match.index + match[0].indexOf(typeName);
+          const range = new vscode.Range(doc.positionAt(nameIndex), doc.positionAt(nameIndex + typeName.length));
+          if (!isInsideComment(range, commentRanges)) {
+            safeRanges.push(range);
+          }
+        }
+      } else if (langId === 'python') {
+        const classDefPattern = /\bclass\s+([A-Za-z0-9_]+)/g;
+        while ((match = classDefPattern.exec(text)) !== null) {
+          const className = match[1];
+          const nameIndex = baseOffset + match.index + match[0].indexOf(className);
+          const range = new vscode.Range(doc.positionAt(nameIndex), doc.positionAt(nameIndex + className.length));
+          if (!isInsideComment(range, commentRanges)) {
+            safeRanges.push(range);
+          }
+        }
+      } else if (langId === 'markdown') {
+        const inlineCodePattern = /(?<!`)`([^`\r\n]+)`(?!`)/g;
+        while ((match = inlineCodePattern.exec(text)) !== null) {
+          safeRanges.push(new vscode.Range(
+            doc.positionAt(baseOffset + match.index),
+            doc.positionAt(baseOffset + match.index + match[0].length)
+          ));
+        }
+      }
+    }
+  }
+
+  // Subtract active selections from decorated ranges so selection is 100% visible
+  const selections = editor.selections || (editor.selection ? [editor.selection] : []);
+  const renderedOddIndentRanges = subtractSelectionsFromRanges(oddIndentRanges, selections);
+  const renderedSafeRanges = subtractSelectionsFromRanges(safeRanges, selections);
+  const renderedCautionRanges = subtractSelectionsFromRanges(cautionRanges, selections);
+  const renderedWarningRanges = subtractSelectionsFromRanges(warningRanges, selections);
+  const renderedPanicRanges = subtractSelectionsFromRanges(panicRanges, selections);
+
+  // Apply Odd-Sequence Indent Column Shading
+  editor.setDecorations(oddIndentDecorationType, renderedOddIndentRanges);
+
+  // Apply Status Token Decorations
+  editor.setDecorations(safeDecorationType, renderedSafeRanges);
+  editor.setDecorations(cautionDecorationType, renderedCautionRanges);
+  editor.setDecorations(warningDecorationType, renderedWarningRanges);
+  editor.setDecorations(panicDecorationType, renderedPanicRanges);
+
+  // Apply Universal Italic Comment Styling
+  editor.setDecorations(commentDecorationType, allCommentRanges);
+
+  // =========================================================================
+  // 3. INLINE DIAGNOSTIC LENS (ERROR LENS + GIT BLAME)
+  // =========================================================================
+  if (enableErrorLens) {
+    updateErrorLens(editor, palette, showSeverityBadge, showGitBlame, chunks);
+  } else {
+    editor.setDecorations(errorLensDecorationType, []);
+    editor.setDecorations(warningLensDecorationType, []);
+    editor.setDecorations(infoLensDecorationType, []);
+    editor.setDecorations(hintLensDecorationType, []);
+  }
+}
+
+function updateErrorLens(editor, palette, showSeverityBadge, showGitBlame, chunks) {
+  if (!editor || !editor.document) return;
+
+  const doc = editor.document;
+  const filePath = doc.uri.fsPath;
+  const docVersion = doc.version;
+  const diagnostics = vscode.languages.getDiagnostics(doc.uri);
+  const errorOptions = [];
+  const warningOptions = [];
+  const infoOptions = [];
+  const hintOptions = [];
+
+  // Group by line to display the most critical diagnostic per line
+  const diagnosticsByLine = new Map();
+
+  for (const diag of diagnostics) {
+    const line = diag.range.start.line;
+    // If we have active chunks (for large files), only process diagnostics within the chunk bounds
+    if (chunks && doc.lineCount > FULL_DOC_LINE_THRESHOLD) {
+      const isWithinChunk = chunks.some(c => line >= c.startLine && line <= c.endLine);
+      if (!isWithinChunk) continue;
+    }
+
+    const existing = diagnosticsByLine.get(line);
+    if (!existing || diag.severity < existing.severity) {
+      diagnosticsByLine.set(line, diag);
+    }
+  }
+
+  for (const [lineIdx, diag] of diagnosticsByLine) {
+    const lineEndPos = doc.lineAt(lineIdx).range.end;
+    const lineEndRange = new vscode.Range(lineEndPos, lineEndPos);
+
+    // Format inline message
+    let badge = '';
+    let fg = palette.info.fg;
+    let bg = palette.info.bg;
+    let targetOptions = infoOptions;
+
+    switch (diag.severity) {
+      case vscode.DiagnosticSeverity.Error:
+        badge = showSeverityBadge ? '🔴 [Error] ' : '🔴 ';
+        fg = palette.panic.fg;
+        bg = palette.panic.bg;
+        targetOptions = errorOptions;
+        break;
+      case vscode.DiagnosticSeverity.Warning:
+        badge = showSeverityBadge ? '🟠 [Warning] ' : '🟠 ';
+        fg = palette.warning.fg;
+        bg = palette.warning.bg;
+        targetOptions = warningOptions;
+        break;
+      case vscode.DiagnosticSeverity.Information:
+        badge = showSeverityBadge ? '🔵 [Info] ' : '🔵 ';
+        fg = palette.info.fg;
+        bg = palette.info.bg;
+        targetOptions = infoOptions;
+        break;
+      case vscode.DiagnosticSeverity.Hint:
+        badge = showSeverityBadge ? '💡 [Hint] ' : '💡 ';
+        fg = '#505A69';
+        bg = '#F6F8FB';
+        targetOptions = hintOptions;
+        break;
+    }
+
+    const cleanMessage = diag.message.replace(/[\r\n]+/g, ' ');
+    const sourceTag = diag.source ? ` (${diag.source})` : '';
+
+    // Check Git Blame for this line if enabled
+    let gitBlameSuffix = '';
+    if (showGitBlame && filePath && !doc.isUntitled && doc.uri && doc.uri.scheme === 'file') {
+      const lineOneIndexed = lineIdx + 1;
+      const blame = fetchGitBlameForLine(filePath, lineOneIndexed, docVersion, () => {
+        const activeEditor = vscode.window.activeTextEditor;
+        if (
+          activeEditor &&
+          activeEditor.document.uri.toString() === doc.uri.toString() &&
+          activeEditor.document.version === docVersion
+        ) {
+          updateErrorLens(activeEditor, palette, showSeverityBadge, showGitBlame, chunks);
+        }
+      });
+
+      if (blame) {
+        gitBlameSuffix = `  •  👤 ${blame}`;
+      }
+    }
+
+    targetOptions.push({
+      range: lineEndRange,
+      renderOptions: {
+        after: {
+          contentText: `   ${badge}${cleanMessage}${sourceTag}${gitBlameSuffix}`,
+          color: fg,
+          backgroundColor: bg,
+          fontWeight: 'normal',
+          fontStyle: 'italic',
+          fontSize: '0.9em',
+          margin: '0 0 0 1.5rem',
+          border: `1px solid ${fg}33`,
+          borderRadius: '3px'
+        }
+      }
+    });
+  }
+
+  editor.setDecorations(errorLensDecorationType, errorOptions);
+  editor.setDecorations(warningLensDecorationType, warningOptions);
+  editor.setDecorations(infoLensDecorationType, infoOptions);
+  editor.setDecorations(hintLensDecorationType, hintOptions);
+}
+
+// Ocular Rest Assistant (20-20-20 rule + blink reminder)
+let restStatusBar = null;
+let restTickInterval = null;
+let restNextBreakAt = 0;
+let restBreakUntil = 0;
+
+function disposeRestAssistant() {
+  if (restTickInterval) {
+    clearInterval(restTickInterval);
+    restTickInterval = null;
+  }
+  if (restStatusBar) {
+    restStatusBar.dispose();
+    restStatusBar = null;
+  }
+  restNextBreakAt = 0;
+  restBreakUntil = 0;
+}
+
+function beginRestBreak(intervalMs, breakDurationMs) {
+  restBreakUntil = Date.now() + breakDurationMs;
+  if (restStatusBar) {
+    restStatusBar.text = '$(eye) break';
+    restStatusBar.tooltip = '20-20-20 eye break in progress';
+  }
+  const breakSeconds = Math.round(breakDurationMs / 1000);
+  vscode.window.showInformationMessage(
+    `20-20-20 Ergonomic Break: take a ${breakSeconds}-second break to look at an object 20 feet away and blink consciously to re-lubricate your eyes.`
+  );
+}
+
+function updateRestStatusText() {
+  if (!restStatusBar) return;
+  const now = Date.now();
+  if (restBreakUntil > 0) {
+    const remaining = Math.max(0, Math.ceil((restBreakUntil - now) / 1000));
+    restStatusBar.text = `$(eye) ${remaining}s break`;
+    restStatusBar.tooltip = `${remaining}s of 20-20-20 eye break remaining`;
+    return;
+  }
+  const remainingSec = Math.max(0, Math.ceil((restNextBreakAt - now) / 1000));
+  const min = Math.floor(remainingSec / 60);
+  const sec = remainingSec % 60;
+  restStatusBar.text = `$(eye) ${min}m ${sec}s`;
+  restStatusBar.tooltip = `Next 20-20-20 eye break in ${min}m ${sec}s — look 20ft away for 20s`;
+}
+
+function initRestAssistant() {
+  const cfg = vscode.workspace.getConfiguration('zerotosaas.restReminder');
+  const enabled = cfg.get('enabled', false);
+  disposeRestAssistant();
+  if (!enabled) return;
+
+  const intervalMinutes = Math.max(1, Number(cfg.get('intervalMinutes', 20)) || 20);
+  const breakSeconds = Math.max(5, Number(cfg.get('breakDurationSeconds', 20)) || 20);
+  const intervalMs = intervalMinutes * 60 * 1000;
+  const breakDurationMs = breakSeconds * 1000;
+
+  restStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+  restStatusBar.command = 'zerotosaas.resetRestTimer';
+  restStatusBar.tooltip = 'ZeroToSaaS 20-20-20 Ocular Rest Assistant';
+  restStatusBar.show();
+
+  restNextBreakAt = Date.now() + intervalMs;
+
+  restTickInterval = setInterval(() => {
+    const now = Date.now();
+    if (restBreakUntil > 0) {
+      if (now >= restBreakUntil) {
+        restBreakUntil = 0;
+        restNextBreakAt = now + intervalMs;
+      }
+      updateRestStatusText();
+      return;
+    }
+    if (now >= restNextBreakAt) {
+      beginRestBreak(intervalMs, breakDurationMs);
+    }
+    updateRestStatusText();
+  }, 1000);
+
+  updateRestStatusText();
+}
+
+async function handleThemeSelection() {
+  const themes = [
+    { label: 'ZeroToSaaS Light (Default)', description: 'Cobalt-slate, balanced luminance, 100% WCAG AAA' },
+    { label: 'ZeroToSaaS High Contrast (ISO 9241-303)', description: 'Ultra-clear 12+:1 contrast ratios, sharp borders' },
+    { label: 'ZeroToSaaS Deuteranopia (Blue / Orange)', description: 'Red-green colorblind safe (Deutan)' },
+    { label: 'ZeroToSaaS Protanopia (Magenta / Teal)', description: 'Red-green colorblind safe (Protan)' },
+    { label: 'ZeroToSaaS Tritanopia (Crimson / Cyan)', description: 'Blue-yellow colorblind safe (Tritan)' },
+    { label: 'ZeroToSaaS Warm Sepia (Brown)', description: 'Warm paper tint, reduced blue-light eye strain' },
+    { label: 'ZeroToSaaS Forest Calm (Green)', description: 'Natural moss & sage tones for calm extended coding' },
+    { label: 'ZeroToSaaS Royal Plum (Purple)', description: 'Deep chromatic amethyst tones' },
+    { label: 'ZeroToSaaS Golden Sand (Yellow)', description: 'Soft amber & sandstone warm palette' },
+    { label: 'ZeroToSaaS Terracotta (Orange)', description: 'Earthy clay & rust energetic palette' }
+  ];
+
+  const selected = await vscode.window.showQuickPick(themes, {
+    placeHolder: 'Select a ZeroToSaaS theme variant to apply'
+  });
+
+  if (selected) {
+    await vscode.workspace.getConfiguration('workbench').update(
+      'colorTheme',
+      selected.label,
+      vscode.ConfigurationTarget.Global
+    );
+    vscode.window.showInformationMessage(`ZeroToSaaS Theme set to: ${selected.label}`);
+  }
+}
+
+function activate(context) {
+  initDecorations(context);
+
+  initRestAssistant();
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('zerotosaas.selectTheme', handleThemeSelection),
+    vscode.commands.registerCommand('zerotosaas.switchTheme', handleThemeSelection),
+    vscode.commands.registerCommand('zerotosaas.toggleErrorLens', async () => {
+      const cfg = vscode.workspace.getConfiguration('zerotosaas');
+      const current = cfg.get('errorLens.enabled', true);
+      await cfg.update('errorLens.enabled', !current, vscode.ConfigurationTarget.Global);
+      vscode.window.showInformationMessage(`ZeroToSaaS Error Lens ${!current ? 'enabled' : 'disabled'}.`);
+    }),
+    vscode.commands.registerCommand('zerotosaas.toggleStatusBadges', async () => {
+      const cfg = vscode.workspace.getConfiguration('zerotosaas');
+      const current = cfg.get('statusBadges.enabled', true);
+      await cfg.update('statusBadges.enabled', !current, vscode.ConfigurationTarget.Global);
+      vscode.window.showInformationMessage(`ZeroToSaaS Semantic Status Badges ${!current ? 'enabled' : 'disabled'}.`);
+    }),
+    vscode.commands.registerCommand('zerotosaas.toggleIndentShading', async () => {
+      const cfg = vscode.workspace.getConfiguration('zerotosaas');
+      const current = cfg.get('indentShading.enabled', true);
+      await cfg.update('indentShading.enabled', !current, vscode.ConfigurationTarget.Global);
+      vscode.window.showInformationMessage(`ZeroToSaaS Indent Column Shading ${!current ? 'enabled' : 'disabled'}.`);
+    }),
+    vscode.commands.registerCommand('zerotosaas.resetRestTimer', () => {
+      const cfg = vscode.workspace.getConfiguration('zerotosaas.restReminder');
+      if (cfg.get('enabled', false)) {
+        initRestAssistant();
+        vscode.window.showInformationMessage('20-20-20 rest timer reset.');
+      }
+    }),
+    vscode.commands.registerCommand('zerotosaas.toggleRestReminder', async () => {
+      const cfg = vscode.workspace.getConfiguration('zerotosaas.restReminder');
+      const next = !cfg.get('enabled', false);
+      await cfg.update('enabled', next, vscode.ConfigurationTarget.Global);
+      initRestAssistant();
+      vscode.window.showInformationMessage(
+        `20-20-20 rest reminders ${next ? 'enabled' : 'disabled'}.`
+      );
+    }),
+    vscode.commands.registerCommand('zerotosaas.openSettings', () => {
+      vscode.commands.executeCommand('workbench.action.openSettings', '@ext:zerotosaas.zerotosaas-theme');
+    })
+  );
+
+  if (vscode.window.onDidChangeActiveColorTheme) {
+    vscode.window.onDidChangeActiveColorTheme(() => {
+      initDecorations(context);
+      if (vscode.window.activeTextEditor) {
+        updateDecorations(vscode.window.activeTextEditor);
+      }
+    }, null, context.subscriptions);
+  }
+
+  vscode.window.onDidChangeActiveTextEditor(editor => {
+    if (editor) updateDecorations(editor);
+  }, null, context.subscriptions);
+
+  vscode.window.onDidChangeTextEditorVisibleRanges(event => {
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor && event.textEditor === activeEditor) {
+      if (activeEditor.document.lineCount > FULL_DOC_LINE_THRESHOLD) {
+        if (scrollThrottleTimer) return;
+        scrollThrottleTimer = setTimeout(() => {
+          scrollThrottleTimer = null;
+          updateDecorations(activeEditor);
+        }, 30);
+      }
+    }
+  }, null, context.subscriptions);
+
+  vscode.window.onDidChangeTextEditorSelection(event => {
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor && event.textEditor === activeEditor) {
+      scheduleSelectionUpdate(activeEditor, 50);
+    }
+  }, null, context.subscriptions);
+
+  vscode.workspace.onDidChangeTextDocument(event => {
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor && event.document === activeEditor.document) {
+      scheduleDocumentUpdate(activeEditor, 180);
+    }
+  }, null, context.subscriptions);
+
+  vscode.languages.onDidChangeDiagnostics(event => {
+    const activeEditor = vscode.window.activeTextEditor;
+    if (activeEditor && event.uris.some(u => u.toString() === activeEditor.document.uri.toString())) {
+      scheduleDocumentUpdate(activeEditor, 100);
+    }
+  }, null, context.subscriptions);
+
+  vscode.workspace.onDidChangeConfiguration(event => {
+    if (
+      event.affectsConfiguration('workbench.colorTheme') ||
+      event.affectsConfiguration('editor.tabSize') ||
+      event.affectsConfiguration('zerotosaas')
+    ) {
+      initDecorations(context);
+      initRestAssistant();
+      if (vscode.window.activeTextEditor) {
+        updateDecorations(vscode.window.activeTextEditor);
+      }
+    }
+  }, null, context.subscriptions);
+
+  if (vscode.window.activeTextEditor) {
+    updateDecorations(vscode.window.activeTextEditor);
+  }
+}
+
+function deactivate() {
+  disposeRestAssistant();
+  if (documentChangeDebounceTimer) {
+    clearTimeout(documentChangeDebounceTimer);
+    documentChangeDebounceTimer = null;
+  }
+  if (selectionChangeDebounceTimer) {
+    clearTimeout(selectionChangeDebounceTimer);
+    selectionChangeDebounceTimer = null;
+  }
+  if (scrollThrottleTimer) {
+    clearTimeout(scrollThrottleTimer);
+    scrollThrottleTimer = null;
+  }
+  disposeDecorations();
+  gitBlameCache.clear();
+}
+
+module.exports = {
+  activate,
+  deactivate
+};

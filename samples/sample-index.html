@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeroToSaaS Platform Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Inline CSS sample */
+    :root {
+      --brand-primary: #0B4F9C;
+      --brand-accent: #4F2683;
+      --panic-alert: #990014;
+      --canvas-bg: #FCFCFD;
+    }
+    body {
+      background-color: var(--canvas-bg);
+      color: #111827;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+    .card {
+      border: 1px solid #D8E1ED;
+      border-radius: 8px;
+      padding: 1.5rem;
+      background: #FFFFFF;
+      margin-bottom: 1.5rem;
+    }
+    .btn-action {
+      background: #0B4F9C;
+      color: #FFFFFF;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-action:hover {
+      background: #003D99;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .status-safe { background: #F1FAF3; color: #0B6229; border: 1px solid #B4E6C3; }
+    .status-warn { background: #FFF6EE; color: #8C3800; border: 1px solid #FDCBA6; }
+    .status-panic { background: #FFF2F2; color: #990014; border: 1px solid #FCA5A5; }
+  </style>
+</head>
+<body>
+  <!-- Main Application Header -->
+  <header class="app-header">
+    <h1>ZeroToSaaS Dashboard</h1>
+    <nav class="navigation-bar">
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#telemetry">Telemetry</a></li>
+        <li><a href="#security">Security Center</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="content-grid">
+    <section class="card" id="overview">
+      <h2>System Status</h2>
+      <p>Welcome to the <strong>ZeroToSaaS Accessibility Theme Suite</strong> environment.</p>
+      <div id="runtime-status" class="status-badge status-safe">Status: Operational</div>
+      <div style="margin-top: 1rem;">
+        <button type="button" id="btn-diagnostic" class="btn-action">Run Diagnostic Check</button>
+        <button type="button" id="btn-telemetry" class="btn-action" style="margin-left: 0.5rem;">Fetch Telemetry</button>
+      </div>
+    </section>
+
+    <section class="card" id="telemetry-output">
+      <h2>Live Telemetry Stream</h2>
+      <pre id="telemetry-log" style="background: #F6F8FB; padding: 1rem; border-radius: 6px; border: 1px solid #D8E1ED;">Awaiting diagnostic trigger...</pre>
+    </section>
+  </main>
+
+  <!-- ======================================================================= -->
+  <!-- Client-Side JavaScript Application Logic                                -->
+  <!-- ======================================================================= -->
+  <script>
+    // 🟢 SAFE: Application Configuration & State Store
+    const APP_CONFIG = {
+      version: "2.4.0",
+      environment: "production",
+      maxRetries: 3,
+      pollIntervalMs: 5000
+    };
+
+    // 🔴 PANIC: Simulated Secret Keys, UUIDs & Validation Regex
+    const SYSTEM_UUID = "c8941a87-1c3e-4492-aef4-190823901bca";
+    const SESSION_TOKEN = "sk_live_dashboard_9941a87b1c3e4492";
+    const EMAIL_VALIDATION_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // 🟡 CAUTION: Parameter Validation & Handler
+    function validateSessionContext(sessionId, userEmail) {
+      if (!sessionId || typeof sessionId !== 'string') {
+        console.warn("Invalid session ID provided to diagnostic runner.");
+        return false;
+      }
+
+      if (!EMAIL_VALIDATION_REGEX.test(userEmail)) {
+        console.warn("Invalid user email structure detected.");
+        return false;
+      }
+
+      return true;
+    }
+
+    // 🟠 WARNING: Hardcoded Route Dispatcher & Async Fetch
+    async function executeDiagnostics(endpointPath = "/api/v1/diagnostics/health") {
+      const logElement = document.getElementById('telemetry-log');
+      const statusElement = document.getElementById('runtime-status');
+
+      try {
+        logElement.textContent = `Dispatching diagnostic probe to ${endpointPath}...`;
+        statusElement.className = "status-badge status-warn";
+        statusElement.textContent = "Status: Probing...";
+
+        // Simulate async network telemetry handshake
+        const responsePayload = await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({
+              nodeId: SYSTEM_UUID,
+              status: "healthy",
+              activeSessions: 142,
+              latencyMs: 14.8,
+              timestamp: new Date().toISOString()
+            });
+          }, 600);
+        });
+
+        statusElement.className = "status-badge status-safe";
+        statusElement.textContent = "Status: Healthy & Verified";
+        logElement.textContent = JSON.stringify(responsePayload, null, 2);
+      } catch (error) {
+        // 🔴 PANIC: Capture fault
+        statusElement.className = "status-badge status-panic";
+        statusElement.textContent = "Status: Fault Detected";
+        logElement.textContent = `Diagnostic fault: ${error instanceof Error ? error.message : "Unknown error"}`;
+      }
+    }
+
+    // DOM Lifecycle Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log("ZeroToSaaS Dashboard initialized under version", APP_CONFIG.version);
+
+      const diagBtn = document.getElementById('btn-diagnostic');
+      if (diagBtn) {
+        diagBtn.addEventListener('click', () => executeDiagnostics("/api/v1/diagnostics/full-suite"));
+      }
+
+      const telemetryBtn = document.getElementById('btn-telemetry');
+      if (telemetryBtn) {
+        telemetryBtn.addEventListener('click', () => executeDiagnostics("/api/v1/telemetry/nodes"));
+      }
+    });
+  </script>
+</body>
+</html>
