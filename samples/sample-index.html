@@ -85,7 +85,7 @@
   <!-- Client-Side JavaScript Application Logic                                -->
   <!-- ======================================================================= -->
   <script>
-    // 🟢 SAFE: Application Configuration & State Store
+    // 🟢 Safe: Application Configuration & State Store
     const APP_CONFIG = {
       version: "2.4.0",
       environment: "production",
@@ -93,12 +93,12 @@
       pollIntervalMs: 5000
     };
 
-    // 🔴 PANIC: Simulated Secret Keys, UUIDs & Validation Regex
+    // 🔴 Panic: Simulated Secret Keys, Uuids & Validation Regex
     const SYSTEM_UUID = "c8941a87-1c3e-4492-aef4-190823901bca";
     const SESSION_TOKEN = "sk_live_dashboard_9941a87b1c3e4492";
     const EMAIL_VALIDATION_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    // 🟡 CAUTION: Parameter Validation & Handler
+    // 🟡 Caution: Parameter Validation & Handler
     function validateSessionContext(sessionId, userEmail) {
       if (!sessionId || typeof sessionId !== 'string') {
         console.warn("Invalid session ID provided to diagnostic runner.");
@@ -113,7 +113,7 @@
       return true;
     }
 
-    // 🟠 WARNING: Hardcoded Route Dispatcher & Async Fetch
+    // 🟠 Warning: Hardcoded Route Dispatcher & Async Fetch
     async function executeDiagnostics(endpointPath = "/api/v1/diagnostics/health") {
       const logElement = document.getElementById('telemetry-log');
       const statusElement = document.getElementById('runtime-status');
@@ -140,7 +140,7 @@
         statusElement.textContent = "Status: Healthy & Verified";
         logElement.textContent = JSON.stringify(responsePayload, null, 2);
       } catch (error) {
-        // 🔴 PANIC: Capture fault
+        // 🔴 Panic: Capture fault
         statusElement.className = "status-badge status-panic";
         statusElement.textContent = "Status: Fault Detected";
         logElement.textContent = `Diagnostic fault: ${error instanceof Error ? error.message : "Unknown error"}`;

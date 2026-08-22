@@ -105,8 +105,6 @@ const htmlContent = `<!DOCTYPE html>
     .panel-title {
       font-size: 0.82rem;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
       color: #475569;
       margin-bottom: 0.75rem;
       display: flex;
@@ -336,7 +334,7 @@ const htmlContent = `<!DOCTYPE html>
       flex-direction: column;
       gap: 0.35rem;
     }
-    .metric-label { font-size: 0.78rem; font-weight: 600; color: #64748B; text-transform: uppercase; }
+    .metric-label { font-size: 0.78rem; font-weight: 600; color: #64748B; }
     .metric-val { font-size: 1.45rem; font-weight: 700; color: #0F172A; font-family: var(--font-mono); }
     .metric-badge {
       display: inline-flex;
@@ -368,7 +366,6 @@ const htmlContent = `<!DOCTYPE html>
       color: #475569;
       border-bottom: 1px solid #E2E8F0;
       font-size: 0.75rem;
-      text-transform: uppercase;
     }
     .dash-table td {
       padding: 0.5rem 0.75rem;
@@ -502,13 +499,13 @@ const htmlContent = `<!DOCTYPE html>
 
   <div class="top-header">
     <div>
-      <h1>🔬 ZeroToSaaS Quad-System Interactive Gallery</h1>
-      <p style="font-size:0.85rem; color:#64748B;">Explore all 10 themes across OkLCH, Paul Tol CVD, ColorBrewer, and FM 100-Hue systems.</p>
+      <h1>🔬 Zerotosaas Quad-System Interactive Gallery</h1>
+      <p style="font-size:0.85rem; color:#64748B;">Explore all 10 themes across Oklch, Paul Tol Cvd, Colorbrewer, and Fm 100-Hue systems.</p>
     </div>
     <div class="header-links">
       <a href="../Validation.md" class="link-btn">📊 Validation Report</a>
       <a href="../Guidelines.md" class="link-btn">🏥 Medical Guidelines</a>
-      <a href="../../README.md" class="link-btn">🏠 README</a>
+      <a href="../../README.md" class="link-btn">🏠 Readme</a>
     </div>
   </div>
 
@@ -643,7 +640,7 @@ const htmlContent = `<!DOCTYPE html>
             <h2 id="dash-title" style="font-size:1.15rem; font-weight:700;">ZeroToSaaS Enterprise Telemetry Dashboard</h2>
             <p style="font-size:0.8rem; color:#64748B;">Real-time infrastructure health, cognitive status logs, and contract validation.</p>
           </div>
-          <span id="dash-badge" class="status-tag status-safe">100% WCAG AAA Compliant</span>
+          <span id="dash-badge" class="status-tag status-safe">100% Wcag Aaa Compliant</span>
         </div>
 
         <!-- Metrics Cards -->
@@ -677,7 +674,7 @@ const htmlContent = `<!DOCTYPE html>
               <tr>
                 <th>Service Name</th>
                 <th>Status</th>
-                <th>Cluster UUID</th>
+                <th>Cluster Id</th>
                 <th>Avg Latency</th>
                 <th>Security Verification</th>
               </tr>
@@ -734,7 +731,7 @@ const htmlContent = `<!DOCTYPE html>
             <button class="lang-chip" data-lang="typescript">TypeScript React</button>
             <button class="lang-chip" data-lang="rust">Rust</button>
             <button class="lang-chip" data-lang="go">Go</button>
-            <button class="lang-chip" data-lang="sql">SQL</button>
+            <button class="lang-chip" data-lang="sql">Sql</button>
             <button class="lang-chip" data-lang="audit">Audit Log</button>
             <button class="lang-chip" data-lang="config">Cargo.toml</button>
           </div>
@@ -754,7 +751,7 @@ const htmlContent = `<!DOCTYPE html>
               <span class="dot dot-green"></span>
               <span id="editor-filename" style="margin-left: 0.65rem;">data_pipeline.py — ZeroToSaaS Light</span>
             </div>
-            <span id="editor-badge" class="status-tag status-safe">100% WCAG AAA Compliant</span>
+            <span id="editor-badge" class="status-tag status-safe">100% Wcag Aaa Compliant</span>
           </div>
           <div class="editor-body" id="editor-body">
             <!-- Dynamically populated with long, comprehensive single-line code blocks -->
@@ -808,7 +805,7 @@ const htmlContent = `<!DOCTYPE html>
           '<div class="line"><span class="ln">33</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.fg + ';">results_map</span>[<span style="color:' + t.fg + ';">rec</span>.<span style="color:' + t.fg + ';">cluster_uuid</span>] = <span style="color:' + t.fg + ';">hashed_payload</span></span></div>',
           '<div class="line"><span class="ln">34</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">except</span> <span style="color:' + t.type + '; font-weight:bold;">Exception</span> <span style="color:' + t.keyword + '; font-weight:bold;">as</span> <span style="color:' + t.fg + ';">err</span>:</span></div>',
           '<div class="line"><span class="ln">35</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="status-tag status-panic">Panic (🔴)</span> <span style="color:' + t.func + '; font-weight:bold;">log_critical_fault</span>(<span style="color:' + t.string + ';">"Telemetry calculation crashed"</span>, <span style="color:' + t.param + ';">error</span>=<span style="color:' + t.fg + ';">err</span>)</span></div>',
-          '<div class="line"><span class="ln">36</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">return</span> {<span style="color:' + t.string + ';">"status"</span>: <span style="color:' + t.string + ';">"SUCCESS"</span>, <span style="color:' + t.string + ';">"records_processed"</span>: <span style="color:' + t.func + ';">len</span>(<span style="color:' + t.fg + ';">results_map</span>)}</span></div>'
+          '<div class="line"><span class="ln">36</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">return</span> {<span style="color:' + t.string + ';">"status"</span>: <span style="color:' + t.string + ';">"Success"</span>, <span style="color:' + t.string + ';">"records_processed"</span>: <span style="color:' + t.func + ';">len</span>(<span style="color:' + t.fg + ';">results_map</span>)}</span></div>'
         ].join('')
       },
       typescript: {
@@ -829,7 +826,7 @@ const htmlContent = `<!DOCTYPE html>
           '<div class="line"><span class="ln">13</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">activeNodes</span>,</span></div>',
           '<div class="line"><span class="ln">14</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">onStatusChange</span></span></div>',
           '<div class="line"><span class="ln">15</span><span class="code">}) => {</span></div>',
-          '<div class="line"><span class="ln">16</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> [<span style="color:' + t.fg + ';">healthState</span>, <span style="color:' + t.func + ';">setHealthState</span>] = <span style="color:' + t.func + ';">useState</span>&lt;<span style="color:' + t.type + ';">string</span>&gt;(<span style="color:' + t.string + ';">"OPTIMAL"</span>);</span></div>',
+          '<div class="line"><span class="ln">16</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> [<span style="color:' + t.fg + ';">healthState</span>, <span style="color:' + t.func + ';">setHealthState</span>] = <span style="color:' + t.func + ';">useState</span>&lt;<span style="color:' + t.type + ';">string</span>&gt;(<span style="color:' + t.string + ';">"Optimal"</span>);</span></div>',
           '<div class="line"><span class="ln">17</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> [<span style="color:' + t.fg + ';">records</span>, <span style="color:' + t.func + ';">setRecords</span>] = <span style="color:' + t.func + ';">useState</span>&lt;<span style="color:' + t.type + ';">TelemetryPayload</span>[]&gt;([]);</span></div>',
           '<div class="line"><span class="ln">18</span><span class="code"></span></div>',
           '<div class="line"><span class="ln">19</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> <span style="color:' + t.func + '; font-weight:bold;">handleSync</span> = <span style="color:' + t.func + ';">useCallback</span>(<span style="color:' + t.keyword + '; font-weight:bold;">async</span> () => {</span></div>',
@@ -838,7 +835,7 @@ const htmlContent = `<!DOCTYPE html>
           '<div class="line"><span class="ln">22</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">const</span> <span style="color:' + t.fg + ';">data</span> = <span style="color:' + t.keyword + '; font-weight:bold;">await</span> <span style="color:' + t.fg + ';">res</span>.<span style="color:' + t.func + ';">json</span>();</span></div>',
           '<div class="line"><span class="ln">23</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.func + ';">setRecords</span>(<span style="color:' + t.fg + ';">data</span>.<span style="color:' + t.fg + ';">items</span>);</span></div>',
           '<div class="line"><span class="ln">24</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>} <span style="color:' + t.keyword + '; font-weight:bold;">catch</span> (<span style="color:' + t.fg + ';">err</span>) {</span></div>',
-          '<div class="line"><span class="ln">25</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.func + ';">setHealthState</span>(<span style="color:' + t.string + ';">"DEGRADED"</span>);</span></div>',
+          '<div class="line"><span class="ln">25</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.func + ';">setHealthState</span>(<span style="color:' + t.string + ';">"Degraded"</span>);</span></div>',
           '<div class="line"><span class="ln">26</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="indent-even">&nbsp;&nbsp;&nbsp;&nbsp;</span>}</span></div>',
           '<div class="line"><span class="ln">27</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span>}, [<span style="color:' + t.param + ';">clusterId</span>]);</span></div>',
           '<div class="line"><span class="ln">28</span><span class="code"></span></div>',
@@ -909,31 +906,31 @@ const htmlContent = `<!DOCTYPE html>
       sql: {
         filename: 'database_schema.sql',
         code: (t) => [
-          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">CREATE TABLE IF NOT EXISTS</span> <span style="color:' + t.fg + '; font-weight:bold;">tenant_telemetry_records</span> (</span></div>',
-          '<div class="line"><span class="ln">2</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">id</span> <span style="color:' + t.keyword + '; font-weight:bold;">UUID PRIMARY KEY DEFAULT</span> <span style="color:' + t.func + ';">gen_random_uuid</span>(),</span></div>',
-          '<div class="line"><span class="ln">3</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">tenant_email</span> <span style="color:' + t.keyword + '; font-weight:bold;">VARCHAR(255) NOT NULL</span>,</span></div>',
-          '<div class="line"><span class="ln">4</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">cluster_region</span> <span style="color:' + t.keyword + '; font-weight:bold;">VARCHAR(64) DEFAULT</span> <span style="color:' + t.string + ';">&apos;us-east-1&apos;</span>,</span></div>',
-          '<div class="line"><span class="ln">5</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">status_badge</span> <span style="color:' + t.keyword + '; font-weight:bold;">VARCHAR(32) DEFAULT</span> <span style="color:' + t.string + ';">&apos;SAFE&apos;</span>,</span></div>',
-          '<div class="line"><span class="ln">6</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">created_at</span> <span style="color:' + t.keyword + '; font-weight:bold;">TIMESTAMPTZ DEFAULT NOW</span>()</span></div>',
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">Create Table If Not Exists</span> <span style="color:' + t.fg + '; font-weight:bold;">tenant_telemetry_records</span> (</span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">id</span> <span style="color:' + t.keyword + '; font-weight:bold;">Uuid Primary Key Default</span> <span style="color:' + t.func + ';">gen_random_uuid</span>(),</span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">tenant_email</span> <span style="color:' + t.keyword + '; font-weight:bold;">Varchar(255) Not Null</span>,</span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">cluster_region</span> <span style="color:' + t.keyword + '; font-weight:bold;">Varchar(64) Default</span> <span style="color:' + t.string + ';">&apos;us-east-1&apos;</span>,</span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">status_badge</span> <span style="color:' + t.keyword + '; font-weight:bold;">Varchar(32) Default</span> <span style="color:' + t.string + ';">&apos;Safe&apos;</span>,</span></div>',
+          '<div class="line"><span class="ln">6</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.type + ';">created_at</span> <span style="color:' + t.keyword + '; font-weight:bold;">Timestamptz Default Now</span>()</span></div>',
           '<div class="line"><span class="ln">7</span><span class="code">);</span></div>',
           '<div class="line"><span class="ln">8</span><span class="code"></span></div>',
-          '<div class="line"><span class="ln">9</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">WITH</span> <span style="color:' + t.type + ';">regional_stats</span> <span style="color:' + t.keyword + '; font-weight:bold;">AS</span> (</span></div>',
-          '<div class="line"><span class="ln">10</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">SELECT</span> <span style="color:' + t.type + ';">cluster_region</span>, <span style="color:' + t.func + ';">COUNT</span>(<span style="color:' + t.type + ';">id</span>) <span style="color:' + t.keyword + '; font-weight:bold;">AS</span> <span style="color:' + t.fg + ';">total_nodes</span></span></div>',
-          '<div class="line"><span class="ln">11</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">FROM</span> <span style="color:' + t.fg + ';">tenant_telemetry_records</span></span></div>',
-          '<div class="line"><span class="ln">12</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">WHERE</span> <span style="color:' + t.type + ';">status_badge</span> = <span style="color:' + t.string + ';">&apos;SAFE&apos;</span></span></div>',
-          '<div class="line"><span class="ln">13</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">GROUP BY</span> <span style="color:' + t.type + ';">cluster_region</span></span></div>',
+          '<div class="line"><span class="ln">9</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">With</span> <span style="color:' + t.type + ';">regional_stats</span> <span style="color:' + t.keyword + '; font-weight:bold;">As</span> (</span></div>',
+          '<div class="line"><span class="ln">10</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">Select</span> <span style="color:' + t.type + ';">cluster_region</span>, <span style="color:' + t.func + ';">Count</span>(<span style="color:' + t.type + ';">id</span>) <span style="color:' + t.keyword + '; font-weight:bold;">As</span> <span style="color:' + t.fg + ';">total_nodes</span></span></div>',
+          '<div class="line"><span class="ln">11</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">From</span> <span style="color:' + t.fg + ';">tenant_telemetry_records</span></span></div>',
+          '<div class="line"><span class="ln">12</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">Where</span> <span style="color:' + t.type + ';">status_badge</span> = <span style="color:' + t.string + ';">&apos;Safe&apos;</span></span></div>',
+          '<div class="line"><span class="ln">13</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">Group By</span> <span style="color:' + t.type + ';">cluster_region</span></span></div>',
           '<div class="line"><span class="ln">14</span><span class="code">)</span></div>',
-          '<div class="line"><span class="ln">15</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">SELECT</span> * <span style="color:' + t.keyword + '; font-weight:bold;">FROM</span> <span style="color:' + t.type + ';">regional_stats</span> <span style="color:' + t.keyword + '; font-weight:bold;">ORDER BY</span> <span style="color:' + t.fg + ';">total_nodes</span> <span style="color:' + t.keyword + '; font-weight:bold;">DESC</span>;</span></div>'
+          '<div class="line"><span class="ln">15</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">Select</span> * <span style="color:' + t.keyword + '; font-weight:bold;">From</span> <span style="color:' + t.type + ';">regional_stats</span> <span style="color:' + t.keyword + '; font-weight:bold;">Order By</span> <span style="color:' + t.fg + ';">total_nodes</span> <span style="color:' + t.keyword + '; font-weight:bold;">Desc</span>;</span></div>'
         ].join('')
       },
       audit: {
         filename: 'audit_events.log',
         code: (t) => [
-          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:00.104</span> <span class="status-tag status-safe">[INFO]</span> <span style="color:' + t.type + ';">Cluster initialization successful</span> on node <span style="color:' + t.constant + ';">node-us-east-1a</span></span></div>',
-          '<div class="line"><span class="ln">2</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:01.442</span> <span class="status-tag status-caution">[WARN]</span> <span style="color:' + t.string + ';">Re-trying network handshake with peer (latency: 48ms)</span></span></div>',
-          '<div class="line"><span class="ln">3</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:02.910</span> <span class="status-tag status-warning">[WARN]</span> <span style="color:' + t.string + ';">Deprecated auth provider signature detected in header</span></span></div>',
-          '<div class="line"><span class="ln">4</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:03.118</span> <span class="status-tag status-panic">[ERROR]</span> <span style="color:' + t.panicFg + '; font-weight:bold;">Secret Key exposure attempt blocked by ZeroToSaaS Human Firewall</span></span></div>',
-          '<div class="line"><span class="ln">5</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:04.550</span> <span class="status-tag status-safe">[INFO]</span> <span style="color:' + t.type + ';">Verified all 420 contrast assertions across 10 themes</span></span></div>'
+          '<div class="line"><span class="ln">1</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:00.104</span> <span class="status-tag status-safe">[Info]</span> <span style="color:' + t.type + ';">Cluster initialization successful</span> on node <span style="color:' + t.constant + ';">node-us-east-1a</span></span></div>',
+          '<div class="line"><span class="ln">2</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:01.442</span> <span class="status-tag status-caution">[Warn]</span> <span style="color:' + t.string + ';">Re-trying network handshake with peer (latency: 48ms)</span></span></div>',
+          '<div class="line"><span class="ln">3</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:02.910</span> <span class="status-tag status-warning">[Warn]</span> <span style="color:' + t.string + ';">Deprecated auth provider signature detected in header</span></span></div>',
+          '<div class="line"><span class="ln">4</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:03.118</span> <span class="status-tag status-panic">[Error]</span> <span style="color:' + t.panicFg + '; font-weight:bold;">Secret Key exposure attempt blocked by ZeroToSaaS Human Firewall</span></span></div>',
+          '<div class="line"><span class="ln">5</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:04.550</span> <span class="status-tag status-safe">[Info]</span> <span style="color:' + t.type + ';">Verified all 420 contrast assertions across 10 themes</span></span></div>'
         ].join('')
       },
       config: {

@@ -8,6 +8,10 @@ An enterprise-grade suite of **10 medically optimized, mathematically verified a
 
 Featuring an active **Semantic Cognitive Status System** (`Safe 🟢` → `Caution 🟡` → `Warning 🟠` → `Panic 🔴`), a built-in **Accessible Error Lens**, **Debounced High-Performance Decoration Engine**, **Universal Alternating Indent Shading**, and **Contextual File Adaptation** across 19+ programming languages, configurations, and documentation formats.
 
+<p>
+<a href="docs/previews/gallery.html"><img src="https://img.shields.io/badge/Live_Demo-Interactive_Gallery_%26_Playground-0284C7?labelColor=0369A1&color=0284C7&logo=firefox&logoColor=white&style=flat-square" alt="Live Demo & Interactive Gallery" style="border: 1px solid #0284C7; border-radius: 4px;" /></a> <a href="docs/Validation.md"><img src="https://img.shields.io/badge/Validation-420%2F420_Assertions_Passed-16A34A?labelColor=15803D&color=16A34A&logo=checkmarx&logoColor=white&style=flat-square" alt="Validation Report (420 Assertions Passed)" style="border: 1px solid #16A34A; border-radius: 4px;" /></a> <a href="docs/Guidelines.md"><img src="https://img.shields.io/badge/Guidelines-Medical_Ergonomics-6366F1?labelColor=4F46E5&color=6366F1&style=flat-square" alt="Medical Guidelines" style="border: 1px solid #6366F1; border-radius: 4px;" /></a>
+</p>
+
 ---
 
 ## 🏛️ Executive Manifesto: The ZeroToSaaS Vision
