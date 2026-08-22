@@ -314,9 +314,12 @@
     "build": "node scripts/generate-themes.js && node scripts/generate-gallery.js",
     "validate": "node scripts/validate-contrast.js",
     "gallery": "node scripts/generate-gallery.js",
-    "package": "vsce package --no-git-tag-version"
+    "package": "vsce package --no-git-tag-version",
+    "publish:ovsx": "ovsx publish",
+    "publish:vsce": "vsce publish"
   },
   "devDependencies": {
-    "@vscode/vsce": "^3.9.2"
+    "@vscode/vsce": "^3.9.2",
+    "ovsx": "^0.10.2"
   }
 }
