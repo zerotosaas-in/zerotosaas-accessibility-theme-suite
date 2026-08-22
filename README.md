@@ -1,14 +1,8 @@
 # ZeroToSaaS Accessibility Theme Suite
 
-[![WCAG AAA Compliant](https://img.shields.io/badge/WCAG_AAA-7:1_Contrast-success.svg)](#-quad-system-color-science--ergonomics-benchmarks)
-[![OkLCH Compliant](https://img.shields.io/badge/OkLCH-Perceptually_Uniform-blue.svg)](#1-oklch-oklab-color-space--modern-design-industry-standard)
-[![Paul Tol CVD-Safe](https://img.shields.io/badge/Paul_Tol-CVD_Safe_Wavelengths-teal.svg)](#2-paul-tols-cvd-safe-color-schemes--sron--medical-research-standard)
-[![ColorBrewer Certified](https://img.shields.io/badge/ColorBrewer-IA_Scales-orange.svg)](#3-cynthia-brewers-colorbrewer-framework--information-architecture--data-hierarchy)
-[![FM 100-Hue Calibrated](https://img.shields.io/badge/FM_100--Hue-Clinical_Ophthalmology-darkgreen.svg)](#4-farnsworth-munsell-100-hue-system--clinical-ophthalmology-calibration)
-[![ISO 9241-303](https://img.shields.io/badge/ISO-9241--303_Certified-blue.svg)](#-the-10-accessible-theme-variants)
-[![Medical Optics](https://img.shields.io/badge/Medical_Optics-Depth_of_Field_Sharpness-informational.svg)](#-developer-health--ophthalmological-ergonomics)
-[![Security Hardened](https://img.shields.io/badge/Security-Data_Leak_Prevention-critical.svg)](#-digital-security-data-privacy--leak-prevention)
-[![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](LICENSE)
+<p>
+<a href="#-automated-quality--quad-system-validation"><img src="https://img.shields.io/badge/WCAG_AAA-7%3A1_Contrast-E6F9EE?labelColor=C6F6D5&color=E6F9EE&style=flat-square" alt="WCAG AAA Compliant" style="border: 1px solid #4ADE80; border-radius: 4px;" /></a> <a href="#-quad-system-compatibility-overview"><img src="https://img.shields.io/badge/OkLCH-Perceptually_Uniform-E0F2FE?labelColor=BAE6FD&color=E0F2FE&style=flat-square" alt="OkLCH Compliant" style="border: 1px solid #38BDF8; border-radius: 4px;" /></a> <a href="#-quad-system-compatibility-overview"><img src="https://img.shields.io/badge/Paul_Tol-CVD_Safe_Wavelengths-E6FFFA?labelColor=99F6E4&color=E6FFFA&style=flat-square" alt="Paul Tol CVD-Safe" style="border: 1px solid #2DD4BF; border-radius: 4px;" /></a> <a href="#-quad-system-compatibility-overview"><img src="https://img.shields.io/badge/ColorBrewer-IA_Scales-FFF7ED?labelColor=FED7AA&color=FFF7ED&style=flat-square" alt="ColorBrewer Certified" style="border: 1px solid #FB923C; border-radius: 4px;" /></a> <a href="#-quad-system-compatibility-overview"><img src="https://img.shields.io/badge/FM_100--Hue-Clinical_Ophthalmology-F0FDF4?labelColor=BBF7D0&color=F0FDF4&style=flat-square" alt="FM 100-Hue Calibrated" style="border: 1px solid #4ADE80; border-radius: 4px;" /></a> <a href="#-the-10-accessible-theme-variants"><img src="https://img.shields.io/badge/ISO-9241--303_Certified-EFF6FF?labelColor=BFDBFE&color=EFF6FF&style=flat-square" alt="ISO 9241-303" style="border: 1px solid #60A5FA; border-radius: 4px;" /></a> <a href="#-developer-health--ophthalmological-ergonomics"><img src="https://img.shields.io/badge/Medical_Optics-Depth_of_Field_Sharpness-F0F9FF?labelColor=BAE6FD&color=F0F9FF&style=flat-square" alt="Medical Optics" style="border: 1px solid #38BDF8; border-radius: 4px;" /></a> <a href="#-digital-security-data-privacy--leak-prevention"><img src="https://img.shields.io/badge/Security-Data_Leak_Prevention-FEF2F2?labelColor=FECDD3&color=FEF2F2&style=flat-square" alt="Security Hardened" style="border: 1px solid #F87171; border-radius: 4px;" /></a> <a href="LICENSE"><img src="https://img.shields.io/badge/License-AGPLv3-F1F5F9?labelColor=CBD5E1&color=F1F5F9&style=flat-square" alt="License: AGPL v3" style="border: 1px solid #64748B; border-radius: 4px;" /></a>
+</p>
 
 An enterprise-grade suite of **10 medically optimized, mathematically verified accessible Themes** for Google Antigravity IDE, Windsurf / Cascade, Visual Studio Code, Cursor, VSCodium, and OpenVSX.
 
@@ -22,59 +16,32 @@ Software engineering is one of the most visually and cognitively demanding profe
 
 **ZeroToSaaS bridges three critical engineering pillars**:
 
-1. **Human Health & Ocular Physiology**: Protecting developers from Computer Vision Syndrome (CVS), astigmatic halation blur, and premature ocular fatigue.
-2. **Universal Accessibility & Inclusion**: Providing colorblindness-calibrated palettes (Deuteranopia, Protanopia, Tritanopia) and ISO 9241-303 high-contrast options.
+1. **Human Health & Ocular Physiology**: Protecting developers from Computer Vision Syndrome (CVS), astigmatic halation blur, and premature ocular fatigue through scientifically calibrated positive polarity (dark text on glare-free light canvases).
+2. **Universal Accessibility & Inclusion**: Providing colorblindness-calibrated palettes (Deuteranopia, Protanopia, Tritanopia) and ISO 9241-303 high-contrast options with 100% WCAG AAA ($\ge 7:1$) contrast compliance.
 3. **Digital Security & Privacy Compliance**: Turning syntax highlighting into an active **Human Firewall** that visually flags exposed secrets, UUIDs, cryptographic hashes, and hardcoded strings before they enter version control.
 
-> For in-depth clinical studies and peer-reviewed medical citations across age groups and eye conditions, refer to the companion document: [**`docs/Guidelines.md`**](docs/Guidelines.md).
-> For the complete empirical validation report, contrast telemetry tables, and sample screenshots across all 4 color systems, see: [**`docs/Validation.md`**](docs/Validation.md).
-> For the planned engineering roadmap and upcoming enhancements, see [**`docs/TODO.md`**](docs/TODO.md).
+### 🧬 Quad-System Compatibility Overview
+
+To achieve empirical rigor across these pillars, ZeroToSaaS is mathematically engineered and verified against four industry-standard frameworks:
+
+| System | Scientific / Industry Standard | Core Engineering Implementation |
+| :--- | :--- | :--- |
+| **1. 📐 OkLCH Color Space** | Modern Web / Design Standard | Perceptual lightness invariant ($L \approx 42\%-45\%$ keywords, $L \approx 98.5\%$ canvas), zero glare ($C \le 0.010$) |
+| **2. 🧪 Paul Tol CVD-Safe** | SRON / Medical Research | Photoreceptor wavelength isolation ($\Delta E_{\text{Ok}} \ge 0.10$) across Deuteranopia, Protanopia, and Tritanopia |
+| **3. 🎨 ColorBrewer Scales** | Information Architecture | Qualitative (nominal AST balance), Sequential (Indent guides 1–6), Diverging (Cognitive status alerts) |
+| **4. 👁️ FM 100-Hue System** | Clinical Ophthalmology | 4-Quadrant optometric separation ($0^\circ-90^\circ$ Alerts, $90^\circ-180^\circ$ Safe, $180^\circ-270^\circ$ Structure, $270^\circ-360^\circ$ Functions) |
+
+> 📖 **Companion Technical Documents**:
+> - **Empirical Validation Report & Figures**: [**`docs/Validation.md`**](docs/Validation.md)
+> - **Interactive Theme Showcase & Live Playground**: [**`docs/previews/gallery.html`**](docs/previews/gallery.html)
+> - **Clinical Ophthalmology Citations & Ergonomics**: [**`docs/Guidelines.md`**](docs/Guidelines.md)
+> - **Engineering Roadmap & Matrix**: [**`docs/TODO.md`**](docs/TODO.md)
 
 ---
 
-## 🔬 Quad-System Color Science & Ergonomics Benchmarks
+## 🔬 Automated Quality & Quad-System Validation
 
-Every theme release is mathematically verified through our automated multi-tier validation engine integrating four foundational color science and information architecture frameworks:
-
----
-
-### 1. OkLCH (Oklab Color Space) — Modern Design Industry Standard
-
-Traditional sRGB and cylindrical HSL color spaces suffer from extreme non-uniformity (e.g. pure yellow in HSL registers $\sim 98\%$ perceptual brightness while pure blue registers $\sim 30\%$). 
-
-ZeroToSaaS adopts **OkLCH** (Lightness $L$, Chroma $C$, Hue $h^\circ$)—the modern design industry standard adopted by CSS Color Module Level 4, Radix UI, and Tailwind CSS:
-* **Glare-Free Positive Polarity**: All editor background canvases are strictly calibrated to $L \approx 98.3\% - 99.1\%$ with ultralow chroma ($C \le 0.010$), eliminating corneal glare while maintaining optical depth of field.
-* **Perceptually Uniform Reading Effort**: When switching across chromatic mood variants (Green, Brown, Yellow, Orange, Purple), primary keywords and accents maintain an identical perceptual lightness band ($L \approx 42\% - 45\%$). This prevents sudden pupil accommodation shock and visual re-adaptation.
-* **Strict Contrast Guarantees**: Every syntax token and UI state achieves a mathematically verified contrast ratio of $\ge 7:1$ against its canvas (exceeding WCAG AAA).
-
----
-
-### 2. Paul Tol's CVD-Safe Color Schemes — SRON / Medical Research Standard
-
-Designed by Dr. Paul Tol at the Netherlands Institute for Space Research (SRON), this framework represents the gold standard in clinical, astronomical, and medical visualization:
-* **Photoreceptor Wavelength Discrimination**: Rather than relying on simple hue shifts that collapse for colorblind users, ZeroToSaaS isolates distinct spectral wavelengths ($\Delta E_{\text{Ok}} \ge 0.10$).
-* **Deuteranopia Calibration (~6% of males)**: Replaces green-red confusion pairs with an isolated Oceanic Blue ($470\text{ nm}$) and Warm Amber ($600\text{ nm}$) axis.
-* **Protanopia Calibration (~2% of males)**: Employs Jewel Magenta and Arctic Cyan-Teal to prevent long-wavelength dark reds from collapsing into illegible black glyphs.
-* **Tritanopia Calibration (Rare)**: Utilizes high-contrast Regal Crimson and Deep Cyan, avoiding the vulnerable blue-yellow tritanopic confusion line.
-
----
-
-### 3. Cynthia Brewer's ColorBrewer Framework — Information Architecture & Data Hierarchy
-
-Developed by Dr. Cynthia Brewer (Penn State University), ColorBrewer is the international benchmark in cartography, data science, and information architecture for organizing visual scales into three distinct functional categories:
-* **Qualitative Scales (Nominal AST Differentiation)**: Colors with equivalent visual weight are assigned to nominal code elements (keywords, functions, types, constants, variables, strings) so no single syntactic class unintentionally dominates the editor without cause.
-* **Sequential Scales (Structural Depth & Order)**: Used for progressive, ordered hierarchies such as Multi-Level Indent Column Guides (Levels 1 $\to$ 2 $\to$ 3 $\to$ 4 $\to$ 5 $\to$ 6), breadcrumb trails, and nested scope blocks.
-* **Diverging Scales (Critical Cognitive Status & Polarity)**: Structures the bipolar **Semantic Cognitive Status System** (`Safe 🟢` $\leftrightarrow$ `Caution 🟡` $\leftrightarrow$ `Warning 🟠` $\leftrightarrow$ `Panic 🔴`) and Git diff reviews (`Inserted 🟢` $\leftrightarrow$ `Modified 🟡` $\leftrightarrow$ `Deleted 🔴`) around a neutral baseline with high-contrast critical divergence.
-
----
-
-### 4. Farnsworth-Munsell 100-Hue System — Clinical Ophthalmology Calibration
-
-The Farnsworth-Munsell 100-Hue test is the worldwide optometric benchmark for diagnosing color discrimination and retinal photoreceptor performance across four visual quadrants:
-* **Quadrant I ($0^\circ - 90^\circ$ | Alert Axis — Red to Yellow)**: Traps `Panic` errors, unextracted string `Warning` alerts, and dynamic function `Caution` parameters.
-* **Quadrant II ($90^\circ - 180^\circ$ | Safe Axis — Yellow to Green)**: Anchors strictly validated `Safe` types, contracts, interfaces, and compiler hints.
-* **Quadrant III ($180^\circ - 270^\circ$ | Structure Axis — Green to Blue)**: Defines structural syntax keywords, control flow, AST scopes, and storage declarations.
-* **Quadrant IV ($270^\circ - 360^\circ$ | Function Axis — Blue to Magenta)**: Emphasizes invocable methods, function declarations, and decorators without overlapping Quadrant I alerts.
+Every theme release is mathematically asserted via our automated multi-tier validation engine asserting WCAG AAA ($\ge 7:1$), OkLCH uniformity, Paul Tol $\Delta E_{\text{Ok}}$, ColorBrewer scales, and FM 100-Hue quadrants:
 
 ```bash
 pnpm run validate
