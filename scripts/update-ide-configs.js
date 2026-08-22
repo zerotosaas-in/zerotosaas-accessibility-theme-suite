@@ -28,6 +28,43 @@ const targets = [
 
 let failed = false;
 
+function updateExtensionsJson(extDir, name) {
+  const jsonPath = path.join(extDir, 'extensions.json');
+  if (!fs.existsSync(jsonPath)) return;
+  let entries;
+  try {
+    entries = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+  } catch (err) {
+    console.error(`❌ ${name}: failed to parse extensions.json: ${err.message}`);
+    failed = true;
+    return;
+  }
+  // Remove any stale entries for this extension (any version)
+  const before = entries.length;
+  entries = entries.filter(e => !(e.identifier && e.identifier.id === extId));
+  const removed = before - entries.length;
+  // Add the current version entry
+  entries.push({
+    identifier: { id: extId },
+    version,
+    location: {
+      $mid: 1,
+      fsPath: path.join(extDir, extDirName),
+      external: `file://${path.join(extDir, extDirName)}`,
+      path: path.join(extDir, extDirName),
+      scheme: 'file'
+    },
+    relativeLocation: extDirName
+  });
+  try {
+    fs.writeFileSync(jsonPath, JSON.stringify(entries, null, 2), 'utf8');
+    console.log(`📝 ${name}: extensions.json updated (removed ${removed} stale, added ${extDirName})`);
+  } catch (err) {
+    console.error(`❌ ${name}: failed to write extensions.json: ${err.message}`);
+    failed = true;
+  }
+}
+
 function clearCaches(cacheDir, name) {
   if (!fs.existsSync(cacheDir)) return;
   for (const profile of fs.readdirSync(cacheDir, { withFileTypes: true })) {
@@ -72,6 +109,7 @@ for (const { name, extDir, cacheDir } of targets) {
     failed = true;
   }
 
+  updateExtensionsJson(extDir, name);
   clearCaches(cacheDir, name);
 }
 
