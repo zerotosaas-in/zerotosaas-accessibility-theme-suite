@@ -347,6 +347,120 @@
     .dash-table tr:last-child td { border-bottom: none; }
     .table-mono { font-family: var(--font-mono); font-size: 0.78rem; }
 
+    /* Dashboard Chart Card */
+    .dash-chart-card {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .chart-title { font-size: 0.92rem; font-weight: 700; color: #1E293B; }
+    .chart-sub { font-size: 0.78rem; color: #64748B; margin-top: 0.15rem; }
+    .chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #475569;
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .chart-svg-wrap {
+      width: 100%;
+      height: 125px;
+      overflow: hidden;
+    }
+    .chart-svg { width: 100%; height: 100%; display: block; }
+    .chart-x-axis {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: #94A3B8;
+      padding-top: 0.25rem;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    /* Dashboard Signup / Onboarding Form Card */
+    .dash-signup-card {
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 1.15rem;
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .signup-header {
+      border-bottom: 1px solid #F1F5F9;
+      padding-bottom: 0.5rem;
+    }
+    .signup-title { font-size: 0.95rem; font-weight: 700; color: #1E293B; }
+    .signup-sub { font-size: 0.78rem; color: #64748B; margin-top: 0.15rem; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.85rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .form-label { font-size: 0.78rem; font-weight: 600; color: #334155; }
+    .form-input, .form-select {
+      padding: 0.42rem 0.65rem;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
+      font-size: 0.82rem;
+      font-family: var(--font-sans);
+      outline: none;
+      background: #FFFFFF;
+      color: #0F172A;
+      transition: border-color 0.15s ease;
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: #0284C7;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+    .form-hint { font-size: 0.72rem; color: #64748B; }
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding-top: 0.15rem;
+    }
+    .radio-label, .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      font-size: 0.78rem;
+      color: #334155;
+      font-weight: 500;
+    }
+    .form-checkbox-row {
+      padding-top: 0.25rem;
+    }
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid #F1F5F9;
+    }
+
     /* Interactive Elements in Dashboard */
     .dash-actions-row {
       display: flex;
@@ -640,6 +754,52 @@
           </div>
         </div>
 
+        <!-- 24-Hour Telemetry Stream Chart -->
+        <div class="dash-chart-card" id="chart-card">
+          <div class="chart-header">
+            <div>
+              <h3 class="chart-title">24-Hour Telemetry Throughput & Threat Intercepts</h3>
+              <p class="chart-sub">Perceptually calibrated time-series stream across 128 cluster nodes</p>
+            </div>
+            <div class="chart-legend">
+              <span class="legend-item"><span class="legend-dot" style="background:#0B6229;"></span> Safe Ops</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#784A00;"></span> Caution Spikes</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#8C3800;"></span> Warning Retries</span>
+              <span class="legend-item"><span class="legend-dot" style="background:#990014;"></span> Panic Blocked</span>
+            </div>
+          </div>
+          <div class="chart-svg-wrap">
+            <svg viewBox="0 0 720 180" class="chart-svg" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#0284C7" stop-opacity="0.25" id="grad-stop-1" />
+                  <stop offset="100%" stop-color="#0284C7" stop-opacity="0.0" id="grad-stop-2" />
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="30" x2="720" y2="30" stroke="#E2E8F0" stroke-dasharray="4" />
+              <line x1="0" y1="75" x2="720" y2="75" stroke="#E2E8F0" stroke-dasharray="4" />
+              <line x1="0" y1="120" x2="720" y2="120" stroke="#E2E8F0" stroke-dasharray="4" />
+              <line x1="0" y1="165" x2="720" y2="165" stroke="#CBD5E1" />
+              <path id="chart-area" d="M 0 165 L 0 110 Q 60 70 120 95 T 240 60 T 360 85 T 480 40 T 600 70 T 720 35 L 720 165 Z" fill="url(#chartGrad)" />
+              <path id="chart-line" d="M 0 110 Q 60 70 120 95 T 240 60 T 360 85 T 480 40 T 600 70 T 720 35" fill="none" stroke="#0284C7" stroke-width="2.5" />
+              <circle cx="120" cy="95" r="4.5" fill="#0B6229" stroke="#FFFFFF" stroke-width="2" />
+              <circle cx="240" cy="60" r="4.5" fill="#784A00" stroke="#FFFFFF" stroke-width="2" />
+              <circle cx="480" cy="40" r="4.5" fill="#8C3800" stroke="#FFFFFF" stroke-width="2" />
+              <circle cx="600" cy="70" r="5.5" fill="#990014" stroke="#FFFFFF" stroke-width="2" />
+              <circle cx="720" cy="35" r="4.5" fill="#0B6229" stroke="#FFFFFF" stroke-width="2" />
+            </svg>
+          </div>
+          <div class="chart-x-axis">
+            <span>00:00</span>
+            <span>04:00</span>
+            <span>08:00</span>
+            <span>12:00</span>
+            <span>16:00</span>
+            <span>20:00</span>
+            <span>Now (Live)</span>
+          </div>
+        </div>
+
         <!-- Data Table -->
         <div class="dash-table-wrap">
           <table class="dash-table">
@@ -683,6 +843,64 @@
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- SaaS Workspace Signup Form -->
+        <div class="dash-signup-card" id="signup-card">
+          <div class="signup-header">
+            <h3 class="signup-title">Provision New SaaS Workspace</h3>
+            <p class="signup-sub">Configure enterprise telemetry, authentication scopes, and Human Firewall intercept policies.</p>
+          </div>
+          
+          <form id="dash-signup-form" onsubmit="event.preventDefault(); handleSignupSubmit();">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="org-name">Organization / Workspace Name</label>
+                <input type="text" id="org-name" class="form-input" placeholder="e.g. Acme Cloud Systems" value="Acme Enterprise Technologies" required>
+                <span class="form-hint">Used for cluster routing and tenant isolation.</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="admin-email">Admin Work Email</label>
+                <input type="email" id="admin-email" class="form-input" placeholder="admin@enterprise.io" value="lead.architect@enterprise.io" required>
+                <span class="form-hint">Enforces SSO and cryptographic hardware token MFA.</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="cloud-region">Primary Telemetry Region</label>
+                <select id="cloud-region" class="form-select">
+                  <option value="us-east-1">us-east-1 (N. Virginia — Primary Fabric)</option>
+                  <option value="eu-central-1">eu-central-1 (Frankfurt — GDPR Compliant)</option>
+                  <option value="ap-south-1">ap-south-1 (Mumbai — Edge Acceleration)</option>
+                </select>
+                <span class="form-hint">Zero-egress localized data storage.</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Security & Firewall Policy</label>
+                <div class="radio-group">
+                  <label class="radio-label">
+                    <input type="radio" name="sec-mode" value="standard" checked> Standard Telemetry
+                  </label>
+                  <label class="radio-label">
+                    <input type="radio" name="sec-mode" value="strict"> Strict Human Firewall (Secret Key Trapping)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-checkbox-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="chk-wcag" checked> Enable real-time ISO 9241-303 and WCAG AAA compliance telemetry auditing
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="btn-submit-signup">Provision Workspace</button>
+              <button type="reset" class="btn btn-secondary">Clear Form</button>
+              <span id="signup-status" class="status-tag status-safe" style="display:none; margin-left: auto;">🎉 Workspace Created Successfully</span>
+            </div>
+          </form>
         </div>
 
         <!-- Dashboard Action Row -->
@@ -996,8 +1214,33 @@
       dash.style.color = palette.fg;
 
       const dashBtn = document.getElementById('dash-action-btn');
-      dashBtn.style.backgroundColor = palette.keyword;
-      dashBtn.style.color = '#FFFFFF';
+      if (dashBtn) {
+        dashBtn.style.backgroundColor = palette.keyword;
+        dashBtn.style.color = '#FFFFFF';
+      }
+
+      const signupBtn = document.getElementById('btn-submit-signup');
+      if (signupBtn) {
+        signupBtn.style.backgroundColor = palette.keyword;
+        signupBtn.style.color = '#FFFFFF';
+      }
+
+      const chartLine = document.getElementById('chart-line');
+      if (chartLine) chartLine.setAttribute('stroke', palette.keyword);
+      const stop1 = document.getElementById('grad-stop-1');
+      if (stop1) stop1.setAttribute('stop-color', palette.keyword);
+      const stop2 = document.getElementById('grad-stop-2');
+      if (stop2) stop2.setAttribute('stop-color', palette.keyword);
+    }
+
+    function handleSignupSubmit() {
+      const status = document.getElementById('signup-status');
+      if (status) {
+        status.style.display = 'inline-block';
+        setTimeout(() => {
+          status.style.display = 'none';
+        }, 4000);
+      }
     }
 
     // Event Listeners for Theme Selection
