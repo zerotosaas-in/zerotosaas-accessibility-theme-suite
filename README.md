@@ -28,14 +28,15 @@ Software engineering is one of the most visually and cognitively demanding profe
 
 To achieve empirical rigor across these pillars, ZeroToSaaS is mathematically engineered and verified against four industry-standard frameworks:
 
-| System | Scientific / Industry Standard | Core Engineering Implementation |
-| :--- | :--- | :--- |
-| **1. 📐 OkLCH Color Space** | Modern Web / Design Standard | Perceptual lightness invariant ($L \approx 42\%-45\%$ keywords, $L \approx 98.5\%$ canvas), zero glare ($C \le 0.010$) |
-| **2. 🧪 Paul Tol CVD-Safe** | SRON / Medical Research | Photoreceptor wavelength isolation ($\Delta E_{\text{Ok}} \ge 0.10$) across Deuteranopia, Protanopia, and Tritanopia |
-| **3. 🎨 ColorBrewer Scales** | Information Architecture | Qualitative (nominal AST balance), Sequential (Indent guides 1–6), Diverging (Cognitive status alerts) |
-| **4. 👁️ FM 100-Hue System** | Clinical Ophthalmology | 4-Quadrant optometric separation ($0^\circ-90^\circ$ Alerts, $90^\circ-180^\circ$ Safe, $180^\circ-270^\circ$ Structure, $270^\circ-360^\circ$ Functions) |
+| System                       | Scientific / Industry Standard | Core Engineering Implementation                                                                                                                           |
+| :--------------------------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. 📐 OkLCH Color Space**  | Modern Web / Design Standard   | Perceptual lightness invariant ($L \approx 42\%-45\%$ keywords, $L \approx 98.5\%$ canvas), zero glare ($C \le 0.010$)                                    |
+| **2. 🧪 Paul Tol CVD-Safe**  | SRON / Medical Research        | Photoreceptor wavelength isolation ($\Delta E_{\text{Ok}} \ge 0.10$) across Deuteranopia, Protanopia, and Tritanopia                                      |
+| **3. 🎨 ColorBrewer Scales** | Information Architecture       | Qualitative (nominal AST balance), Sequential (Indent guides 1–6), Diverging (Cognitive status alerts)                                                    |
+| **4. 👁️ FM 100-Hue System**  | Clinical Ophthalmology         | 4-Quadrant optometric separation ($0^\circ-90^\circ$ Alerts, $90^\circ-180^\circ$ Safe, $180^\circ-270^\circ$ Structure, $270^\circ-360^\circ$ Functions) |
 
 > 📖 **Companion Technical Documents**:
+>
 > - **Empirical Validation Report & Figures**: [**`docs/Validation.md`**](docs/Validation.md)
 > - **Interactive Theme Showcase & Live Playground**: [**`docs/previews/gallery.html`**](docs/previews/gallery.html)
 > - **Clinical Ophthalmology Citations & Ergonomics**: [**`docs/Guidelines.md`**](docs/Guidelines.md)
@@ -131,7 +132,7 @@ Data breaches and accidental secret leaks frequently originate from human oversi
 
 ### 1. Instant Secret & Credential Leak Prevention (🔴 Panic)
 
-- **API Keys & Cloud Credentials**: High-entropy signatures matching AWS Access Key IDs (`AKIA...`), GitHub Personal Access / OAuth Tokens (`ghp_...`), Slack Tokens (`xoxb-...`), Google Cloud / Firebase Keys (`AIza...`), and Stripe Live Keys (`sk_live_...`) trigger high-visibility **Panic (🔴)** background badges.
+- **API Keys & Cloud Credentials**: High-entropy signatures matching AWS Access Key IDs (`AKIA...`), GitHub Personal Access / OAuth Tokens (`ghp_...`), Slack Tokens (`xoxb-...`), Google Cloud / Firebase Keys (`AIza...`), and Stripe Live Keys (`sk_live_...`, `pk_live_...`) trigger high-visibility **Panic (🔴)** background badges.
 - **JSON Web Tokens (JWT) & Private Key Headers**: Full JWT signatures (`eyJ...`) and private key boundaries (`-----BEGIN ... PRIVATE KEY-----`) stand out immediately.
 - **Database Connection URIs & Auth**: `postgres://...`, `mongodb://...`, `redis://...`, `mysql://...`, `amqp://...`, and `Bearer` tokens stand out vividly on screen, preventing accidental leakage during recorded webinars or live streams.
 - **Cryptographic Hashes & UUIDs**: Hex colors (`#FF0055`, `0xDEADBEEF`) and UUIDs (`f47ac10b-...`) receive immediate high-visibility badges, alerting reviewers that hardcoded test artifacts or IDs are present.

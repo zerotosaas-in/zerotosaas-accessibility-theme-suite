@@ -651,7 +651,7 @@ function updateDecorations(editor) {
 
       // Extended High-Entropy & Provider Secret Scanners (Human Firewall)
       const secretPatterns = [
-        /\b(sk_live_[a-zA-Z0-9_]+|(postgres|postgresql|mongodb(\+srv)?|redis|amqp|mysql):\/\/[^\s"']+|SECRET[a-zA-Z0-9_]*\s*=\s*["'][^"']+["'])/gi,
+        /\b((sk|pk)_live_[a-zA-Z0-9_]+|(postgres|postgresql|mongodb(\+srv)?|redis|amqp|mysql):\/\/[^\s"']+|SECRET[a-zA-Z0-9_]*\s*=\s*["'][^"']+["'])/gi,
         /\b(AKIA|ABIA|ACCA|ASIA)[0-9A-Z]{16}\b/g,
         /\bgh[pousr]_[A-Za-z0-9_]{36,255}\b/g,
         /\bxox[baprs]-[0-9a-zA-Z-]{10,72}\b/g,
