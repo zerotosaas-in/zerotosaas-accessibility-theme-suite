@@ -127,7 +127,7 @@ The Farnsworth-Munsell 100-Hue system classifies color discrimination into four 
 
 ### Visual Sample Preview
 ![Farnsworth-Munsell Quadrants Sample](previews/fm100-quadrants-sample.jpg)
-*Figure 4: Automated quadrant distribution across real multi-language source code.*
+*Figure 4: Automated quadrant distribution across multi-language source code and integrated positive-polarity terminal execution panel.*
 
 ---
 
