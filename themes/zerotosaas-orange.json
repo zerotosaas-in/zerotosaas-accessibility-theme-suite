@@ -915,7 +915,15 @@
       "foreground": "#16612E",
       "bold": true
     },
+    "class.declaration": {
+      "foreground": "#16612E",
+      "bold": true
+    },
     "interface": {
+      "foreground": "#16612E",
+      "bold": true
+    },
+    "interface.declaration": {
       "foreground": "#16612E",
       "bold": true
     },
@@ -923,23 +931,160 @@
       "foreground": "#16612E",
       "bold": true
     },
+    "enum.declaration": {
+      "foreground": "#16612E",
+      "bold": true
+    },
+    "enumMember": {
+      "foreground": "#853700"
+    },
+    "struct": {
+      "foreground": "#16612E",
+      "bold": true
+    },
+    "struct.declaration": {
+      "foreground": "#16612E",
+      "bold": true
+    },
     "type": {
       "foreground": "#16612E"
+    },
+    "type.declaration": {
+      "foreground": "#16612E",
+      "bold": true
+    },
+    "typeParameter": {
+      "foreground": "#16612E",
+      "italic": true
+    },
+    "builtinType": {
+      "foreground": "#16612E",
+      "bold": true
     },
     "function": {
       "foreground": "#7A2B06"
     },
+    "function.declaration": {
+      "foreground": "#7A2B06",
+      "bold": true
+    },
+    "function.defaultLibrary": {
+      "foreground": "#7A2B06",
+      "bold": true
+    },
     "method": {
       "foreground": "#7A2B06"
     },
-    "parameter": {
-      "foreground": "#733E00"
+    "method.declaration": {
+      "foreground": "#7A2B06",
+      "bold": true
+    },
+    "method.static": {
+      "foreground": "#7A2B06",
+      "bold": true
+    },
+    "decorator": {
+      "foreground": "#7A2B06",
+      "italic": true
+    },
+    "macro": {
+      "foreground": "#7A2B06",
+      "bold": true
+    },
+    "variable": {
+      "foreground": "#261206"
+    },
+    "variable.declaration": {
+      "foreground": "#261206",
+      "bold": true
     },
     "variable.readonly": {
       "foreground": "#853700"
     },
+    "variable.static": {
+      "foreground": "#853700",
+      "bold": true
+    },
+    "variable.defaultLibrary": {
+      "foreground": "#853700",
+      "bold": true
+    },
+    "property": {
+      "foreground": "#261206"
+    },
+    "property.declaration": {
+      "foreground": "#261206"
+    },
     "property.readonly": {
       "foreground": "#853700"
+    },
+    "property.static": {
+      "foreground": "#853700",
+      "bold": true
+    },
+    "parameter": {
+      "foreground": "#733E00"
+    },
+    "parameter.declaration": {
+      "foreground": "#733E00",
+      "italic": true
+    },
+    "namespace": {
+      "foreground": "#8F3500"
+    },
+    "namespace.declaration": {
+      "foreground": "#8F3500",
+      "bold": true
+    },
+    "module": {
+      "foreground": "#8F3500"
+    },
+    "module.declaration": {
+      "foreground": "#8F3500",
+      "bold": true
+    },
+    "number": {
+      "foreground": "#961103"
+    },
+    "builtinConstant": {
+      "foreground": "#853700",
+      "bold": true
+    },
+    "constant": {
+      "foreground": "#853700"
+    },
+    "label": {
+      "foreground": "#853700",
+      "italic": true
+    },
+    "string": {
+      "foreground": "#8F3600"
+    },
+    "string.docstring": {
+      "foreground": "#674534",
+      "italic": true
+    },
+    "string.readonly": {
+      "foreground": "#674534",
+      "italic": true
+    },
+    "keyword": {
+      "foreground": "#913600",
+      "bold": true
+    },
+    "keyword.control": {
+      "foreground": "#913600",
+      "bold": true
+    },
+    "keyword.modifier": {
+      "foreground": "#913600"
+    },
+    "keyword.declaration": {
+      "foreground": "#913600",
+      "bold": true
+    },
+    "operator": {
+      "foreground": "#261206"
     },
     "comment": {
       "foreground": "#674534",
@@ -957,16 +1102,37 @@
       "foreground": "#674534",
       "italic": true
     },
-    "string.docstring": {
-      "foreground": "#674534",
+    "regexp": {
+      "foreground": "#961103"
+    },
+    "regexp.escape": {
+      "foreground": "#961103",
+      "bold": true
+    },
+    "event": {
+      "foreground": "#7A2B06",
       "italic": true
     },
-    "string": {
-      "foreground": "#8F3600"
+    "event.declaration": {
+      "foreground": "#7A2B06",
+      "bold": true,
+      "italic": true
     },
-    "keyword": {
-      "foreground": "#913600",
-      "bold": true
+    "variable.deprecated": {
+      "foreground": "#961103",
+      "strikethrough": true
+    },
+    "property.deprecated": {
+      "foreground": "#961103",
+      "strikethrough": true
+    },
+    "function.deprecated": {
+      "foreground": "#961103",
+      "strikethrough": true
+    },
+    "method.deprecated": {
+      "foreground": "#961103",
+      "strikethrough": true
     }
   }
 }

@@ -49,8 +49,10 @@ This document outlines prioritized recommendations and planned engineering enhan
 - [x] **Large File Safety Threshold**:
   - Added `zerotosaas.maxFileSizeKB` (default: `500` KB) to `package.json` and `src/extension.js`.
   - Automatically bypasses heavy full-file regex passes for oversized files while maintaining diagnostic Error Lens.
-- [ ] **Semantic Token Optimization**:
-  - Evaluate supplementing regex-based type highlighting with VS Code's native `semanticTokenColors` AST configuration in `scripts/generate-themes.js`.
+- [x] **Semantic Token Optimization**:
+  - Expanded `semanticTokenColors` in `scripts/generate-themes.js` from 14 to 60 entries covering the full VS Code semantic token taxonomy (types, functions, variables, properties, parameters, namespaces, modules, constants, strings, keywords, operators, comments, regex, events, deprecated tokens).
+  - Offloads syntax highlighting from regex-based TextMate scope matching to VS Code's native AST-based semantic engine for improved rendering performance.
+  - Added modifier-based selectors (`.declaration`, `.static`, `.readonly`, `.deprecated`, `.defaultLibrary`, `.documentation`) for granular styling.
 
 ---
 

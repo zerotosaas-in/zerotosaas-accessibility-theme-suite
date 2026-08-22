@@ -1474,23 +1474,94 @@ function buildThemeJson(theme) {
   ];
 
   // Semantic Token Colors (for VS Code Semantic Highlighting engine)
+  // Expanded taxonomy: offloads syntax highlighting from regex-based TextMate
+  // scopes to the native AST-based semantic engine for better performance.
   const semanticTokenColors = {
+    // --- Types & Contracts (Safe / Green) ---
     'class': { foreground: theme.syntax.type, bold: true },
+    'class.declaration': { foreground: theme.syntax.type, bold: true },
     'interface': { foreground: theme.safe.fg, bold: true },
+    'interface.declaration': { foreground: theme.safe.fg, bold: true },
     'enum': { foreground: theme.syntax.type, bold: true },
+    'enum.declaration': { foreground: theme.syntax.type, bold: true },
+    'enumMember': { foreground: theme.syntax.constant },
+    'struct': { foreground: theme.syntax.type, bold: true },
+    'struct.declaration': { foreground: theme.syntax.type, bold: true },
     'type': { foreground: theme.syntax.type },
+    'type.declaration': { foreground: theme.syntax.type, bold: true },
+    'typeParameter': { foreground: theme.syntax.type, italic: true },
+    'builtinType': { foreground: theme.syntax.type, bold: true },
+
+    // --- Functions & Methods ---
     'function': { foreground: theme.syntax.function },
+    'function.declaration': { foreground: theme.syntax.function, bold: true },
+    'function.defaultLibrary': { foreground: theme.syntax.function, bold: true },
     'method': { foreground: theme.syntax.function },
-    'parameter': { foreground: theme.caution.fg },
+    'method.declaration': { foreground: theme.syntax.function, bold: true },
+    'method.static': { foreground: theme.syntax.function, bold: true },
+    'decorator': { foreground: theme.syntax.function, italic: true },
+    'macro': { foreground: theme.syntax.function, bold: true },
+
+    // --- Variables & Properties ---
+    'variable': { foreground: theme.syntax.variable },
+    'variable.declaration': { foreground: theme.syntax.variable, bold: true },
     'variable.readonly': { foreground: theme.syntax.constant },
+    'variable.static': { foreground: theme.syntax.constant, bold: true },
+    'variable.defaultLibrary': { foreground: theme.syntax.constant, bold: true },
+    'property': { foreground: theme.syntax.property },
+    'property.declaration': { foreground: theme.syntax.property },
     'property.readonly': { foreground: theme.syntax.constant },
+    'property.static': { foreground: theme.syntax.constant, bold: true },
+
+    // --- Parameters & Dynamic Inputs (Caution / Yellow) ---
+    'parameter': { foreground: theme.caution.fg },
+    'parameter.declaration': { foreground: theme.caution.fg, italic: true },
+
+    // --- Namespaces & Modules ---
+    'namespace': { foreground: theme.accent },
+    'namespace.declaration': { foreground: theme.accent, bold: true },
+    'module': { foreground: theme.accent },
+    'module.declaration': { foreground: theme.accent, bold: true },
+
+    // --- Constants & Literals ---
+    'number': { foreground: theme.syntax.number },
+    'builtinConstant': { foreground: theme.syntax.constant, bold: true },
+    'constant': { foreground: theme.syntax.constant },
+    'label': { foreground: theme.syntax.constant, italic: true },
+
+    // --- Strings (Warning / Amber for hardcoded literals) ---
+    'string': { foreground: theme.warning.fg },
+    'string.docstring': { foreground: theme.syntax.comment, italic: true },
+    'string.readonly': { foreground: theme.syntax.comment, italic: true },
+
+    // --- Keywords & Control Flow ---
+    'keyword': { foreground: theme.syntax.keyword, bold: true },
+    'keyword.control': { foreground: theme.syntax.keyword, bold: true },
+    'keyword.modifier': { foreground: theme.syntax.keyword },
+    'keyword.declaration': { foreground: theme.syntax.keyword, bold: true },
+
+    // --- Operators ---
+    'operator': { foreground: theme.syntax.operator },
+
+    // --- Comments ---
     'comment': { foreground: theme.syntax.comment, italic: true },
     'comment.line': { foreground: theme.syntax.comment, italic: true },
     'comment.block': { foreground: theme.syntax.comment, italic: true },
     'comment.documentation': { foreground: theme.syntax.comment, italic: true },
-    'string.docstring': { foreground: theme.syntax.comment, italic: true },
-    'string': { foreground: theme.warning.fg },
-    'keyword': { foreground: theme.syntax.keyword, bold: true }
+
+    // --- Regex & Patterns (Panic / Red Alert) ---
+    'regexp': { foreground: theme.panic.fg },
+    'regexp.escape': { foreground: theme.panic.fg, bold: true },
+
+    // --- Events ---
+    'event': { foreground: theme.syntax.function, italic: true },
+    'event.declaration': { foreground: theme.syntax.function, bold: true, italic: true },
+
+    // --- Deprecated ---
+    'variable.deprecated': { foreground: theme.panic.fg, strikethrough: true },
+    'property.deprecated': { foreground: theme.panic.fg, strikethrough: true },
+    'function.deprecated': { foreground: theme.panic.fg, strikethrough: true },
+    'method.deprecated': { foreground: theme.panic.fg, strikethrough: true }
   };
 
   return {
