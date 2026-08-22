@@ -1,3 +1,8 @@
+---
+layout: default
+title: Automated Quad-System Validation Matrix & Verification Report
+---
+
 # ZeroToSaaS Accessibility Theme Suite — Empirical Validation Report
 
 <p>

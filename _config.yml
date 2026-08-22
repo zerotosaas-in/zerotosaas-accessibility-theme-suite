@@ -2,4 +2,8 @@ theme: jekyll-theme-cayman
 title: ZeroToSaaS Accessibility Theme Suite
 description: 10 Medically Optimized, Mathematically Verified Accessible Themes for Visual Acuity, Ocular Health & WCAG AAA Compliance
 show_downloads: false
-google_analytics:
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true

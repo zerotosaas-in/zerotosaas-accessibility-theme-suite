@@ -1,3 +1,8 @@
+---
+layout: default
+title: Human Health, Ocular Ergonomics & Medical Optics Guidelines
+---
+
 # ZeroToSaaS Ocular Ergonomics & Accessibility Guidelines
 
 Medical guidelines for visual display usage and software ergonomics vary significantly by human visual development stage, ocular physiology, and neurological contrast perception. [1, 2, 3]

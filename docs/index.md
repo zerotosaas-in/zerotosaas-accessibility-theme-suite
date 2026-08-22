@@ -1,3 +1,8 @@
+---
+layout: default
+title: Documentation Portal & Resource Hub
+---
+
 # ZeroToSaaS Accessibility Theme Suite
 
 Welcome to the official documentation portal for the **ZeroToSaaS Accessibility Theme Suite**.
