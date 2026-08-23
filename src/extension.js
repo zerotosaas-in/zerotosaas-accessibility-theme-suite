@@ -1211,104 +1211,6 @@ function initRestAssistant() {
   updateRestStatusText();
 }
 
-async function handleThemeSelection() {
-  const lightThemes = [
-    { label: 'ZeroToSaaS Light (Default)', description: 'Cobalt-slate, balanced luminance, 100% WCAG AAA' },
-    { label: 'ZeroToSaaS High Contrast (ISO 9241-303)', description: 'Ultra-clear 12+:1 contrast ratios, sharp borders' },
-    { label: 'ZeroToSaaS Deuteranopia (Blue / Orange)', description: 'Red-green colorblind safe (Deutan)' },
-    { label: 'ZeroToSaaS Protanopia (Magenta / Teal)', description: 'Red-green colorblind safe (Protan)' },
-    { label: 'ZeroToSaaS Tritanopia (Crimson / Cyan)', description: 'Blue-yellow colorblind safe (Tritan)' },
-    { label: 'ZeroToSaaS Warm Sepia (Brown)', description: 'Warm paper tint, reduced blue-light eye strain' },
-    { label: 'ZeroToSaaS Forest Calm (Green)', description: 'Natural moss & sage tones for calm extended coding' },
-    { label: 'ZeroToSaaS Royal Plum (Purple)', description: 'Deep chromatic amethyst tones' },
-    { label: 'ZeroToSaaS Golden Sand (Yellow)', description: 'Soft amber & sandstone warm palette' },
-    { label: 'ZeroToSaaS Terracotta (Orange)', description: 'Earthy clay & rust energetic palette' }
-  ];
-
-  const nightThemes = [
-    { label: 'ZeroToSaaS Light Night (Default)', description: 'Dark cobalt-slate, 100% WCAG AAA, glare-free' },
-    { label: 'ZeroToSaaS High Contrast Night (ISO 9241-303)', description: 'Dark ultra-clear contrast, sharp white borders' },
-    { label: 'ZeroToSaaS Deuteranopia Night (Blue / Orange)', description: 'Dark red-green colorblind safe (Deutan)' },
-    { label: 'ZeroToSaaS Protanopia Night (Magenta / Teal)', description: 'Dark red-green colorblind safe (Protan)' },
-    { label: 'ZeroToSaaS Tritanopia Night (Crimson / Cyan)', description: 'Dark blue-yellow colorblind safe (Tritan)' },
-    { label: 'ZeroToSaaS Warm Sepia Night (Brown)', description: 'Dark warm espresso & walnut tones' },
-    { label: 'ZeroToSaaS Forest Calm Night (Green)', description: 'Dark cypress & cedar tones for night coding' },
-    { label: 'ZeroToSaaS Royal Plum Night (Purple)', description: 'Dark iris & midnight-plum tones' },
-    { label: 'ZeroToSaaS Golden Sand Night (Yellow)', description: 'Dark amber bronze & sandstone' },
-    { label: 'ZeroToSaaS Terracotta Night (Orange)', description: 'Dark burnt orange & rich bronze' }
-  ];
-
-  const nightLabels = new Set(nightThemes.map(t => t.label));
-
-  const items = [
-    { label: 'Light Themes', kind: vscode.QuickPickItemKind.Separator },
-    ...lightThemes,
-    { label: 'Night Themes', kind: vscode.QuickPickItemKind.Separator },
-    ...nightThemes
-  ];
-
-  const selected = await vscode.window.showQuickPick(items, {
-    placeHolder: 'Select a ZeroToSaaS theme variant to apply'
-  });
-
-  if (selected && !selected.kind) {
-    const isNight = nightLabels.has(selected.label);
-
-    if (isNight) {
-      // F9 de-nag: two-sentence advisory + persistent suppression. The full
-      // medical rationale (astigmatic halation, myopia progression, CVS) lives
-      // in docs/Guidelines.md — surfaced via the "Read Guidelines" button so the
-      // picker stays calm and the health message never becomes banner noise.
-      if (darkAdvisorySuppressed()) {
-        // Suppressed permanently by user — apply silently.
-      } else {
-        const proceed = await vscode.window.showWarningMessage(
-          `⚠️ "${selected.label}" is a dark theme. Prolonged dark-theme use can ` +
-          `increase ocular accommodation effort and astigmatic halation, ` +
-          `contributing to digital eye strain. Prefer light themes for daytime ` +
-          `extended coding, and use dark themes in dim ambient lighting. ` +
-          `See docs/Guidelines.md for the full medical rationale.`,
-          { modal: false },
-          'Apply Anyway',
-          'Apply and stop advising',
-          'Read Guidelines',
-          'Pick a Light Theme Instead'
-        );
-
-        if (proceed === 'Pick a Light Theme Instead') {
-          return handleThemeSelection();
-        }
-        if (proceed === 'Read Guidelines') {
-          openGuidelinesDoc();
-          return; // user can re-pick after reading
-        }
-        if (proceed === 'Apply and stop advising') {
-          await setDarkAdvisorySuppressed(true);
-          // fall through and apply
-        } else if (proceed !== 'Apply Anyway') {
-          return; // dismissed — abort theme switch
-        }
-      }
-    }
-
-    themeChangeByExtension = true;
-    await vscode.workspace.getConfiguration('workbench').update(
-      'colorTheme',
-      selected.label,
-      vscode.ConfigurationTarget.Global
-    );
-    themeChangeByExtension = false;
-    vscode.window.showInformationMessage(`ZeroToSaaS Theme set to: ${selected.label}`);
-  }
-}
-
-// Tracks whether the current theme change was initiated by this extension
-// (QuickPick or default-theme application). Used to suppress the dark-theme
-// eye health warning for extension-initiated changes that already showed a
-// warning, and to show it for externally-initiated dark theme activations
-// (e.g. via VS Code's native Ctrl+K Ctrl+T picker).
-let themeChangeByExtension = false;
-
 function getCurrentThemeLabel(cfg) {
   return vscode.workspace.getConfiguration('workbench').get('colorTheme') || '';
 }
@@ -1395,9 +1297,7 @@ async function applyDefaultThemeOnce(context) {
   // Only switch if the user is on a known VS Code built-in default.
   // Never override a non-default theme (including other extensions' themes).
   if (VSCODE_BUILTIN_DEFAULTS.has(current)) {
-    themeChangeByExtension = true;
     await workbench.update('colorTheme', Z2S_DEFAULT_THEME, vscode.ConfigurationTarget.Global);
-    themeChangeByExtension = false;
   }
 
   // Set the native preferred dark/light themes so that VS Code/VSCodium's
@@ -1428,41 +1328,12 @@ function activate(context) {
   applyDefaultThemeOnce(context);
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('zerotosaas.selectTheme', handleThemeSelection),
-    vscode.commands.registerCommand('zerotosaas.switchTheme', handleThemeSelection),
-    vscode.commands.registerCommand('zerotosaas.toggleErrorLens', async () => {
-      const cfg = vscode.workspace.getConfiguration('zerotosaas');
-      const current = cfg.get('errorLens.enabled', true);
-      await cfg.update('errorLens.enabled', !current, vscode.ConfigurationTarget.Global);
-      vscode.window.showInformationMessage(`ZeroToSaaS Error Lens ${!current ? 'enabled' : 'disabled'}.`);
-    }),
-    vscode.commands.registerCommand('zerotosaas.toggleStatusBadges', async () => {
-      const cfg = vscode.workspace.getConfiguration('zerotosaas');
-      const current = cfg.get('statusBadges.enabled', true);
-      await cfg.update('statusBadges.enabled', !current, vscode.ConfigurationTarget.Global);
-      vscode.window.showInformationMessage(`ZeroToSaaS Semantic Status Badges ${!current ? 'enabled' : 'disabled'}.`);
-    }),
-    vscode.commands.registerCommand('zerotosaas.toggleIndentShading', async () => {
-      const cfg = vscode.workspace.getConfiguration('zerotosaas');
-      const current = cfg.get('indentShading.enabled', true);
-      await cfg.update('indentShading.enabled', !current, vscode.ConfigurationTarget.Global);
-      vscode.window.showInformationMessage(`ZeroToSaaS Indent Column Shading ${!current ? 'enabled' : 'disabled'}.`);
-    }),
     vscode.commands.registerCommand('zerotosaas.resetRestTimer', () => {
       const cfg = vscode.workspace.getConfiguration('zerotosaas.restReminder');
       if (cfg.get('enabled', false)) {
         initRestAssistant();
         vscode.window.showInformationMessage('20-20-20 rest timer reset.');
       }
-    }),
-    vscode.commands.registerCommand('zerotosaas.toggleRestReminder', async () => {
-      const cfg = vscode.workspace.getConfiguration('zerotosaas.restReminder');
-      const next = !cfg.get('enabled', false);
-      await cfg.update('enabled', next, vscode.ConfigurationTarget.Global);
-      initRestAssistant();
-      vscode.window.showInformationMessage(
-        `20-20-20 rest reminders ${next ? 'enabled' : 'disabled'}.`
-      );
     }),
     vscode.commands.registerCommand('zerotosaas.openSettings', () => {
       vscode.commands.executeCommand('workbench.action.openSettings', '@ext:zerotosaas-in.zerotosaas-theme');
@@ -1480,14 +1351,12 @@ function activate(context) {
       }
 
       // Warn about dark theme eye health effects when a dark theme is activated
-      // externally (e.g. via VS Code's native Ctrl+K Ctrl+T picker). Extension-
-      // initiated changes (QuickPick / default-theme application) are suppressed
-      // — the QuickPick already shows an advisory.
+      // (via VS Code/VSCodium's native Ctrl+K Ctrl+T picker or any other mechanism).
       //
       // F9 de-nag: at most once per theme-label per calendar day, plus a
       // persistent "Don't remind me again" suppression. Repetition on every
       // native theme toggle (H1) trains users to dismiss health UI.
-      if (!themeChangeByExtension && newTheme && newTheme.kind) {
+      if (newTheme && newTheme.kind) {
         const isDark = newTheme.kind === vscode.ColorThemeKind.Dark ||
           newTheme.kind === vscode.ColorThemeKind.HighContrastDark;
         if (isDark) {
@@ -1507,7 +1376,7 @@ function activate(context) {
               // Record today's showing regardless of choice so the per-day cap holds.
               await markDarkAdvisoryShownToday(context, themeName);
               if (action === 'Switch to Light Theme') {
-                vscode.commands.executeCommand('zerotosaas.selectTheme');
+                vscode.commands.executeCommand('workbench.action.selectTheme');
               } else if (action === "Don't remind me again") {
                 await setDarkAdvisorySuppressed(true);
                 vscode.window.showInformationMessage(

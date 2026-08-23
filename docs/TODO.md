@@ -13,16 +13,16 @@ This document outlines prioritized recommendations and planned engineering enhan
 
 ## 📋 Prioritized Enhancement Matrix
 
-| Priority | Category      | Feature / Enhancement                                | Impact                                                                                  | Effort |
-| :------- | :------------ | :--------------------------------------------------- | :-------------------------------------------------------------------------------------- | :----- |
-| **P1**   | Performance   | **Debounced Decoration Engine & Version Guards**     | Prevents UI thread stuttering on rapid typing and eliminates race conditions.           | Low    |
-| **P1**   | Security      | **Extended "Human Firewall" Secret Scanners**        | Traps AWS keys, JWTs, GitHub/Slack tokens, and private key headers.                     | Low    |
-| **P2**   | Ergonomics    | **20-20-20 Ocular Rest Assistant & Blink Reminder**  | Integrates clinical break reminders and blink rate calibration into the status bar.     | Medium |
-| **P2**   | Configuration | **Granular Status Badge Scanner Toggles**            | Allows developers to selectively toggle secret, string, and type scanning. ✓ Done       | Low    |
-| **P2**   | UX / Workflow | **Interactive QuickPick Theme Switcher**             | Dedicated command (`zerotosaas.switchTheme`) with CVD and ambient category previews.    | Low    |
-| **P3**   | Validation    | **APCA (WCAG 3.0) & CVD Simulation Suite**           | Adds APCA $L^c$ scoring and programmatic Brettel/Machado colorblindness validation.     | Medium |
-| **P3**   | Ecosystem     | **Design Token Exporter (CSS, Tailwind, Terminals)** | Generates CSS custom properties, Tailwind presets, and iTerm2/Alacritty/Kitty profiles. | Medium |
-| **P3**   | Ergonomics    | **Ambient Light & Day/Night Theme Auto-Switching**   | Adapts theme based on OS appearance via native `window.autoDetectColorScheme`.          | Medium |
+| Priority | Category      | Feature / Enhancement                                | Impact                                                                                                                                     | Effort |
+| :------- | :------------ | :--------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :----- |
+| **P1**   | Performance   | **Debounced Decoration Engine & Version Guards**     | Prevents UI thread stuttering on rapid typing and eliminates race conditions.                                                              | Low    |
+| **P1**   | Security      | **Extended "Human Firewall" Secret Scanners**        | Traps AWS keys, JWTs, GitHub/Slack tokens, and private key headers.                                                                        | Low    |
+| **P2**   | Ergonomics    | **20-20-20 Ocular Rest Assistant & Blink Reminder**  | Integrates clinical break reminders and blink rate calibration into the status bar.                                                        | Medium |
+| **P2**   | Configuration | **Granular Status Badge Scanner Toggles**            | Allows developers to selectively toggle secret, string, and type scanning. ✓ Done                                                          | Low    |
+| **P2**   | UX / Workflow | **Interactive QuickPick Theme Switcher**             | Dedicated command (`zerotosaas.switchTheme`) with CVD and ambient category previews. ✗ Won't implement — duplicates native `Ctrl+K Ctrl+T` | Low    |
+| **P3**   | Validation    | **APCA (WCAG 3.0) & CVD Simulation Suite**           | Adds APCA $L^c$ scoring and programmatic Brettel/Machado colorblindness validation.                                                        | Medium |
+| **P3**   | Ecosystem     | **Design Token Exporter (CSS, Tailwind, Terminals)** | Generates CSS custom properties, Tailwind presets, and iTerm2/Alacritty/Kitty profiles.                                                    | Medium |
+| **P3**   | Ergonomics    | **Ambient Light & Day/Night Theme Auto-Switching**   | Adapts theme based on OS appearance via native `window.autoDetectColorScheme`.                                                             | Medium |
 
 ---
 
@@ -34,10 +34,11 @@ Guiding principles:
 2. **All ZeroToSaaS configuration lives in the Preferences/Settings UI.** Users should not need the Command Palette to toggle features. Every setting (pomodoro, eye-strain reminder, status-badge scanners, error lens, indent shading, etc.) is a `zerotosaas.*` configuration property discoverable and editable in `Ctrl+,` → Extensions → ZeroToSaaS.
 3. **Minimise Command Palette surface area.** The palette should expose only actions that are not settings (e.g. "Select Theme" QuickPick, "Open Eye-Health Guidelines"). Toggle commands that merely flip a boolean setting should be removed — the Settings UI is the single source of truth.
 
-- [ ] **Audit all `zerotosaas.*` commands and collapse toggle commands into settings-only**:
-  - Remove `zerotosaas.toggleErrorLens`, `zerotosaas.toggleStatusBadges`, `zerotosaas.toggleIndentShading`, `zerotosaas.toggleRestReminder` — these flip a boolean that is already editable in Preferences.
-  - Keep only action commands: `zerotosaas.selectTheme` / `zerotosaas.switchTheme` (QuickPick), `zerotosaas.openSettings`, `zerotosaas.openGuidelines`, `zerotosaas.resetRestTimer` (action, not a toggle).
-  - Ensure every removed toggle has a corresponding setting in `package.json` `contributes.configuration` so users can configure it from Preferences.
+- [x] **Audit all `zerotosaas.*` commands and collapse toggle commands into settings-only**:
+  - Removed `zerotosaas.toggleErrorLens`, `zerotosaas.toggleStatusBadges`, `zerotosaas.toggleIndentShading`, `zerotosaas.toggleRestReminder` — these flipped a boolean that is already editable in Preferences.
+  - Removed `zerotosaas.selectTheme` / `zerotosaas.switchTheme` (QuickPick) — duplicates native `Ctrl+K Ctrl+T` (`workbench.action.selectTheme`), which lists all 20 ZeroToSaaS themes.
+  - Kept only action commands: `zerotosaas.openSettings`, `zerotosaas.openGuidelines`, `zerotosaas.resetRestTimer` (action, not a toggle).
+  - Every removed toggle has a corresponding setting in `package.json` `contributes.configuration` so users can configure it from Preferences. The existing `onDidChangeConfiguration` listener re-initializes features (e.g. the rest assistant) when settings change.
 - [ ] **Wellness features (pomodoro, eye-strain, blink coach, Guardian) — settings-only, no command-palette toggles**:
   - When the wellness layer (Phase 1-3 of the wellness plan) is implemented, all toggles (`wellness.guardian.enabled`, `wellness.eyeBreak.enabled`, `wellness.focusFlow.mode`, `wellness.blinkCoach.enabled`, etc.) must be Preferences-only settings.
   - The only wellness commands in the palette should be actions: `zerotosaas.wellness.openHub`, `zerotosaas.wellness.openDashboard`, `zerotosaas.eyeBreak.takeNow`, `zerotosaas.pomodoro.start` / `.pause` / `.stop` / `.skipPhase`.
@@ -142,11 +143,9 @@ Guiding principles:
 
 ## 🛠️ 6. User Experience & Command Enhancements
 
-- [ ] **QuickPick Theme Switcher (`zerotosaas.switchTheme`)**:
-  - Command Palette action grouping variants by medical and visual categories:
-    - 👁️ _Medical / Universal_: Default Light, High Contrast (ISO 9241-303)
-    - 🌐 _CVD Accessible_: Deuteranopia, Protanopia, Tritanopia
-    - ☕ _Atmospheric / Warm_: Warm Sepia, Golden Sand, Forest Calm, Terracotta, Royal Plum
-  - Live preview on QuickPick item focus.
+- [x] **QuickPick Theme Switcher (`zerotosaas.switchTheme`)** — ✗ Won't implement:
+  - Duplicates VS Code/VSCodium's native `Ctrl+K Ctrl+T` (`workbench.action.selectTheme`), which already lists all 20 ZeroToSaaS themes with live preview.
+  - Per §7 principle: prefer native IDE capabilities over custom parallel mechanisms.
+  - The dark-theme eye-health advisory still fires via `onDidChangeActiveColorTheme` when a dark theme is selected through the native picker.
 - [ ] **Status Bar Widget**:
   - `$(shield) ZeroToSaaS [AAA]` badge showing active accessibility mode and quick access menu.

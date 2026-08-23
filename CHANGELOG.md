@@ -5,6 +5,21 @@ All notable changes to the **ZeroToSaaS Accessibility Theme Suite** will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed — Command Palette Surface Reduction (9 → 3 commands)
+
+- **Removed 6 redundant command-palette commands** that duplicated native IDE capabilities, per the §7 "Preferences-First, No Reinvented Wheels" principle:
+  - `zerotosaas.selectTheme` / `zerotosaas.switchTheme` (QuickPick theme switcher) — replaced by VS Code/VSCodium's native `Ctrl+K Ctrl+T` (`workbench.action.selectTheme`), which lists all 20 ZeroToSaaS themes with live preview.
+  - `zerotosaas.toggleErrorLens`, `zerotosaas.toggleStatusBadges`, `zerotosaas.toggleIndentShading`, `zerotosaas.toggleRestReminder` — boolean toggles that flip a setting already editable in the Settings UI (`Ctrl+,` → Extensions → ZeroToSaaS). The existing `onDidChangeConfiguration` listener re-initializes features when settings change.
+- **Kept 3 action commands**: `zerotosaas.resetRestTimer` (resets the 20-20-20 countdown), `zerotosaas.openSettings` (opens Settings pre-filtered to ZeroToSaaS), `zerotosaas.openGuidelines` (opens `docs/Guidelines.md` in Markdown preview).
+- **Dark-theme eye-health advisory** now fires for all dark-theme activations (via native `Ctrl+K Ctrl+T` or any other mechanism), with the existing per-day dedupe and persistent suppression. The "Switch to Light Theme" button now invokes the native theme picker.
+- **Zero feature loss**: all 15 config settings, all decoration engines, all scanners, the rest assistant, and the dark-theme advisory are preserved.
+
+### Removed
+
+- `handleThemeSelection()` function and `themeChangeByExtension` flag from `src/extension.js` (~100 lines of dead code after the QuickPick removal).
+
 ## [0.2.0] - 2026-08-23
 
 ### Added — Night (Dark) Theme Suite & Day/Night Auto-Switcher

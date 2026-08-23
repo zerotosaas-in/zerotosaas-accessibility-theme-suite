@@ -245,36 +245,6 @@
     },
     "commands": [
       {
-        "command": "zerotosaas.selectTheme",
-        "category": "ZeroToSaaS",
-        "title": "Select Theme / Palette"
-      },
-      {
-        "command": "zerotosaas.switchTheme",
-        "category": "ZeroToSaaS",
-        "title": "Switch Theme / Palette (Quick Pick)"
-      },
-      {
-        "command": "zerotosaas.toggleErrorLens",
-        "category": "ZeroToSaaS",
-        "title": "Toggle Error Lens (Inline Diagnostics)"
-      },
-      {
-        "command": "zerotosaas.toggleStatusBadges",
-        "category": "ZeroToSaaS",
-        "title": "Toggle Semantic Status Badges"
-      },
-      {
-        "command": "zerotosaas.toggleIndentShading",
-        "category": "ZeroToSaaS",
-        "title": "Toggle Alternating Indent Shading"
-      },
-      {
-        "command": "zerotosaas.toggleRestReminder",
-        "category": "ZeroToSaaS",
-        "title": "Toggle 20-20-20 Rest Reminder"
-      },
-      {
         "command": "zerotosaas.resetRestTimer",
         "category": "ZeroToSaaS",
         "title": "Reset 20-20-20 Rest Timer"
@@ -292,30 +262,6 @@
     ],
     "menus": {
       "commandPalette": [
-        {
-          "command": "zerotosaas.selectTheme",
-          "when": "true"
-        },
-        {
-          "command": "zerotosaas.switchTheme",
-          "when": "true"
-        },
-        {
-          "command": "zerotosaas.toggleErrorLens",
-          "when": "true"
-        },
-        {
-          "command": "zerotosaas.toggleStatusBadges",
-          "when": "true"
-        },
-        {
-          "command": "zerotosaas.toggleIndentShading",
-          "when": "true"
-        },
-        {
-          "command": "zerotosaas.toggleRestReminder",
-          "when": "true"
-        },
         {
           "command": "zerotosaas.resetRestTimer",
           "when": "true"

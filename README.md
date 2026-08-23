@@ -211,7 +211,7 @@ To enable OS-appearance-following theme switching:
 }
 ```
 
-When enabled, the IDE follows your OS appearance setting (macOS System Settings → Appearance, Windows Settings → Personalization → Colors, etc.) and switches between the preferred light and dark themes automatically. Your manual theme choice (via `Ctrl+K Ctrl+T` or the ZeroToSaaS QuickPick) is always respected — the OS-appearance switch only fires when the OS mode itself changes.
+When enabled, the IDE follows your OS appearance setting (macOS System Settings → Appearance, Windows Settings → Personalization → Colors, etc.) and switches between the preferred light and dark themes automatically. Your manual theme choice (via `Ctrl+K Ctrl+T`) is always respected — the OS-appearance switch only fires when the OS mode itself changes.
 
 ---
 
@@ -310,7 +310,7 @@ The **ZeroToSaaS Accessibility Theme Suite** is engineered for 100% compatibilit
 1. Open the Extensions view (`Ctrl+Shift+X` on Linux/Windows, `Cmd+Shift+X` on macOS).
 2. Search for **`ZeroToSaaS Accessibility Theme Suite`**.
 3. Click **Install**.
-4. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) → **Preferences: Color Theme** (`zerotosaas.selectTheme` or `zerotosaas.switchTheme`).
+4. Open the Color Theme picker (`Ctrl+K Ctrl+T` / `Cmd+K Cmd+T`) and select any of the **20 accessible variants** (e.g. `ZeroToSaaS Light (Default)`, `ZeroToSaaS Deuteranopia`, `ZeroToSaaS High Contrast`).
 5. Choose any of the **10 accessible variants** (e.g. `ZeroToSaaS Light (Default)`, `ZeroToSaaS Deuteranopia`, `ZeroToSaaS High Contrast`).
 
 #### 2. Command Line Installation (CLI)
