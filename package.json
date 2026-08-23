@@ -236,35 +236,6 @@
           "minimum": 5,
           "description": "Duration in seconds of each 20-20-20 eye break."
         },
-        "zerotosaas.autoSwitch.enabled": {
-          "type": "boolean",
-          "default": false,
-          "description": "Automatically switch between a day (light) and night (dark) theme based on local time."
-        },
-        "zerotosaas.autoSwitch.dayTheme": {
-          "type": "string",
-          "default": "ZeroToSaaS Light (Default)",
-          "description": "Theme label to use during daytime hours (07:00–18:00). Must match a contributed theme label exactly."
-        },
-        "zerotosaas.autoSwitch.nightTheme": {
-          "type": "string",
-          "default": "ZeroToSaaS Light Night (Default)",
-          "description": "Theme label to use during nighttime hours (18:00–07:00). Must match a contributed theme label exactly."
-        },
-        "zerotosaas.autoSwitch.dayStartHour": {
-          "type": "number",
-          "default": 7,
-          "minimum": 0,
-          "maximum": 23,
-          "description": "Hour (0-23) at which the day theme activates."
-        },
-        "zerotosaas.autoSwitch.nightStartHour": {
-          "type": "number",
-          "default": 18,
-          "minimum": 0,
-          "maximum": 23,
-          "description": "Hour (0-23) at which the night theme activates."
-        },
         "zerotosaas.wellness.darkAdvisory.suppressed": {
           "type": "boolean",
           "default": false,
@@ -317,11 +288,6 @@
         "command": "zerotosaas.openGuidelines",
         "category": "ZeroToSaaS",
         "title": "Open Eye-Health Guidelines (docs/Guidelines.md)"
-      },
-      {
-        "command": "zerotosaas.toggleAutoSwitch",
-        "category": "ZeroToSaaS",
-        "title": "Toggle Day / Night Auto-Switch"
       }
     ],
     "menus": {
@@ -360,10 +326,6 @@
         },
         {
           "command": "zerotosaas.openGuidelines",
-          "when": "true"
-        },
-        {
-          "command": "zerotosaas.toggleAutoSwitch",
           "when": "true"
         }
       ]

@@ -197,21 +197,21 @@ Every variant passes **100% WCAG AAA ($\ge 7:1$)** relative luminance tests acro
 | **`ZeroToSaaS Golden Sand Night (Yellow)`** | `#0E0D09`         | Dark Amber Bronze & Sandstone         | Gentle warm night simulation              |
 | **`ZeroToSaaS Terracotta Night (Orange)`**  | `#0F0D0A`         | Dark Burnt Orange & Rich Bronze       | High-energy, warm crisp night contrast    |
 
-### Day / Night Auto-Switcher
+### Day / Night Auto-Switch (Native VS Code / VSCodium)
 
-Automatically switch between a light and dark theme based on local time:
+ZeroToSaaS uses the IDE's built-in `window.autoDetectColorScheme` for OS-appearance-based theme switching — no custom timer, no polling, no conflicts with your manual choices. On first run, the extension sets `workbench.preferredLightColorTheme` and `workbench.preferredDarkColorTheme` to ZeroToSaaS themes (only if you haven't configured them already).
+
+To enable OS-appearance-following theme switching:
 
 ```json
 {
-  "zerotosaas.autoSwitch.enabled": true,
-  "zerotosaas.autoSwitch.dayTheme": "ZeroToSaaS Light (Default)",
-  "zerotosaas.autoSwitch.nightTheme": "ZeroToSaaS Light Night (Default)",
-  "zerotosaas.autoSwitch.dayStartHour": 7,
-  "zerotosaas.autoSwitch.nightStartHour": 18
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredLightColorTheme": "ZeroToSaaS Light (Default)",
+  "workbench.preferredDarkColorTheme": "ZeroToSaaS Light Night (Default)"
 }
 ```
 
-Or toggle via command palette: **`ZeroToSaaS: Toggle Day / Night Auto-Switch`**.
+When enabled, the IDE follows your OS appearance setting (macOS System Settings → Appearance, Windows Settings → Personalization → Colors, etc.) and switches between the preferred light and dark themes automatically. Your manual theme choice (via `Ctrl+K Ctrl+T` or the ZeroToSaaS QuickPick) is always respected — the OS-appearance switch only fires when the OS mode itself changes.
 
 ---
 

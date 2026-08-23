@@ -1302,15 +1302,11 @@ async function handleThemeSelection() {
   }
 }
 
-// --- Day / Night Auto-Switcher ---
-
-let autoSwitchTimer = null;
-
 // Tracks whether the current theme change was initiated by this extension
-// (QuickPick or auto-switcher). Used to suppress the dark-theme eye health
-// warning for extension-initiated changes that already showed a warning,
-// and to show it for externally-initiated dark theme activations (e.g. via
-// VS Code's native Ctrl+K Ctrl+T theme picker).
+// (QuickPick or default-theme application). Used to suppress the dark-theme
+// eye health warning for extension-initiated changes that already showed a
+// warning, and to show it for externally-initiated dark theme activations
+// (e.g. via VS Code's native Ctrl+K Ctrl+T picker).
 let themeChangeByExtension = false;
 
 function getCurrentThemeLabel(cfg) {
@@ -1373,54 +1369,14 @@ function openGuidelinesDoc() {
   vscode.commands.executeCommand('markdown.showPreview', vscode.Uri.file(docPath));
 }
 
-function evaluateAutoSwitch() {
-  const cfg = vscode.workspace.getConfiguration('zerotosaas.autoSwitch');
-  if (!cfg.get('enabled', false)) return;
-
-  const dayTheme = cfg.get('dayTheme', 'ZeroToSaaS Light (Default)');
-  const nightTheme = cfg.get('nightTheme', 'ZeroToSaaS Light Night (Default)');
-  const dayStart = cfg.get('dayStartHour', 7);
-  const nightStart = cfg.get('nightStartHour', 18);
-
-  const hour = new Date().getHours();
-  const isDay = hour >= dayStart && hour < nightStart;
-  const target = isDay ? dayTheme : nightTheme;
-  const current = getCurrentThemeLabel();
-
-  if (target !== current) {
-    themeChangeByExtension = true;
-    vscode.workspace.getConfiguration('workbench').update(
-      'colorTheme',
-      target,
-      vscode.ConfigurationTarget.Global
-    );
-    themeChangeByExtension = false;
-  }
-}
-
-function initAutoSwitch(context) {
-  if (autoSwitchTimer) {
-    clearInterval(autoSwitchTimer);
-    autoSwitchTimer = null;
-  }
-  const cfg = vscode.workspace.getConfiguration('zerotosaas.autoSwitch');
-  if (!cfg.get('enabled', false)) return;
-
-  evaluateAutoSwitch();
-  // Check every 5 minutes — catches hour transitions without excessive polling.
-  autoSwitchTimer = setInterval(evaluateAutoSwitch, 5 * 60 * 1000);
-  if (context && context.subscriptions) {
-    context.subscriptions.push({ dispose: () => {
-      if (autoSwitchTimer) { clearInterval(autoSwitchTimer); autoSwitchTimer = null; }
-    }});
-  }
-}
-
 // --- First-run default theme application ---
 // Applies "ZeroToSaaS Light (Default)" on the very first activation if the user
-// is still on a VS Code built-in default theme. Fires once (gated by
-// globalState); never overrides an explicit user choice afterward.
+// is still on a VS Code built-in default theme. Also sets the native
+// preferredDark/preferredLight themes so that VS Code/VSCodium's built-in
+// `window.autoDetectColorScheme` (OS-appearance follow) uses ZeroToSaaS themes.
+// Fires once (gated by globalState); never overrides an explicit user choice.
 const Z2S_DEFAULT_THEME = 'ZeroToSaaS Light (Default)';
+const Z2S_DEFAULT_DARK_THEME = 'ZeroToSaaS Light Night (Default)';
 const Z2S_DEFAULT_APPLIED_KEY = 'z2s.defaultThemeApplied';
 const VSCODE_BUILTIN_DEFAULTS = new Set([
   'Default Dark+', 'Dark+', 'Default Light+', 'Light+',
@@ -1442,6 +1398,20 @@ async function applyDefaultThemeOnce(context) {
     themeChangeByExtension = true;
     await workbench.update('colorTheme', Z2S_DEFAULT_THEME, vscode.ConfigurationTarget.Global);
     themeChangeByExtension = false;
+  }
+
+  // Set the native preferred dark/light themes so that VS Code/VSCodium's
+  // built-in `window.autoDetectColorScheme` (OS-appearance follow) uses
+  // ZeroToSaaS themes. Only set if the user hasn't configured them already —
+  // respect explicit user choices. This replaces the removed time-based
+  // auto-switcher with the native, event-driven mechanism.
+  const inspectDark = workbench.inspect('preferredDarkColorTheme');
+  if (!inspectDark || inspectDark.defaultValue === undefined && inspectDark.globalValue === undefined) {
+    await workbench.update('preferredDarkColorTheme', Z2S_DEFAULT_DARK_THEME, vscode.ConfigurationTarget.Global);
+  }
+  const inspectLight = workbench.inspect('preferredLightColorTheme');
+  if (!inspectLight || inspectLight.defaultValue === undefined && inspectLight.globalValue === undefined) {
+    await workbench.update('preferredLightColorTheme', Z2S_DEFAULT_THEME, vscode.ConfigurationTarget.Global);
   }
 
   // Mark as applied regardless of whether we switched — so we never override
@@ -1499,22 +1469,11 @@ function activate(context) {
     }),
     vscode.commands.registerCommand('zerotosaas.openGuidelines', () => {
       openGuidelinesDoc();
-    }),
-    vscode.commands.registerCommand('zerotosaas.toggleAutoSwitch', async () => {
-      const cfg = vscode.workspace.getConfiguration('zerotosaas.autoSwitch');
-      const next = !cfg.get('enabled', false);
-      await cfg.update('enabled', next, vscode.ConfigurationTarget.Global);
-      initAutoSwitch(context);
-      vscode.window.showInformationMessage(
-        `ZeroToSaaS Day/Night Auto-Switch ${next ? 'enabled' : 'disabled'}.`
-      );
     })
   );
 
-  initAutoSwitch(context);
-
   if (vscode.window.onDidChangeActiveColorTheme) {
-    vscode.window.onDidChangeActiveColorTheme((newTheme) => {
+    vscode.window.onDidChangeActiveColorTheme(async (newTheme) => {
       initDecorations(context);
       if (vscode.window.activeTextEditor) {
         updateDecorations(vscode.window.activeTextEditor);
@@ -1522,8 +1481,8 @@ function activate(context) {
 
       // Warn about dark theme eye health effects when a dark theme is activated
       // externally (e.g. via VS Code's native Ctrl+K Ctrl+T picker). Extension-
-      // initiated changes (QuickPick / auto-switcher) are suppressed — the
-      // QuickPick already shows an advisory; the auto-switcher is opt-in.
+      // initiated changes (QuickPick / default-theme application) are suppressed
+      // — the QuickPick already shows an advisory.
       //
       // F9 de-nag: at most once per theme-label per calendar day, plus a
       // persistent "Don't remind me again" suppression. Repetition on every
@@ -1612,9 +1571,6 @@ function activate(context) {
       if (vscode.window.activeTextEditor) {
         updateDecorations(vscode.window.activeTextEditor);
       }
-    }
-    if (event.affectsConfiguration('zerotosaas.autoSwitch')) {
-      initAutoSwitch(context);
     }
   }, null, context.subscriptions);
 
