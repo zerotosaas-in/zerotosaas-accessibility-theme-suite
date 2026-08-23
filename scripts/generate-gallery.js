@@ -54,6 +54,21 @@ const htmlContent = `<!DOCTYPE html>
       --theme-constant: #784A00;
       --theme-comment: #485260;
       --theme-subtle-bg: rgba(11, 79, 156, 0.04);
+      --status-safe-bg: #EBF8EE;
+      --status-safe-fg: #0B6229;
+      --status-safe-border: #B4E6C3;
+      --status-caution-bg: #FEF9EE;
+      --status-caution-fg: #784A00;
+      --status-caution-border: #FDE4A3;
+      --status-warning-bg: #FFF6EE;
+      --status-warning-fg: #8C3800;
+      --status-warning-border: #FDCBA6;
+      --status-panic-bg: #FFF2F2;
+      --status-panic-fg: #990014;
+      --status-panic-border: #FCA5A5;
+      --chart-grid: #E2E8F0;
+      --chart-axis: #CBD5E1;
+      --editor-border: #CBD5E1;
       --font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
@@ -130,6 +145,32 @@ const htmlContent = `<!DOCTYPE html>
       margin-bottom: 0.85rem;
       transition: all 0.2s ease;
     }
+    /* Mobile: replace dot bar with a dropdown select */
+    .theme-select-wrap {
+      display: none;
+      margin-bottom: 0.85rem;
+    }
+    .theme-select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--theme-card-border);
+      background: var(--theme-card-bg);
+      color: var(--theme-fg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .theme-select:focus {
+      border-color: var(--theme-primary);
+      outline: none;
+    }
+    @media (max-width: 720px) {
+      .theme-selector-bar { display: none; }
+      .theme-select-wrap { display: block; }
+    }
     .theme-dot-btn {
       display: inline-flex;
       align-items: center;
@@ -166,24 +207,31 @@ const htmlContent = `<!DOCTYPE html>
       margin: 0 0.2rem;
     }
 
+    /* Muted telemetry strip (informational only) */
+    .telemetry-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.9rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--theme-comment);          /* muted / subdued */
+      padding: 0 0.15rem 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+    .telemetry-strip .tel-label { opacity: 0.75; }
+    .telemetry-strip .tel-val   { color: var(--theme-comment); font-weight: 500; }
+
     /* =========================================================================
-       MULTI-COLUMN VIEWPORT — 4 columns on desktop, 1 on mobile with arrows
+       MULTI-COLUMN VIEWPORT — 3 columns on desktop, 1 on mobile with arrows
        ========================================================================= */
     .columns-layout {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 0.75rem;
       align-items: start;
     }
     @media (max-width: 1200px) {
       .columns-layout { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 720px) {
-      .columns-layout {
-        grid-template-columns: 1fr;
-      }
-      .col-panel { display: none; }
-      .col-panel.mobile-active { display: flex; }
     }
 
     .col-panel {
@@ -197,6 +245,14 @@ const htmlContent = `<!DOCTYPE html>
       box-shadow: 0 1px 3px rgba(0,0,0,0.03);
       transition: all 0.2s ease;
       position: relative;
+    }
+    /* Mobile: single column with arrow cycling.
+       Placed AFTER the base .col-panel rule and hardened with !important so
+       the cascade cannot be overridden by equal-specificity base rules. */
+    @media (max-width: 720px) {
+      .columns-layout { grid-template-columns: 1fr; }
+      .col-panel { display: none !important; }
+      .col-panel.mobile-active { display: flex !important; }
     }
     .col-title {
       font-size: 0.78rem;
@@ -316,28 +372,6 @@ const htmlContent = `<!DOCTYPE html>
     .cvd-info { display: flex; flex-direction: column; }
     .cvd-name { font-weight: 600; }
     .cvd-sub { font-size: 0.72rem; color: var(--theme-comment); }
-
-    /* Live Telemetry Card */
-    .telemetry-card {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      background: var(--theme-card-bg);
-      border: 1px solid var(--theme-card-border);
-      border-radius: 6px;
-      padding: 0.65rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      color: var(--theme-fg);
-      transition: all 0.2s ease;
-    }
-    .tel-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .tel-label { color: var(--theme-comment); }
-    .tel-val { font-weight: 700; color: var(--theme-primary); }
 
     /* Viewport — now just a wrapper for columns */
     .viewport {
@@ -624,7 +658,7 @@ const htmlContent = `<!DOCTYPE html>
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      border: 1px solid #CBD5E1;
+      border: 1px solid var(--editor-border);
       font-family: var(--font-mono);
       font-size: 12.5px;
       transition: background 0.15s ease, color 0.15s ease;
@@ -688,10 +722,10 @@ const htmlContent = `<!DOCTYPE html>
       font-size: 11px;
       display: inline-block;
     }
-    .status-safe { background: #EBF8EE; color: #0B6229; border: 1px solid #B4E6C3; }
-    .status-caution { background: #FEF9EE; color: #784A00; border: 1px solid #FDE4A3; }
-    .status-warning { background: #FFF6EE; color: #8C3800; border: 1px solid #FDCBA6; }
-    .status-panic { background: #FFF2F2; color: #990014; border: 1px solid #FCA5A5; font-weight: bold; }
+    .status-safe { background: var(--status-safe-bg); color: var(--status-safe-fg); border: 1px solid var(--status-safe-border); }
+    .status-caution { background: var(--status-caution-bg); color: var(--status-caution-fg); border: 1px solid var(--status-caution-border); }
+    .status-warning { background: var(--status-warning-bg); color: var(--status-warning-fg); border: 1px solid var(--status-warning-border); }
+    .status-panic { background: var(--status-panic-bg); color: var(--status-panic-fg); border: 1px solid var(--status-panic-border); font-weight: bold; }
 
     /* Error lens inline */
     .error-lens {
@@ -714,23 +748,38 @@ const htmlContent = `<!DOCTYPE html>
       <p style="font-size:0.85rem; color:#64748B;">Explore all 10 themes across Oklch, Paul Tol Cvd, Colorbrewer, and Fm 100-Hue systems.</p>
     </div>
     <div class="header-links">
-      <a href="../Validation.md" class="link-btn">📊 Validation Report</a>
+      <a href="../Validation.md" class="link-btn">📊 Validation</a>
       <a href="../Guidelines.md" class="link-btn">🏥 Medical Guidelines</a>
       <a href="../../README.md" class="link-btn">🏠 Readme</a>
     </div>
   </div>
 
+  <!-- Muted telemetry strip (informational only) -->
+  <div class="telemetry-strip" id="telemetry-strip" role="note"
+       aria-label="Active theme telemetry">
+    <span class="tel-item"><span class="tel-label">Canvas:</span> <span class="tel-val" id="tel-canvas">#FCFCFD</span></span>
+    <span class="tel-sep" aria-hidden="true">·</span>
+    <span class="tel-item"><span class="tel-label">OkLCH:</span> <span class="tel-val" id="tel-oklch">L=98.9% C=0.003</span></span>
+    <span class="tel-sep" aria-hidden="true">·</span>
+    <span class="tel-item"><span class="tel-label">Contrast:</span> <span class="tel-val" id="tel-contrast">17.30:1 (AAA)</span></span>
+    <span class="tel-sep" aria-hidden="true">·</span>
+    <span class="tel-item"><span class="tel-label">Paul Tol:</span> <span class="tel-val" id="tel-paultol">ΔE ≥ 0.18</span></span>
+  </div>
+
   <!-- Compact Theme Selector Bar (populated by JS) -->
   <div class="theme-selector-bar" id="theme-bar"></div>
+  <div class="theme-select-wrap">
+    <select class="theme-select" id="theme-select"></select>
+  </div>
 
   <!-- Mobile Column Navigation -->
   <div class="col-nav" id="col-nav">
-    <button class="col-nav-btn" id="col-prev">‹</button>
-    <span class="col-nav-label" id="col-nav-label">Dashboard</span>
-    <button class="col-nav-btn" id="col-next">›</button>
+    <button class="col-nav-btn" id="col-prev" aria-label="Previous section">‹</button>
+    <span class="col-nav-label" id="col-nav-label" aria-live="polite">Dashboard</span>
+    <button class="col-nav-btn" id="col-next" aria-label="Next section">›</button>
   </div>
 
-  <!-- 4-Column Multi-Panel Layout -->
+  <!-- 3-Column Multi-Panel Layout -->
   <main class="viewport">
     <div class="columns-layout">
 
@@ -738,7 +787,7 @@ const htmlContent = `<!DOCTYPE html>
       <div class="col-panel mobile-active" id="col-1">
         <div class="col-title">📊 Dashboard</div>
         <div class="dashboard-container" id="view-dashboard">
-          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E2E8F0; padding-bottom:0.75rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--theme-card-border); padding-bottom:0.75rem;">
             <div>
               <h2 id="dash-title" style="font-size:1.15rem; font-weight:700;">ZeroToSaaS Enterprise Telemetry Dashboard</h2>
               <p style="font-size:0.8rem; color:#64748B;">Real-time infrastructure health, cognitive status logs, and contract validation.</p>
@@ -852,17 +901,17 @@ const htmlContent = `<!DOCTYPE html>
                   <stop offset="100%" stop-color="#0284C7" stop-opacity="0.0" id="grad-stop-2" />
                 </linearGradient>
               </defs>
-              <line x1="0" y1="30" x2="720" y2="30" stroke="#E2E8F0" stroke-dasharray="4" />
-              <line x1="0" y1="75" x2="720" y2="75" stroke="#E2E8F0" stroke-dasharray="4" />
-              <line x1="0" y1="120" x2="720" y2="120" stroke="#E2E8F0" stroke-dasharray="4" />
-              <line x1="0" y1="165" x2="720" y2="165" stroke="#CBD5E1" />
+              <line x1="0" y1="30" x2="720" y2="30" stroke="var(--chart-grid)" stroke-dasharray="4" class="chart-grid-line" />
+              <line x1="0" y1="75" x2="720" y2="75" stroke="var(--chart-grid)" stroke-dasharray="4" class="chart-grid-line" />
+              <line x1="0" y1="120" x2="720" y2="120" stroke="var(--chart-grid)" stroke-dasharray="4" class="chart-grid-line" />
+              <line x1="0" y1="165" x2="720" y2="165" stroke="var(--chart-axis)" class="chart-axis-line" />
               <path id="chart-area" d="M 0 165 L 0 110 Q 60 70 120 95 T 240 60 T 360 85 T 480 40 T 600 70 T 720 35 L 720 165 Z" fill="url(#chartGrad)" />
               <path id="chart-line" d="M 0 110 Q 60 70 120 95 T 240 60 T 360 85 T 480 40 T 600 70 T 720 35" fill="none" stroke="#0284C7" stroke-width="2.5" />
-              <circle cx="120" cy="95" r="4.5" fill="#0B6229" stroke="#FFFFFF" stroke-width="2" />
-              <circle cx="240" cy="60" r="4.5" fill="#784A00" stroke="#FFFFFF" stroke-width="2" />
-              <circle cx="480" cy="40" r="4.5" fill="#8C3800" stroke="#FFFFFF" stroke-width="2" />
-              <circle cx="600" cy="70" r="5.5" fill="#990014" stroke="#FFFFFF" stroke-width="2" />
-              <circle cx="720" cy="35" r="4.5" fill="#0B6229" stroke="#FFFFFF" stroke-width="2" />
+              <circle cx="120" cy="95" r="4.5" fill="#0B6229" stroke="var(--theme-card-bg)" stroke-width="2" class="chart-dot" />
+              <circle cx="240" cy="60" r="4.5" fill="#784A00" stroke="var(--theme-card-bg)" stroke-width="2" class="chart-dot" />
+              <circle cx="480" cy="40" r="4.5" fill="#8C3800" stroke="var(--theme-card-bg)" stroke-width="2" class="chart-dot" />
+              <circle cx="600" cy="70" r="5.5" fill="#990014" stroke="var(--theme-card-bg)" stroke-width="2" class="chart-dot" />
+              <circle cx="720" cy="35" r="4.5" fill="#0B6229" stroke="var(--theme-card-bg)" stroke-width="2" class="chart-dot" />
             </svg>
           </div>
           <div class="chart-x-axis">
@@ -966,29 +1015,6 @@ const htmlContent = `<!DOCTYPE html>
           </div>
           <div class="editor-body" id="editor-body">
             <!-- Dynamically populated with long, comprehensive single-line code blocks -->
-          </div>
-        </div>
-      </div>
-
-      <!-- COLUMN 4: Telemetry & Status Info -->
-      <div class="col-panel" id="col-4">
-        <div class="col-title">🔬 Telemetry</div>
-        <div class="telemetry-card">
-          <div class="tel-row">
-            <span class="tel-label">Canvas Color:</span>
-            <span class="tel-val" id="tel-canvas">#FCFCFD</span>
-          </div>
-          <div class="tel-row">
-            <span class="tel-label">OkLCH Uniformity:</span>
-            <span class="tel-val" id="tel-oklch">L=98.9% C=0.003</span>
-          </div>
-          <div class="tel-row">
-            <span class="tel-label">Base Contrast:</span>
-            <span class="tel-val" id="tel-contrast">17.30:1 (AAA)</span>
-          </div>
-          <div class="tel-row">
-            <span class="tel-label">Paul Tol Distance:</span>
-            <span class="tel-val" id="tel-paultol">ΔE ≥ 0.18</span>
           </div>
         </div>
       </div>
@@ -1215,6 +1241,8 @@ const htmlContent = `<!DOCTYPE html>
       document.querySelectorAll('.theme-dot-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.theme === themeId);
       });
+      const select = document.getElementById('theme-select');
+      if (select) select.value = themeId;
       updateViews();
     }
 
@@ -1233,6 +1261,12 @@ const htmlContent = `<!DOCTYPE html>
 
       // 0. Update Root CSS Variables for Whole-Page Dynamic Theming
       const root = document.documentElement;
+      const isDark = palette.bg !== '#FFFFFF' && palette.bg !== '#FCFCFD' &&
+        palette.bg !== '#FAFCFE' && palette.bg !== '#FCFAFC' &&
+        palette.bg !== '#FAFCFC' && palette.bg !== '#FAF7F2' &&
+        palette.bg !== '#F8FCF9' && palette.bg !== '#FAF8FC' &&
+        palette.bg !== '#FCFAF4' && palette.bg !== '#FCF8F5' &&
+        palette.bg !== '#FAF8FD';
       root.style.setProperty('--theme-bg', palette.bg);
       root.style.setProperty('--theme-fg', palette.fg);
       root.style.setProperty('--theme-header-bg', palette.headerBg);
@@ -1241,8 +1275,46 @@ const htmlContent = `<!DOCTYPE html>
       root.style.setProperty('--theme-type', palette.type);
       root.style.setProperty('--theme-constant', palette.constant);
       root.style.setProperty('--theme-comment', palette.comment);
-      root.style.setProperty('--theme-card-border', palette.headerBg);
-      root.style.setProperty('--theme-subtle-bg', palette.bg === '#FFFFFF' ? '#F4F7FB' : palette.headerBg);
+      // Card bg: slightly lighter than the main bg for dark themes, white for light
+      root.style.setProperty('--theme-card-bg', isDark ? palette.headerBg : '#FFFFFF');
+      // Card border: use headerBg for light, a subtle dark border for dark
+      root.style.setProperty('--theme-card-border', isDark ? palette.headerBg : '#E2E8F0');
+      root.style.setProperty('--theme-subtle-bg', isDark ? palette.headerBg : (palette.bg === '#FFFFFF' ? '#F4F7FB' : palette.headerBg));
+
+      // Status badge colors — dark themes use tinted dark backgrounds
+      if (isDark) {
+        root.style.setProperty('--status-safe-bg', '#0E2A14');
+        root.style.setProperty('--status-safe-fg', palette.type || '#6BCB7A');
+        root.style.setProperty('--status-safe-border', palette.type || '#6BCB7A');
+        root.style.setProperty('--status-caution-bg', '#2A2410');
+        root.style.setProperty('--status-caution-fg', palette.constant || '#E8B85A');
+        root.style.setProperty('--status-caution-border', palette.constant || '#E8B85A');
+        root.style.setProperty('--status-warning-bg', '#2A1A0E');
+        root.style.setProperty('--status-warning-fg', palette.string || '#E89A5A');
+        root.style.setProperty('--status-warning-border', palette.string || '#E89A5A');
+        root.style.setProperty('--status-panic-bg', palette.panicBg || '#2A0E12');
+        root.style.setProperty('--status-panic-fg', palette.panicFg || '#FF768A');
+        root.style.setProperty('--status-panic-border', palette.panicFg || '#FF768A');
+        root.style.setProperty('--chart-grid', palette.headerBg);
+        root.style.setProperty('--chart-axis', palette.headerBg);
+        root.style.setProperty('--editor-border', palette.headerBg);
+      } else {
+        root.style.setProperty('--status-safe-bg', '#EBF8EE');
+        root.style.setProperty('--status-safe-fg', '#0B6229');
+        root.style.setProperty('--status-safe-border', '#B4E6C3');
+        root.style.setProperty('--status-caution-bg', '#FEF9EE');
+        root.style.setProperty('--status-caution-fg', '#784A00');
+        root.style.setProperty('--status-caution-border', '#FDE4A3');
+        root.style.setProperty('--status-warning-bg', '#FFF6EE');
+        root.style.setProperty('--status-warning-fg', '#8C3800');
+        root.style.setProperty('--status-warning-border', '#FDCBA6');
+        root.style.setProperty('--status-panic-bg', '#FFF2F2');
+        root.style.setProperty('--status-panic-fg', '#990014');
+        root.style.setProperty('--status-panic-border', '#FCA5A5');
+        root.style.setProperty('--chart-grid', '#E2E8F0');
+        root.style.setProperty('--chart-axis', '#CBD5E1');
+        root.style.setProperty('--editor-border', '#CBD5E1');
+      }
 
       // 1. Update Telemetry Card
       document.getElementById('tel-canvas').textContent = palette.bg;
@@ -1297,9 +1369,10 @@ const htmlContent = `<!DOCTYPE html>
       }
     }
 
-    // Populate compact theme selector bar with dot buttons
+    // Populate compact theme selector bar with dot buttons + mobile dropdown
     function populateThemeBar() {
       const bar = document.getElementById('theme-bar');
+      const select = document.getElementById('theme-select');
       const lightThemes = themeMetadata.filter(t => t.mode === 'light');
       const darkThemes = themeMetadata.filter(t => t.mode === 'dark');
 
@@ -1310,6 +1383,7 @@ const htmlContent = `<!DOCTYPE html>
         return base;
       }
 
+      // Desktop: dot buttons
       lightThemes.forEach((theme, i) => {
         const btn = document.createElement('button');
         btn.className = 'theme-dot-btn' + (i === 0 ? ' active' : '');
@@ -1331,6 +1405,27 @@ const htmlContent = `<!DOCTYPE html>
         btn.onclick = () => selectTheme(theme.id);
         bar.appendChild(btn);
       });
+
+      // Mobile: dropdown select
+      const lightGroup = document.createElement('optgroup');
+      lightGroup.label = 'Light Themes';
+      lightThemes.forEach(theme => {
+        const opt = document.createElement('option');
+        opt.value = theme.id;
+        opt.textContent = theme.name;
+        lightGroup.appendChild(opt);
+      });
+      const darkGroup = document.createElement('optgroup');
+      darkGroup.label = 'Night Themes';
+      darkThemes.forEach(theme => {
+        const opt = document.createElement('option');
+        opt.value = theme.id;
+        opt.textContent = theme.name;
+        darkGroup.appendChild(opt);
+      });
+      select.appendChild(lightGroup);
+      select.appendChild(darkGroup);
+      select.onchange = () => selectTheme(select.value);
     }
 
     // Language Tabs
@@ -1339,17 +1434,21 @@ const htmlContent = `<!DOCTYPE html>
     });
 
     // Mobile Column Navigation
-    const colPanels = ['col-1', 'col-2', 'col-3', 'col-4'];
-    const colLabels = ['Dashboard', 'Chart & Form', 'Code Editor', 'Telemetry'];
+    const colPanels = ['col-1', 'col-2', 'col-3'];
+    const colLabels = ['Dashboard', 'Chart & Form', 'Code Editor'];
     let activeColIdx = 0;
 
     function selectCol(idx) {
+      // Range guard: normalize idx into [0, n) for safe wrap-around cycling
+      const n = colPanels.length;
+      idx = ((idx % n) + n) % n;
       activeColIdx = idx;
       document.querySelectorAll('.col-panel').forEach(panel => {
         panel.classList.remove('mobile-active');
       });
       document.getElementById(colPanels[idx]).classList.add('mobile-active');
       document.getElementById('col-nav-label').textContent = colLabels[idx];
+      document.getElementById(colPanels[idx]).scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     document.getElementById('col-prev').onclick = () => {
