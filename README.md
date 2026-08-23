@@ -163,9 +163,11 @@ The ZeroToSaaS design system is architected for two complementary environments:
 
 ---
 
-## 🎨 The 10 Accessible Theme Variants
+## 🎨 The 20 Accessible Theme Variants (10 Light + 10 Night)
 
-Every variant is built on a glare-free, off-white background canvas and passes **100% WCAG AAA ($\ge 7:1$)** relative luminance tests across all 420 token combinations:
+Every variant passes **100% WCAG AAA ($\ge 7:1$)** relative luminance tests across all 860 token combinations. Each light theme has a polarity-inverted Night counterpart that preserves hue and chroma for CVD-safe wavelength discrimination.
+
+### Light Themes
 
 | Theme Variant                         | Canvas Background | Chromatic Identity & Mood          | Target Audience / Medical Standard            |
 | :------------------------------------ | :---------------- | :--------------------------------- | :-------------------------------------------- |
@@ -179,6 +181,37 @@ Every variant is built on a glare-free, off-white background canvas and passes *
 | **`ZeroToSaaS Royal Plum (Purple)`**  | `#FAF8FD`         | Lavender Mist & Midnight Plum      | Focused, elegant, high-clarity development    |
 | **`ZeroToSaaS Golden Sand (Yellow)`** | `#FCFAF4`         | Warm Sandstone & Solar Ochre       | Gentle warm daylight simulation               |
 | **`ZeroToSaaS Terracotta (Orange)`**  | `#FCF8F4`         | Spiced Linen & Burnt Terracotta    | High-energy, warm crisp contrast              |
+
+### Night (Dark) Themes
+
+| Theme Variant                               | Canvas Background | Chromatic Identity & Mood             | Target Audience / Medical Standard        |
+| :------------------------------------------ | :---------------- | :------------------------------------ | :---------------------------------------- |
+| **`ZeroToSaaS Light Night (Default)`**      | `#0E1116`         | Dark Cobalt Slate & Glare-Free Canvas | Universal night coding; all developers    |
+| **`ZeroToSaaS High Contrast Night`**        | `#000000`         | Pure Black & White Borders            | **ISO 9241-303**; 21:1 contrast on dark   |
+| **`ZeroToSaaS Deuteranopia Night`**         | `#0E1419`         | Dark Oceanic Blue & Warm Amber        | Green-weakness / Deuteranopia CVD (night) |
+| **`ZeroToSaaS Protanopia Night`**           | `#100E12`         | Dark Jewel Magenta & Arctic Teal      | Red-weakness / Protanopia CVD (night)     |
+| **`ZeroToSaaS Tritanopia Night`**           | `#0E1214`         | Dark Regal Crimson & Deep Cyan        | Blue-Yellow / Tritanopia CVD (night)      |
+| **`ZeroToSaaS Warm Sepia Night (Brown)`**   | `#0E0D0B`         | Dark Espresso & Walnut                | Soft, low-glare ambient night lighting    |
+| **`ZeroToSaaS Forest Calm Night (Green)`**  | `#0B0E0C`         | Dark Cypress & Cedar                  | Calming, natural organic night ambiance   |
+| **`ZeroToSaaS Royal Plum Night (Purple)`**  | `#0E0D10`         | Dark Iris & Midnight Plum             | Focused, elegant night development        |
+| **`ZeroToSaaS Golden Sand Night (Yellow)`** | `#0E0D09`         | Dark Amber Bronze & Sandstone         | Gentle warm night simulation              |
+| **`ZeroToSaaS Terracotta Night (Orange)`**  | `#0F0D0A`         | Dark Burnt Orange & Rich Bronze       | High-energy, warm crisp night contrast    |
+
+### Day / Night Auto-Switcher
+
+Automatically switch between a light and dark theme based on local time:
+
+```json
+{
+  "zerotosaas.autoSwitch.enabled": true,
+  "zerotosaas.autoSwitch.dayTheme": "ZeroToSaaS Light (Default)",
+  "zerotosaas.autoSwitch.nightTheme": "ZeroToSaaS Light Night (Default)",
+  "zerotosaas.autoSwitch.dayStartHour": 7,
+  "zerotosaas.autoSwitch.nightStartHour": 18
+}
+```
+
+Or toggle via command palette: **`ZeroToSaaS: Toggle Day / Night Auto-Switch`**.
 
 ---
 

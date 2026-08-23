@@ -5,6 +5,51 @@ All notable changes to the **ZeroToSaaS Accessibility Theme Suite** will be docu
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-08-23
+
+### Added — Night (Dark) Theme Suite & Day/Night Auto-Switcher
+
+- **10 Night (Dark) Theme Variants** — polarity-inverted counterparts of every light theme, preserving hue and chroma for CVD-safe wavelength discrimination:
+  - `ZeroToSaaS Light Night (Default)`: Dark cobalt-slate canvas, glare-free night coding.
+  - `ZeroToSaaS High Contrast Night (ISO 9241-303)`: Pure black canvas with white borders, 21:1 contrast.
+  - `ZeroToSaaS Deuteranopia Night (Blue / Orange)`: Dark Blue/Amber CVD-safe palette.
+  - `ZeroToSaaS Protanopia Night (Magenta / Teal)`: Dark Magenta/Teal CVD-safe palette.
+  - `ZeroToSaaS Tritanopia Night (Crimson / Cyan)`: Dark Crimson/Cyan CVD-safe palette.
+  - `ZeroToSaaS Warm Sepia Night (Brown)`: Dark espresso & walnut tones.
+  - `ZeroToSaaS Forest Calm Night (Green)`: Dark cypress & cedar tones.
+  - `ZeroToSaaS Royal Plum Night (Purple)`: Dark iris & midnight-plum tones.
+  - `ZeroToSaaS Golden Sand Night (Yellow)`: Dark amber bronze & sandstone.
+  - `ZeroToSaaS Terracotta Night (Orange)`: Dark burnt orange & rich bronze.
+
+- **Day / Night Auto-Switcher** — circadian theme scheduling based on local time:
+  - Configuration: `zerotosaas.autoSwitch.enabled`, `zerotosaas.autoSwitch.dayTheme`, `zerotosaas.autoSwitch.nightTheme`, `zerotosaas.autoSwitch.dayStartHour`, `zerotosaas.autoSwitch.nightStartHour`.
+  - Command: `ZeroToSaaS: Toggle Day / Night Auto-Switch`.
+  - Polls every 5 minutes; applies the target theme only on hour-boundary transitions.
+
+- **Shared Color-Science Module** (`scripts/color-math.js`):
+  - Extracted OkLCH / WCAG / CVD math into a single DRY module consumed by both `generate-themes.js` and `validate-contrast.js`.
+  - Added `invertLightness()` and `deriveDarkCanvasStack()` helpers for programmatic dark palette derivation.
+
+- **Polarity Sanity Validation** — `scripts/validate-contrast.js` now asserts that foreground luminance is correctly oriented relative to background luminance per theme type (light vs dark), catching palette inversion bugs.
+
+- **QuickPick Theme Grouping** — `ZeroToSaaS: Select Theme / Palette` now groups themes by `Light Themes` and `Night Themes` separators.
+
+- **Dark Theme Eye Health Warning** — selecting any Night (dark) theme now triggers a modal warning citing the medical rationale against prolonged dark-theme use:
+  - Pupil dilation and increased ocular accommodation effort (Computer Vision Syndrome).
+  - Environmental myopia hypothesis (Morgan et al., 2022) — reduced luminance contrast may worsen myopia progression.
+  - Halation and spherical aberration for users with astigmatism.
+  - Ciliary muscle fatigue comparison between ambient-bright and dark environments.
+  - Offers "Apply Anyway" or "Pick a Light Theme Instead" actions.
+  - Also fires for dark themes activated via VS Code's native theme picker (Ctrl+K Ctrl+T), with a "Switch to Light Theme" action. Extension-initiated changes (auto-switcher) are suppressed to avoid redundant warnings.
+
+### Changed
+
+- **Theme count**: 10 → 20 (10 Light + 10 Night).
+- **Validation scope**: 420 → 860 token contrast tests, all passing 100% WCAG AAA (≥ 7:1).
+- **Gallery**: `docs/previews/gallery.html` now includes all 20 themes with Night variants and the missing Tritanopia light theme.
+- **Terminal ANSI semantics**: `terminal.ansiBlack`/`ansiWhite`/`ansiBrightBlack`/`ansiBrightWhite` now correctly invert meaning on dark themes.
+- **Shadows**: `widget.shadow`, `inlineChat.shadow`, and `editorStickyScroll.shadow` use stronger alpha on dark canvases for correct depth perception.
+
 ## [0.1.0] - 2026-08-22
 
 ### Initial Release

@@ -150,7 +150,7 @@
     "terminal.ansiBrightBlue": "#4E3700",
     "terminal.ansiBrightMagenta": "#5C4100",
     "terminal.ansiBrightCyan": "#2C5814",
-    "terminal.ansiBrightWhite": "#FFFFFF",
+    "terminal.ansiBrightWhite": "#221B03",
     "debugConsole.background": "#FCFAF4",
     "debugConsole.foreground": "#221B03",
     "debugConsole.errorForeground": "#8E1200",

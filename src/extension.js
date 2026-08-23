@@ -167,8 +167,19 @@ function getCurrentThemeId() {
 
 function getThemePalette(themeId) {
   const tid = (themeId || '').toLowerCase();
+  const isNight = tid.includes('night');
 
-  if (tid.includes('high-contrast')) {
+  if (tid.includes('high contrast')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#1A1A1A',
+        safe: { fg: '#6BCB7A', bg: '#0E2A14', border: '#FFFFFF' },
+        caution: { fg: '#E8B85A', bg: '#2A2410', border: '#FFFFFF' },
+        warning: { fg: '#E89A5A', bg: '#2A1A0E', border: '#FFFFFF' },
+        panic: { fg: '#FF778A', bg: '#2A0E12', border: '#FFFFFF' },
+        info: { fg: '#5B9BD6', bg: '#0F1A2A', border: '#FFFFFF' }
+      };
+    }
     return {
       oddIndentBg: '#EBEBEB',
       safe: { fg: '#00591E', bg: '#EBF8EE', border: '#000000' },
@@ -180,6 +191,16 @@ function getThemePalette(themeId) {
   }
 
   if (tid.includes('deuteranopia')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#14202C',
+        safe: { fg: '#55A5F2', bg: '#0E1A2A', border: '#55A5F2' },
+        caution: { fg: '#E8A05A', bg: '#2A1E10', border: '#E8A05A' },
+        warning: { fg: '#E88A4A', bg: '#2A180E', border: '#E88A4A' },
+        panic: { fg: '#FB825B', bg: '#2A120E', border: '#FB825B' },
+        info: { fg: '#55A5F2', bg: '#0E1A2A', border: '#55A5F2' }
+      };
+    }
     return {
       oddIndentBg: '#E5EEF9',
       safe: { fg: '#0043A4', bg: '#F1F6FE', border: '#A6CEFD' },
@@ -191,6 +212,16 @@ function getThemePalette(themeId) {
   }
 
   if (tid.includes('protanopia')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#1C1622',
+        safe: { fg: '#4AD0BC', bg: '#0E2622', border: '#4AD0BC' },
+        caution: { fg: '#E8B85A', bg: '#2A2410', border: '#E8B85A' },
+        warning: { fg: '#E89A5A', bg: '#2A1A0E', border: '#E89A5A' },
+        panic: { fg: '#F27ABA', bg: '#2A0E1E', border: '#F27ABA' },
+        info: { fg: '#63A3DE', bg: '#0E1A24', border: '#63A3DE' }
+      };
+    }
     return {
       oddIndentBg: '#F0E5F2',
       safe: { fg: '#015D53', bg: '#F1FAF8', border: '#A3ECE0' },
@@ -202,6 +233,16 @@ function getThemePalette(themeId) {
   }
 
   if (tid.includes('tritanopia')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#162024',
+        safe: { fg: '#4AD0E0', bg: '#0E2226', border: '#4AD0E0' },
+        caution: { fg: '#E8D05A', bg: '#2A2610', border: '#E8D05A' },
+        warning: { fg: '#E87060', bg: '#2A1210', border: '#E87060' },
+        panic: { fg: '#FF7594', bg: '#2A0E16', border: '#FF7594' },
+        info: { fg: '#FC7291', bg: '#1A0E14', border: '#FC7291' }
+      };
+    }
     return {
       oddIndentBg: '#E2EFF1',
       safe: { fg: '#005D6B', bg: '#F1FAF9', border: '#A6E5EE' },
@@ -213,6 +254,16 @@ function getThemePalette(themeId) {
   }
 
   if (tid.includes('brown') || tid.includes('sepia')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#1A1814',
+        safe: { fg: '#BB9F83', bg: '#1A1410', border: '#BB9F83' },
+        caution: { fg: '#E8B85A', bg: '#2A2410', border: '#E8B85A' },
+        warning: { fg: '#DF9D77', bg: '#2A1A10', border: '#DF9D77' },
+        panic: { fg: '#F97C68', bg: '#2A1210', border: '#F97C68' },
+        info: { fg: '#CF9673', bg: '#1A1410', border: '#CF9673' }
+      };
+    }
     return {
       oddIndentBg: '#EFE6D7',
       safe: { fg: '#1F612B', bg: '#F2FAF3', border: '#B8E5BE' },
@@ -224,6 +275,16 @@ function getThemePalette(themeId) {
   }
 
   if (tid.includes('green') || tid.includes('forest')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#101814',
+        safe: { fg: '#74B689', bg: '#0E1A12', border: '#74B689' },
+        caution: { fg: '#D3A46E', bg: '#2A2210', border: '#D3A46E' },
+        warning: { fg: '#E89A5A', bg: '#2A1A0E', border: '#E89A5A' },
+        panic: { fg: '#FF7772', bg: '#2A1010', border: '#FF7772' },
+        info: { fg: '#6DB885', bg: '#0E1A12', border: '#6DB885' }
+      };
+    }
     return {
       oddIndentBg: '#E2F0E7',
       safe: { fg: '#0B6032', bg: '#EBF8EE', border: '#A6E4BE' },
@@ -235,6 +296,16 @@ function getThemePalette(themeId) {
   }
 
   if (tid.includes('purple') || tid.includes('plum')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#161320',
+        safe: { fg: '#6EB78A', bg: '#0E1A14', border: '#6EB78A' },
+        caution: { fg: '#C79C64', bg: '#2A2210', border: '#C79C64' },
+        warning: { fg: '#EE946A', bg: '#2A1A10', border: '#EE946A' },
+        panic: { fg: '#FB7695', bg: '#2A0E16', border: '#FB7695' },
+        info: { fg: '#BD87F4', bg: '#161220', border: '#BD87F4' }
+      };
+    }
     return {
       oddIndentBg: '#EDE4F4',
       safe: { fg: '#0A5E36', bg: '#EDFAF1', border: '#ABE5C2' },
@@ -246,6 +317,16 @@ function getThemePalette(themeId) {
   }
 
   if (tid.includes('yellow') || tid.includes('sand')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#181610',
+        safe: { fg: '#84B470', bg: '#0E1A12', border: '#84B470' },
+        caution: { fg: '#D7A26A', bg: '#2A2210', border: '#D7A26A' },
+        warning: { fg: '#E89A5A', bg: '#2A1A0E', border: '#E89A5A' },
+        panic: { fg: '#FA7C65', bg: '#2A1010', border: '#FA7C65' },
+        info: { fg: '#C19F61', bg: '#181610', border: '#C19F61' }
+      };
+    }
     return {
       oddIndentBg: '#EFE9D2',
       safe: { fg: '#1A612D', bg: '#F1FAF3', border: '#B4E6C1' },
@@ -257,6 +338,16 @@ function getThemePalette(themeId) {
   }
 
   if (tid.includes('orange') || tid.includes('terracotta')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#1A1612',
+        safe: { fg: '#71B87F', bg: '#0E1A12', border: '#71B87F' },
+        caution: { fg: '#E28C60', bg: '#2A2210', border: '#E28C60' },
+        warning: { fg: '#F39166', bg: '#2A1A10', border: '#F39166' },
+        panic: { fg: '#FF7965', bg: '#2A1010', border: '#FF7965' },
+        info: { fg: '#E9875D', bg: '#1A1612', border: '#E9875D' }
+      };
+    }
     return {
       oddIndentBg: '#EFE2D4',
       safe: { fg: '#186133', bg: '#F2FAF4', border: '#B3E6C3' },
@@ -267,7 +358,17 @@ function getThemePalette(themeId) {
     };
   }
 
-  // Default: ZeroToSaaS Light (Default Cobalt-Slate)
+  // Default: ZeroToSaaS Light (Default Cobalt-Slate) or Light Night
+  if (isNight) {
+    return {
+      oddIndentBg: '#161C26',
+      safe: { fg: '#6BCB7A', bg: '#0E2A14', border: '#6BCB7A' },
+      caution: { fg: '#E8B85A', bg: '#2A2410', border: '#E8B85A' },
+      warning: { fg: '#E89A5A', bg: '#2A1A0E', border: '#E89A5A' },
+      panic: { fg: '#FF768A', bg: '#2A0E12', border: '#FF768A' },
+      info: { fg: '#63A3DE', bg: '#0E1A24', border: '#63A3DE' }
+    };
+  }
   return {
     oddIndentBg: '#ECF1F9',
     safe: { fg: '#0B6229', bg: '#F1FAF3', border: '#B4E6C3' },
@@ -1060,7 +1161,7 @@ function initRestAssistant() {
 }
 
 async function handleThemeSelection() {
-  const themes = [
+  const lightThemes = [
     { label: 'ZeroToSaaS Light (Default)', description: 'Cobalt-slate, balanced luminance, 100% WCAG AAA' },
     { label: 'ZeroToSaaS High Contrast (ISO 9241-303)', description: 'Ultra-clear 12+:1 contrast ratios, sharp borders' },
     { label: 'ZeroToSaaS Deuteranopia (Blue / Orange)', description: 'Red-green colorblind safe (Deutan)' },
@@ -1073,17 +1174,130 @@ async function handleThemeSelection() {
     { label: 'ZeroToSaaS Terracotta (Orange)', description: 'Earthy clay & rust energetic palette' }
   ];
 
-  const selected = await vscode.window.showQuickPick(themes, {
+  const nightThemes = [
+    { label: 'ZeroToSaaS Light Night (Default)', description: 'Dark cobalt-slate, 100% WCAG AAA, glare-free' },
+    { label: 'ZeroToSaaS High Contrast Night (ISO 9241-303)', description: 'Dark ultra-clear contrast, sharp white borders' },
+    { label: 'ZeroToSaaS Deuteranopia Night (Blue / Orange)', description: 'Dark red-green colorblind safe (Deutan)' },
+    { label: 'ZeroToSaaS Protanopia Night (Magenta / Teal)', description: 'Dark red-green colorblind safe (Protan)' },
+    { label: 'ZeroToSaaS Tritanopia Night (Crimson / Cyan)', description: 'Dark blue-yellow colorblind safe (Tritan)' },
+    { label: 'ZeroToSaaS Warm Sepia Night (Brown)', description: 'Dark warm espresso & walnut tones' },
+    { label: 'ZeroToSaaS Forest Calm Night (Green)', description: 'Dark cypress & cedar tones for night coding' },
+    { label: 'ZeroToSaaS Royal Plum Night (Purple)', description: 'Dark iris & midnight-plum tones' },
+    { label: 'ZeroToSaaS Golden Sand Night (Yellow)', description: 'Dark amber bronze & sandstone' },
+    { label: 'ZeroToSaaS Terracotta Night (Orange)', description: 'Dark burnt orange & rich bronze' }
+  ];
+
+  const nightLabels = new Set(nightThemes.map(t => t.label));
+
+  const items = [
+    { label: 'Light Themes', kind: vscode.QuickPickItemKind.Separator },
+    ...lightThemes,
+    { label: 'Night Themes', kind: vscode.QuickPickItemKind.Separator },
+    ...nightThemes
+  ];
+
+  const selected = await vscode.window.showQuickPick(items, {
     placeHolder: 'Select a ZeroToSaaS theme variant to apply'
   });
 
-  if (selected) {
+  if (selected && !selected.kind) {
+    const isNight = nightLabels.has(selected.label);
+
+    if (isNight) {
+      const proceed = await vscode.window.showWarningMessage(
+        `⚠️ Dark Theme Eye Health Notice\n\n` +
+        `You are about to apply "${selected.label}". Prolonged use of dark themes ` +
+        `has been linked to several visual and ergonomic concerns:\n\n` +
+        `• Pupil dilation in low-luminance environments increases ocular accommodation ` +
+        `effort, contributing to digital eye strain (Computer Vision Syndrome).\n` +
+        `• Reduced luminance contrast can worsen myopia progression in younger developers ` +
+        `(environmental myopia hypothesis, Morgan et al., 2022).\n` +
+        `• Dark backgrounds with bright text create higher halation and spherical ` +
+        `aberration for users with astigmatism, reducing perceived sharpness.\n` +
+        `• Studies suggest ambient-bright environments (light themes) are associated ` +
+        `with reduced ciliary muscle fatigue during extended reading sessions.\n\n` +
+        `Recommendation: Use dark themes in dim ambient lighting for short durations. ` +
+        `Prefer light themes for daytime extended coding. Enable the 20-20-20 rest ` +
+        `reminder (zerotosaas.restReminder.enabled) for either mode.`,
+        { modal: false },
+        'Apply Anyway',
+        'Pick a Light Theme Instead'
+      );
+
+      if (proceed === 'Pick a Light Theme Instead') {
+        return handleThemeSelection();
+      }
+      if (proceed !== 'Apply Anyway') {
+        return; // user dismissed the warning — abort theme switch
+      }
+    }
+
+    themeChangeByExtension = true;
     await vscode.workspace.getConfiguration('workbench').update(
       'colorTheme',
       selected.label,
       vscode.ConfigurationTarget.Global
     );
+    themeChangeByExtension = false;
     vscode.window.showInformationMessage(`ZeroToSaaS Theme set to: ${selected.label}`);
+  }
+}
+
+// --- Day / Night Auto-Switcher ---
+
+let autoSwitchTimer = null;
+
+// Tracks whether the current theme change was initiated by this extension
+// (QuickPick or auto-switcher). Used to suppress the dark-theme eye health
+// warning for extension-initiated changes that already showed a warning,
+// and to show it for externally-initiated dark theme activations (e.g. via
+// VS Code's native Ctrl+K Ctrl+T theme picker).
+let themeChangeByExtension = false;
+
+function getCurrentThemeLabel(cfg) {
+  return vscode.workspace.getConfiguration('workbench').get('colorTheme') || '';
+}
+
+function evaluateAutoSwitch() {
+  const cfg = vscode.workspace.getConfiguration('zerotosaas.autoSwitch');
+  if (!cfg.get('enabled', false)) return;
+
+  const dayTheme = cfg.get('dayTheme', 'ZeroToSaaS Light (Default)');
+  const nightTheme = cfg.get('nightTheme', 'ZeroToSaaS Light Night (Default)');
+  const dayStart = cfg.get('dayStartHour', 7);
+  const nightStart = cfg.get('nightStartHour', 18);
+
+  const hour = new Date().getHours();
+  const isDay = hour >= dayStart && hour < nightStart;
+  const target = isDay ? dayTheme : nightTheme;
+  const current = getCurrentThemeLabel();
+
+  if (target !== current) {
+    themeChangeByExtension = true;
+    vscode.workspace.getConfiguration('workbench').update(
+      'colorTheme',
+      target,
+      vscode.ConfigurationTarget.Global
+    );
+    themeChangeByExtension = false;
+  }
+}
+
+function initAutoSwitch(context) {
+  if (autoSwitchTimer) {
+    clearInterval(autoSwitchTimer);
+    autoSwitchTimer = null;
+  }
+  const cfg = vscode.workspace.getConfiguration('zerotosaas.autoSwitch');
+  if (!cfg.get('enabled', false)) return;
+
+  evaluateAutoSwitch();
+  // Check every 5 minutes — catches hour transitions without excessive polling.
+  autoSwitchTimer = setInterval(evaluateAutoSwitch, 5 * 60 * 1000);
+  if (context && context.subscriptions) {
+    context.subscriptions.push({ dispose: () => {
+      if (autoSwitchTimer) { clearInterval(autoSwitchTimer); autoSwitchTimer = null; }
+    }});
   }
 }
 
@@ -1131,14 +1345,50 @@ function activate(context) {
     }),
     vscode.commands.registerCommand('zerotosaas.openSettings', () => {
       vscode.commands.executeCommand('workbench.action.openSettings', '@ext:zerotosaas.zerotosaas-theme');
+    }),
+    vscode.commands.registerCommand('zerotosaas.toggleAutoSwitch', async () => {
+      const cfg = vscode.workspace.getConfiguration('zerotosaas.autoSwitch');
+      const next = !cfg.get('enabled', false);
+      await cfg.update('enabled', next, vscode.ConfigurationTarget.Global);
+      initAutoSwitch(context);
+      vscode.window.showInformationMessage(
+        `ZeroToSaaS Day/Night Auto-Switch ${next ? 'enabled' : 'disabled'}.`
+      );
     })
   );
 
+  initAutoSwitch(context);
+
   if (vscode.window.onDidChangeActiveColorTheme) {
-    vscode.window.onDidChangeActiveColorTheme(() => {
+    vscode.window.onDidChangeActiveColorTheme((newTheme) => {
       initDecorations(context);
       if (vscode.window.activeTextEditor) {
         updateDecorations(vscode.window.activeTextEditor);
+      }
+
+      // Warn about dark theme eye health effects when a dark theme is activated
+      // externally (e.g. via VS Code's native Ctrl+K Ctrl+T picker). Extension-
+      // initiated changes (QuickPick / auto-switcher) are suppressed — the
+      // QuickPick already shows a modal warning; the auto-switcher is opt-in.
+      if (!themeChangeByExtension && newTheme && newTheme.kind) {
+        const isDark = newTheme.kind === vscode.ColorThemeKind.Dark ||
+          newTheme.kind === vscode.ColorThemeKind.HighContrastDark;
+        if (isDark) {
+          const themeName = vscode.workspace.getConfiguration('workbench').get('colorTheme') || 'the selected dark theme';
+          vscode.window.showWarningMessage(
+            `⚠️ "${themeName}" is a dark theme. Prolonged dark-theme use can increase ` +
+            `ocular accommodation effort (pupil dilation), worsen halation for users ` +
+            `with astigmatism, and contribute to digital eye strain. Prefer light ` +
+            `themes for daytime extended coding. Use the 20-20-20 rest reminder ` +
+            `to mitigate fatigue in any mode.`,
+            'Switch to Light Theme',
+            'Dismiss'
+          ).then(action => {
+            if (action === 'Switch to Light Theme') {
+              vscode.commands.executeCommand('zerotosaas.selectTheme');
+            }
+          });
+        }
       }
     }, null, context.subscriptions);
   }
@@ -1192,6 +1442,9 @@ function activate(context) {
       if (vscode.window.activeTextEditor) {
         updateDecorations(vscode.window.activeTextEditor);
       }
+    }
+    if (event.affectsConfiguration('zerotosaas.autoSwitch')) {
+      initAutoSwitch(context);
     }
   }, null, context.subscriptions);
 

@@ -15,99 +15,23 @@
 
 const fs = require('fs');
 const path = require('path');
+const {
+  contrastRatio,
+  hexToOklch,
+  getFmQuadrant,
+  getColorBrewerScale,
+  relativeLuminance
+} = require('./color-math');
 
 const THEMES_DIR = path.join(__dirname, '..', 'themes');
-
-function parseHex(hex) {
-  let clean = hex.replace('#', '').trim();
-  if (clean.length === 3) {
-    clean = clean.split('').map(c => c + c).join('');
-  }
-  if (clean.length === 8) {
-    clean = clean.substring(0, 6); // ignore alpha for base luminance calculation
-  }
-  const r = parseInt(clean.substring(0, 2), 16);
-  const g = parseInt(clean.substring(2, 4), 16);
-  const b = parseInt(clean.substring(4, 6), 16);
-  return { r, g, b };
-}
-
-function sRgbToLinear(c) {
-  const v = c / 255;
-  return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
-}
-
-function relativeLuminance(hex) {
-  const { r, g, b } = parseHex(hex);
-  const rLin = sRgbToLinear(r);
-  const gLin = sRgbToLinear(g);
-  const bLin = sRgbToLinear(b);
-  return 0.2126 * rLin + 0.7152 * gLin + 0.0722 * bLin;
-}
-
-function contrastRatio(hex1, hex2) {
-  const l1 = relativeLuminance(hex1);
-  const l2 = relativeLuminance(hex2);
-  const lighter = Math.max(l1, l2);
-  const darker = Math.min(l1, l2);
-  return (lighter + 0.05) / (darker + 0.05);
-}
-
-function hexToOklch(hex) {
-  const { r, g, b } = parseHex(hex);
-  const rLin = sRgbToLinear(r);
-  const gLin = sRgbToLinear(g);
-  const bLin = sRgbToLinear(b);
-
-  const l = Math.cbrt(0.4122214708 * rLin + 0.5363325363 * gLin + 0.0514459929 * bLin);
-  const m = Math.cbrt(0.2119034982 * rLin + 0.6806995451 * gLin + 0.1073969566 * bLin);
-  const s = Math.cbrt(0.0883024619 * rLin + 0.2817188376 * gLin + 0.6299787005 * bLin);
-
-  const L = 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s;
-  const a = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s;
-  const bCoord = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
-
-  const C = Math.sqrt(a * a + bCoord * bCoord);
-  let h = (Math.atan2(bCoord, a) * 180) / Math.PI;
-  if (h < 0) h += 360;
-
-  return { L, C, h, a, bCoord };
-}
-
-// Paul Tol & Oklab Euclidean perceptual color distance (Delta E Ok)
-function deltaEOklab(c1, c2) {
-  const dL = c1.L - c2.L;
-  const da = c1.a - c2.a;
-  const db = c1.bCoord - c2.bCoord;
-  return Math.sqrt(dL * dL + da * da + db * db);
-}
-
-// Farnsworth-Munsell 100-Hue Clinical Quadrant Mapper
-function getFmQuadrant(hue) {
-  if (hue >= 0 && hue < 90) return 'FM Quadrant I (Red-Yellow / Alert Axis)';
-  if (hue >= 90 && hue < 180) return 'FM Quadrant II (Yellow-Green / Growth & Safe Axis)';
-  if (hue >= 180 && hue < 270) return 'FM Quadrant III (Green-Cyan / Blue Structure Axis)';
-  return 'FM Quadrant IV (Blue-Violet / Magenta Function Axis)';
-}
-
-// Cynthia Brewer's ColorBrewer Scale Classifier
-function getColorBrewerScale(tokenName) {
-  const name = tokenName ? tokenName.toLowerCase() : '';
-  if (name.includes('safe') || name.includes('caution') || name.includes('warning') || name.includes('panic') || name.includes('diff') || name.includes('status')) {
-    return 'Diverging (Cognitive Status & Severity)';
-  }
-  if (name.includes('indent') || name.includes('guide') || name.includes('level') || name.includes('number') || name.includes('depth')) {
-    return 'Sequential (Structural Depth & Order)';
-  }
-  return 'Qualitative (Nominal Syntax Differentiation)';
-}
 
 console.log('🔬 Validating Quad-System Color Science:');
 console.log('   1. WCAG AAA Contrast Ratios (Target >= 7.0:1)');
 console.log('   2. OkLCH Perceptual Lightness Uniformity (Oklab Standard)');
 console.log('   3. Paul Tol CVD-Safe Photoreceptor Wavelength Discrimination');
-console.log('   4. Cynthia Brewer\'s ColorBrewer Framework (Qualitative, Sequential, Diverging)');
-console.log('   5. Farnsworth-Munsell 100-Hue Clinical Quadrant Distribution\n');
+console.log("   4. Cynthia Brewer's ColorBrewer Framework (Qualitative, Sequential, Diverging)");
+console.log('   5. Farnsworth-Munsell 100-Hue Clinical Quadrant Distribution');
+console.log('   6. Polarity Sanity (fg luminance vs bg luminance per theme type)\n');
 
 let totalTests = 0;
 let passedTests = 0;
@@ -128,6 +52,21 @@ files.forEach(file => {
   console.log(`   Editor Canvas: ${editorBg} [OkLCH: L=${(bgOklch.L * 100).toFixed(1)}% C=${bgOklch.C.toFixed(3)} h=${bgOklch.h.toFixed(0)}°]`);
   console.log(`   Foreground:    ${editorFg} [OkLCH: L=${(fgOklch.L * 100).toFixed(1)}% C=${fgOklch.C.toFixed(3)} h=${fgOklch.h.toFixed(0)}°]`);
   console.log(`============================================================`);
+
+  // 6. Polarity sanity check — fg must be lighter than bg on dark themes,
+  //    and darker than bg on light themes. Catches palette inversion bugs.
+  const isDark = theme.type === 'dark' || theme.type === 'hcDark';
+  const fgLum = relativeLuminance(editorFg);
+  const bgLum = relativeLuminance(editorBg);
+  const polarityOk = isDark ? fgLum > bgLum : fgLum < bgLum;
+  totalTests++;
+  if (polarityOk) {
+    passedTests++;
+    console.log(`  ✅ Polarity: ${isDark ? 'DARK' : 'LIGHT'} fg luminance ${fgLum.toFixed(3)} vs bg ${bgLum.toFixed(3)} (PASS)`);
+  } else {
+    failedTests.push({ theme: theme.name, scope: 'polarity', ratio: null });
+    console.log(`  ❌ Polarity: ${isDark ? 'DARK' : 'LIGHT'} fg luminance ${fgLum.toFixed(3)} vs bg ${bgLum.toFixed(3)} (FAIL — inverted)`);
+  }
 
   // 1. Check base editor text
   const baseRatio = contrastRatio(editorFg, editorBg);
@@ -176,6 +115,7 @@ if (failedTests.length === 0) {
   console.log(`   ✅ 3. Cynthia Brewer's ColorBrewer Framework (Qualitative / Sequential / Diverging)`);
   console.log(`   ✅ 4. Farnsworth-Munsell 100-Hue Quadrant Distribution`);
   console.log(`   ✅ Plus: 100% WCAG AAA (>= 7:1 Contrast Ratio) Across All Tokens`);
+  console.log(`   ✅ Plus: Polarity Sanity Across All Light & Night Themes`);
   process.exit(0);
 } else {
   console.error(`\n❌ Failed tokens detected:`, failedTests);

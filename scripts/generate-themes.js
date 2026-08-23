@@ -15,6 +15,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { invertLightness, deriveDarkCanvasStack, hexToOklch, oklchToHex, contrastRatio } = require('./color-math');
 
 const THEMES_DIR = path.join(__dirname, '..', 'themes');
 if (!fs.existsSync(THEMES_DIR)) {
@@ -444,15 +445,343 @@ const themeDefinitions = [
   }
 ];
 
+// =============================================================================
+// NIGHT (DARK) THEME PALETTES
+// =============================================================================
+// Polarity inversion of the 10 light palettes. Hue and chroma are preserved;
+// only OkLCH lightness is flipped. The 5 medically constrained themes
+// (Light, High Contrast, Deuteranopia, Protanopia, Tritanopia) receive
+// hand-tuned overrides after programmatic derivation; the 5 ambient themes
+// (Brown, Green, Purple, Yellow, Orange) use the programmatic output directly.
+// All palettes must pass scripts/validate-contrast.js at WCAG AAA (>= 7:1).
+
+function toNightName(lightName) {
+  const idx = lightName.indexOf(' (');
+  if (idx === -1) return lightName + ' Night';
+  return lightName.slice(0, idx) + ' Night' + lightName.slice(idx);
+}
+
+// Derive a dark palette from a light palette by inverting OkLCH lightness.
+// Preserves hue and chroma for CVD-safe wavelength discrimination.
+function deriveDarkFromLight(light, overrides = {}) {
+  const canvas = deriveDarkCanvasStack(light.bg, 0.16);
+  const isHcLight = light.type === 'hc-light';
+
+  const syntax = {};
+  for (const [k, v] of Object.entries(light.syntax)) {
+    // variable/property/operator are structural — render near-foreground luminance
+    const isHighLum = k === 'variable' || k === 'property' || k === 'operator';
+    const targetL = isHighLum ? 0.92 : 0.72;
+    syntax[k] = invertLightness(v, targetL, { maxChroma: 0.18 });
+  }
+
+  const dark = {
+    id: light.id + '-night',
+    name: toNightName(light.name),
+    type: isHcLight ? 'hc-dark' : 'dark',
+    bg: canvas.bg,
+    bgSubtle: canvas.bgSubtle,
+    bgSidebar: canvas.bgSidebar,
+    bgActivityBar: canvas.bgActivityBar,
+    bgStatusBar: invertLightness(light.bgStatusBar, 0.28, { maxChroma: 0.15 }),
+    fgStatusBar: '#FFFFFF',
+    bgActive: invertLightness(light.bg, 0.24, { maxChroma: 0.012 }),
+    bgSelection: invertLightness(light.accent, 0.30, { maxChroma: 0.15 }) + 'B3',
+    border: invertLightness(light.bg, 0.30, { maxChroma: 0.012 }),
+    borderStrong: invertLightness(light.bg, 0.38, { maxChroma: 0.012 }),
+    fg: invertLightness(light.fg, 0.93, { maxChroma: 0.015 }),
+    fgMuted: invertLightness(light.fgMuted, 0.68, { maxChroma: 0.02 }),
+    accent: invertLightness(light.accent, 0.72, { maxChroma: 0.18 }),
+    accentFocus: invertLightness(light.accentFocus, 0.78, { maxChroma: 0.18 }),
+    safe: {
+      fg: invertLightness(light.safe.fg, 0.75, { maxChroma: 0.16 }),
+      bg: invertLightness(light.safe.bg, 0.20, { maxChroma: 0.04 }),
+      border: invertLightness(light.safe.fg, 0.75, { maxChroma: 0.16 })
+    },
+    caution: {
+      fg: invertLightness(light.caution.fg, 0.78, { maxChroma: 0.16 }),
+      bg: invertLightness(light.caution.bg, 0.22, { maxChroma: 0.04 }),
+      border: invertLightness(light.caution.fg, 0.78, { maxChroma: 0.16 })
+    },
+    warning: {
+      fg: invertLightness(light.warning.fg, 0.75, { maxChroma: 0.16 }),
+      bg: invertLightness(light.warning.bg, 0.20, { maxChroma: 0.04 }),
+      border: invertLightness(light.warning.fg, 0.75, { maxChroma: 0.16 })
+    },
+    panic: {
+      fg: invertLightness(light.panic.fg, 0.72, { maxChroma: 0.18 }),
+      bg: invertLightness(light.panic.bg, 0.20, { maxChroma: 0.04 }),
+      border: invertLightness(light.panic.fg, 0.72, { maxChroma: 0.18 })
+    },
+    syntax
+  };
+
+  return { ...dark, ...overrides };
+}
+
+// Hand-tuned overrides for the 5 medically constrained themes.
+// These fine-tune the programmatic derivation to preserve CVD confusion axes
+// and ISO 9241-303 high-contrast requirements on dark canvases.
+const handTunedOverrides = {
+  'zerotosaas-light': {
+    bg: '#0E1116',
+    bgSubtle: '#14181F',
+    bgSidebar: '#181D26',
+    bgActivityBar: '#1D232E',
+    bgStatusBar: '#0B4F9C',
+    bgActive: '#1E2530',
+    bgSelection: '#2A4A7AB3',
+    border: '#2A323E',
+    borderStrong: '#3A4654',
+    fg: '#E8ECF1',
+    fgMuted: '#95A0B0',
+    accent: '#5B9BD6',
+    accentFocus: '#7AB5E8',
+    safe: { fg: '#6BCB7A', bg: '#0E2A14', border: '#6BCB7A' },
+    caution: { fg: '#E8B85A', bg: '#2A2410', border: '#E8B85A' },
+    warning: { fg: '#E89A5A', bg: '#2A1A0E', border: '#E89A5A' },
+    panic: { fg: '#F0657A', bg: '#2A0E12', border: '#F0657A' },
+    syntax: {
+      keyword: '#5B9BD6',
+      string: '#E89A5A',
+      function: '#B89BE8',
+      type: '#6BCB7A',
+      constant: '#E8B85A',
+      number: '#F0657A',
+      variable: '#E8ECF1',
+      parameter: '#E8B85A',
+      comment: '#95A0B0',
+      tag: '#5B9BD6',
+      attribute: '#B89BE8',
+      property: '#E8ECF1',
+      operator: '#E8ECF1',
+      regex: '#F0657A',
+      uuid: '#F0657A',
+      secret: '#F0657A'
+    }
+  },
+  'zerotosaas-high-contrast': {
+    bg: '#000000',
+    bgSubtle: '#0A0A0A',
+    bgSidebar: '#0F0F0F',
+    bgActivityBar: '#141414',
+    bgStatusBar: '#FFFFFF',
+    fgStatusBar: '#000000',
+    bgActive: '#1E1E1E',
+    bgSelection: '#1A3A6AE6',
+    border: '#FFFFFF',
+    borderStrong: '#FFFFFF',
+    fg: '#FFFFFF',
+    fgMuted: '#B0B0B0',
+    accent: '#5B9BD6',
+    accentFocus: '#7AB5E8',
+    safe: { fg: '#6BCB7A', bg: '#0E2A14', border: '#FFFFFF' },
+    caution: { fg: '#E8B85A', bg: '#2A2410', border: '#FFFFFF' },
+    warning: { fg: '#E89A5A', bg: '#2A1A0E', border: '#FFFFFF' },
+    panic: { fg: '#F0657A', bg: '#2A0E12', border: '#FFFFFF' },
+    syntax: {
+      keyword: '#5B9BD6',
+      string: '#E89A5A',
+      function: '#B89BE8',
+      type: '#6BCB7A',
+      constant: '#E8B85A',
+      number: '#F0657A',
+      variable: '#FFFFFF',
+      parameter: '#E8B85A',
+      comment: '#B0B0B0',
+      tag: '#5B9BD6',
+      attribute: '#B89BE8',
+      property: '#FFFFFF',
+      operator: '#FFFFFF',
+      regex: '#F0657A',
+      uuid: '#F0657A',
+      secret: '#F0657A'
+    }
+  },
+  'zerotosaas-deuteranopia': {
+    bg: '#0E1419',
+    bgSubtle: '#141C24',
+    bgSidebar: '#18222B',
+    bgActivityBar: '#1D2832',
+    bgStatusBar: '#0043A4',
+    bgActive: '#1E2D3A',
+    bgSelection: '#1A3A6AB3',
+    border: '#2A3845',
+    borderStrong: '#3A4D5E',
+    fg: '#E8EEF4',
+    fgMuted: '#90A0B8',
+    accent: '#4A9AE6',
+    accentFocus: '#6BB4F0',
+    safe: { fg: '#4A9AE6', bg: '#0E1A2A', border: '#4A9AE6' },
+    caution: { fg: '#E8A05A', bg: '#2A1E10', border: '#E8A05A' },
+    warning: { fg: '#E88A4A', bg: '#2A180E', border: '#E88A4A' },
+    panic: { fg: '#E8704A', bg: '#2A120E', border: '#E8704A' },
+    syntax: {
+      keyword: '#4A9AE6',
+      string: '#E88A4A',
+      function: '#7A9AE8',
+      type: '#4A9AE6',
+      constant: '#E8A05A',
+      number: '#E8704A',
+      variable: '#E8EEF4',
+      parameter: '#E8A05A',
+      comment: '#90A0B8',
+      tag: '#4A9AE6',
+      attribute: '#7A9AE8',
+      property: '#E8EEF4',
+      operator: '#E8EEF4',
+      regex: '#E8704A',
+      uuid: '#E8704A',
+      secret: '#E8704A'
+    }
+  },
+  'zerotosaas-protanopia': {
+    bg: '#100E12',
+    bgSubtle: '#18141C',
+    bgSidebar: '#1D1822',
+    bgActivityBar: '#231D28',
+    bgStatusBar: '#8C0064',
+    bgActive: '#241E2E',
+    bgSelection: '#4A2858B3',
+    border: '#2E2638',
+    borderStrong: '#3E3448',
+    fg: '#EEEAF0',
+    fgMuted: '#A092AC',
+    accent: '#5B9BD6',
+    accentFocus: '#7AB5E8',
+    safe: { fg: '#4AD0BC', bg: '#0E2622', border: '#4AD0BC' },
+    caution: { fg: '#E8B85A', bg: '#2A2410', border: '#E8B85A' },
+    warning: { fg: '#E89A5A', bg: '#2A1A0E', border: '#E89A5A' },
+    panic: { fg: '#E870B0', bg: '#2A0E1E', border: '#E870B0' },
+    syntax: {
+      keyword: '#5B9BD6',
+      string: '#E89A5A',
+      function: '#E870B0',
+      type: '#4AD0BC',
+      constant: '#E8B85A',
+      number: '#E870B0',
+      variable: '#EEEAF0',
+      parameter: '#E8B85A',
+      comment: '#A092AC',
+      tag: '#5B9BD6',
+      attribute: '#E870B0',
+      property: '#EEEAF0',
+      operator: '#EEEAF0',
+      regex: '#E870B0',
+      uuid: '#E870B0',
+      secret: '#E870B0'
+    }
+  },
+  'zerotosaas-tritanopia': {
+    bg: '#0E1214',
+    bgSubtle: '#141A1E',
+    bgSidebar: '#181F24',
+    bgActivityBar: '#1D252A',
+    bgStatusBar: '#A00028',
+    bgActive: '#1E2830',
+    bgSelection: '#3A1E28B3',
+    border: '#2A3438',
+    borderStrong: '#3A4850',
+    fg: '#E8F0F2',
+    fgMuted: '#90A4AC',
+    accent: '#E86080',
+    accentFocus: '#F080A0',
+    safe: { fg: '#4AD0E0', bg: '#0E2226', border: '#4AD0E0' },
+    caution: { fg: '#E8D05A', bg: '#2A2610', border: '#E8D05A' },
+    warning: { fg: '#E87060', bg: '#2A1210', border: '#E87060' },
+    panic: { fg: '#E86080', bg: '#2A0E16', border: '#E86080' },
+    syntax: {
+      keyword: '#E86080',
+      string: '#E87060',
+      function: '#E84070',
+      type: '#4AD0E0',
+      constant: '#E8D05A',
+      number: '#E86080',
+      variable: '#E8F0F2',
+      parameter: '#E8D05A',
+      comment: '#90A4AC',
+      tag: '#E86080',
+      attribute: '#E84070',
+      property: '#E8F0F2',
+      operator: '#E8F0F2',
+      regex: '#E86080',
+      uuid: '#E86080',
+      secret: '#E86080'
+    }
+  }
+};
+
+// Lighten a color in OkLCH space until it reaches the target contrast ratio
+// against the given background. Preserves hue and chroma.
+function tuneForContrast(fg, bg, targetRatio = 7.0) {
+  let ratio = contrastRatio(fg, bg);
+  if (ratio >= targetRatio) return fg;
+  const ok = hexToOklch(fg);
+  let L = ok.L;
+  while (ratio < targetRatio && L < 0.99) {
+    L += 0.005;
+    const candidate = oklchToHex(L, ok.C, ok.h);
+    ratio = contrastRatio(candidate, bg);
+  }
+  return oklchToHex(Math.min(L, 0.99), ok.C, ok.h);
+}
+
+// Post-process a dark palette to guarantee WCAG AAA (>= 7:1) on every token.
+// Each syntax color is tuned against the editor canvas. Each cognitive-status
+// fg is tuned against both the editor canvas and its own cognitive-status bg
+// (the stricter of the two wins). fgMuted is tuned against the canvas.
+function tuneDarkPalette(dark) {
+  const tuned = { ...dark };
+  const bg = dark.bg;
+
+  // Tune foreground and muted foreground
+  tuned.fg = tuneForContrast(dark.fg, bg);
+  tuned.fgMuted = tuneForContrast(dark.fgMuted, bg);
+
+  // Tune accent colors
+  tuned.accent = tuneForContrast(dark.accent, bg);
+  tuned.accentFocus = tuneForContrast(dark.accentFocus, bg);
+
+  // Tune syntax tokens against editor canvas
+  tuned.syntax = {};
+  for (const [k, v] of Object.entries(dark.syntax)) {
+    tuned.syntax[k] = tuneForContrast(v, bg);
+  }
+
+  // Tune cognitive status: fg must pass against both editor bg and status bg
+  for (const status of ['safe', 'caution', 'warning', 'panic']) {
+    const s = dark[status];
+    const vsCanvas = tuneForContrast(s.fg, bg);
+    const vsStatusBg = tuneForContrast(vsCanvas, s.bg);
+    tuned[status] = {
+      fg: vsStatusBg,
+      bg: s.bg,
+      border: vsStatusBg
+    };
+  }
+
+  return tuned;
+}
+
+// Build the 10 Night palettes: programmatic derivation for all, then
+// apply hand-tuned overrides to the 5 medically constrained themes,
+// then auto-tune every palette to guarantee WCAG AAA compliance.
+const darkThemeDefinitions = themeDefinitions.map(light => {
+  const overrides = handTunedOverrides[light.id] || {};
+  const derived = deriveDarkFromLight(light, overrides);
+  return tuneDarkPalette(derived);
+});
+
 function buildThemeJson(theme) {
-  const isHc = theme.type === 'hc-light';
+  const isHc = theme.type === 'hc-light' || theme.type === 'hc-dark';
+  const isDark = theme.type === 'dark' || theme.type === 'hc-dark';
 
   const colors = {
     // Base Colors & Focus
     'focusBorder': theme.accent,
     'foreground': theme.fg,
     'disabledForeground': theme.fgMuted + 'AA',
-    'widget.shadow': '#00000018',
+    'widget.shadow': isDark ? '#00000066' : '#00000018',
     'selection.background': theme.bgActive,
     'descriptionForeground': theme.fgMuted,
     'errorForeground': theme.panic.fg,
@@ -600,22 +929,24 @@ function buildThemeJson(theme) {
     'terminalCommandDecoration.successBackground': theme.safe.fg,
     'terminalCommandDecoration.errorBackground': theme.panic.fg,
     'terminal.tab.activeBorder': theme.accent,
-    'terminal.ansiBlack': theme.fg,
+    // On dark themes, ANSI black/white semantics invert: black = darkest,
+    // white = lightest. On light themes, black = foreground, white = bgSubtle.
+    'terminal.ansiBlack': isDark ? theme.bgSubtle : theme.fg,
     'terminal.ansiRed': theme.panic.fg,
     'terminal.ansiGreen': theme.safe.fg,
     'terminal.ansiYellow': theme.caution.fg,
     'terminal.ansiBlue': theme.accent,
     'terminal.ansiMagenta': theme.syntax.function,
     'terminal.ansiCyan': theme.syntax.type,
-    'terminal.ansiWhite': theme.bgSubtle,
-    'terminal.ansiBrightBlack': theme.fgMuted,
+    'terminal.ansiWhite': isDark ? theme.fg : theme.bgSubtle,
+    'terminal.ansiBrightBlack': isDark ? theme.bgSidebar : theme.fgMuted,
     'terminal.ansiBrightRed': theme.panic.fg,
     'terminal.ansiBrightGreen': theme.safe.fg,
     'terminal.ansiBrightYellow': theme.caution.fg,
     'terminal.ansiBrightBlue': theme.accentFocus,
     'terminal.ansiBrightMagenta': theme.syntax.function,
     'terminal.ansiBrightCyan': theme.syntax.type,
-    'terminal.ansiBrightWhite': '#FFFFFF',
+    'terminal.ansiBrightWhite': isDark ? '#FFFFFF' : theme.fg,
 
     // Debug Console & Runtime Expression Evaluation
     'debugConsole.background': theme.bg,
@@ -778,7 +1109,7 @@ function buildThemeJson(theme) {
     // Inline AI Assistant (Ctrl+K / Cmd+K Inline Chat & Multi-line Generation)
     'inlineChat.background': theme.bg,
     'inlineChat.border': theme.borderStrong,
-    'inlineChat.shadow': '#00000022',
+    'inlineChat.shadow': isDark ? '#00000055' : '#00000022',
     'inlineChat.regionHighlight': theme.accent + '1A',
     'inlineChatInput.background': theme.bgSubtle,
     'inlineChatInput.border': theme.border,
@@ -821,7 +1152,7 @@ function buildThemeJson(theme) {
     // Sticky Scroll (Class, Function & Agent Block Sticky Headers)
     'editorStickyScroll.background': theme.bgSubtle,
     'editorStickyScrollHover.background': theme.bgActive,
-    'editorStickyScroll.shadow': '#00000014',
+    'editorStickyScroll.shadow': isDark ? '#00000044' : '#00000014',
     'editorStickyScroll.border': theme.border,
 
     // Inlay Hints (Type & Parameter Annotations)
@@ -1567,7 +1898,10 @@ function buildThemeJson(theme) {
   return {
     $schema: 'vscode://schemas/color-theme',
     name: theme.name,
-    type: theme.type === 'hc-light' ? 'hcLight' : 'light',
+    type: theme.type === 'hc-light' ? 'hcLight'
+      : theme.type === 'hc-dark' ? 'hcDark'
+      : theme.type === 'dark' ? 'dark'
+      : 'light',
     author: 'Sarvasv Technologies Pvt Ltd (ZeroToSaaS.in)',
     license: 'AGPL-3.0',
     semanticHighlighting: true,
@@ -1577,12 +1911,13 @@ function buildThemeJson(theme) {
   };
 }
 
-// Generate all 10 theme JSON files
-console.log('🚀 Generating ZeroToSaaS 10 Accessible Themes...');
-themeDefinitions.forEach(theme => {
+// Generate all 20 theme JSON files (10 Light + 10 Night)
+const allThemes = [...themeDefinitions, ...darkThemeDefinitions];
+console.log(`🚀 Generating ZeroToSaaS ${allThemes.length} Accessible Themes (10 Light + 10 Night)...`);
+allThemes.forEach(theme => {
   const filePath = path.join(THEMES_DIR, `${theme.id}.json`);
   const jsonContent = JSON.stringify(buildThemeJson(theme), null, 2);
   fs.writeFileSync(filePath, jsonContent, 'utf8');
   console.log(` ✅ Generated: themes/${theme.id}.json (${theme.name})`);
 });
-console.log('✨ All 10 themes generated successfully.');
+console.log(`✨ All ${allThemes.length} themes generated successfully.`);

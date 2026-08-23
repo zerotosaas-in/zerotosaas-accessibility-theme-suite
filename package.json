@@ -2,7 +2,7 @@
   "name": "zerotosaas-theme",
   "displayName": "ZeroToSaaS Accessibility Theme Suite",
   "description": "Medically optimized, WCAG AAA compliant themes with Semantic Cognitive Status (Safe, Caution, Warning, Panic) and contextual file-type adaptation.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "publisher": "zerotosaas",
   "author": {
     "name": "Sarvasv Technologies Pvt Ltd (ZeroToSaaS.in)",
@@ -105,6 +105,56 @@
         "label": "ZeroToSaaS Terracotta (Orange)",
         "uiTheme": "vs",
         "path": "./themes/zerotosaas-orange.json"
+      },
+      {
+        "label": "ZeroToSaaS Light Night (Default)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-light-night.json"
+      },
+      {
+        "label": "ZeroToSaaS High Contrast Night (ISO 9241-303)",
+        "uiTheme": "hc-black",
+        "path": "./themes/zerotosaas-high-contrast-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Deuteranopia Night (Blue / Orange)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-deuteranopia-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Protanopia Night (Magenta / Teal)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-protanopia-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Tritanopia Night (Crimson / Cyan)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-tritanopia-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Warm Sepia Night (Brown)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-brown-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Forest Calm Night (Green)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-green-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Royal Plum Night (Purple)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-purple-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Golden Sand Night (Yellow)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-yellow-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Terracotta Night (Orange)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-orange-night.json"
       }
     ],
     "configuration": {
@@ -161,6 +211,35 @@
           "default": 20,
           "minimum": 5,
           "description": "Duration in seconds of each 20-20-20 eye break."
+        },
+        "zerotosaas.autoSwitch.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically switch between a day (light) and night (dark) theme based on local time."
+        },
+        "zerotosaas.autoSwitch.dayTheme": {
+          "type": "string",
+          "default": "ZeroToSaaS Light (Default)",
+          "description": "Theme label to use during daytime hours (07:00–18:00). Must match a contributed theme label exactly."
+        },
+        "zerotosaas.autoSwitch.nightTheme": {
+          "type": "string",
+          "default": "ZeroToSaaS Light Night (Default)",
+          "description": "Theme label to use during nighttime hours (18:00–07:00). Must match a contributed theme label exactly."
+        },
+        "zerotosaas.autoSwitch.dayStartHour": {
+          "type": "number",
+          "default": 7,
+          "minimum": 0,
+          "maximum": 23,
+          "description": "Hour (0-23) at which the day theme activates."
+        },
+        "zerotosaas.autoSwitch.nightStartHour": {
+          "type": "number",
+          "default": 18,
+          "minimum": 0,
+          "maximum": 23,
+          "description": "Hour (0-23) at which the night theme activates."
         }
       }
     },
@@ -204,6 +283,11 @@
         "command": "zerotosaas.openSettings",
         "category": "ZeroToSaaS",
         "title": "Open ZeroToSaaS Settings"
+      },
+      {
+        "command": "zerotosaas.toggleAutoSwitch",
+        "category": "ZeroToSaaS",
+        "title": "Toggle Day / Night Auto-Switch"
       }
     ],
     "menus": {
@@ -238,6 +322,10 @@
         },
         {
           "command": "zerotosaas.openSettings",
+          "when": "true"
+        },
+        {
+          "command": "zerotosaas.toggleAutoSwitch",
           "when": "true"
         }
       ]

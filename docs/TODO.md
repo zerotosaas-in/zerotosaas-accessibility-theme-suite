@@ -84,9 +84,11 @@ This document outlines prioritized recommendations and planned engineering enhan
     - `zerotosaas.restReminder.enabled` (default: `false`)
     - `zerotosaas.restReminder.intervalMinutes` (default: `20`)
     - `zerotosaas.restReminder.breakDurationSeconds` (default: `20`)
-- [ ] **Ambient Light / Circadian Theme Scheduler**:
-  - Auto-switch to daytime high-contrast modes during working hours and warmer palettes (e.g. _Warm Sepia_, _Forest Calm_) in the evening.
-  - Configuration: `zerotosaas.autoSwitch.enabled`, `zerotosaas.autoSwitch.dayTheme`, `zerotosaas.autoSwitch.nightTheme`.
+- [x] **Ambient Light / Circadian Theme Scheduler**:
+  - Auto-switch between a day (light) and night (dark) theme based on local hour.
+  - Configuration: `zerotosaas.autoSwitch.enabled`, `zerotosaas.autoSwitch.dayTheme`, `zerotosaas.autoSwitch.nightTheme`, `zerotosaas.autoSwitch.dayStartHour`, `zerotosaas.autoSwitch.nightStartHour`.
+  - Command: `ZeroToSaaS: Toggle Day / Night Auto-Switch`.
+  - Polls every 5 minutes; applies the target theme only on hour-boundary transitions.
 
 ---
 
