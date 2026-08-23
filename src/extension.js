@@ -487,14 +487,26 @@ function disposeDecorations() {
 
 /**
  * Calculates the active target chunks to decorate.
- * - For files <= FULL_DOC_LINE_THRESHOLD: scans entire document (0 scroll overhead).
- * - For files > FULL_DOC_LINE_THRESHOLD: scans visible ranges + OVERSCAN_LINES buffer.
+ * - For files <= FULL_DOC_LINE_THRESHOLD AND under maxFileSizeKB: scans entire
+ *   document (0 scroll overhead).
+ * - For files > FULL_DOC_LINE_THRESHOLD OR exceeding maxFileSizeKB: scans
+ *   visible ranges + OVERSCAN_LINES buffer only.
+ *
+ * The size gate (maxFileSizeKB) catches large-but-short files (e.g. minified JS,
+ * bundled assets) that have few lines but exceed the byte budget for full-doc
+ * regex scanning. Defaults to 500 KB; 0 disables the size gate.
  */
-function getTargetChunks(editor) {
+function getTargetChunks(editor, maxFileSizeKB) {
   const doc = editor.document;
   const lineCount = doc.lineCount;
 
-  if (lineCount <= FULL_DOC_LINE_THRESHOLD) {
+  // Size gate: compute document size in KB (character count / 1024 is a
+  // conservative proxy for byte size — overestimates for multibyte content,
+  // which errs toward skipping heavy scans, the safe direction).
+  const sizeKB = maxFileSizeKB > 0 ? doc.getText().length / 1024 : 0;
+  const oversized = sizeKB > maxFileSizeKB;
+
+  if (lineCount <= FULL_DOC_LINE_THRESHOLD && !oversized) {
     const lastLineLength = doc.lineAt(lineCount - 1).text.length;
     return [{
       startLine: 0,
@@ -649,13 +661,22 @@ function updateDecorations(editor) {
   const enableErrorLens = cfg.get('errorLens.enabled', true);
   const showSeverityBadge = cfg.get('errorLens.showSeverityBadge', true);
   const showGitBlame = cfg.get('errorLens.showGitBlame', true);
+  const maxFileSizeKB = Math.max(0, Number(cfg.get('maxFileSizeKB', 500)) || 500);
 
   const currentTheme = vscode.workspace.getConfiguration('workbench').get('colorTheme') || '';
   const palette = getThemePalette(currentTheme);
 
-  // Compute active target chunks (Adaptive full-document or visible viewport + overscan buffer)
-  const chunks = getTargetChunks(editor);
+  // Compute active target chunks (Adaptive full-document or visible viewport + overscan buffer).
+  // The size gate (maxFileSizeKB) forces visible-ranges-only mode for oversized
+  // files even if they have few lines (e.g. minified bundles).
+  const chunks = getTargetChunks(editor, maxFileSizeKB);
   if (chunks.length === 0) return;
+
+  // Large-file safety: bypass heavy full-document semantic status badge regex
+  // analysis for oversized files. Error Lens diagnostics are unaffected — they
+  // come from VS Code's diagnostic API, not regex scanning.
+  const docSizeKB = maxFileSizeKB > 0 ? doc.getText().length / 1024 : 0;
+  const skipStatusBadges = enableStatusBadges && maxFileSizeKB > 0 && docSizeKB > maxFileSizeKB;
 
   const safeRanges = [];
   const cautionRanges = [];
@@ -708,8 +729,10 @@ function updateDecorations(editor) {
 
   // =========================================================================
   // 2. STATUS TOKENS (Safe, Caution, Warning, Panic)
+  // Bypassed for oversized files (maxFileSizeKB gate) to avoid heavy regex
+  // scanning on large bundles/minified files. Error Lens (§3 below) still runs.
   // =========================================================================
-  if (enableStatusBadges) {
+  if (enableStatusBadges && !skipStatusBadges) {
     const isSourceCode = [
       'typescript', 'javascript', 'typescriptreact', 'javascriptreact',
       'python', 'rust', 'go', 'kotlin', 'swift', 'dart', 'sql', 'html'
