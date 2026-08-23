@@ -5,6 +5,7 @@ docs/**
 samples/**
 *.vsix
 .git/**
+.github/**
 .gitignore
 .DS_Store
 **/*.log
@@ -12,3 +13,11 @@ samples/**
 node_modules/**
 pnpm-lock.yaml
 pnpm-workspace.yaml
+.kilo/**
+.claude/**
+.cursor/**
+.devin/**
+.agents/**
+_config.yml
+CCLA.md
+ICLA.md

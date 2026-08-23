@@ -1419,7 +1419,7 @@ function activate(context) {
       );
     }),
     vscode.commands.registerCommand('zerotosaas.openSettings', () => {
-      vscode.commands.executeCommand('workbench.action.openSettings', '@ext:zerotosaas.zerotosaas-theme');
+      vscode.commands.executeCommand('workbench.action.openSettings', '@ext:zerotosaas-in.zerotosaas-theme');
     }),
     vscode.commands.registerCommand('zerotosaas.openGuidelines', () => {
       openGuidelinesDoc();
