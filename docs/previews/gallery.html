@@ -78,99 +78,143 @@
       }
     }
 
-    /* Collapsible dropdown groups (sidebar) */
-    .dropdown-group {
-      margin-bottom: 0.5rem;
-    }
-    .dropdown-group:last-child { margin-bottom: 0; }
-    .dropdown-header {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--theme-primary);
+    /* =========================================================================
+       COMPACT THEME SELECTOR — color-dot radio buttons in minimal rows
+       ========================================================================= */
+    .theme-selector-bar {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 0.35rem;
-      cursor: pointer;
-      padding: 0.5rem 0.65rem;
-      border: 1px solid var(--theme-card-border);
-      border-radius: 6px;
-      background: var(--theme-card-bg);
-      transition: all 0.15s ease;
-      user-select: none;
-    }
-    .dropdown-header:hover { background: var(--theme-header-bg); }
-    .dropdown-arrow {
-      margin-left: auto;
-      font-size: 0.7rem;
-      transition: transform 0.2s ease;
-    }
-    .dropdown-group.open .dropdown-arrow { transform: rotate(90deg); }
-    .dropdown-body {
-      display: none;
-      padding: 0.5rem 0.65rem 0.65rem;
-    }
-    .dropdown-group.open .dropdown-body { display: block; }
-
-    /* 2-Column Responsive Grid Layout */
-    .app-layout {
-      display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 1.25rem;
-      align-items: start;
-    }
-    @media (max-width: 1080px) {
-      .app-layout { grid-template-columns: 1fr; }
-    }
-
-    /* Left Sidebar: Controls & System Filters */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .panel-card {
+      gap: 0.3rem;
+      padding: 0.5rem 0.75rem;
       background: var(--theme-card-bg);
       border: 1px solid var(--theme-card-border);
       border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      margin-bottom: 0.85rem;
       transition: all 0.2s ease;
     }
-    .panel-title {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--theme-primary);
-      margin-bottom: 0.75rem;
-      display: flex;
+    .theme-dot-btn {
+      display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      border-bottom: 1px solid var(--theme-card-border);
-      padding-bottom: 0.4rem;
-      transition: all 0.2s ease;
+      gap: 0.25rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 5px;
+      border: 1.5px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--theme-fg);
+      white-space: nowrap;
+    }
+    .theme-dot-btn:hover { background: var(--theme-header-bg); }
+    .theme-dot-btn.active {
+      border-color: var(--theme-primary);
+      background: var(--theme-subtle-bg);
+    }
+    .theme-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      display: inline-block;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.15);
+    }
+    .theme-dot-round { border-radius: 50%; }
+    .theme-sep {
+      width: 1px;
+      height: 18px;
+      background: var(--theme-card-border);
+      margin: 0 0.2rem;
     }
 
-    /* System Tabs & Theme Buttons */
-    .system-group {
+    /* =========================================================================
+       MULTI-COLUMN VIEWPORT — 4 columns on desktop, 1 on mobile with arrows
+       ========================================================================= */
+    .columns-layout {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      align-items: start;
+    }
+    @media (max-width: 1200px) {
+      .columns-layout { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .columns-layout {
+        grid-template-columns: 1fr;
+      }
+      .col-panel { display: none; }
+      .col-panel.mobile-active { display: flex; }
+    }
+
+    .col-panel {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      margin-bottom: 0.85rem;
+      gap: 0.65rem;
+      background: var(--theme-card-bg);
+      border: 1px solid var(--theme-card-border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+      position: relative;
     }
-    .system-group:last-child { margin-bottom: 0; }
-    .system-title {
+    .col-title {
       font-size: 0.78rem;
       font-weight: 700;
       color: var(--theme-primary);
       display: flex;
       align-items: center;
       gap: 0.35rem;
-      transition: color 0.2s ease;
+      border-bottom: 1px solid var(--theme-card-border);
+      padding-bottom: 0.35rem;
+      margin-bottom: 0.25rem;
     }
-    .theme-chip-list {
+
+    /* Arrow navigation for circular view cycling */
+    .col-nav {
+      display: none;
+    }
+    @media (max-width: 720px) {
+      .col-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.4rem 0.75rem;
+        background: var(--theme-card-bg);
+        border: 1px solid var(--theme-card-border);
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+      }
+      .col-nav-btn {
+        background: var(--theme-subtle-bg);
+        border: 1px solid var(--theme-card-border);
+        border-radius: 6px;
+        padding: 0.35rem 0.8rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        color: var(--theme-primary);
+        transition: all 0.15s ease;
+      }
+      .col-nav-btn:hover { background: var(--theme-header-bg); }
+      .col-nav-label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--theme-fg);
+      }
+    }
+
+    /* 2-Column Responsive Grid Layout — replaced by columns-layout */
+    .app-layout {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
+      flex-direction: column;
+      gap: 0.75rem;
     }
+
+    /* Left Sidebar — removed, replaced by theme-selector-bar */
     .theme-chip {
       display: inline-flex;
       align-items: center;
@@ -258,43 +302,11 @@
     .tel-label { color: var(--theme-comment); }
     .tel-val { font-weight: 700; color: var(--theme-primary); }
 
-    /* Right Column: Viewport & Tabbed Interface */
+    /* Viewport — now just a wrapper for columns */
     .viewport {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
-    }
-    .view-tabs-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--theme-card-bg);
-      border: 1px solid var(--theme-card-border);
-      border-radius: 8px;
-      padding: 0.4rem 0.75rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-      transition: all 0.2s ease;
-    }
-    .main-tabs { display: flex; gap: 0.4rem; }
-    .main-tab-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.45rem 1rem;
-      border-radius: 6px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--theme-fg);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .main-tab-btn:hover { background: var(--theme-header-bg); }
-    .main-tab-btn.active {
-      background: var(--theme-primary);
-      color: #FFFFFF;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      gap: 0.75rem;
     }
 
     /* Sub-bar for Code Editor: Languages & Toggles */
@@ -671,193 +683,115 @@
     </div>
   </div>
 
-  <!-- 2-Column App Layout -->
-  <div class="app-layout">
-    
-    <!-- LEFT COLUMN: System & Theme Selectors -->
-    <aside class="sidebar">
+  <!-- Compact Theme Selector Bar (populated by JS) -->
+  <div class="theme-selector-bar" id="theme-bar"></div>
 
-      <!-- Merged dropdown: Color Science Systems + CVD Calibration -->
-      <div class="panel-card">
-        <div class="panel-title">
-          <span>🎨 Color Science & Calibration</span>
-        </div>
+  <!-- Mobile Column Navigation -->
+  <div class="col-nav" id="col-nav">
+    <button class="col-nav-btn" id="col-prev">‹</button>
+    <span class="col-nav-label" id="col-nav-label">Dashboard</span>
+    <button class="col-nav-btn" id="col-next">›</button>
+  </div>
 
-        <div class="dropdown-group open">
-          <div class="dropdown-header">
-            <span>📐 OkLCH (Oklab Uniform Lightness)</span>
-            <span class="dropdown-arrow">▶</span>
+  <!-- 4-Column Multi-Panel Layout -->
+  <main class="viewport">
+    <div class="columns-layout">
+
+      <!-- COLUMN 1: Dashboard metrics + table -->
+      <div class="col-panel mobile-active" id="col-1">
+        <div class="col-title">📊 Dashboard</div>
+        <div class="dashboard-container" id="view-dashboard">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E2E8F0; padding-bottom:0.75rem;">
+            <div>
+              <h2 id="dash-title" style="font-size:1.15rem; font-weight:700;">ZeroToSaaS Enterprise Telemetry Dashboard</h2>
+              <p style="font-size:0.8rem; color:#64748B;">Real-time infrastructure health, cognitive status logs, and contract validation.</p>
+            </div>
+            <span id="dash-badge" class="status-tag status-safe">100% Wcag Aaa Compliant</span>
           </div>
-          <div class="dropdown-body">
-            <div class="theme-chip-list">
-              <button class="theme-chip active" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Default</button>
-              <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
-              <button class="theme-chip" data-theme="yellow"><span class="swatch-circle" style="background:#6E4E00"></span> Gold</button>
-              <button class="theme-chip" data-theme="orange"><span class="swatch-circle" style="background:#943800"></span> Terracotta</button>
-              <button class="theme-chip" data-theme="brown"><span class="swatch-circle" style="background:#5C2C06"></span> Sepia</button>
-              <button class="theme-chip" data-theme="purple"><span class="swatch-circle" style="background:#6B21A8"></span> Plum</button>
-              <button class="theme-chip" data-theme="default-night"><span class="swatch-circle" style="background:#63A3DE"></span> Light Night</button>
+
+          <!-- Metrics Cards -->
+          <div class="dash-metrics-grid">
+            <div class="metric-card" id="m-card-1">
+              <span class="metric-label">Cluster Nodes</span>
+              <span class="metric-val" id="m-val-1">128 / 128</span>
+              <span class="metric-badge status-safe">Safe (🟢) 100% Online</span>
+            </div>
+            <div class="metric-card" id="m-card-2">
+              <span class="metric-label">Memory Utilization</span>
+              <span class="metric-val" id="m-val-2">42.8 GB</span>
+              <span class="metric-badge status-caution">Caution (🟡) 78% Peak</span>
+            </div>
+            <div class="metric-card" id="m-card-3">
+              <span class="metric-label">Pending Ingestion</span>
+              <span class="metric-val" id="m-val-3">1,492 / sec</span>
+              <span class="metric-badge status-warning">Warning (🟠) Rate Limit</span>
+            </div>
+            <div class="metric-card" id="m-card-4">
+              <span class="metric-label">Security Alerts</span>
+              <span class="metric-val" id="m-val-4">0 Critical</span>
+              <span class="metric-badge status-panic">Panic (🔴) Trapped</span>
             </div>
           </div>
-        </div>
 
-        <div class="dropdown-group">
-          <div class="dropdown-header">
-            <span>🧪 Paul Tol's CVD-Safe (SRON)</span>
-            <span class="dropdown-arrow">▶</span>
+          <!-- Data Table -->
+          <div class="dash-table-wrap">
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Status</th>
+                  <th>Cluster Id</th>
+                  <th>Avg Latency</th>
+                  <th>Security Verification</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>auth-pipeline-v2</strong></td>
+                  <td><span class="status-tag status-safe">Safe (🟢) Verified</span></td>
+                  <td class="table-mono">e8a1f2b4-7c9d-4e1a-8f3b-0123456789ab</td>
+                  <td class="table-mono">1.24 ms</td>
+                  <td><span style="color:#0B6229; font-weight:600;">✓ Pass</span></td>
+                </tr>
+                <tr>
+                  <td><strong>session-cache-redis</strong></td>
+                  <td><span class="status-tag status-caution">Caution (🟡) Elevated</span></td>
+                  <td class="table-mono">9b2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6e</td>
+                  <td class="table-mono">4.88 ms</td>
+                  <td><span style="color:#784A00; font-weight:600;">! Review</span></td>
+                </tr>
+                <tr>
+                  <td><strong>async-export-worker</strong></td>
+                  <td><span class="status-tag status-warning">Warning (🟠) Retrying</span></td>
+                  <td class="table-mono">3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d</td>
+                  <td class="table-mono">14.10 ms</td>
+                  <td><span style="color:#8C3800; font-weight:600;">⚠ Deprecated</span></td>
+                </tr>
+                <tr>
+                  <td><strong>key-vault-scanner</strong></td>
+                  <td><span class="status-tag status-panic">Panic (🔴) Blocked</span></td>
+                  <td class="table-mono">7f8a9b0c-1d2e-3f4a-5b6c-7d8e9f0a1b2c</td>
+                  <td class="table-mono">0.12 ms</td>
+                  <td><span style="color:#990014; font-weight:bold;">⛔ Key Trapped</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="dropdown-body">
-            <div class="theme-chip-list">
-              <button class="theme-chip" data-theme="deuteranopia"><span class="swatch-circle" style="background:#0043A4"></span> Deuteranopia (Blue/Amber)</button>
-              <button class="theme-chip" data-theme="protanopia"><span class="swatch-circle" style="background:#8C0064"></span> Protanopia (Magenta/Teal)</button>
-              <button class="theme-chip" data-theme="tritanopia"><span class="swatch-circle" style="background:#A00028"></span> Tritanopia (Crimson/Cyan)</button>
-            </div>
-          </div>
-        </div>
 
-        <div class="dropdown-group">
-          <div class="dropdown-header">
-            <span>🎨 ColorBrewer Framework (IA Scales)</span>
-            <span class="dropdown-arrow">▶</span>
-          </div>
-          <div class="dropdown-body">
-            <div class="theme-chip-list">
-              <button class="theme-chip" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Light</button>
-              <button class="theme-chip" data-theme="high-contrast"><span class="swatch-circle" style="background:#002D80"></span> High Contrast</button>
-              <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
-              <button class="theme-chip" data-theme="yellow"><span class="swatch-circle" style="background:#6E4E00"></span> Gold</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="dropdown-group">
-          <div class="dropdown-header">
-            <span>👁️ Farnsworth-Munsell 100-Hue (Clinical)</span>
-            <span class="dropdown-arrow">▶</span>
-          </div>
-          <div class="dropdown-body">
-            <div class="theme-chip-list">
-              <button class="theme-chip" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Default</button>
-              <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
-              <button class="theme-chip" data-theme="brown"><span class="swatch-circle" style="background:#5C2C06"></span> Sepia</button>
-              <button class="theme-chip" data-theme="tritanopia"><span class="swatch-circle" style="background:#A00028"></span> Tritanopia</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="dropdown-group">
-          <div class="dropdown-header">
-            <span>👁️ Color Blindness & Calibration</span>
-            <span class="dropdown-arrow">▶</span>
-          </div>
-          <div class="dropdown-body">
-            <div class="cvd-list">
-              <div class="cvd-item active" data-theme="default">
-                <span class="swatch-circle" style="background:#0B4F9C"></span>
-                <div class="cvd-info">
-                  <span class="cvd-name">Standard Trichromatic</span>
-                  <span class="cvd-sub">Normal vision • 100% WCAG AAA</span>
-                </div>
-              </div>
-              <div class="cvd-item" data-theme="deuteranopia">
-                <span class="swatch-circle" style="background:#0043A4"></span>
-                <div class="cvd-info">
-                  <span class="cvd-name">Deuteranopia (Green-Weak)</span>
-                  <span class="cvd-sub">~6% of males • Blue/Amber 470nm/600nm</span>
-                </div>
-              </div>
-              <div class="cvd-item" data-theme="protanopia">
-                <span class="swatch-circle" style="background:#8C0064"></span>
-                <div class="cvd-info">
-                  <span class="cvd-name">Protanopia (Red-Weak)</span>
-                  <span class="cvd-sub">~2% of males • Magenta/Teal isolation</span>
-                </div>
-              </div>
-              <div class="cvd-item" data-theme="tritanopia">
-                <span class="swatch-circle" style="background:#A00028"></span>
-                <div class="cvd-info">
-                  <span class="cvd-name">Tritanopia (Blue-Weak)</span>
-                  <span class="cvd-sub">~0.01% • Crimson/Cyan isolation</span>
-                </div>
-              </div>
-              <div class="cvd-item" data-theme="high-contrast">
-                <span class="swatch-circle" style="background:#002D80"></span>
-                <div class="cvd-info">
-                  <span class="cvd-name">High Contrast (ISO 9241-303)</span>
-                  <span class="cvd-sub">Low vision • Maximum 18.25:1 contrast</span>
-                </div>
-              </div>
+          <!-- Dashboard Action Row -->
+          <div class="dash-actions-row">
+            <input type="text" class="dash-search-input" placeholder="Search services or UUIDs..." value="cluster-us-east-1">
+            <div class="dash-btn-group">
+              <button class="btn btn-secondary">Export Telemetry</button>
+              <button class="btn btn-primary" id="dash-action-btn">Deploy Configuration</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Live Telemetry Card -->
-      <div class="telemetry-card">
-        <div class="tel-row">
-          <span class="tel-label">Canvas Color:</span>
-          <span class="tel-val" id="tel-canvas">#FCFCFD</span>
-        </div>
-        <div class="tel-row">
-          <span class="tel-label">OkLCH Uniformity:</span>
-          <span class="tel-val" id="tel-oklch">L=98.9% C=0.003</span>
-        </div>
-        <div class="tel-row">
-          <span class="tel-label">Base Contrast:</span>
-          <span class="tel-val" id="tel-contrast">17.30:1 (AAA)</span>
-        </div>
-        <div class="tel-row">
-          <span class="tel-label">Paul Tol Distance:</span>
-          <span class="tel-val" id="tel-paultol">ΔE ≥ 0.18</span>
-        </div>
-      </div>
-    </aside>
-
-    <!-- RIGHT COLUMN: Interactive Viewport -->
-    <main class="viewport">
-      
-      <!-- View Switcher Tabs Header -->
-      <div class="view-tabs-header">
-        <div class="main-tabs">
-          <button class="main-tab-btn" id="btn-tab-dash">📊 1. Sample Dashboard</button>
-          <button class="main-tab-btn active" id="btn-tab-code">💻 2. IDE Code Editor</button>
-        </div>
-        <span style="font-size:0.75rem; color:#64748B;">Keyboard: <kbd>1</kbd>–<kbd>9</kbd> switch themes</span>
-      </div>
-
-      <!-- VIEW 1: SAMPLE DASHBOARD PREVIEW -->
-      <div class="dashboard-container" id="view-dashboard" style="display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E2E8F0; padding-bottom:0.75rem;">
-          <div>
-            <h2 id="dash-title" style="font-size:1.15rem; font-weight:700;">ZeroToSaaS Enterprise Telemetry Dashboard</h2>
-            <p style="font-size:0.8rem; color:#64748B;">Real-time infrastructure health, cognitive status logs, and contract validation.</p>
-          </div>
-          <span id="dash-badge" class="status-tag status-safe">100% Wcag Aaa Compliant</span>
-        </div>
-
-        <!-- Metrics Cards -->
-        <div class="dash-metrics-grid">
-          <div class="metric-card" id="m-card-1">
-            <span class="metric-label">Cluster Nodes</span>
-            <span class="metric-val" id="m-val-1">128 / 128</span>
-            <span class="metric-badge status-safe">Safe (🟢) 100% Online</span>
-          </div>
-          <div class="metric-card" id="m-card-2">
-            <span class="metric-label">Memory Utilization</span>
-            <span class="metric-val" id="m-val-2">42.8 GB</span>
-            <span class="metric-badge status-caution">Caution (🟡) 78% Peak</span>
-          </div>
-          <div class="metric-card" id="m-card-3">
-            <span class="metric-label">Pending Ingestion</span>
-            <span class="metric-val" id="m-val-3">1,492 / sec</span>
-            <span class="metric-badge status-warning">Warning (🟠) Rate Limit</span>
-          </div>
-          <div class="metric-card" id="m-card-4">
-            <span class="metric-label">Security Alerts</span>
-            <span class="metric-val" id="m-val-4">0 Critical</span>
-            <span class="metric-badge status-panic">Panic (🔴) Trapped</span>
-          </div>
-        </div>
+      <!-- COLUMN 2: Chart + Signup Form -->
+      <div class="col-panel" id="col-2">
+        <div class="col-title">📈 Chart & Form</div>
 
         <!-- 24-Hour Telemetry Stream Chart -->
         <div class="dash-chart-card" id="chart-card">
@@ -903,51 +837,6 @@
             <span>20:00</span>
             <span>Now (Live)</span>
           </div>
-        </div>
-
-        <!-- Data Table -->
-        <div class="dash-table-wrap">
-          <table class="dash-table">
-            <thead>
-              <tr>
-                <th>Service Name</th>
-                <th>Status</th>
-                <th>Cluster Id</th>
-                <th>Avg Latency</th>
-                <th>Security Verification</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>auth-pipeline-v2</strong></td>
-                <td><span class="status-tag status-safe">Safe (🟢) Verified</span></td>
-                <td class="table-mono">e8a1f2b4-7c9d-4e1a-8f3b-0123456789ab</td>
-                <td class="table-mono">1.24 ms</td>
-                <td><span style="color:#0B6229; font-weight:600;">✓ Pass</span></td>
-              </tr>
-              <tr>
-                <td><strong>session-cache-redis</strong></td>
-                <td><span class="status-tag status-caution">Caution (🟡) Elevated</span></td>
-                <td class="table-mono">9b2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6e</td>
-                <td class="table-mono">4.88 ms</td>
-                <td><span style="color:#784A00; font-weight:600;">! Review</span></td>
-              </tr>
-              <tr>
-                <td><strong>async-export-worker</strong></td>
-                <td><span class="status-tag status-warning">Warning (🟠) Retrying</span></td>
-                <td class="table-mono">3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d</td>
-                <td class="table-mono">14.10 ms</td>
-                <td><span style="color:#8C3800; font-weight:600;">⚠ Deprecated</span></td>
-              </tr>
-              <tr>
-                <td><strong>key-vault-scanner</strong></td>
-                <td><span class="status-tag status-panic">Panic (🔴) Blocked</span></td>
-                <td class="table-mono">7f8a9b0c-1d2e-3f4a-5b6c-7d8e9f0a1b2c</td>
-                <td class="table-mono">0.12 ms</td>
-                <td><span style="color:#990014; font-weight:bold;">⛔ Key Trapped</span></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
 
         <!-- SaaS Workspace Signup Form -->
@@ -1007,20 +896,11 @@
             </div>
           </form>
         </div>
-
-        <!-- Dashboard Action Row -->
-        <div class="dash-actions-row">
-          <input type="text" class="dash-search-input" placeholder="Search services or UUIDs..." value="cluster-us-east-1">
-          <div class="dash-btn-group">
-            <button class="btn btn-secondary">Export Telemetry</button>
-            <button class="btn btn-primary" id="dash-action-btn">Deploy Configuration</button>
-          </div>
-        </div>
       </div>
 
-      <!-- VIEW 2: LIVE CODE IDE EDITOR -->
-      <div id="view-code">
-        <!-- Sub-bar: Language Combo-Radio-Tabs & Feature Toggles -->
+      <!-- COLUMN 3: IDE Code Editor -->
+      <div class="col-panel" id="col-3">
+        <div class="col-title">💻 Code Editor</div>
         <div class="code-subbar">
           <div class="lang-chips" id="lang-chips">
             <button class="lang-chip active" data-lang="python">Python</button>
@@ -1037,8 +917,6 @@
             <label class="toggle-label"><input type="checkbox" id="toggle-firewall" checked> Human Firewall</label>
           </div>
         </div>
-
-        <!-- IDE Editor Mockup Card (Single-Line Compact Row Spacing) -->
         <div class="editor-card" id="editor-card" style="margin-top: 0.65rem;">
           <div class="editor-topbar" id="editor-topbar">
             <div class="window-dots">
@@ -1055,8 +933,31 @@
         </div>
       </div>
 
-    </main>
-  </div>
+      <!-- COLUMN 4: Telemetry & Status Info -->
+      <div class="col-panel" id="col-4">
+        <div class="col-title">🔬 Telemetry</div>
+        <div class="telemetry-card">
+          <div class="tel-row">
+            <span class="tel-label">Canvas Color:</span>
+            <span class="tel-val" id="tel-canvas">#FCFCFD</span>
+          </div>
+          <div class="tel-row">
+            <span class="tel-label">OkLCH Uniformity:</span>
+            <span class="tel-val" id="tel-oklch">L=98.9% C=0.003</span>
+          </div>
+          <div class="tel-row">
+            <span class="tel-label">Base Contrast:</span>
+            <span class="tel-val" id="tel-contrast">17.30:1 (AAA)</span>
+          </div>
+          <div class="tel-row">
+            <span class="tel-label">Paul Tol Distance:</span>
+            <span class="tel-val" id="tel-paultol">ΔE ≥ 0.18</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
 
   <script>
     const themeMetadata = [{"id":"default","file":"zerotosaas-light.json","name":"ZeroToSaaS Light (Default)","icon":"💡","swatch":"#0B4F9C","systems":["oklch","colorbrewer","fm100"],"cvd":"standard","desc":"Cobalt-Slate balanced core palette","mode":"light"},{"id":"green","file":"zerotosaas-green.json","name":"Forest Calm (Green)","icon":"🌲","swatch":"#096032","systems":["oklch","colorbrewer","fm100"],"cvd":"standard","desc":"Restful botanical green palette","mode":"light"},{"id":"yellow","file":"zerotosaas-yellow.json","name":"Golden Sand (Yellow)","icon":"☀️","swatch":"#6E4E00","systems":["oklch","colorbrewer"],"cvd":"standard","desc":"High-acuity warm amber-gold","mode":"light"},{"id":"orange","file":"zerotosaas-orange.json","name":"Terracotta (Orange)","icon":"🔥","swatch":"#943800","systems":["oklch"],"cvd":"standard","desc":"Warm earth terracotta tone","mode":"light"},{"id":"brown","file":"zerotosaas-brown.json","name":"Warm Sepia (Brown)","icon":"☕","swatch":"#5C2C06","systems":["oklch","fm100"],"cvd":"standard","desc":"Earthy sepia low-strain palette","mode":"light"},{"id":"purple","file":"zerotosaas-purple.json","name":"Royal Plum (Purple)","icon":"🔮","swatch":"#6B21A8","systems":["oklch"],"cvd":"standard","desc":"Deep royal plum chromatic balance","mode":"light"},{"id":"deuteranopia","file":"zerotosaas-deuteranopia.json","name":"Deuteranopia Safe (Blue/Amber)","icon":"🌐","swatch":"#0043A4","systems":["paultol"],"cvd":"deuteranopia","desc":"SRON 470nm/600nm isolated axes","mode":"light"},{"id":"protanopia","file":"zerotosaas-protanopia.json","name":"Protanopia Safe (Magenta/Teal)","icon":"🌐","swatch":"#8C0064","systems":["paultol"],"cvd":"protanopia","desc":"SRON Magenta/Teal photoreceptor isolation","mode":"light"},{"id":"tritanopia","file":"zerotosaas-tritanopia.json","name":"Tritanopia Safe (Crimson/Cyan)","icon":"🌐","swatch":"#A00028","systems":["paultol"],"cvd":"tritanopia","desc":"Crimson/Cyan photoreceptor isolation","mode":"light"},{"id":"high-contrast","file":"zerotosaas-high-contrast.json","name":"High Contrast (ISO 9241-303)","icon":"⚡","swatch":"#002D80","systems":["colorbrewer"],"cvd":"high-contrast","desc":"Maximum 18.25:1 text acuity","mode":"light"},{"id":"default-night","file":"zerotosaas-light-night.json","name":"ZeroToSaaS Light Night (Default)","icon":"�","swatch":"#63A3DE","systems":["oklch","colorbrewer","fm100"],"cvd":"standard","desc":"Dark cobalt-slate, glare-free night coding","mode":"dark"},{"id":"green-night","file":"zerotosaas-green-night.json","name":"Forest Calm Night (Green)","icon":"🌲","swatch":"#6DB885","systems":["oklch","colorbrewer","fm100"],"cvd":"standard","desc":"Dark cypress & cedar tones","mode":"dark"},{"id":"yellow-night","file":"zerotosaas-yellow-night.json","name":"Golden Sand Night (Yellow)","icon":"☀️","swatch":"#C19F61","systems":["oklch","colorbrewer"],"cvd":"standard","desc":"Dark amber bronze & sandstone","mode":"dark"},{"id":"orange-night","file":"zerotosaas-orange-night.json","name":"Terracotta Night (Orange)","icon":"🔥","swatch":"#E9875D","systems":["oklch"],"cvd":"standard","desc":"Dark burnt orange & rich bronze","mode":"dark"},{"id":"brown-night","file":"zerotosaas-brown-night.json","name":"Warm Sepia Night (Brown)","icon":"☕","swatch":"#CF9673","systems":["oklch","fm100"],"cvd":"standard","desc":"Dark warm espresso & walnut tones","mode":"dark"},{"id":"purple-night","file":"zerotosaas-purple-night.json","name":"Royal Plum Night (Purple)","icon":"🔮","swatch":"#BD87F4","systems":["oklch"],"cvd":"standard","desc":"Dark iris & midnight-plum tones","mode":"dark"},{"id":"deuteranopia-night","file":"zerotosaas-deuteranopia-night.json","name":"Deuteranopia Night (Blue/Amber)","icon":"🌐","swatch":"#55A5F2","systems":["paultol"],"cvd":"deuteranopia","desc":"Dark SRON 470nm/600nm isolated axes","mode":"dark"},{"id":"protanopia-night","file":"zerotosaas-protanopia-night.json","name":"Protanopia Night (Magenta/Teal)","icon":"🌐","swatch":"#ED75B5","systems":["paultol"],"cvd":"protanopia","desc":"Dark SRON Magenta/Teal isolation","mode":"dark"},{"id":"tritanopia-night","file":"zerotosaas-tritanopia-night.json","name":"Tritanopia Night (Crimson/Cyan)","icon":"🌐","swatch":"#FC7291","systems":["paultol"],"cvd":"tritanopia","desc":"Dark Crimson/Cyan photoreceptor isolation","mode":"dark"},{"id":"high-contrast-night","file":"zerotosaas-high-contrast-night.json","name":"High Contrast Night (ISO 9241-303)","icon":"⚡","swatch":"#5B9BD6","systems":["colorbrewer"],"cvd":"high-contrast","desc":"Dark ultra-clear contrast, white borders","mode":"dark"}];
@@ -1271,25 +1172,14 @@
 
     let activeThemeId = 'default';
     let activeLang = 'python';
-    let activeMainTab = 'code';
 
     function selectTheme(themeId) {
       activeThemeId = themeId;
-      document.querySelectorAll('.theme-chip').forEach(chip => {
-        chip.classList.toggle('active', chip.dataset.theme === themeId);
-      });
-      document.querySelectorAll('.cvd-item').forEach(item => {
-        item.classList.toggle('active', item.dataset.theme === themeId);
+      document.querySelectorAll('.theme-dot-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === themeId);
       });
       updateViews();
     }
-
-    // Dropdown group toggle — click header to expand/collapse
-    document.querySelectorAll('.dropdown-header').forEach(header => {
-      header.addEventListener('click', () => {
-        header.parentElement.classList.toggle('open');
-      });
-    });
 
     function selectLang(lang) {
       activeLang = lang;
@@ -1297,14 +1187,6 @@
         btn.classList.toggle('active', btn.dataset.lang === lang);
       });
       updateViews();
-    }
-
-    function selectMainTab(tab) {
-      activeMainTab = tab;
-      document.getElementById('btn-tab-dash').classList.toggle('active', tab === 'dash');
-      document.getElementById('btn-tab-code').classList.toggle('active', tab === 'code');
-      document.getElementById('view-dashboard').style.display = tab === 'dash' ? 'flex' : 'none';
-      document.getElementById('view-code').style.display = tab === 'code' ? 'block' : 'none';
     }
 
     function updateViews() {
@@ -1378,22 +1260,69 @@
       }
     }
 
-    // Event Listeners for Theme Selection
-    document.querySelectorAll('.theme-chip').forEach(chip => {
-      chip.onclick = () => selectTheme(chip.dataset.theme);
-    });
-    document.querySelectorAll('.cvd-item').forEach(item => {
-      item.onclick = () => selectTheme(item.dataset.theme);
-    });
+    // Populate compact theme selector bar with dot buttons
+    function populateThemeBar() {
+      const bar = document.getElementById('theme-bar');
+      const lightThemes = themeMetadata.filter(t => t.mode === 'light');
+      const darkThemes = themeMetadata.filter(t => t.mode === 'dark');
+
+      function shortLabel(theme) {
+        const match = theme.name.match(/(([^)]+))/);
+        let base = match ? match[1] : theme.name.split(' ')[0];
+        if (theme.mode === 'dark') base += ' Night';
+        return base;
+      }
+
+      lightThemes.forEach((theme, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'theme-dot-btn' + (i === 0 ? ' active' : '');
+        btn.dataset.theme = theme.id;
+        btn.innerHTML = '<span class="theme-dot" style="background:' + theme.swatch + '"></span>' + shortLabel(theme);
+        btn.onclick = () => selectTheme(theme.id);
+        bar.appendChild(btn);
+      });
+
+      const sep = document.createElement('div');
+      sep.className = 'theme-sep';
+      bar.appendChild(sep);
+
+      darkThemes.forEach(theme => {
+        const btn = document.createElement('button');
+        btn.className = 'theme-dot-btn';
+        btn.dataset.theme = theme.id;
+        btn.innerHTML = '<span class="theme-dot" style="background:' + theme.swatch + '"></span>' + shortLabel(theme);
+        btn.onclick = () => selectTheme(theme.id);
+        bar.appendChild(btn);
+      });
+    }
 
     // Language Tabs
     document.querySelectorAll('#lang-chips .lang-chip').forEach(btn => {
       btn.onclick = () => selectLang(btn.dataset.lang);
     });
 
-    // Main View Tabs
-    document.getElementById('btn-tab-dash').onclick = () => selectMainTab('dash');
-    document.getElementById('btn-tab-code').onclick = () => selectMainTab('code');
+    // Mobile Column Navigation
+    const colPanels = ['col-1', 'col-2', 'col-3', 'col-4'];
+    const colLabels = ['Dashboard', 'Chart & Form', 'Code Editor', 'Telemetry'];
+    let activeColIdx = 0;
+
+    function selectCol(idx) {
+      activeColIdx = idx;
+      document.querySelectorAll('.col-panel').forEach(panel => {
+        panel.classList.remove('mobile-active');
+      });
+      document.getElementById(colPanels[idx]).classList.add('mobile-active');
+      document.getElementById('col-nav-label').textContent = colLabels[idx];
+    }
+
+    document.getElementById('col-prev').onclick = () => {
+      activeColIdx = (activeColIdx - 1 + colPanels.length) % colPanels.length;
+      selectCol(activeColIdx);
+    };
+    document.getElementById('col-next').onclick = () => {
+      activeColIdx = (activeColIdx + 1) % colPanels.length;
+      selectCol(activeColIdx);
+    };
 
     // Toggles
     document.getElementById('toggle-error-lens').onchange = (e) => {
@@ -1425,6 +1354,7 @@
     });
 
     // Initial load
+    populateThemeBar();
     updateViews();
   </script>
 </body>
