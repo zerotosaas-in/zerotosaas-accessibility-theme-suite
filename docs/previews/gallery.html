@@ -65,6 +65,52 @@
     }
     .link-btn:hover { background: var(--theme-header-bg); }
 
+    /* Mobile: header links wrap to next row below heading */
+    @media (max-width: 720px) {
+      .top-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.65rem;
+      }
+      .header-links {
+        width: 100%;
+        flex-wrap: wrap;
+      }
+    }
+
+    /* Collapsible dropdown groups (sidebar) */
+    .dropdown-group {
+      margin-bottom: 0.5rem;
+    }
+    .dropdown-group:last-child { margin-bottom: 0; }
+    .dropdown-header {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--theme-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      padding: 0.5rem 0.65rem;
+      border: 1px solid var(--theme-card-border);
+      border-radius: 6px;
+      background: var(--theme-card-bg);
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .dropdown-header:hover { background: var(--theme-header-bg); }
+    .dropdown-arrow {
+      margin-left: auto;
+      font-size: 0.7rem;
+      transition: transform 0.2s ease;
+    }
+    .dropdown-group.open .dropdown-arrow { transform: rotate(90deg); }
+    .dropdown-body {
+      display: none;
+      padding: 0.5rem 0.65rem 0.65rem;
+    }
+    .dropdown-group.open .dropdown-body { display: block; }
+
     /* 2-Column Responsive Grid Layout */
     .app-layout {
       display: grid;
@@ -630,95 +676,117 @@
     
     <!-- LEFT COLUMN: System & Theme Selectors -->
     <aside class="sidebar">
-      
-      <!-- Section 1: 4 Color Science Systems -->
+
+      <!-- Merged dropdown: Color Science Systems + CVD Calibration -->
       <div class="panel-card">
         <div class="panel-title">
-          <span>🏛️ 1. The 4 Color Science Systems</span>
+          <span>🎨 Color Science & Calibration</span>
         </div>
-        
-        <div class="system-group">
-          <div class="system-title">📐 OkLCH (Oklab Uniform Lightness)</div>
-          <div class="theme-chip-list">
-            <button class="theme-chip active" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Default</button>
-            <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
-            <button class="theme-chip" data-theme="yellow"><span class="swatch-circle" style="background:#6E4E00"></span> Gold</button>
-            <button class="theme-chip" data-theme="orange"><span class="swatch-circle" style="background:#943800"></span> Terracotta</button>
-            <button class="theme-chip" data-theme="brown"><span class="swatch-circle" style="background:#5C2C06"></span> Sepia</button>
-            <button class="theme-chip" data-theme="purple"><span class="swatch-circle" style="background:#6B21A8"></span> Plum</button>
-            <button class="theme-chip" data-theme="default-night"><span class="swatch-circle" style="background:#63A3DE"></span> Light Night</button>
+
+        <div class="dropdown-group open">
+          <div class="dropdown-header">
+            <span>📐 OkLCH (Oklab Uniform Lightness)</span>
+            <span class="dropdown-arrow">▶</span>
+          </div>
+          <div class="dropdown-body">
+            <div class="theme-chip-list">
+              <button class="theme-chip active" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Default</button>
+              <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
+              <button class="theme-chip" data-theme="yellow"><span class="swatch-circle" style="background:#6E4E00"></span> Gold</button>
+              <button class="theme-chip" data-theme="orange"><span class="swatch-circle" style="background:#943800"></span> Terracotta</button>
+              <button class="theme-chip" data-theme="brown"><span class="swatch-circle" style="background:#5C2C06"></span> Sepia</button>
+              <button class="theme-chip" data-theme="purple"><span class="swatch-circle" style="background:#6B21A8"></span> Plum</button>
+              <button class="theme-chip" data-theme="default-night"><span class="swatch-circle" style="background:#63A3DE"></span> Light Night</button>
+            </div>
           </div>
         </div>
 
-        <div class="system-group">
-          <div class="system-title">🧪 Paul Tol's CVD-Safe (SRON)</div>
-          <div class="theme-chip-list">
-            <button class="theme-chip" data-theme="deuteranopia"><span class="swatch-circle" style="background:#0043A4"></span> Deuteranopia (Blue/Amber)</button>
-            <button class="theme-chip" data-theme="protanopia"><span class="swatch-circle" style="background:#8C0064"></span> Protanopia (Magenta/Teal)</button>
-            <button class="theme-chip" data-theme="tritanopia"><span class="swatch-circle" style="background:#A00028"></span> Tritanopia (Crimson/Cyan)</button>
+        <div class="dropdown-group">
+          <div class="dropdown-header">
+            <span>🧪 Paul Tol's CVD-Safe (SRON)</span>
+            <span class="dropdown-arrow">▶</span>
+          </div>
+          <div class="dropdown-body">
+            <div class="theme-chip-list">
+              <button class="theme-chip" data-theme="deuteranopia"><span class="swatch-circle" style="background:#0043A4"></span> Deuteranopia (Blue/Amber)</button>
+              <button class="theme-chip" data-theme="protanopia"><span class="swatch-circle" style="background:#8C0064"></span> Protanopia (Magenta/Teal)</button>
+              <button class="theme-chip" data-theme="tritanopia"><span class="swatch-circle" style="background:#A00028"></span> Tritanopia (Crimson/Cyan)</button>
+            </div>
           </div>
         </div>
 
-        <div class="system-group">
-          <div class="system-title">🎨 ColorBrewer Framework (IA Scales)</div>
-          <div class="theme-chip-list">
-            <button class="theme-chip" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Light</button>
-            <button class="theme-chip" data-theme="high-contrast"><span class="swatch-circle" style="background:#002D80"></span> High Contrast</button>
-            <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
-            <button class="theme-chip" data-theme="yellow"><span class="swatch-circle" style="background:#6E4E00"></span> Gold</button>
+        <div class="dropdown-group">
+          <div class="dropdown-header">
+            <span>🎨 ColorBrewer Framework (IA Scales)</span>
+            <span class="dropdown-arrow">▶</span>
+          </div>
+          <div class="dropdown-body">
+            <div class="theme-chip-list">
+              <button class="theme-chip" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Light</button>
+              <button class="theme-chip" data-theme="high-contrast"><span class="swatch-circle" style="background:#002D80"></span> High Contrast</button>
+              <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
+              <button class="theme-chip" data-theme="yellow"><span class="swatch-circle" style="background:#6E4E00"></span> Gold</button>
+            </div>
           </div>
         </div>
 
-        <div class="system-group">
-          <div class="system-title">👁️ Farnsworth-Munsell 100-Hue (Clinical)</div>
-          <div class="theme-chip-list">
-            <button class="theme-chip" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Default</button>
-            <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
-            <button class="theme-chip" data-theme="brown"><span class="swatch-circle" style="background:#5C2C06"></span> Sepia</button>
-            <button class="theme-chip" data-theme="tritanopia"><span class="swatch-circle" style="background:#A00028"></span> Tritanopia</button>
+        <div class="dropdown-group">
+          <div class="dropdown-header">
+            <span>👁️ Farnsworth-Munsell 100-Hue (Clinical)</span>
+            <span class="dropdown-arrow">▶</span>
+          </div>
+          <div class="dropdown-body">
+            <div class="theme-chip-list">
+              <button class="theme-chip" data-theme="default"><span class="swatch-circle" style="background:#0B4F9C"></span> Default</button>
+              <button class="theme-chip" data-theme="green"><span class="swatch-circle" style="background:#096032"></span> Forest</button>
+              <button class="theme-chip" data-theme="brown"><span class="swatch-circle" style="background:#5C2C06"></span> Sepia</button>
+              <button class="theme-chip" data-theme="tritanopia"><span class="swatch-circle" style="background:#A00028"></span> Tritanopia</button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Section 2: Color Blindness & Clinical Calibration -->
-      <div class="panel-card">
-        <div class="panel-title">
-          <span>👁️ 2. Color Blindness & Calibration</span>
-        </div>
-        <div class="cvd-list">
-          <div class="cvd-item active" data-theme="default">
-            <span class="swatch-circle" style="background:#0B4F9C"></span>
-            <div class="cvd-info">
-              <span class="cvd-name">Standard Trichromatic</span>
-              <span class="cvd-sub">Normal vision • 100% WCAG AAA</span>
-            </div>
+        <div class="dropdown-group">
+          <div class="dropdown-header">
+            <span>👁️ Color Blindness & Calibration</span>
+            <span class="dropdown-arrow">▶</span>
           </div>
-          <div class="cvd-item" data-theme="deuteranopia">
-            <span class="swatch-circle" style="background:#0043A4"></span>
-            <div class="cvd-info">
-              <span class="cvd-name">Deuteranopia (Green-Weak)</span>
-              <span class="cvd-sub">~6% of males • Blue/Amber 470nm/600nm</span>
-            </div>
-          </div>
-          <div class="cvd-item" data-theme="protanopia">
-            <span class="swatch-circle" style="background:#8C0064"></span>
-            <div class="cvd-info">
-              <span class="cvd-name">Protanopia (Red-Weak)</span>
-              <span class="cvd-sub">~2% of males • Magenta/Teal isolation</span>
-            </div>
-          </div>
-          <div class="cvd-item" data-theme="tritanopia">
-            <span class="swatch-circle" style="background:#A00028"></span>
-            <div class="cvd-info">
-              <span class="cvd-name">Tritanopia (Blue-Weak)</span>
-              <span class="cvd-sub">~0.01% • Crimson/Cyan isolation</span>
-            </div>
-          </div>
-          <div class="cvd-item" data-theme="high-contrast">
-            <span class="swatch-circle" style="background:#002D80"></span>
-            <div class="cvd-info">
-              <span class="cvd-name">High Contrast (ISO 9241-303)</span>
-              <span class="cvd-sub">Low vision • Maximum 18.25:1 contrast</span>
+          <div class="dropdown-body">
+            <div class="cvd-list">
+              <div class="cvd-item active" data-theme="default">
+                <span class="swatch-circle" style="background:#0B4F9C"></span>
+                <div class="cvd-info">
+                  <span class="cvd-name">Standard Trichromatic</span>
+                  <span class="cvd-sub">Normal vision • 100% WCAG AAA</span>
+                </div>
+              </div>
+              <div class="cvd-item" data-theme="deuteranopia">
+                <span class="swatch-circle" style="background:#0043A4"></span>
+                <div class="cvd-info">
+                  <span class="cvd-name">Deuteranopia (Green-Weak)</span>
+                  <span class="cvd-sub">~6% of males • Blue/Amber 470nm/600nm</span>
+                </div>
+              </div>
+              <div class="cvd-item" data-theme="protanopia">
+                <span class="swatch-circle" style="background:#8C0064"></span>
+                <div class="cvd-info">
+                  <span class="cvd-name">Protanopia (Red-Weak)</span>
+                  <span class="cvd-sub">~2% of males • Magenta/Teal isolation</span>
+                </div>
+              </div>
+              <div class="cvd-item" data-theme="tritanopia">
+                <span class="swatch-circle" style="background:#A00028"></span>
+                <div class="cvd-info">
+                  <span class="cvd-name">Tritanopia (Blue-Weak)</span>
+                  <span class="cvd-sub">~0.01% • Crimson/Cyan isolation</span>
+                </div>
+              </div>
+              <div class="cvd-item" data-theme="high-contrast">
+                <span class="swatch-circle" style="background:#002D80"></span>
+                <div class="cvd-info">
+                  <span class="cvd-name">High Contrast (ISO 9241-303)</span>
+                  <span class="cvd-sub">Low vision • Maximum 18.25:1 contrast</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1215,6 +1283,13 @@
       });
       updateViews();
     }
+
+    // Dropdown group toggle — click header to expand/collapse
+    document.querySelectorAll('.dropdown-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.parentElement.classList.toggle('open');
+      });
+    });
 
     function selectLang(lang) {
       activeLang = lang;
