@@ -13,27 +13,39 @@ This document outlines prioritized recommendations and planned engineering enhan
 
 | Priority | Category      | Feature / Enhancement                                | Impact                                                                                  | Effort |
 | :------- | :------------ | :--------------------------------------------------- | :-------------------------------------------------------------------------------------- | :----- |
-| **P0**   | Distribution  | **Open VSX Registry Publication**                    | Makes the theme suite installable from the Open VSX Registry.                           | Low    |
 | **P1**   | Performance   | **Debounced Decoration Engine & Version Guards**     | Prevents UI thread stuttering on rapid typing and eliminates race conditions.           | Low    |
 | **P1**   | Security      | **Extended "Human Firewall" Secret Scanners**        | Traps AWS keys, JWTs, GitHub/Slack tokens, and private key headers.                     | Low    |
 | **P2**   | Ergonomics    | **20-20-20 Ocular Rest Assistant & Blink Reminder**  | Integrates clinical break reminders and blink rate calibration into the status bar.     | Medium |
-| **P2**   | Configuration | **Granular Status Badge Scanner Toggles**            | Allows developers to selectively toggle secret, string, and type scanning.              | Low    |
+| **P2**   | Configuration | **Granular Status Badge Scanner Toggles**            | Allows developers to selectively toggle secret, string, and type scanning. ✓ Done       | Low    |
 | **P2**   | UX / Workflow | **Interactive QuickPick Theme Switcher**             | Dedicated command (`zerotosaas.switchTheme`) with CVD and ambient category previews.    | Low    |
 | **P3**   | Validation    | **APCA (WCAG 3.0) & CVD Simulation Suite**           | Adds APCA $L^c$ scoring and programmatic Brettel/Machado colorblindness validation.     | Medium |
 | **P3**   | Ecosystem     | **Design Token Exporter (CSS, Tailwind, Terminals)** | Generates CSS custom properties, Tailwind presets, and iTerm2/Alacritty/Kitty profiles. | Medium |
-| **P3**   | Ergonomics    | **Ambient Light & Day/Night Theme Auto-Switching**   | Adapts theme brightness and hue based on time of day or system appearance.              | Medium |
+| **P3**   | Ergonomics    | **Ambient Light & Day/Night Theme Auto-Switching**   | Adapts theme based on OS appearance via native `window.autoDetectColorScheme`.          | Medium |
 
 ---
 
-## 🚀 0. Open VSX Registry Publishing
+## 🧹 7. UX Simplification — Preferences-First, No Reinvented Wheels
 
-- [ ] **Publish `zerotosaas-theme` to Open VSX**:
-  - Validate `package.json`: `name`, `version`, `publisher`, `engines`, `categories`, `main`, `contributes`, README, CHANGELOG, and LICENSE.
-  - Build the extension package: `npx @vscode/vsce package --no-git-tag-version`.
-  - Register or claim the `zerotosaas` namespace at [open-vsx.org](https://open-vsx.org).
-  - Generate an Open VSX personal access token (PAT).
-  - Install or use `ovsx` directly: `npx ovsx publish <package>.vsix --pat <token>`.
-  - Verify the published listing, README, theme previews, and command/setting contributions render correctly.
+Guiding principles:
+
+1. **Prefer native IDE settings over custom solutions.** If VSCodium/VS Code already provides a setting (e.g. `window.autoDetectColorScheme`, `workbench.preferredDarkColorTheme`), use it — do not spin a parallel extension-specific mechanism.
+2. **All ZeroToSaaS configuration lives in the Preferences/Settings UI.** Users should not need the Command Palette to toggle features. Every setting (pomodoro, eye-strain reminder, status-badge scanners, error lens, indent shading, etc.) is a `zerotosaas.*` configuration property discoverable and editable in `Ctrl+,` → Extensions → ZeroToSaaS.
+3. **Minimise Command Palette surface area.** The palette should expose only actions that are not settings (e.g. "Select Theme" QuickPick, "Open Eye-Health Guidelines"). Toggle commands that merely flip a boolean setting should be removed — the Settings UI is the single source of truth.
+
+- [ ] **Audit all `zerotosaas.*` commands and collapse toggle commands into settings-only**:
+  - Remove `zerotosaas.toggleErrorLens`, `zerotosaas.toggleStatusBadges`, `zerotosaas.toggleIndentShading`, `zerotosaas.toggleRestReminder` — these flip a boolean that is already editable in Preferences.
+  - Keep only action commands: `zerotosaas.selectTheme` / `zerotosaas.switchTheme` (QuickPick), `zerotosaas.openSettings`, `zerotosaas.openGuidelines`, `zerotosaas.resetRestTimer` (action, not a toggle).
+  - Ensure every removed toggle has a corresponding setting in `package.json` `contributes.configuration` so users can configure it from Preferences.
+- [ ] **Wellness features (pomodoro, eye-strain, blink coach, Guardian) — settings-only, no command-palette toggles**:
+  - When the wellness layer (Phase 1-3 of the wellness plan) is implemented, all toggles (`wellness.guardian.enabled`, `wellness.eyeBreak.enabled`, `wellness.focusFlow.mode`, `wellness.blinkCoach.enabled`, etc.) must be Preferences-only settings.
+  - The only wellness commands in the palette should be actions: `zerotosaas.wellness.openHub`, `zerotosaas.wellness.openDashboard`, `zerotosaas.eyeBreak.takeNow`, `zerotosaas.pomodoro.start` / `.pause` / `.stop` / `.skipPhase`.
+- [ ] **Replace any extension-specific mechanism that duplicates a native IDE setting**:
+  - Already done: removed `zerotosaas.autoSwitch.*` (time-based theme switcher) in favour of `window.autoDetectColorScheme` + `workbench.preferredDarkColorTheme` / `preferredLightColorTheme`.
+  - Audit remaining settings for any other duplication of native VS Code/VSCodium capabilities.
+- [ ] **Settings UI grouping and ordering**:
+  - Organise `package.json` configuration properties with clear `title` scopes (e.g. "ZeroToSaaS — Error Lens", "ZeroToSaaS — Status Badges", "ZeroToSaaS — Wellness") so the Preferences UI groups them logically.
+  - Add `order` fields to settings so they appear in a sensible sequence within each group.
+  - Write clear, concise `description` strings so users understand each setting without leaving Preferences.
 
 ---
 
@@ -66,7 +78,7 @@ This document outlines prioritized recommendations and planned engineering enhan
   - **Private Key Headers**: `-----BEGIN (?:[A-Z0-9_-]+ )?PRIVATE KEY-----`
   - **Google Cloud / Firebase Keys**: `\bAIza[0-9A-Za-z-_]{35}\b`
   - **Bearer Tokens & Multi-DB URIs**: MongoDB, Postgres, Redis, MySQL, AMQP.
-- [ ] **Granular Configuration Toggles**:
+- [x] **Granular Configuration Toggles**:
   - `zerotosaas.statusBadges.detectSecrets` (default: `true`)
   - `zerotosaas.statusBadges.detectHardcodedStrings` (default: `true`)
   - `zerotosaas.statusBadges.detectTypes` (default: `true`)
@@ -85,10 +97,9 @@ This document outlines prioritized recommendations and planned engineering enhan
     - `zerotosaas.restReminder.intervalMinutes` (default: `20`)
     - `zerotosaas.restReminder.breakDurationSeconds` (default: `20`)
 - [x] **Ambient Light / Circadian Theme Scheduler**:
-  - Auto-switch between a day (light) and night (dark) theme based on local hour.
-  - Configuration: `zerotosaas.autoSwitch.enabled`, `zerotosaas.autoSwitch.dayTheme`, `zerotosaas.autoSwitch.nightTheme`, `zerotosaas.autoSwitch.dayStartHour`, `zerotosaas.autoSwitch.nightStartHour`.
-  - Command: `ZeroToSaaS: Toggle Day / Night Auto-Switch`.
-  - Polls every 5 minutes; applies the target theme only on hour-boundary transitions.
+  - Replaced the custom time-based `zerotosaas.autoSwitch.*` poller with the IDE's native `window.autoDetectColorScheme` + `workbench.preferredDarkColorTheme` / `preferredLightColorTheme` (OS-appearance follow, event-driven, no polling, no conflicts with manual theme choices).
+  - On first run, the extension sets the preferred dark/light themes to ZeroToSaaS variants (only if the user hasn't configured them already).
+  - See §7 for the broader "prefer native IDE settings" principle.
 
 ---
 
