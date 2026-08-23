@@ -154,7 +154,12 @@ function invertLightness(hex, targetL, opts = {}) {
 // elevated lightness layers, all preserving the original hue and low chroma.
 function deriveDarkCanvasStack(lightBg, baseL = 0.16) {
   const ok = hexToOklch(lightBg);
-  const clampChroma = Math.min(ok.C, 0.012); // glare-free
+  // Dark canvases emit less light than light canvases, so slightly higher
+  // chroma is safe from a glare standpoint (Guidelines §3A: C ≤ 0.010 for
+  // light canvases; dark canvases tolerate ~2x that without retinal glare).
+  // A touch more chroma preserves each theme's chromatic identity and aids
+  // ambient lighting matching (Guidelines §1B: "Match the Room").
+  const clampChroma = Math.min(Math.max(ok.C, 0.012), 0.022);
   return {
     bg: oklchToHex(baseL, clampChroma, ok.h),
     bgSubtle: oklchToHex(baseL + 0.025, clampChroma, ok.h),
