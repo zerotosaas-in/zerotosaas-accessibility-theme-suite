@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Human Health, Ocular Ergonomics & Medical Optics Guidelines
+redirect_from:
+  - /docs/Guidelines.md
 ---
 
 # ZeroToSaaS Ocular Ergonomics & Accessibility Guidelines
@@ -45,14 +47,16 @@ Aging eyes undergo progressive physiological changes including senile miosis (sm
 
 Over 300 million individuals globally live with congenital or acquired Color Vision Deficiency (CVD). Software color schemes must provide mathematically isolated luminance distances rather than superficial hue variations. [41, 42, 43, 44]
 
-| CVD Variant | Deficient Photoreceptor | Indistinguishable Pairs | ZeroToSaaS Calibrated Palette & Mathematical Strategy |
-| :--- | :--- | :--- | :--- |
-| **Deuteranopia** *(~6% of males)* | M-cones (Green-weak) | Green vs. Red, Green vs. Brown, Blue vs. Purple | **Oceanic Cobalt & Warm Amber**: Uses distinct blue ($470\text{ nm}$) and orange ($600\text{ nm}$) wavelengths with high luminance separation. |
-| **Protanopia** *(~2% of males)* | L-cones (Red-weak) | Red vs. Black, Red vs. Dark Green | **Jewel Magenta & Arctic Teal**: Replaces dark reds with high-luminance magenta and cyan-teal to prevent red text from collapsing into black. |
-| **Tritanopia** *(Rare, ~0.01%)* | S-cones (Blue-weak) | Blue vs. Green, Yellow vs. Violet | **Regal Crimson & Deep Cyan**: Employs high-contrast red/cyan pairings that do not rely on the blue/yellow tritanopic confusion axis. |
+| CVD Variant                       | Deficient Photoreceptor | Indistinguishable Pairs                         | ZeroToSaaS Calibrated Palette & Mathematical Strategy                                                                                          |
+| :-------------------------------- | :---------------------- | :---------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Deuteranopia** _(~6% of males)_ | M-cones (Green-weak)    | Green vs. Red, Green vs. Brown, Blue vs. Purple | **Oceanic Cobalt & Warm Amber**: Uses distinct blue ($470\text{ nm}$) and orange ($600\text{ nm}$) wavelengths with high luminance separation. |
+| **Protanopia** _(~2% of males)_   | L-cones (Red-weak)      | Red vs. Black, Red vs. Dark Green               | **Jewel Magenta & Arctic Teal**: Replaces dark reds with high-luminance magenta and cyan-teal to prevent red text from collapsing into black.  |
+| **Tritanopia** _(Rare, ~0.01%)_   | S-cones (Blue-weak)     | Blue vs. Green, Yellow vs. Violet               | **Regal Crimson & Deep Cyan**: Employs high-contrast red/cyan pairings that do not rely on the blue/yellow tritanopic confusion axis.          |
 
 ### WCAG 2.1 Rule of Secondary Indicators
+
 > **Medical / Ergonomic Rule**: Never rely solely on color to communicate cognitive status or diagnostic severity. Always combine color with **secondary geometric indicators**:
+>
 > - Distinct icon badges (`🔴 [Error]`, `🟠 [Warning]`, `💡 [Hint]`)
 > - Font style changes (e.g. non-bold italics for inline diagnostics)
 > - Structural alternating indent shading columns
@@ -63,6 +67,7 @@ Over 300 million individuals globally live with congenital or acquired Color Vis
 For mission-critical developer environments requiring absolute perceptual consistency, ZeroToSaaS is mathematically engineered against four foundational color science and information architecture frameworks:
 
 ### A. OkLCH (Oklab Color Space) — Perceptual Lightness & Contrast Invariance (Björn Ottosson, 2020)
+
 - **The Non-Uniformity Flaw of sRGB/HSL**: Conventional digital color models fail to reflect human biology; a yellow hue ($h = 60^\circ$) at 50% lightness in HSL has a perceived photopic luminance over 300% greater than a blue hue ($h = 240^\circ$) at the same lightness level.
 - **The OkLCH Solution**: Replaces non-uniform coordinates with cylindrical Oklab parameters (Lightness $L$, Chroma $C$, Hue $h^\circ$).
 - **Implementation in ZeroToSaaS**:
@@ -70,6 +75,7 @@ For mission-critical developer environments requiring absolute perceptual consis
   - Primary keyword and accent tokens maintain identical perceptual lightness ($L \approx 42\% - 45\%$) across all chromatic moods (Forest Calm, Warm Sepia, Golden Sand, Terracotta, Royal Plum), guaranteeing zero pupil accommodation stress when switching themes.
 
 ### B. Paul Tol's CVD-Safe Color Schemes — SRON / Medical Research Standard
+
 - **The Photoreceptor Isolation Strategy**: Dr. Paul Tol (Netherlands Institute for Space Research) developed qualitative, diverging, and sequential palettes that maximize perceptual Euclidean distance ($\Delta E_{\text{Ok}} \ge 0.10$) across deficient photoreceptor channels.
 - **Implementation in ZeroToSaaS**:
   - **Deuteranopia (~6% of males)**: Replaces green/red confusion axes with distinct Oceanic Blue ($470\text{ nm}$) and Warm Amber ($600\text{ nm}$) wavelengths.
@@ -77,6 +83,7 @@ For mission-critical developer environments requiring absolute perceptual consis
   - **Tritanopia (Rare)**: Employs Regal Crimson and Deep Cyan, bypassing the S-cone blue-yellow confusion line.
 
 ### C. Cynthia Brewer's ColorBrewer Framework — Information Architecture & Data Hierarchy
+
 - **The Three Scale Types of Information Design**: Dr. Cynthia Brewer (Penn State) established the cartographic and data visualization standard for categorizing color maps based on data semantics.
 - **Implementation in ZeroToSaaS**:
   - **Qualitative Scale (Nominal AST Differentiation)**: Colors with equivalent perceptual weight are assigned to nominal syntax constructs (keywords, functions, types, constants, variables, strings), preventing visual clutter or unintended cognitive bias toward any single construct.
@@ -84,6 +91,7 @@ For mission-critical developer environments requiring absolute perceptual consis
   - **Diverging Scale (Bipolar Cognitive Status & Polarity)**: Anchors the **Semantic Cognitive Status System** (`Safe 🟢` $\leftrightarrow$ `Caution 🟡` $\leftrightarrow$ `Warning 🟠` $\leftrightarrow$ `Panic 🔴`) and Git diff reviews (`Inserted 🟢` $\leftrightarrow$ `Modified 🟡` $\leftrightarrow$ `Deleted 🔴`) with high contrast divergence from a neutral baseline.
 
 ### D. Farnsworth-Munsell 100-Hue System — Clinical Ophthalmology Calibration
+
 - **The Optometric Quadrant Benchmark**: Used clinically to diagnose chromatic discrimination ability and optical scattering across four retinal quadrants.
 - **Implementation in ZeroToSaaS**:
   - **Quadrant I ($0^\circ - 90^\circ$ | Red $\to$ Yellow)**: Traps urgent alerts, security hazards (`Panic`), unextracted strings (`Warning`), and mutable parameters (`Caution`).
@@ -92,6 +100,7 @@ For mission-critical developer environments requiring absolute perceptual consis
   - **Quadrant IV ($270^\circ - 360^\circ$ | Blue $\to$ Magenta)**: Emphasizes invocable methods, class declarations, and function signatures without visual interference from Quadrant I alerts.
 
 ### E. Display & Backlight Calibration Benchmarks
+
 - **DICOM Part 14 Grayscale Standard Display Function (GSDF)**: Calibrates luminance responses so that just-noticeable differences (JNDs) between brightness levels are perceptually equal across the entire tone scale, eliminating "black crush" and washed-out highlights.
 - **Flicker-Free DC Dimming**: Recommends Direct Current (DC) backlight regulation over Pulse-Width Modulation (PWM), which produces stroboscopic micro-flicker that triggers migraine aura and eyestrain in sensitive individuals.
 - **APCA (Advanced Perceptual Contrast Algorithm / WCAG 3.0)**: Evaluates spatial frequency, glyph weight, and polarity dynamics to guarantee true legibility across all display densities.

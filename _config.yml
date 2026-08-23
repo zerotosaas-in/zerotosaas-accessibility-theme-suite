@@ -4,6 +4,7 @@ description: 10 Medically Optimized, Mathematically Verified Accessible Themes f
 show_downloads: false
 plugins:
   - jekyll-relative-links
+  - jekyll-redirect-from
 relative_links:
   enabled: true
   collections: true
