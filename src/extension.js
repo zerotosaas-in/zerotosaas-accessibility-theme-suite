@@ -441,6 +441,17 @@ function initDecorations(context) {
     rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
   });
 
+  // Hint Lens Type — muted info-style fg/bg. Must be created here (alongside the
+  // other lens types) so that updateErrorLens()'s final setDecorations call does
+  // not throw on the hint path. Previously declared but never assigned, causing an
+  // unhandled exception on every debounced diagnostics update that included hints.
+  // Colors mirror the muted hint palette used in updateErrorLens()'s Hint branch.
+  hintLensDecorationType = vscode.window.createTextEditorDecorationType({
+    isWholeLine: wholeLineBg,
+    backgroundColor: wholeLineBg ? '#F6F8FB' : undefined,
+    rangeBehavior: vscode.DecorationRangeBehavior.ClosedClosed
+  });
+
   // Italic Comment Decoration Type (Guarantees italics across all languages)
   commentDecorationType = vscode.window.createTextEditorDecorationType({
     fontStyle: 'italic',
@@ -1204,31 +1215,39 @@ async function handleThemeSelection() {
     const isNight = nightLabels.has(selected.label);
 
     if (isNight) {
-      const proceed = await vscode.window.showWarningMessage(
-        `⚠️ Dark Theme Eye Health Notice\n\n` +
-        `You are about to apply "${selected.label}". Prolonged use of dark themes ` +
-        `has been linked to several visual and ergonomic concerns:\n\n` +
-        `• Pupil dilation in low-luminance environments increases ocular accommodation ` +
-        `effort, contributing to digital eye strain (Computer Vision Syndrome).\n` +
-        `• Reduced luminance contrast can worsen myopia progression in younger developers ` +
-        `(environmental myopia hypothesis, Morgan et al., 2022).\n` +
-        `• Dark backgrounds with bright text create higher halation and spherical ` +
-        `aberration for users with astigmatism, reducing perceived sharpness.\n` +
-        `• Studies suggest ambient-bright environments (light themes) are associated ` +
-        `with reduced ciliary muscle fatigue during extended reading sessions.\n\n` +
-        `Recommendation: Use dark themes in dim ambient lighting for short durations. ` +
-        `Prefer light themes for daytime extended coding. Enable the 20-20-20 rest ` +
-        `reminder (zerotosaas.restReminder.enabled) for either mode.`,
-        { modal: false },
-        'Apply Anyway',
-        'Pick a Light Theme Instead'
-      );
+      // F9 de-nag: two-sentence advisory + persistent suppression. The full
+      // medical rationale (astigmatic halation, myopia progression, CVS) lives
+      // in docs/Guidelines.md — surfaced via the "Read Guidelines" button so the
+      // picker stays calm and the health message never becomes banner noise.
+      if (darkAdvisorySuppressed()) {
+        // Suppressed permanently by user — apply silently.
+      } else {
+        const proceed = await vscode.window.showWarningMessage(
+          `⚠️ "${selected.label}" is a dark theme. Prolonged dark-theme use can ` +
+          `increase ocular accommodation effort and astigmatic halation, ` +
+          `contributing to digital eye strain. Prefer light themes for daytime ` +
+          `extended coding, and use dark themes in dim ambient lighting. ` +
+          `See docs/Guidelines.md for the full medical rationale.`,
+          { modal: false },
+          'Apply Anyway',
+          'Apply and stop advising',
+          'Read Guidelines',
+          'Pick a Light Theme Instead'
+        );
 
-      if (proceed === 'Pick a Light Theme Instead') {
-        return handleThemeSelection();
-      }
-      if (proceed !== 'Apply Anyway') {
-        return; // user dismissed the warning — abort theme switch
+        if (proceed === 'Pick a Light Theme Instead') {
+          return handleThemeSelection();
+        }
+        if (proceed === 'Read Guidelines') {
+          openGuidelinesDoc();
+          return; // user can re-pick after reading
+        }
+        if (proceed === 'Apply and stop advising') {
+          await setDarkAdvisorySuppressed(true);
+          // fall through and apply
+        } else if (proceed !== 'Apply Anyway') {
+          return; // dismissed — abort theme switch
+        }
       }
     }
 
@@ -1256,6 +1275,62 @@ let themeChangeByExtension = false;
 
 function getCurrentThemeLabel(cfg) {
   return vscode.workspace.getConfiguration('workbench').get('colorTheme') || '';
+}
+
+// --- Dark-theme eye-health advisory dedupe (Phase 0 / F9) ---
+// Fires at most once per theme-label per calendar day, plus a persistent
+// "Don't remind me again" suppression via zerotosaas.wellness.darkAdvisory.suppressed.
+// Repetition converts a health message into noise; noise trains users to dismiss
+// health UI — the opposite of the mission.
+const DARK_ADVISORY_KEY_PREFIX = 'z2s.advisory.dark.';
+
+function todayDateKey() {
+  // Local date (not UTC) so the once-per-day boundary matches the user's day.
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function darkAdvisorySuppressed() {
+  return vscode.workspace
+    .getConfiguration('zerotosaas.wellness.darkAdvisory')
+    .get('suppressed', false);
+}
+
+async function setDarkAdvisorySuppressed(value) {
+  await vscode.workspace
+    .getConfiguration('zerotosaas.wellness.darkAdvisory')
+    .update('suppressed', value, vscode.ConfigurationTarget.Global);
+}
+
+function darkAdvisoryAlreadyShownToday(context, themeLabel) {
+  if (!context || !context.globalState) return false;
+  const key = DARK_ADVISORY_KEY_PREFIX + (themeLabel || '') + '.' + todayDateKey();
+  return context.globalState.get(key, false) === true;
+}
+
+async function markDarkAdvisoryShownToday(context, themeLabel) {
+  if (!context || !context.globalState) return;
+  const key = DARK_ADVISORY_KEY_PREFIX + (themeLabel || '') + '.' + todayDateKey();
+  await context.globalState.update(key, true);
+}
+
+// Opens docs/Guidelines.md (full medical rationale) in the Markdown preview.
+function openGuidelinesDoc() {
+  const fs = require('fs');
+  // Resolve relative to the extension root (extension.js lives in src/).
+  const candidates = [
+    path.join(__dirname, '..', 'docs', 'Guidelines.md'),
+    path.join(__dirname, 'docs', 'Guidelines.md')
+  ];
+  const docPath = candidates.find(p => { try { return fs.existsSync(p); } catch (e) { return false; } });
+  if (!docPath) {
+    vscode.window.showErrorMessage('Could not locate docs/Guidelines.md in the extension bundle.');
+    return;
+  }
+  vscode.commands.executeCommand('markdown.showPreview', vscode.Uri.file(docPath));
 }
 
 function evaluateAutoSwitch() {
@@ -1346,6 +1421,9 @@ function activate(context) {
     vscode.commands.registerCommand('zerotosaas.openSettings', () => {
       vscode.commands.executeCommand('workbench.action.openSettings', '@ext:zerotosaas.zerotosaas-theme');
     }),
+    vscode.commands.registerCommand('zerotosaas.openGuidelines', () => {
+      openGuidelinesDoc();
+    }),
     vscode.commands.registerCommand('zerotosaas.toggleAutoSwitch', async () => {
       const cfg = vscode.workspace.getConfiguration('zerotosaas.autoSwitch');
       const next = !cfg.get('enabled', false);
@@ -1369,25 +1447,41 @@ function activate(context) {
       // Warn about dark theme eye health effects when a dark theme is activated
       // externally (e.g. via VS Code's native Ctrl+K Ctrl+T picker). Extension-
       // initiated changes (QuickPick / auto-switcher) are suppressed — the
-      // QuickPick already shows a modal warning; the auto-switcher is opt-in.
+      // QuickPick already shows an advisory; the auto-switcher is opt-in.
+      //
+      // F9 de-nag: at most once per theme-label per calendar day, plus a
+      // persistent "Don't remind me again" suppression. Repetition on every
+      // native theme toggle (H1) trains users to dismiss health UI.
       if (!themeChangeByExtension && newTheme && newTheme.kind) {
         const isDark = newTheme.kind === vscode.ColorThemeKind.Dark ||
           newTheme.kind === vscode.ColorThemeKind.HighContrastDark;
         if (isDark) {
           const themeName = vscode.workspace.getConfiguration('workbench').get('colorTheme') || 'the selected dark theme';
-          vscode.window.showWarningMessage(
-            `⚠️ "${themeName}" is a dark theme. Prolonged dark-theme use can increase ` +
-            `ocular accommodation effort (pupil dilation), worsen halation for users ` +
-            `with astigmatism, and contribute to digital eye strain. Prefer light ` +
-            `themes for daytime extended coding. Use the 20-20-20 rest reminder ` +
-            `to mitigate fatigue in any mode.`,
-            'Switch to Light Theme',
-            'Dismiss'
-          ).then(action => {
-            if (action === 'Switch to Light Theme') {
-              vscode.commands.executeCommand('zerotosaas.selectTheme');
-            }
-          });
+          const alreadyShownToday = darkAdvisoryAlreadyShownToday(context, themeName);
+          const suppressed = darkAdvisorySuppressed();
+          if (!suppressed && !alreadyShownToday) {
+            vscode.window.showWarningMessage(
+              `⚠️ "${themeName}" is a dark theme. Prolonged dark-theme use can ` +
+              `increase ocular accommodation effort and worsen halation for users ` +
+              `with astigmatism, contributing to digital eye strain. Prefer light ` +
+              `themes for daytime extended coding. See docs/Guidelines.md for details.`,
+              'Switch to Light Theme',
+              "Don't remind me again",
+              'Dismiss'
+            ).then(async (action) => {
+              // Record today's showing regardless of choice so the per-day cap holds.
+              await markDarkAdvisoryShownToday(context, themeName);
+              if (action === 'Switch to Light Theme') {
+                vscode.commands.executeCommand('zerotosaas.selectTheme');
+              } else if (action === "Don't remind me again") {
+                await setDarkAdvisorySuppressed(true);
+                vscode.window.showInformationMessage(
+                  'Dark-theme eye-health advisories turned off. Re-enable from ' +
+                  'Settings: zerotosaas.wellness.darkAdvisory.suppressed.'
+                );
+              }
+            });
+          }
         }
       }
     }, null, context.subscriptions);

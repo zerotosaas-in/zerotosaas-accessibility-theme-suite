@@ -47,7 +47,6 @@
   "categories": [
     "Themes",
     "Programming Languages",
-    "Linters",
     "Other"
   ],
   "galleryBanner": {
@@ -240,6 +239,11 @@
           "minimum": 0,
           "maximum": 23,
           "description": "Hour (0-23) at which the night theme activates."
+        },
+        "zerotosaas.wellness.darkAdvisory.suppressed": {
+          "type": "boolean",
+          "default": false,
+          "description": "Silence dark-theme eye-health advisories permanently (both the night-theme QuickPick notice and the external dark-activation warning). Re-enable any time from Settings. The full medical rationale remains available via the 'ZeroToSaaS: Open Eye-Health Guidelines' command."
         }
       }
     },
@@ -285,6 +289,11 @@
         "title": "Open ZeroToSaaS Settings"
       },
       {
+        "command": "zerotosaas.openGuidelines",
+        "category": "ZeroToSaaS",
+        "title": "Open Eye-Health Guidelines (docs/Guidelines.md)"
+      },
+      {
         "command": "zerotosaas.toggleAutoSwitch",
         "category": "ZeroToSaaS",
         "title": "Toggle Day / Night Auto-Switch"
@@ -322,6 +331,10 @@
         },
         {
           "command": "zerotosaas.openSettings",
+          "when": "true"
+        },
+        {
+          "command": "zerotosaas.openGuidelines",
           "when": "true"
         },
         {
