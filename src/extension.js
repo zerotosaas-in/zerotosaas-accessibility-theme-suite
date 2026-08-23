@@ -657,6 +657,11 @@ function updateDecorations(editor) {
   const cfg = vscode.workspace.getConfiguration('zerotosaas');
 
   const enableStatusBadges = cfg.get('statusBadges.enabled', true);
+  const detectSecrets = cfg.get('statusBadges.detectSecrets', true);
+  const detectHardcodedStrings = cfg.get('statusBadges.detectHardcodedStrings', true);
+  const detectTypes = cfg.get('statusBadges.detectTypes', true);
+  const detectLogSeverity = cfg.get('statusBadges.detectLogSeverity', true);
+  const detectConfigFiles = cfg.get('statusBadges.detectConfigFiles', true);
   const enableIndentShading = cfg.get('indentShading.enabled', true);
   const enableErrorLens = cfg.get('errorLens.enabled', true);
   const showSeverityBadge = cfg.get('errorLens.showSeverityBadge', true);
@@ -785,25 +790,28 @@ function updateDecorations(editor) {
       }
 
       // Extended High-Entropy & Provider Secret Scanners (Human Firewall)
-      const secretPatterns = [
-        /\b((sk|pk)_live_[a-zA-Z0-9_]+|(postgres|postgresql|mongodb(\+srv)?|redis|amqp|mysql):\/\/[^\s"']+|SECRET[a-zA-Z0-9_]*\s*=\s*["'][^"']+["'])/gi,
-        /\b(AKIA|ABIA|ACCA|ASIA)[0-9A-Z]{16}\b/g,
-        /\bgh[pousr]_[A-Za-z0-9_]{36,255}\b/g,
-        /\bxox[baprs]-[0-9a-zA-Z-]{10,72}\b/g,
-        /\beyJ[A-Za-z0-9-_=]+\.eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*\b/g,
-        /\bAIza[0-9A-Za-z-_]{35}\b/g,
-        /-----BEGIN (?:[A-Z0-9_-]+ )?PRIVATE KEY-----/g,
-        /\bBearer\s+[a-zA-Z0-9_\-\.]{20,}\b/gi
-      ];
+      // Gated by detectSecrets toggle.
+      if (detectSecrets) {
+        const secretPatterns = [
+          /\b((sk|pk)_live_[a-zA-Z0-9_]+|(postgres|postgresql|mongodb(\+srv)?|redis|amqp|mysql):\/\/[^\s"']+|SECRET[a-zA-Z0-9_]*\s*=\s*["'][^"']+["'])/gi,
+          /\b(AKIA|ABIA|ACCA|ASIA)[0-9A-Z]{16}\b/g,
+          /\bgh[pousr]_[A-Za-z0-9_]{36,255}\b/g,
+          /\bxox[baprs]-[0-9a-zA-Z-]{10,72}\b/g,
+          /\beyJ[A-Za-z0-9-_=]+\.eyJ[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*\b/g,
+          /\bAIza[0-9A-Za-z-_]{35}\b/g,
+          /-----BEGIN (?:[A-Z0-9_-]+ )?PRIVATE KEY-----/g,
+          /\bBearer\s+[a-zA-Z0-9_\-\.]{20,}\b/gi
+        ];
 
-      for (const pattern of secretPatterns) {
-        while ((match = pattern.exec(text)) !== null) {
-          const range = new vscode.Range(
-            doc.positionAt(baseOffset + match.index),
-            doc.positionAt(baseOffset + match.index + match[0].length)
-          );
-          if (!isInsideComment(range, commentRanges)) {
-            panicRanges.push(range);
+        for (const pattern of secretPatterns) {
+          while ((match = pattern.exec(text)) !== null) {
+            const range = new vscode.Range(
+              doc.positionAt(baseOffset + match.index),
+              doc.positionAt(baseOffset + match.index + match[0].length)
+            );
+            if (!isInsideComment(range, commentRanges)) {
+              panicRanges.push(range);
+            }
           }
         }
       }
@@ -833,15 +841,20 @@ function updateDecorations(editor) {
       }
 
       // WARNING (🟠): Non-secret hardcoded strings
-      for (const strRange of stringRanges) {
-        const isAlreadyPanic = panicRanges.some(p => p.intersection(strRange));
-        if (!isAlreadyPanic) {
-          warningRanges.push(strRange);
+      // Gated by detectHardcodedStrings. String collection above still runs
+      // (even when this toggle is off) so regex-literal exclusion works.
+      if (detectHardcodedStrings) {
+        for (const strRange of stringRanges) {
+          const isAlreadyPanic = panicRanges.some(p => p.intersection(strRange));
+          if (!isAlreadyPanic) {
+            warningRanges.push(strRange);
+          }
         }
       }
 
       // CAUTION (🟡) & PANIC (🔴): Environment Files
-      if (langId === 'dotenv' || /\.env(\.[a-zA-Z0-9_-]+)?$/i.test(doc.fileName)) {
+      // Gated by detectSecrets toggle.
+      if (detectSecrets && (langId === 'dotenv' || /\.env(\.[a-zA-Z0-9_-]+)?$/i.test(doc.fileName))) {
         const envKeyPattern = /^[A-Z0-9_]+(?=\s*=)/gm;
         while ((match = envKeyPattern.exec(text)) !== null) {
           const keyName = match[0];
@@ -870,7 +883,8 @@ function updateDecorations(editor) {
       }
 
       // CONFIG FILES: Sensitive Key Highlighting
-      if (['toml', 'yaml', 'json', 'ini'].includes(langId) || /\.(toml|yaml|yml|json|ini)$/i.test(doc.fileName)) {
+      // Gated by detectConfigFiles toggle.
+      if (detectConfigFiles && (['toml', 'yaml', 'json', 'ini'].includes(langId) || /\.(toml|yaml|yml|json|ini)$/i.test(doc.fileName))) {
         const sensitiveConfigKeyPattern = /^[ \t]*([a-zA-Z0-9_-]*(SECRET|TOKEN|KEY|AUTH|PASSWORD|PASSWD|PASS|PRIVATE|DATABASE|CREDENTIAL|APIKEY|API_KEY|CERT|SALT|PASSPHRASE)[a-zA-Z0-9_-]*)(?=\s*[:=])/gim;
         while ((match = sensitiveConfigKeyPattern.exec(text)) !== null) {
           const keyName = match[1];
@@ -883,7 +897,8 @@ function updateDecorations(editor) {
       }
 
       // Function parameters
-      if (['typescript', 'typescriptreact', 'javascript', 'javascriptreact'].includes(langId)) {
+      // Gated by detectTypes toggle.
+      if (detectTypes && ['typescript', 'typescriptreact', 'javascript', 'javascriptreact'].includes(langId)) {
         const paramPattern = /(?<=\()([a-zA-Z0-9_]+)(?=\s*:\s*[a-zA-Z0-9_<>]+|\s*,\s*|\s*\))/g;
         while ((match = paramPattern.exec(text)) !== null) {
           const range = new vscode.Range(
@@ -897,7 +912,8 @@ function updateDecorations(editor) {
       }
 
       // LOG FILES (.log)
-      if (langId === 'log' || doc.fileName.endsWith('.log')) {
+      // Gated by detectLogSeverity toggle.
+      if (detectLogSeverity && (langId === 'log' || doc.fileName.endsWith('.log'))) {
         const logPanicPattern = /\b(FATAL|CRITICAL|EMERGENCY|ERROR|EXCEPTION)\b/g;
         while ((match = logPanicPattern.exec(text)) !== null) {
           panicRanges.push(new vscode.Range(
@@ -932,7 +948,8 @@ function updateDecorations(editor) {
       }
 
       // SAFE (🟢): Types, Interfaces, Structs & Markdown Code Blocks
-      if (['typescript', 'typescriptreact'].includes(langId)) {
+      // Gated by detectTypes toggle.
+      if (detectTypes && ['typescript', 'typescriptreact'].includes(langId)) {
         const typeDefPattern = /\b(interface|type|class|enum)\s+([A-Za-z0-9_]+)/g;
         while ((match = typeDefPattern.exec(text)) !== null) {
           const typeName = match[2];
@@ -1399,10 +1416,46 @@ function initAutoSwitch(context) {
   }
 }
 
+// --- First-run default theme application ---
+// Applies "ZeroToSaaS Light (Default)" on the very first activation if the user
+// is still on a VS Code built-in default theme. Fires once (gated by
+// globalState); never overrides an explicit user choice afterward.
+const Z2S_DEFAULT_THEME = 'ZeroToSaaS Light (Default)';
+const Z2S_DEFAULT_APPLIED_KEY = 'z2s.defaultThemeApplied';
+const VSCODE_BUILTIN_DEFAULTS = new Set([
+  'Default Dark+', 'Dark+', 'Default Light+', 'Light+',
+  'Dark Modern', 'Light Modern', 'Dark', 'Light',
+  'Default Dark Modern', 'Default Light Modern',
+  'High Contrast', 'High Contrast Light'
+]);
+
+async function applyDefaultThemeOnce(context) {
+  if (!context || !context.globalState) return;
+  if (context.globalState.get(Z2S_DEFAULT_APPLIED_KEY, false)) return;
+
+  const workbench = vscode.workspace.getConfiguration('workbench');
+  const current = workbench.get('colorTheme', '');
+
+  // Only switch if the user is on a known VS Code built-in default.
+  // Never override a non-default theme (including other extensions' themes).
+  if (VSCODE_BUILTIN_DEFAULTS.has(current)) {
+    themeChangeByExtension = true;
+    await workbench.update('colorTheme', Z2S_DEFAULT_THEME, vscode.ConfigurationTarget.Global);
+    themeChangeByExtension = false;
+  }
+
+  // Mark as applied regardless of whether we switched — so we never override
+  // a user's explicit choice on subsequent activations.
+  await context.globalState.update(Z2S_DEFAULT_APPLIED_KEY, true);
+}
+
 function activate(context) {
   initDecorations(context);
 
   initRestAssistant();
+
+  // Apply the ZeroToSaaS default theme on first run only.
+  applyDefaultThemeOnce(context);
 
   context.subscriptions.push(
     vscode.commands.registerCommand('zerotosaas.selectTheme', handleThemeSelection),

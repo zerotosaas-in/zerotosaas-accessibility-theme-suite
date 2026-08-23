@@ -189,6 +189,31 @@
           "default": true,
           "description": "Enable automatic Safe, Caution, Warning, and Panic background status badges on code tokens."
         },
+        "zerotosaas.statusBadges.detectSecrets": {
+          "type": "boolean",
+          "default": true,
+          "description": "Detect high-entropy secrets and provider tokens (AWS keys, GitHub/Slack PATs, JWTs, private key headers, Stripe keys, Google Cloud keys, Bearer tokens, database URIs) and flag them as Panic. Also scans .env files for secret keys and values."
+        },
+        "zerotosaas.statusBadges.detectHardcodedStrings": {
+          "type": "boolean",
+          "default": true,
+          "description": "Detect non-secret hardcoded quoted strings in source code and flag them as Warning. String collection still runs internally for regex-literal exclusion even when disabled."
+        },
+        "zerotosaas.statusBadges.detectTypes": {
+          "type": "boolean",
+          "default": true,
+          "description": "Detect type definitions (interfaces, types, classes, enums, structs), function parameters, and Markdown inline code blocks, flagging them as Safe or Caution."
+        },
+        "zerotosaas.statusBadges.detectLogSeverity": {
+          "type": "boolean",
+          "default": true,
+          "description": "Detect log severity keywords (FATAL, ERROR, WARN, INFO, DEBUG, etc.) in .log files and flag them with the corresponding semantic status (Panic, Warning, Safe, Caution)."
+        },
+        "zerotosaas.statusBadges.detectConfigFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "Detect sensitive configuration keys (SECRET, TOKEN, KEY, PASSWORD, etc.) in TOML, YAML, JSON, and INI files and flag them as Panic."
+        },
         "zerotosaas.maxFileSizeKB": {
           "type": "number",
           "default": 500,
