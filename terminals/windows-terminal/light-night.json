@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Light Night (Default)",
+  "background": "#0C1119",
+  "foreground": "#E8ECF1",
+  "cursorColor": "#63A3DE",
+  "selectionBackground": "#2A4A7A",
+  "black": "#121822",
+  "red": "#FF768A",
+  "green": "#6BCB7A",
+  "yellow": "#E8B85A",
+  "blue": "#63A3DE",
+  "purple": "#B89BE8",
+  "cyan": "#6BCB7A",
+  "white": "#E8ECF1",
+  "brightBlack": "#171D27",
+  "brightRed": "#FF768A",
+  "brightGreen": "#6BCB7A",
+  "brightYellow": "#E8B85A",
+  "brightBlue": "#7AB5E8",
+  "brightPurple": "#B89BE8",
+  "brightCyan": "#6BCB7A",
+  "brightWhite": "#FFFFFF"
+}

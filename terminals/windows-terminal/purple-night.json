@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Royal Plum Night (Purple)",
+  "background": "#0E0C12",
+  "foreground": "#EAE5F0",
+  "cursorColor": "#BD87F4",
+  "selectionBackground": "#410467",
+  "black": "#141117",
+  "red": "#FB7695",
+  "green": "#78C193",
+  "yellow": "#DAAF76",
+  "blue": "#BD87F4",
+  "purple": "#A698E4",
+  "cyan": "#6EB78A",
+  "white": "#EAE5F0",
+  "brightBlack": "#17151B",
+  "brightRed": "#FB7695",
+  "brightGreen": "#78C193",
+  "brightYellow": "#DAAF76",
+  "brightBlue": "#CCA1FA",
+  "brightPurple": "#A698E4",
+  "brightCyan": "#6EB78A",
+  "brightWhite": "#FFFFFF"
+}

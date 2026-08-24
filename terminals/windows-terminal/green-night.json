@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Forest Calm Night (Green)",
+  "background": "#090F0B",
+  "foreground": "#E0EBE4",
+  "cursorColor": "#6DB885",
+  "selectionBackground": "#003C10",
+  "black": "#0F1410",
+  "red": "#FF7772",
+  "green": "#77C18E",
+  "yellow": "#B9BD7A",
+  "blue": "#6DB885",
+  "purple": "#6EB5A0",
+  "cyan": "#74B689",
+  "white": "#E0EBE4",
+  "brightBlack": "#121814",
+  "brightRed": "#FF7772",
+  "brightGreen": "#77C18E",
+  "brightYellow": "#B9BD7A",
+  "brightBlue": "#8DC89E",
+  "brightPurple": "#6EB5A0",
+  "brightCyan": "#74B689",
+  "brightWhite": "#FFFFFF"
+}

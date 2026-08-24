@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Tritanopia (Crimson / Cyan)",
+  "background": "#FAFCFC",
+  "foreground": "#0F1E21",
+  "cursorColor": "#A00028",
+  "selectionBackground": "#B4E2EA",
+  "black": "#0F1E21",
+  "red": "#A00028",
+  "green": "#005D6B",
+  "yellow": "#543D00",
+  "blue": "#A00028",
+  "purple": "#800030",
+  "cyan": "#005D6B",
+  "white": "#F1F7F8",
+  "brightBlack": "#405B60",
+  "brightRed": "#A00028",
+  "brightGreen": "#005D6B",
+  "brightYellow": "#543D00",
+  "brightBlue": "#7A001E",
+  "brightPurple": "#800030",
+  "brightCyan": "#005D6B",
+  "brightWhite": "#0F1E21"
+}

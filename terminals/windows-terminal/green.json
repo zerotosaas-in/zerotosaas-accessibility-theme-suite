@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Forest Calm (Green)",
+  "background": "#F8FCF9",
+  "foreground": "#0A2014",
+  "cursorColor": "#096032",
+  "selectionBackground": "#A8DFBF",
+  "black": "#0A2014",
+  "red": "#960C1B",
+  "green": "#095E31",
+  "yellow": "#4B4D00",
+  "blue": "#096032",
+  "purple": "#0A5C4A",
+  "cyan": "#06522B",
+  "white": "#EDF6F0",
+  "brightBlack": "#2B583C",
+  "brightRed": "#960C1B",
+  "brightGreen": "#095E31",
+  "brightYellow": "#4B4D00",
+  "brightBlue": "#054523",
+  "brightPurple": "#0A5C4A",
+  "brightCyan": "#06522B",
+  "brightWhite": "#0A2014"
+}

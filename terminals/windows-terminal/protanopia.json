@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Protanopia (Magenta / Teal)",
+  "background": "#FCFAFC",
+  "foreground": "#1E0E22",
+  "cursorColor": "#0A4BA0",
+  "selectionBackground": "#E2C8F0",
+  "black": "#1E0E22",
+  "red": "#8C0064",
+  "green": "#015D53",
+  "yellow": "#703700",
+  "blue": "#0A4BA0",
+  "purple": "#8C0064",
+  "cyan": "#015D53",
+  "white": "#F7F2F8",
+  "brightBlack": "#624769",
+  "brightRed": "#8C0064",
+  "brightGreen": "#015D53",
+  "brightYellow": "#703700",
+  "brightBlue": "#003478",
+  "brightPurple": "#8C0064",
+  "brightCyan": "#015D53",
+  "brightWhite": "#1E0E22"
+}

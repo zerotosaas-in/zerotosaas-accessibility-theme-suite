@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Warm Sepia (Brown)",
+  "background": "#FCFAF6",
+  "foreground": "#221206",
+  "cursorColor": "#5C2C06",
+  "selectionBackground": "#E2CEAF",
+  "black": "#221206",
+  "red": "#8C1004",
+  "green": "#1E6029",
+  "yellow": "#5A3602",
+  "blue": "#5C2C06",
+  "purple": "#4A2207",
+  "cyan": "#3E270E",
+  "white": "#F6F0E7",
+  "brightBlack": "#5E4832",
+  "brightRed": "#8C1004",
+  "brightGreen": "#1E6029",
+  "brightYellow": "#5A3602",
+  "brightBlue": "#3F1C02",
+  "brightPurple": "#4A2207",
+  "brightCyan": "#3E270E",
+  "brightWhite": "#221206"
+}

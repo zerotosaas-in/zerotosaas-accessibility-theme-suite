@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Royal Plum (Purple)",
+  "background": "#FAF8FD",
+  "foreground": "#1A0E26",
+  "cursorColor": "#5B2188",
+  "selectionBackground": "#D8C2F2",
+  "black": "#1A0E26",
+  "red": "#910A3E",
+  "green": "#0A5E36",
+  "yellow": "#6A4400",
+  "blue": "#5B2188",
+  "purple": "#362465",
+  "cyan": "#0A5E36",
+  "white": "#F2EDF7",
+  "brightBlack": "#5A486F",
+  "brightRed": "#910A3E",
+  "brightGreen": "#0A5E36",
+  "brightYellow": "#6A4400",
+  "brightBlue": "#401362",
+  "brightPurple": "#362465",
+  "brightCyan": "#0A5E36",
+  "brightWhite": "#1A0E26"
+}

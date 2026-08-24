@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Terracotta (Orange)",
+  "background": "#FCF8F4",
+  "foreground": "#261206",
+  "cursorColor": "#8F3500",
+  "selectionBackground": "#ECC6A5",
+  "black": "#261206",
+  "red": "#961103",
+  "green": "#16612E",
+  "yellow": "#733E00",
+  "blue": "#8F3500",
+  "purple": "#7A2B06",
+  "cyan": "#16612E",
+  "white": "#F6ECE4",
+  "brightBlack": "#6A4633",
+  "brightRed": "#961103",
+  "brightGreen": "#16612E",
+  "brightYellow": "#733E00",
+  "brightBlue": "#6E2800",
+  "brightPurple": "#7A2B06",
+  "brightCyan": "#16612E",
+  "brightWhite": "#261206"
+}

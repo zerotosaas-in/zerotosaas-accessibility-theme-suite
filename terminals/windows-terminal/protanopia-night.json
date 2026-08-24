@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Protanopia Night (Magenta / Teal)",
+  "background": "#110D14",
+  "foreground": "#EEEAF0",
+  "cursorColor": "#61A1DD",
+  "selectionBackground": "#4A2858",
+  "black": "#19131E",
+  "red": "#F27ABA",
+  "green": "#4AD0BC",
+  "yellow": "#E8B85A",
+  "blue": "#61A1DD",
+  "purple": "#ED75B5",
+  "cyan": "#4AD0BC",
+  "white": "#EEEAF0",
+  "brightBlack": "#1D1823",
+  "brightRed": "#F27ABA",
+  "brightGreen": "#4AD0BC",
+  "brightYellow": "#E8B85A",
+  "brightBlue": "#7AB5E8",
+  "brightPurple": "#ED75B5",
+  "brightCyan": "#4AD0BC",
+  "brightWhite": "#FFFFFF"
+}

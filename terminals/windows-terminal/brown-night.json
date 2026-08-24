@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Warm Sepia Night (Brown)",
+  "background": "#100D08",
+  "foreground": "#F0E6DE",
+  "cursorColor": "#CF9673",
+  "selectionBackground": "#4D1E00",
+  "black": "#15120D",
+  "red": "#F97C68",
+  "green": "#7FC184",
+  "yellow": "#D9AE80",
+  "blue": "#CF9673",
+  "purple": "#CA987C",
+  "cyan": "#BB9F83",
+  "white": "#F0E6DE",
+  "brightBlack": "#191610",
+  "brightRed": "#F97C68",
+  "brightGreen": "#7FC184",
+  "brightYellow": "#D9AE80",
+  "brightBlue": "#DAAC90",
+  "brightPurple": "#CA987C",
+  "brightCyan": "#BB9F83",
+  "brightWhite": "#FFFFFF"
+}

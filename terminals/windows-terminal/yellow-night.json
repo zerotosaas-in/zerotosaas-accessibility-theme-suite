@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Golden Sand Night (Yellow)",
+  "background": "#0F0D08",
+  "foreground": "#EBE8DD",
+  "cursorColor": "#C19F61",
+  "selectionBackground": "#442700",
+  "black": "#15130D",
+  "red": "#FA7C65",
+  "green": "#7EC182",
+  "yellow": "#D3B373",
+  "blue": "#C19F61",
+  "purple": "#BEA068",
+  "cyan": "#84B470",
+  "white": "#EBE8DD",
+  "brightBlack": "#181610",
+  "brightRed": "#FA7C65",
+  "brightGreen": "#7EC182",
+  "brightYellow": "#D3B373",
+  "brightBlue": "#CFB482",
+  "brightPurple": "#BEA068",
+  "brightCyan": "#84B470",
+  "brightWhite": "#FFFFFF"
+}

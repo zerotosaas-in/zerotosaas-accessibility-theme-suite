@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Golden Sand (Yellow)",
+  "background": "#FCFAF4",
+  "foreground": "#221B03",
+  "cursorColor": "#6B4C00",
+  "selectionBackground": "#E8DC9E",
+  "black": "#221B03",
+  "red": "#8E1200",
+  "green": "#1C6026",
+  "yellow": "#6A4D00",
+  "blue": "#6B4C00",
+  "purple": "#5C4100",
+  "cyan": "#2C5814",
+  "white": "#F6F2E3",
+  "brightBlack": "#605426",
+  "brightRed": "#8E1200",
+  "brightGreen": "#1C6026",
+  "brightYellow": "#6A4D00",
+  "brightBlue": "#4E3700",
+  "brightPurple": "#5C4100",
+  "brightCyan": "#2C5814",
+  "brightWhite": "#221B03"
+}

@@ -3,6 +3,8 @@
 scripts/**
 docs/**
 samples/**
+tokens/**
+terminals/**
 *.vsix
 .git/**
 .github/**

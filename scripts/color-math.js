@@ -57,6 +57,56 @@ function contrastRatio(hex1, hex2) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
+// APCA 0.0.98G — Advanced Perceptual Contrast Algorithm (WCAG 3.0 draft).
+// Reference: Andrew Somers / Myndex SAPC-APCA.
+//
+// Returns a signed L^c score:
+//   L^c >  0  →  text is darker than background (light-mode: dark text on light bg)
+//   L^c <  0  →  text is lighter than background (dark-mode: light text on dark bg)
+//   |L^c|     →  perceptual contrast magnitude (higher = more readable)
+//
+// Thresholds (APCA 0.0.98G draft):
+//   |L^c| >= 75  body text
+//   |L^c| >= 90  fine text (small font, operators, comments)
+//   |L^c| >= 60  non-text UI (indent guides, cursors, line numbers)
+function apcaContrast(fgHex, bgHex) {
+  const fg = parseHex(fgHex);
+  const bg = parseHex(bgHex);
+
+  // sRGB → linear (standard sRGB transfer, same basis as WCAG 2.x).
+  const lin = (c) => {
+    const v = c / 255;
+    return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  };
+
+  // Relative luminance Y (Rec. 709 primaries).
+  const Yt = 0.2126 * lin(fg.r) + 0.7152 * lin(fg.g) + 0.0722 * lin(fg.b);
+  const Yb = 0.2126 * lin(bg.r) + 0.7152 * lin(bg.g) + 0.0722 * lin(bg.b);
+
+  // Noise floor — near-zero contrast.
+  if (Math.abs(Yt - Yb) < 0.0001) return 0;
+
+  // SAPC polynomial (0.0.98G exponents and scaling).
+  let Lc;
+  if (Yb > Yt) {
+    // Light background, dark text.
+    Lc = (Math.pow(Yb, 0.56) - Math.pow(Yt, 0.57)) * 1.14;
+  } else {
+    // Dark background, light text.
+    Lc = (Math.pow(Yb, 0.65) - Math.pow(Yt, 0.62)) * 1.25;
+  }
+
+  // Scale to L^c.
+  Lc = Lc * 100;
+
+  // Soft clamps (APCA 0.0.98G noise floor).
+  if (Math.abs(Lc) < 7) return 0;
+  if (Lc > 0) Lc = Math.max(Lc, 15);
+  if (Lc < 0) Lc = Math.min(Lc, -15);
+
+  return Lc;
+}
+
 // Analytical sRGB -> LMS -> Oklab -> OkLCH (Björn Ottosson's Oklab).
 function hexToOklch(hex) {
   const { r, g, b } = parseHex(hex);
@@ -174,6 +224,7 @@ module.exports = {
   linearToSRgb,
   relativeLuminance,
   contrastRatio,
+  apcaContrast,
   hexToOklch,
   oklchToHex,
   deltaEOklab,

@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Terracotta Night (Orange)",
+  "background": "#110C08",
+  "foreground": "#F1E5DF",
+  "cursorColor": "#E9875D",
+  "selectionBackground": "#5E0000",
+  "black": "#16120D",
+  "red": "#FF7965",
+  "green": "#7AC189",
+  "yellow": "#E6A976",
+  "blue": "#E9875D",
+  "purple": "#E38A69",
+  "cyan": "#71B87F",
+  "white": "#F1E5DF",
+  "brightBlack": "#1A1510",
+  "brightRed": "#FF7965",
+  "brightGreen": "#7AC189",
+  "brightYellow": "#E6A976",
+  "brightBlue": "#F2A07D",
+  "brightPurple": "#E38A69",
+  "brightCyan": "#71B87F",
+  "brightWhite": "#FFFFFF"
+}

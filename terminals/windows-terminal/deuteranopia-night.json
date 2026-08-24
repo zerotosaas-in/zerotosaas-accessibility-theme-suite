@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Deuteranopia Night (Blue / Orange)",
+  "background": "#0A141C",
+  "foreground": "#E8EEF4",
+  "cursorColor": "#55A5F2",
+  "selectionBackground": "#1A3A6A",
+  "black": "#131C25",
+  "red": "#FB825B",
+  "green": "#5AAAF7",
+  "yellow": "#E8A05A",
+  "blue": "#55A5F2",
+  "purple": "#7E9FED",
+  "cyan": "#55A5F2",
+  "white": "#E8EEF4",
+  "brightBlack": "#18222B",
+  "brightRed": "#FB825B",
+  "brightGreen": "#5AAAF7",
+  "brightYellow": "#E8A05A",
+  "brightBlue": "#6BB4F0",
+  "brightPurple": "#7E9FED",
+  "brightCyan": "#55A5F2",
+  "brightWhite": "#FFFFFF"
+}

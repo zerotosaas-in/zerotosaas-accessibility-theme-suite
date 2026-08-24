@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Deuteranopia (Blue / Orange)",
+  "background": "#FAFCFE",
+  "foreground": "#0A1B38",
+  "cursorColor": "#0043A4",
+  "selectionBackground": "#B4D2F8",
+  "black": "#0A1B38",
+  "red": "#8A2500",
+  "green": "#0043A4",
+  "yellow": "#733500",
+  "blue": "#0043A4",
+  "purple": "#1E3A8A",
+  "cyan": "#0043A4",
+  "white": "#F2F6FC",
+  "brightBlack": "#3D5270",
+  "brightRed": "#8A2500",
+  "brightGreen": "#0043A4",
+  "brightYellow": "#733500",
+  "brightBlue": "#003180",
+  "brightPurple": "#1E3A8A",
+  "brightCyan": "#0043A4",
+  "brightWhite": "#0A1B38"
+}

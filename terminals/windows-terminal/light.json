@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Light (Default)",
+  "background": "#FCFCFD",
+  "foreground": "#111827",
+  "cursorColor": "#0B4F9C",
+  "selectionBackground": "#B8D6F8",
+  "black": "#111827",
+  "red": "#990014",
+  "green": "#0B6229",
+  "yellow": "#784A00",
+  "blue": "#0B4F9C",
+  "purple": "#4F2683",
+  "cyan": "#0B6229",
+  "white": "#F6F8FB",
+  "brightBlack": "#485260",
+  "brightRed": "#990014",
+  "brightGreen": "#0B6229",
+  "brightYellow": "#784A00",
+  "brightBlue": "#003D99",
+  "brightPurple": "#4F2683",
+  "brightCyan": "#0B6229",
+  "brightWhite": "#111827"
+}

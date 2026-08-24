@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS High Contrast Night (ISO 9241-303)",
+  "background": "#000000",
+  "foreground": "#FFFFFF",
+  "cursorColor": "#5B9BD6",
+  "selectionBackground": "#1A3A6A",
+  "black": "#0A0A0A",
+  "red": "#FF778A",
+  "green": "#6BCB7A",
+  "yellow": "#E8B85A",
+  "blue": "#5B9BD6",
+  "purple": "#B89BE8",
+  "cyan": "#6BCB7A",
+  "white": "#FFFFFF",
+  "brightBlack": "#0F0F0F",
+  "brightRed": "#FF778A",
+  "brightGreen": "#6BCB7A",
+  "brightYellow": "#E8B85A",
+  "brightBlue": "#7AB5E8",
+  "brightPurple": "#B89BE8",
+  "brightCyan": "#6BCB7A",
+  "brightWhite": "#FFFFFF"
+}

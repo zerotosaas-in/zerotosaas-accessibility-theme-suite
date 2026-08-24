@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS High Contrast (ISO 9241-303)",
+  "background": "#FFFFFF",
+  "foreground": "#000000",
+  "cursorColor": "#002D80",
+  "selectionBackground": "#A6CEF8",
+  "black": "#000000",
+  "red": "#8B0000",
+  "green": "#00591E",
+  "yellow": "#5E3800",
+  "blue": "#002D80",
+  "purple": "#4B0082",
+  "cyan": "#00591E",
+  "white": "#F7F7F7",
+  "brightBlack": "#444444",
+  "brightRed": "#8B0000",
+  "brightGreen": "#00591E",
+  "brightYellow": "#5E3800",
+  "brightBlue": "#001F5C",
+  "brightPurple": "#4B0082",
+  "brightCyan": "#00591E",
+  "brightWhite": "#000000"
+}
