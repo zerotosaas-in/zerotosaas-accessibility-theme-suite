@@ -21,5 +21,8 @@ pnpm-workspace.yaml
 .devin/**
 .agents/**
 _config.yml
+_layouts/**
+index.md
+.jekyll-cache/**
 CCLA.md
 ICLA.md
