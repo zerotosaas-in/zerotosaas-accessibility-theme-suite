@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-08-25
+
 ### Added
 
 - **Persistent status bar hub widget**: `$(eye)` icon-only badge on the right side of the status bar with a quick-access QuickPick menu (Open Settings, Open Eye-Health Guidelines, Reset 20-20-20 Rest Timer, active theme name). Gated by `zerotosaas.statusBar.enabled` (default `true`). Built lightweight so the wellness layer (Phase 1, P1.4) can absorb/extend it without conflict. The full identity (ZeroToSaaS [AAA], active theme) surfaces in the tooltip + QuickPick instead of the badge text to keep the status bar minimal.
+
+### Changed
+
+- **Trimmed redundant `configurationDefaults`**: Dropped 10 per-language bracket-pair-colorization overrides (`[typescript]`, `[typescriptreact]`, `[javascript]`, `[javascriptreact]`, `[python]`, `[rust]`, `[go]`, `[kotlin]`, `[swift]`, `[dart]`) that duplicated VS Code's own defaults since 1.78. Reduces Settings UI clutter from "Default Language Configuration Overrides" groups. Users on VS Code < 1.78 or older forks may need to enable bracket pair colorization manually.
 
 ## [0.5.2] - 2026-08-25
 
