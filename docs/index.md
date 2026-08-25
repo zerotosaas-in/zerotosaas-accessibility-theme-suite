@@ -25,41 +25,12 @@ Welcome to the official documentation portal for the **ZeroToSaaS Accessibility 
 
 ## Plans (Pending Work)
 
-### Core
-
-- **[Wellness & Focus Report (Implementation Plan)](plans/wellness-and-focus-report.md)**
-- **[Status Bar Widget Spec](plans/status-bar-widget.md)**
-- **[Settings UI Grouping Spec](plans/settings-ui-grouping.md)**
-- **[APCA Gap Remediation Spec](plans/apca-gap-remediation.md)**
-- **[Native-Setting Duplication Audit](plans/native-setting-audit.md)**
-
-### Terminal Release Plans
-
-- **[iTerm2](plans/terminals/iterm2.md)** — macOS iTerm2 color presets distribution
-- **[macOS Terminal.app](plans/terminals/macos-terminal.md)** — Terminal.app profile distribution
-- **[Windows Terminal](plans/terminals/windows-terminal.md)** — Windows Terminal scheme distribution
-- **[Alacritty](plans/terminals/alacritty.md)** — Alacritty TOML scheme distribution
-- **[Kitty](plans/terminals/kitty.md)** — Kitty `.conf` scheme distribution
-- **[Ghostty](plans/terminals/ghostty.md)** — Ghostty theme distribution
-- **[Warp](plans/terminals/warp.md)** — Warp YAML theme distribution
-
-### CSS Framework Release Plans
-
-- **[CSS Custom Properties](plans/css-frameworks/css-custom-properties.md)** — `@zerotosaas/css-tokens` npm package
-- **[Tailwind CSS v3](plans/css-frameworks/tailwind-v3.md)** — `@zerotosaas/tailwind-v3` preset package
-- **[Tailwind CSS v4](plans/css-frameworks/tailwind-v4.md)** — `@zerotosaas/tailwind-v4` theme package
-- **[Style Dictionary / Figma](plans/css-frameworks/style-dictionary.md)** — `@zerotosaas/design-tokens` package
-
-### Business Domain Theme Plans
-
-- **[Medical & Healthcare](plans/domains/medical.md)** — Clinical, DICOM, HL7/FHIR, HIPAA-safe
-- **[Finance, Banking & Trading](plans/domains/finance.md)** — Market semantics, FIX protocol, CVD-safe bull/bear
-- **[Legal & Compliance](plans/domains/legal.md)** — Contract clauses, citations, PII redaction
-- **[Education & Research](plans/domains/education.md)** — Jupyter, LaTeX, pedagogical syntax
-- **[DevOps & Infrastructure](plans/domains/devops.md)** — Terraform, Kubernetes, NOC, log streams
-- **[Data Science & Analytics](plans/domains/data-science.md)** — Notebooks, dbt, Airflow, DataFrame tokens
-- **[Gaming & Game Dev](plans/domains/gaming.md)** — GLSL/HLSL/WGSL, Unity/Unreal/Godot
-- **[Security & Cybersecurity](plans/domains/security.md)** — CVSS severity, SOC, exploit code, network tokens
+- **[Wellness & Focus Report](plans/wellness-and-focus-report.md)** — Core health layer: Guardian, Eye-Break v2, Blink Coach, FocusFlow/Pomodoro
+- **[Status Bar Widget Spec](plans/status-bar-widget.md)** — Persistent `$(shield) ZeroToSaaS [AAA]` badge with quick-access menu
+- **[Settings UI Grouping Spec](plans/settings-ui-grouping.md)** — Scoped settings groups and ordering in Preferences
+- **[APCA Gap Remediation Spec](plans/apca-gap-remediation.md)** — Close 400 APCA L^c contrast gaps across the 20 themes
+- **[Native-Setting Duplication Audit](plans/native-setting-audit.md)** — Audit `zerotosaas.*` settings for native VS Code duplication
+- **[Distribution Plan](plans/distribution.md)** — npm package for tokens + terminal bundles for all 7 terminals
 
 ## Legal
 
