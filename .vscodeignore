@@ -24,4 +24,5 @@ _config.yml
 _layouts/**
 index.md
 .jekyll-cache/**
-media/*.svg
+media/icons/*.svg
+media/previews/**

@@ -58,7 +58,7 @@ All 10 theme variants maintain an invariant perceived lightness band, ensuring t
 
 ### Visual Sample Preview
 
-![OkLCH Perceptual Lightness Uniformity Sample](previews/oklch-uniformity-sample.jpg)
+![OkLCH Perceptual Lightness Uniformity Sample](../../media/previews/oklch-uniformity-sample.jpg)
 _Figure 1: Split-view comparison of Forest Calm (Green) vs. Golden Sand (Yellow) showing identical perceptual lightness and reading ease._
 
 ---
@@ -86,7 +86,7 @@ $$\Delta E_{\text{Ok}} = \sqrt{(\Delta L)^2 + (\Delta a)^2 + (\Delta b)^2} \ge 0
 
 ### Visual Sample Preview
 
-![Paul Tol CVD-Safe Calibration Sample](previews/paultol-cvd-sample.jpg)
+![Paul Tol CVD-Safe Calibration Sample](../../media/previews/paultol-cvd-sample.jpg)
 _Figure 2: Split-view comparison of Deuteranopia Accessible (Blue/Amber) and Protanopia Accessible (Magenta/Teal) palettes._
 
 ---
@@ -125,7 +125,7 @@ graph LR
 
 ### Visual Sample Preview
 
-![ColorBrewer Information Architecture Sample](previews/colorbrewer-ia-sample.jpg)
+![ColorBrewer Information Architecture Sample](../../media/previews/colorbrewer-ia-sample.jpg)
 _Figure 3: Demonstration of Qualitative syntax balance, Sequential alternating indent columns, and Diverging status badges._
 
 ---
@@ -145,7 +145,7 @@ The Farnsworth-Munsell 100-Hue system classifies color discrimination into four 
 
 ### Visual Sample Preview
 
-![Farnsworth-Munsell Quadrants Sample](previews/fm100-quadrants-sample.jpg)
+![Farnsworth-Munsell Quadrants Sample](../../media/previews/fm100-quadrants-sample.jpg)
 _Figure 4: Automated quadrant distribution across multi-language source code and integrated positive-polarity terminal execution panel._
 
 ---

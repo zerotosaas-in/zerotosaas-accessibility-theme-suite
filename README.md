@@ -1,7 +1,7 @@
 # ZeroToSaaS Accessibility Theme Suite
 
 <p align="center">
-  <img src="media/icon.png" width="128" height="128" alt="ZeroToSaaS Accessibility Theme Suite" />
+  <img src="media/icons/icon.png" width="128" height="128" alt="ZeroToSaaS Accessibility Theme Suite" />
 </p>
 
 <p>

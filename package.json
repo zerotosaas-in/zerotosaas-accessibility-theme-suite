@@ -4,7 +4,7 @@
   "description": "Medically optimized, WCAG AAA compliant themes with Semantic Cognitive Status (Safe, Caution, Warning, Panic) and contextual file-type adaptation.",
   "version": "0.5.1",
   "publisher": "zerotosaas-in",
-  "icon": "media/icon.png",
+  "icon": "media/icons/icon.png",
   "author": {
     "name": "Sarvasv Technologies Pvt Ltd (ZeroToSaaS.in)",
     "url": "https://zerotosaas.in"
