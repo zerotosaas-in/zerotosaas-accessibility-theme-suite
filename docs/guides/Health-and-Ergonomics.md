@@ -55,6 +55,8 @@ ZeroToSaaS strictly follows the **WCAG 2.1 guideline to never rely on color alon
 ---
 
 > 📖 **Companion documents**:
+>
 > - [Clinical Ophthalmology Citations & Ergonomics](Guidelines.md)
-> - [Wellness & Focus Report (planned)](plans/wellness-and-focus-report.md)
-> - [Engineering Roadmap](TODO.md)
+> - [Wellness & Focus Report (planned)](../plans/wellness-and-focus-report.md)
+> - [Status Bar Widget Spec](../plans/status-bar-widget.md)
+> - [APCA Gap Remediation Spec](../plans/apca-gap-remediation.md)

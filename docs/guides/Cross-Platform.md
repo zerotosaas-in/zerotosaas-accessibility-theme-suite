@@ -127,9 +127,9 @@ open terminals/macos-terminal/light.terminal
   // 3. Reference it in a profile:
   "profiles": {
     "defaults": {
-      "colorScheme": "ZeroToSaaS Light (Default)"
-    }
-  }
+      "colorScheme": "ZeroToSaaS Light (Default)",
+    },
+  },
 }
 ```
 
@@ -192,4 +192,4 @@ All artifacts are excluded from the published `.vsix` (see `.vscodeignore`) — 
 
 ---
 
-> 📖 **See also**: [The 20 Theme Variants](Themes-Reference.md) for the full palette reference.
+> 📖 **See also**: [The 20 Theme Variants](Themes-Reference.md) for the full palette reference of all 20 variants.

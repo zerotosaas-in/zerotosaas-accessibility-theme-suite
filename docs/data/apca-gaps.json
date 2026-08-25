@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T18:16:14.853Z",
+  "generatedAt": "2026-08-25T15:33:13.296Z",
   "apcaVersion": "0.0.98G",
   "policy": "soft-gate — APCA gaps are tracked and reported but do not fail the build. WCAG 2.1 AAA (7:1) remains the hard gate. Palettes were designed for WCAG 2.1; APCA gaps indicate pairs that may benefit from palette audit in a future effort.",
   "thresholds": {

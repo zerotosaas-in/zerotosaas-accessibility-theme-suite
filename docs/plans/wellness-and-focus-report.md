@@ -16,7 +16,7 @@ target-destination: docs/Wellness.md
 
 A deep analysis of the ZeroToSaaS Accessibility Theme Suite through the lens of **human-friendliness**, **long-duration screen health**, and **sustained attention**, together with an implementation-ready enhancement plan for eye-health tooling (20-20-20 and beyond) and Pomodoro-style focus sessions fused with ocular rest.
 
-Companion documents: `docs/Guidelines.md` · `docs/TODO.md` · `docs/Validation.md`
+Companion documents: `docs/guides/Guidelines.md` · `docs/guides/Validation.md` · `docs/plans/` (requirement specs)
 
 ---
 
@@ -45,15 +45,15 @@ Companion documents: `docs/Guidelines.md` · `docs/TODO.md` · `docs/Validation.
 
 ## 1. Executive Summary
 
-ZeroToSaaS already leads the theme ecosystem on *passive* visual ergonomics: WCAG AAA contrast, OkLCH uniformity, CVD-safe palettes, and positive-polarity canvases. What it lacks is an **active behavioral layer**: nothing in the product today reliably changes *what users do* over an 8–12 hour session.
+ZeroToSaaS already leads the theme ecosystem on _passive_ visual ergonomics: WCAG AAA contrast, OkLCH uniformity, CVD-safe palettes, and positive-polarity canvases. What it lacks is an **active behavioral layer**: nothing in the product today reliably changes _what users do_ over an 8–12 hour session.
 
 This report proposes a coherent **Wellness Layer** with three tiers:
 
-| Tier | Name | Default | Purpose |
-| :--- | :--- | :--- | :--- |
-| Tier 1 | **Continuous Work Guardian** | ✅ **ON** | Safety net: any user typing/scrolling/working continuously for a long duration gets reminded — even with every other feature switched off. |
-| Tier 2 | **Eye Health Suite** (20-20-20 v2 + Blink Coach) | Opt-in | Clinical ocular rest cycles, blink lubrication cues, idle-aware pausing, snooze/skip. |
-| Tier 3 | **FocusFlow** (Pomodoro fused with 20-20-20) | Opt-in | Attention management where pomodoro breaks and eye micro-breaks reinforce each other instead of fighting. |
+| Tier   | Name                                             | Default   | Purpose                                                                                                                                    |
+| :----- | :----------------------------------------------- | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| Tier 1 | **Continuous Work Guardian**                     | ✅ **ON** | Safety net: any user typing/scrolling/working continuously for a long duration gets reminded — even with every other feature switched off. |
+| Tier 2 | **Eye Health Suite** (20-20-20 v2 + Blink Coach) | Opt-in    | Clinical ocular rest cycles, blink lubrication cues, idle-aware pausing, snooze/skip.                                                      |
+| Tier 3 | **FocusFlow** (Pomodoro fused with 20-20-20)     | Opt-in    | Attention management where pomodoro breaks and eye micro-breaks reinforce each other instead of fighting.                                  |
 
 Plus supporting infrastructure: a unified status-bar hub, a stats dashboard, onboarding, de-nagged advisories, and accessible notification design.
 
@@ -67,15 +67,15 @@ Beyond the extension itself, §16 specifies how the same palettes, wellness timi
 
 ### 2.1 What exists today (verified in code)
 
-| Capability | Location | State |
-| :--- | :--- | :--- |
-| 20 themes (10 light + 10 night), WCAG AAA | `package.json:57-159`, `themes/*.json` | ✅ Solid, validated (420/420 assertions) |
-| Semantic status badges (Safe/Caution/Warning/Panic) | `src/extension.js:701-931` | ✅ Works |
-| Error Lens + inline Git blame | `src/extension.js:966-1077` | ⚠️ Works but crashes on hint path (see §2.3) |
-| Alternating indent shading | `src/extension.js:659-696` | ✅ Works |
-| 20-20-20 Ocular Rest Assistant | `src/extension.js:1079-1161` | ⚠️ Minimal: naive wall-clock timer, **off by default** |
-| Day/Night auto-switcher | `src/extension.js:1261-1302` | ✅ Works |
-| Dark-theme eye-health warnings | `src/extension.js:1362-1394`, `1207-1233` | ⚠️ Functional but repeats on every activation (nag risk) |
+| Capability                                          | Location                                  | State                                                    |
+| :-------------------------------------------------- | :---------------------------------------- | :------------------------------------------------------- |
+| 20 themes (10 light + 10 night), WCAG AAA           | `package.json:57-159`, `themes/*.json`    | ✅ Solid, validated (420/420 assertions)                 |
+| Semantic status badges (Safe/Caution/Warning/Panic) | `src/extension.js:701-931`                | ✅ Works                                                 |
+| Error Lens + inline Git blame                       | `src/extension.js:966-1077`               | ⚠️ Works but crashes on hint path (see §2.3)             |
+| Alternating indent shading                          | `src/extension.js:659-696`                | ✅ Works                                                 |
+| 20-20-20 Ocular Rest Assistant                      | `src/extension.js:1079-1161`              | ⚠️ Minimal: naive wall-clock timer, **off by default**   |
+| Day/Night auto-switcher                             | `src/extension.js:1261-1302`              | ✅ Works                                                 |
+| Dark-theme eye-health warnings                      | `src/extension.js:1362-1394`, `1207-1233` | ⚠️ Functional but repeats on every activation (nag risk) |
 
 ### 2.2 Existing rest assistant — behavioral gaps
 
@@ -105,16 +105,16 @@ Current implementation facts (from `initRestAssistant()`, `beginRestBreak()`, `u
 
 ## 3. Human-Friendliness Audit (Gaps & Friction Points)
 
-| # | Friction | Evidence | Severity |
-| :--- | :--- | :--- | :--- |
-| H1 | Dark-theme warning re-fires on **every** externally-initiated dark activation (native `Ctrl+K Ctrl+T`). Users who toggle themes see it repeatedly. | `extension.js:1373-1392` | High (annoyance) |
-| H2 | Night-theme QuickPick shows a long medical paragraph **every** selection; no "don't ask again" memory. | `extension.js:1207-1233` | High |
-| H3 | No onboarding/walkthrough; wellness features are undiscoverable. | No `contributes.walkthroughs` | High |
-| H4 | No central place to see/control all wellness features; users must hunt the settings UI. | Scattered commands only | Medium |
-| H5 | Reminder copy is clinical and static; no warmth, variety, or progress framing ("3 breaks done today"). | `beginRestBreak()` | Low |
-| H6 | No respect for presentation/zen/screen-share moments — a pop-up mid-demo is hostile. | Absent | Medium |
-| H7 | Notifications are text+emoji only; screen-reader phrasing is an afterthought. | Inline messages | Medium |
-| H8 | No quiet hours; a 02:00 debugging session gets identical treatment to 14:00. | Absent | Low |
+| #   | Friction                                                                                                                                           | Evidence                      | Severity         |
+| :-- | :------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------- | :--------------- |
+| H1  | Dark-theme warning re-fires on **every** externally-initiated dark activation (native `Ctrl+K Ctrl+T`). Users who toggle themes see it repeatedly. | `extension.js:1373-1392`      | High (annoyance) |
+| H2  | Night-theme QuickPick shows a long medical paragraph **every** selection; no "don't ask again" memory.                                             | `extension.js:1207-1233`      | High             |
+| H3  | No onboarding/walkthrough; wellness features are undiscoverable.                                                                                   | No `contributes.walkthroughs` | High             |
+| H4  | No central place to see/control all wellness features; users must hunt the settings UI.                                                            | Scattered commands only       | Medium           |
+| H5  | Reminder copy is clinical and static; no warmth, variety, or progress framing ("3 breaks done today").                                             | `beginRestBreak()`            | Low              |
+| H6  | No respect for presentation/zen/screen-share moments — a pop-up mid-demo is hostile.                                                               | Absent                        | Medium           |
+| H7  | Notifications are text+emoji only; screen-reader phrasing is an afterthought.                                                                      | Inline messages               | Medium           |
+| H8  | No quiet hours; a 02:00 debugging session gets identical treatment to 14:00.                                                                       | Absent                        | Low              |
 
 ---
 
@@ -166,7 +166,7 @@ Current implementation facts (from `initRestAssistant()`, `beginRestBreak()`, `u
 **Fusion model (default `mode: "fused"`):**
 
 - Phases: `work` (25 m) → `short break` (5 m); `long break` (15 m) after `longBreakEvery` (4) cycles.
-- **Eye micro-break injection:** if the work phase exceeds 20 *active* minutes, a 20-second 20-20-20 micro-break fires exactly at the 20-minute boundary *inside* the phase (`$(eye) look far 20s`). With 25-min phases this yields one micro-break per cycle; with `workMinutes ≤ 20` it never intrudes.
+- **Eye micro-break injection:** if the work phase exceeds 20 _active_ minutes, a 20-second 20-20-20 micro-break fires exactly at the 20-minute boundary _inside_ the phase (`$(eye) look far 20s`). With 25-min phases this yields one micro-break per cycle; with `workMinutes ≤ 20` it never intrudes.
 - **Short pomodoro break doubles as extended eye rest** — its end-of-break toast reminds: "use the last 30 s to focus on something far away."
 - **Long break adds movement:** appends the posture/stretch nudge (F6).
 - **Independent mode** (`mode: "independent"`): both run side-by-side; collision resolution merges reminders due within 60 s.
@@ -183,7 +183,7 @@ Current implementation facts (from `initRestAssistant()`, `beginRestBreak()`, `u
 - **Ships enabled** (`zerotosaas.wellness.guardian.enabled: true` — decided with user). A one-time first-run notice (F8) discloses it and offers opt-out; the choice persists. Once accepted, it cannot silently disappear.
 - Tracks `continuousActiveMs` from real interaction time; pauses on idle; clears after `resetIdleMinutes` (default 3) away.
 - Thresholds (defaults):
-  - `softLimitMinutes: 50` → Warning-orange tint + gentle toast: *"You've been in flow for 50 minutes. Worth a 2-minute reset — stand, sip water, look far."*
+  - `softLimitMinutes: 50` → Warning-orange tint + gentle toast: _"You've been in flow for 50 minutes. Worth a 2-minute reset — stand, sip water, look far."_
   - `hardLimitMinutes: 75` → firmer toast (or modal per `escalation`), then rate-limited re-reminders at most once per `reRemindAfterMinutes` (15) until a genuine ≥2-min away period resets the accumulator.
 - **Quiet hours** (`quietHours.start/end`): suppress toasts but keep status tint — signal degrades, never vanishes.
 - **Presentation guard:** zen/presentation mode or active screencast context defers toasts and re-queues them.
@@ -206,7 +206,7 @@ Current implementation facts (from `initRestAssistant()`, `beginRestBreak()`, `u
 ### F8. Onboarding & Discoverability
 
 - `contributes.walkthroughs` in `package.json`: theme selection, Guardian explanation, FocusFlow start, dashboard — each step executable via `command:` metadata.
-- First-run Guardian notice (once, gated by `globalState.onboarding.done`): single non-modal info message: *"ZeroToSaaS will gently remind you to rest after long uninterrupted sessions (~every 50 min of continuous work). Everything stays local — nothing leaves your machine."* → `[Also enable 20-20-20 eye breaks]` / `[Turn off guardian]`; dismissing the notification = keep on. "Turn off" writes `wellness.guardian.enabled: false` (canonical, discoverable in Settings UI); every path sets `onboarding.done`. Re-discoverable via the walkthrough.
+- First-run Guardian notice (once, gated by `globalState.onboarding.done`): single non-modal info message: _"ZeroToSaaS will gently remind you to rest after long uninterrupted sessions (~every 50 min of continuous work). Everything stays local — nothing leaves your machine."_ → `[Also enable 20-20-20 eye breaks]` / `[Turn off guardian]`; dismissing the notification = keep on. "Turn off" writes `wellness.guardian.enabled: false` (canonical, discoverable in Settings UI); every path sets `onboarding.done`. Re-discoverable via the walkthrough.
 - README gains a "Wellness & Focus" section; gallery gains a wellness card.
 
 ### F9. De-Nagging Pass on Existing Advisories
@@ -245,16 +245,16 @@ Each machine is a **pure transition function** `(state, now, config, activitySna
 
 ### 6.2 Activity detection (no native idle API — derive it)
 
-| Signal | Source | Notes |
-| :--- | :--- | :--- |
-| Text edits | `onDidChangeTextDocument` | Strongest signal |
-| Selection/cursor moves | `onDidChangeTextEditorSelection` | Includes arrow-key nav |
-| Scrolling | `onDidChangeTextEditorVisibleRanges` | Already subscribed |
-| Editor switches | `onDidChangeActiveTextEditor` | Reading/reviewing |
-| Window focus | `onDidChangeWindowState` (`focused`) | Hard gate: unfocused ⇒ idle |
-| Terminal/debug focus | `onDidChangeActiveTerminal` | Debugging is work too |
+| Signal                 | Source                               | Notes                       |
+| :--------------------- | :----------------------------------- | :-------------------------- |
+| Text edits             | `onDidChangeTextDocument`            | Strongest signal            |
+| Selection/cursor moves | `onDidChangeTextEditorSelection`     | Includes arrow-key nav      |
+| Scrolling              | `onDidChangeTextEditorVisibleRanges` | Already subscribed          |
+| Editor switches        | `onDidChangeActiveTextEditor`        | Reading/reviewing           |
+| Window focus           | `onDidChangeWindowState` (`focused`) | Hard gate: unfocused ⇒ idle |
+| Terminal/debug focus   | `onDidChangeActiveTerminal`          | Debugging is work too       |
 
-`active = windowFocused && (now - lastInteraction) <= idleThresholdSeconds`, throttled to ≤1 update/5 s. Covers: (a) reading without keys (scroll/selection still fire; truly motionless 10+ min ⇒ idle-pause is *desired*), (b) long-running debug sessions, (c) OS lock/sleep via §6.3.
+`active = windowFocused && (now - lastInteraction) <= idleThresholdSeconds`, throttled to ≤1 update/5 s. Covers: (a) reading without keys (scroll/selection still fire; truly motionless 10+ min ⇒ idle-pause is _desired_), (b) long-running debug sessions, (c) OS lock/sleep via §6.3.
 
 ### 6.3 Persistence & drift correction
 
@@ -269,7 +269,7 @@ globalState keys (prefix z2s.wellness.)
   advisory.dark.{label}.{date} = true
 ```
 
-On activation/resume (`onDidChangeWindowState → focused`): recompute against wall clock; if a break target expired while away by > `graceMinutes` (default 5), treat as *taken* (user was physically away) rather than spamming overdue alerts. Sleep/wake self-heals.
+On activation/resume (`onDidChangeWindowState → focused`): recompute against wall clock; if a break target expired while away by > `graceMinutes` (default 5), treat as _taken_ (user was physically away) rather than spamming overdue alerts. Sleep/wake self-heals.
 
 Multi-window: extension hosts share `globalState` but run separate timers. Mitigation: before any toast, write `z2s.wellness.lock.{tier}` = timestamp; suppress if another window holds a lock younger than 30 s (best-effort dedupe; residual risk documented §13).
 
@@ -289,52 +289,52 @@ Multi-window: extension hosts share `globalState` but run separate timers. Mitig
 
 New namespace `zerotosaas.wellness.*`. Legacy `zerotosaas.restReminder.*` remains functional (engine reads legacy keys when new ones are untouched).
 
-| Setting | Type / Default | Description |
-| :--- | :--- | :--- |
-| `wellness.guardian.enabled` | bool / **true** | Always-on continuous-work safety net (Tier 1) |
-| `wellness.guardian.softLimitMinutes` | num / 50 | First gentle reminder threshold |
-| `wellness.guardian.hardLimitMinutes` | num / 75 | Firm reminder threshold |
-| `wellness.guardian.reRemindAfterMinutes` | num / 15 | Max repeat frequency while over limit |
-| `wellness.guardian.resetIdleMinutes` | num / 3 | Away-time that clears the continuous counter |
-| `wellness.guardian.escalation` | enum / `toast` | `statusOnly` \| `toast` \| `modal` |
-| `wellness.idleThresholdSeconds` | num / 120 | Interaction gap marking user idle |
-| `wellness.quietHours.start` / `.end` | str / "" | "HH:mm" window suppressing toasts (tint persists) |
-| `wellness.eyeBreak.enabled` | bool / false | 20-20-20 assistant v2 (mirrors legacy toggle) |
-| `wellness.eyeBreak.intervalMinutes` | num / 20 | Active-time between ocular breaks |
-| `wellness.eyeBreak.breakDurationSeconds` | num / 20 | Break length (legacy-compatible floor 5) |
-| `wellness.eyeBreak.headsupSeconds` | num / 30 | Pre-break notice lead time |
-| `wellness.eyeBreak.style` | enum / `toast` | `statusOnly` \| `toast` \| `overlay` \| `modal` |
-| `wellness.blinkCoach.enabled` | bool / false | Mid-interval blink cues |
-| `wellness.blinkCoach.intervalMinutes` | num / 5 | Cadence |
-| `wellness.focusFlow.mode` | enum / `off` | `off` \| `fused` \| `independent` |
-| `wellness.focusFlow.workMinutes` | num / 25 | Work phase length |
-| `wellness.focusFlow.shortBreakMinutes` | num / 5 | Short break |
-| `wellness.focusFlow.longBreakMinutes` | num / 15 | Long break |
-| `wellness.focusFlow.longBreakEvery` | num / 4 | Cycles before long break |
-| `wellness.focusFlow.autoStartBreaks` | bool / false | Auto-transition break→work |
-| `wellness.focusFlow.autoStartWork` | bool / false | Auto-transition work→break |
-| `wellness.movement.nudgeEveryMinutes` | num / 0 (off) | Stand/stretch cue cadence |
-| `wellness.hydration.everyMinutes` | num / 0 (off) | Water cue cadence |
-| `wellness.daily.softLimitHours` | num / 8 | Triggers one daily usage summary |
-| `wellness.dashboard.showInStatusBarTooltip` | bool / true | Embed today's numbers in tooltip |
-| `wellness.darkAdvisory.suppressed` | bool / false | Silences dark-theme advisories permanently |
+| Setting                                     | Type / Default  | Description                                       |
+| :------------------------------------------ | :-------------- | :------------------------------------------------ |
+| `wellness.guardian.enabled`                 | bool / **true** | Always-on continuous-work safety net (Tier 1)     |
+| `wellness.guardian.softLimitMinutes`        | num / 50        | First gentle reminder threshold                   |
+| `wellness.guardian.hardLimitMinutes`        | num / 75        | Firm reminder threshold                           |
+| `wellness.guardian.reRemindAfterMinutes`    | num / 15        | Max repeat frequency while over limit             |
+| `wellness.guardian.resetIdleMinutes`        | num / 3         | Away-time that clears the continuous counter      |
+| `wellness.guardian.escalation`              | enum / `toast`  | `statusOnly` \| `toast` \| `modal`                |
+| `wellness.idleThresholdSeconds`             | num / 120       | Interaction gap marking user idle                 |
+| `wellness.quietHours.start` / `.end`        | str / ""        | "HH:mm" window suppressing toasts (tint persists) |
+| `wellness.eyeBreak.enabled`                 | bool / false    | 20-20-20 assistant v2 (mirrors legacy toggle)     |
+| `wellness.eyeBreak.intervalMinutes`         | num / 20        | Active-time between ocular breaks                 |
+| `wellness.eyeBreak.breakDurationSeconds`    | num / 20        | Break length (legacy-compatible floor 5)          |
+| `wellness.eyeBreak.headsupSeconds`          | num / 30        | Pre-break notice lead time                        |
+| `wellness.eyeBreak.style`                   | enum / `toast`  | `statusOnly` \| `toast` \| `overlay` \| `modal`   |
+| `wellness.blinkCoach.enabled`               | bool / false    | Mid-interval blink cues                           |
+| `wellness.blinkCoach.intervalMinutes`       | num / 5         | Cadence                                           |
+| `wellness.focusFlow.mode`                   | enum / `off`    | `off` \| `fused` \| `independent`                 |
+| `wellness.focusFlow.workMinutes`            | num / 25        | Work phase length                                 |
+| `wellness.focusFlow.shortBreakMinutes`      | num / 5         | Short break                                       |
+| `wellness.focusFlow.longBreakMinutes`       | num / 15        | Long break                                        |
+| `wellness.focusFlow.longBreakEvery`         | num / 4         | Cycles before long break                          |
+| `wellness.focusFlow.autoStartBreaks`        | bool / false    | Auto-transition break→work                        |
+| `wellness.focusFlow.autoStartWork`          | bool / false    | Auto-transition work→break                        |
+| `wellness.movement.nudgeEveryMinutes`       | num / 0 (off)   | Stand/stretch cue cadence                         |
+| `wellness.hydration.everyMinutes`           | num / 0 (off)   | Water cue cadence                                 |
+| `wellness.daily.softLimitHours`             | num / 8         | Triggers one daily usage summary                  |
+| `wellness.dashboard.showInStatusBarTooltip` | bool / true     | Embed today's numbers in tooltip                  |
+| `wellness.darkAdvisory.suppressed`          | bool / false    | Silences dark-theme advisories permanently        |
 
 Deprecation aliases: `restReminder.enabled → wellness.eyeBreak.enabled`, `restReminder.intervalMinutes → wellness.eyeBreak.intervalMinutes`, `restReminder.breakDurationSeconds → wellness.eyeBreak.breakDurationSeconds`. Engine resolution order: new key if set → legacy key → default. Legacy keys get `"deprecationMessage"` in their `package.json` descriptions pointing at the replacement, but remain functional indefinitely (no removal date committed).
 
 ## 8. Command Reference (Proposed)
 
-| Command ID | Title | Keybinding (proposal) |
-| :--- | :--- | :--- |
-| `zerotosaas.wellness.openHub` | Open Wellness Command Center | `Ctrl+Alt+W` |
-| `zerotosaas.wellness.openDashboard` | Show Health Dashboard | — |
-| `zerotosaas.eyeBreak.takeNow` | Take 20-20-20 Eye Break Now | `Ctrl+Alt+E` |
-| `zerotosaas.eyeBreak.snooze` | Snooze Next Eye Break 10 min | — |
-| `zerotosaas.pomodoro.start` | FocusFlow: Start Session | `Ctrl+Alt+P` |
-| `zerotosaas.pomodoro.pause` / `.resume` | Pause / Resume | — |
-| `zerotosaas.pomodoro.stop` | Stop Session | — |
-| `zerotosaas.pomodoro.skipPhase` | Skip Current Phase | — |
-| `zerotosaas.guardian.resetContinuousTimer` | Reset Continuous-Work Watch | — |
-| *(existing)* `toggleRestReminder`, `resetRestTimer` | kept as back-compat wrappers | — |
+| Command ID                                          | Title                        | Keybinding (proposal) |
+| :-------------------------------------------------- | :--------------------------- | :-------------------- |
+| `zerotosaas.wellness.openHub`                       | Open Wellness Command Center | `Ctrl+Alt+W`          |
+| `zerotosaas.wellness.openDashboard`                 | Show Health Dashboard        | —                     |
+| `zerotosaas.eyeBreak.takeNow`                       | Take 20-20-20 Eye Break Now  | `Ctrl+Alt+E`          |
+| `zerotosaas.eyeBreak.snooze`                        | Snooze Next Eye Break 10 min | —                     |
+| `zerotosaas.pomodoro.start`                         | FocusFlow: Start Session     | `Ctrl+Alt+P`          |
+| `zerotosaas.pomodoro.pause` / `.resume`             | Pause / Resume               | —                     |
+| `zerotosaas.pomodoro.stop`                          | Stop Session                 | —                     |
+| `zerotosaas.pomodoro.skipPhase`                     | Skip Current Phase           | —                     |
+| `zerotosaas.guardian.resetContinuousTimer`          | Reset Continuous-Work Watch  | —                     |
+| _(existing)_ `toggleRestReminder`, `resetRestTimer` | kept as back-compat wrappers | —                     |
 
 ---
 
@@ -342,40 +342,40 @@ Deprecation aliases: `restReminder.enabled → wellness.eyeBreak.enabled`, `rest
 
 Defaults: FocusFlow `fused` (25/5×4), micro-break injection at 20 active minutes, Guardian 50/75, idle threshold 2 min.
 
-| Clock | Event | Surface |
-| :--- | :--- | :--- |
-| 0:00 | User starts FocusFlow | `$(watch) 25:00 · 1/4` |
-| 0–20:00 | Deep work (+blink cues at 5/10/15 m if enabled) | brief `$(eye)` pulses |
-| 20:00 | **Injected 20-20-20 micro-break**, work resumes after | `$(eye) look far 20s` |
-| 23:00 | Heads-up: "Work ends in 2 min" | amber tint |
-| 25:00 | Work→short break (manual advance) | `$(coffee) 05:00` |
-| 30:00 | Cycle 2 begins … | … |
-| 48:00 | Micro-break #2 (20 active min into cycle 2) | eye cue |
-| 55:00 | Cycle 2 ends → short break #2 | coffee |
-| 60:00 | Micro-break #3 mid-cycle-3 | eye cue |
-| 85:00 | Micro-break #4 | eye cue |
-| 95:00 | Cycle 4 ends → **long break** + movement/stretch nudge | `$(coffee) 15:00 🧘` |
-| 115:00 | Continuous active time (net of breaks) below Guardian limits → silent | green |
-| *contrast* | Same session with FocusFlow & eye assistant **OFF** | Guardian alone toasts once at 50 active min, firmly at 75, then ≤1×/15 min — the promised safety net |
+| Clock      | Event                                                                 | Surface                                                                                              |
+| :--------- | :-------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+| 0:00       | User starts FocusFlow                                                 | `$(watch) 25:00 · 1/4`                                                                               |
+| 0–20:00    | Deep work (+blink cues at 5/10/15 m if enabled)                       | brief `$(eye)` pulses                                                                                |
+| 20:00      | **Injected 20-20-20 micro-break**, work resumes after                 | `$(eye) look far 20s`                                                                                |
+| 23:00      | Heads-up: "Work ends in 2 min"                                        | amber tint                                                                                           |
+| 25:00      | Work→short break (manual advance)                                     | `$(coffee) 05:00`                                                                                    |
+| 30:00      | Cycle 2 begins …                                                      | …                                                                                                    |
+| 48:00      | Micro-break #2 (20 active min into cycle 2)                           | eye cue                                                                                              |
+| 55:00      | Cycle 2 ends → short break #2                                         | coffee                                                                                               |
+| 60:00      | Micro-break #3 mid-cycle-3                                            | eye cue                                                                                              |
+| 85:00      | Micro-break #4                                                        | eye cue                                                                                              |
+| 95:00      | Cycle 4 ends → **long break** + movement/stretch nudge                | `$(coffee) 15:00 🧘`                                                                                 |
+| 115:00     | Continuous active time (net of breaks) below Guardian limits → silent | green                                                                                                |
+| _contrast_ | Same session with FocusFlow & eye assistant **OFF**                   | Guardian alone toasts once at 50 active min, firmly at 75, then ≤1×/15 min — the promised safety net |
 
 ---
 
 ## 10. Edge Cases & Failure Modes
 
-| Case | Behavior |
-| :--- | :--- |
-| Laptop lid closed / OS sleep | Wall-clock targets recomputed on wake; absence > grace ⇒ breaks auto-marked taken, no overdue spam |
-| User in meeting (window unfocused) | Window-blur gates activity ⇒ all accumulators freeze |
-| Reading-only marathon (no keys) | Scroll/selection/editor-switch events count as activity; truly frozen viewer goes idle by design |
-| Long-running tests/debug watch | Terminal/debug focus signals count as activity |
-| Pomodoro & eye timer due together (independent mode) | Merged into one combined notification within 60 s window |
-| Repeated skipping | Escalation damping (next cue status-only); Guardian unaffected — physiological floor preserved |
-| Multiple VS Code windows | `globalState` lock dedupe; worst case duplicate toast, never duplicated modals |
-| Screen sharing / presentation / zen mode | Toasts deferred and re-queued until mode exits |
-| Large monorepo churn | Wellness layer touches no documents/decorations — zero interaction with decoration engine |
-| Restart mid-pomodoro | Phase + absolute end restored from `globalState`; expired-during-restart handled by grace rule |
-| `editor.accessibilitySupport: on` | Visual-only styles upgraded to text-first notifications |
-| `window.autoDetectColorScheme: true` | Time-based auto-switch defers silently + one-time hint (§17.3); resumes when native switching disabled |
+| Case                                                 | Behavior                                                                                               |
+| :--------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| Laptop lid closed / OS sleep                         | Wall-clock targets recomputed on wake; absence > grace ⇒ breaks auto-marked taken, no overdue spam     |
+| User in meeting (window unfocused)                   | Window-blur gates activity ⇒ all accumulators freeze                                                   |
+| Reading-only marathon (no keys)                      | Scroll/selection/editor-switch events count as activity; truly frozen viewer goes idle by design       |
+| Long-running tests/debug watch                       | Terminal/debug focus signals count as activity                                                         |
+| Pomodoro & eye timer due together (independent mode) | Merged into one combined notification within 60 s window                                               |
+| Repeated skipping                                    | Escalation damping (next cue status-only); Guardian unaffected — physiological floor preserved         |
+| Multiple VS Code windows                             | `globalState` lock dedupe; worst case duplicate toast, never duplicated modals                         |
+| Screen sharing / presentation / zen mode             | Toasts deferred and re-queued until mode exits                                                         |
+| Large monorepo churn                                 | Wellness layer touches no documents/decorations — zero interaction with decoration engine              |
+| Restart mid-pomodoro                                 | Phase + absolute end restored from `globalState`; expired-during-restart handled by grace rule         |
+| `editor.accessibilitySupport: on`                    | Visual-only styles upgraded to text-first notifications                                                |
+| `window.autoDetectColorScheme: true`                 | Time-based auto-switch defers silently + one-time hint (§17.3); resumes when native switching disabled |
 
 ---
 
@@ -383,7 +383,7 @@ Defaults: FocusFlow `fused` (25/5×4), micro-break injection at 20 active minute
 
 ### Phase 0 — Correctness & de-nag (small, immediate)
 
-*Exit criteria:* zero unhandled exceptions from the Error Lens path during typing/diagnostics churn; each advisory fires ≤ once per theme label per day.
+_Exit criteria:_ zero unhandled exceptions from the Error Lens path during typing/diagnostics churn; each advisory fires ≤ once per theme label per day.
 
 - [ ] P0.1 Create `hintLensDecorationType` in `initDecorations()` (muted info-style fg/bg); verify `updateErrorLens` no longer throws (`src/extension.js:426-461,1076`).
 - [ ] P0.2 Dedupe dark-theme advisory: once per theme-label per day + persistent "Don't remind me again" (F9).
@@ -392,7 +392,7 @@ Defaults: FocusFlow `fused` (25/5×4), micro-break injection at 20 active minute
 
 ### Phase 1 — Wellness core + Guardian safety net
 
-*Exit criteria:* unit tests pass (`pnpm test`); Guardian fires within ±5 s of simulated thresholds on a scripted activity timeline; legacy `restReminder.*` behavior unchanged when new keys are untouched.
+_Exit criteria:_ unit tests pass (`pnpm test`); Guardian fires within ±5 s of simulated thresholds on a scripted activity timeline; legacy `restReminder.*` behavior unchanged when new keys are untouched.
 
 - [ ] P1.1 Scaffold `src/wellness/` modules (pure state machines + single shared tick); port legacy rest-assistant behind new engine (legacy settings keep working).
 - [ ] P1.2 Implement `activity.js` (signals table §6.2, throttled).
@@ -403,7 +403,7 @@ Defaults: FocusFlow `fused` (25/5×4), micro-break injection at 20 active minute
 
 ### Phase 2 — Eye suite v2 + FocusFlow
 
-*Exit criteria:* fused-session simulation reproduces the §9 timeline exactly (one injected micro-break per 25-min phase); skip/snooze state and pomodoro phase survive window reload.
+_Exit criteria:_ fused-session simulation reproduces the §9 timeline exactly (one injected micro-break per 25-min phase); skip/snooze state and pomodoro phase survive window reload.
 
 - [ ] P2.1 Eye-break v2: idle-aware countdown, heads-up, `toast|overlay|modal` styles, skip/snooze, streaks.
 - [ ] P2.2 Blink coach cues.
@@ -414,7 +414,7 @@ Defaults: FocusFlow `fused` (25/5×4), micro-break injection at 20 active minute
 
 ### Phase 3 — Insights & onboarding
 
-*Exit criteria:* dashboard renders without CSP errors across all 20 theme palettes; walkthrough completable end-to-end on a fresh profile; first-run notice appears exactly once and every button path persists its outcome.
+_Exit criteria:_ dashboard renders without CSP errors across all 20 theme palettes; walkthrough completable end-to-end on a fresh profile; first-run notice appears exactly once and every button path persists its outcome.
 
 - [ ] P3.1 `stats.js` daily rollover + streaks; tooltip embed.
 - [ ] P3.2 Dashboard webview (today + 7-day SVG trend + quick toggles), palette-styled.
@@ -423,17 +423,17 @@ Defaults: FocusFlow `fused` (25/5×4), micro-break injection at 20 active minute
 
 ### Phase 4 — Polish & publication
 
-*Exit criteria:* `pnpm run build && pnpm run validate && pnpm run package` all green; docs published and cross-linked; version bumped; AGPL headers present.
+_Exit criteria:_ `pnpm run build && pnpm run validate && pnpm run package` all green; docs published and cross-linked; version bumped; AGPL headers present.
 
 - [ ] P4.1 Extract all copy to `copy.js` with rotation variants and tone guide.
 - [ ] P4.2 Optional soft chime (setting-gated, no binary assets).
-- [ ] P4.3 Publish report body (all sections except Plan Execution Notes and §11) as `docs/Wellness.md` with front matter restored; link from `docs/index.md`, `docs/TODO.md` (§3 Developer Health), README ("Wellness & Focus" section), gallery card, CHANGELOG.
+- [ ] P4.3 Publish report body (all sections except Plan Execution Notes and §11) as `docs/guides/Wellness.md` with front matter restored; link from `docs/index.md`, README ("Wellness & Focus" section), gallery card, CHANGELOG.
 - [ ] P4.4 AGPL headers in every new file (repo CLA policy).
 - [ ] P4.5 Release: bump version (`0.2.0 → 0.3.0` in `package.json`), write `CHANGELOG.md` entry, run full pipeline `pnpm run build && pnpm run validate && pnpm run package`.
 
 ### Phase 5 — Cross-surface tokens & IDE config completion (§16, §17)
 
-*Exit criteria:* all 20 regenerated themes include every §17.1 key group with validator-passing contrast; `tokens/` artifacts build and pass `--tokens` assertions; OpenVSX listing live; VSCodium smoke test passes.
+_Exit criteria:_ all 20 regenerated themes include every §17.1 key group with validator-passing contrast; `tokens/` artifacts build and pass `--tokens` assertions; OpenVSX listing live; VSCodium smoke test passes.
 
 - [ ] P5.1 Add §17.1 color groups to `scripts/generate-themes.js` across all 20 themes; extend `scripts/validate-contrast.js` with assertions for new pairs; regenerate themes + gallery.
 - [ ] P5.2 Add non-motion `configurationDefaults` (stickyScroll, global bracket colorization/guides); document opt-in motion trio in README recommended settings.
@@ -454,14 +454,14 @@ Defaults: FocusFlow `fused` (25/5×4), micro-break injection at 20 active minute
 
 ## 13. Risks & Mitigations
 
-| Risk | Mitigation |
-| :--- | :--- |
-| Notification fatigue → users disable everything | Escalation ladder, damping on skips, quiet hours, single status citizen, capped Guardian frequencies |
-| Multi-window duplicate prompts | `globalState` locks + grace rules (residual: rare duplicate toast, accepted & documented) |
-| Timer drift / battery throttling of `setInterval` | Absolute-epoch targets recomputed per tick; correctness never depends on tick count |
-| Perceived surveillance ("counting me") | Local-only state, transparent dashboard, plain-language explanations, master off switch |
-| Feature bloat diluting theme brand | Distinct `wellness` namespace; themes remain the README headline |
-| Regression risk in hot extension file | Phased module extraction; Phase 0 fixes land independently and small |
+| Risk                                              | Mitigation                                                                                           |
+| :------------------------------------------------ | :--------------------------------------------------------------------------------------------------- |
+| Notification fatigue → users disable everything   | Escalation ladder, damping on skips, quiet hours, single status citizen, capped Guardian frequencies |
+| Multi-window duplicate prompts                    | `globalState` locks + grace rules (residual: rare duplicate toast, accepted & documented)            |
+| Timer drift / battery throttling of `setInterval` | Absolute-epoch targets recomputed per tick; correctness never depends on tick count                  |
+| Perceived surveillance ("counting me")            | Local-only state, transparent dashboard, plain-language explanations, master off switch              |
+| Feature bloat diluting theme brand                | Distinct `wellness` namespace; themes remain the README headline                                     |
+| Regression risk in hot extension file             | Phased module extraction; Phase 0 fixes land independently and small                                 |
 
 ## 14. Success Metrics
 
@@ -475,7 +475,7 @@ Defaults: FocusFlow `fused` (25/5×4), micro-break injection at 20 active minute
 
 ## 15. Medical Grounding & References
 
-Aligned with the repo's existing citations in `docs/Guidelines.md`:
+Aligned with the repo's existing citations in `docs/guides/Guidelines.md`:
 
 1. **20-20-20 rule** — American Academy of Ophthalmology, digital device usage guidance: every 20 min, ≥20 s at ≥20 ft.
 2. **Blink-rate depression** — Patel S. et al. (1991); Tsubota K., Nakamori K. (1993): blink rate drops markedly at screens; corneal drying drives dry-eye CVS symptoms → motivates F3.
@@ -492,16 +492,16 @@ Aligned with the repo's existing citations in `docs/Guidelines.md`:
 
 The extension uses only stable, universally-implemented APIs (`engines: ^1.74`). Per-feature compatibility and required graceful degradation:
 
-| Capability | VS Code | Cursor | Windsurf | Antigravity | VSCodium | Theia |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Themes / workbench colors (§17) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Status-bar item + palette tints | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Toasts / modal escalation | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `globalState` persistence & multi-window locks | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Webview dashboard | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Keybinding chords (`Ctrl+Alt+*`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| `accessibilityInformation` on status item (≥1.44) | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ ignored harmlessly |
-| `contributes.walkthroughs` | ✅ | ✅ | ✅ | ✅ | ✅ | ⚠️ partial — unknown contributions are ignored; degrade to README/docs link |
+| Capability                                        | VS Code | Cursor | Windsurf | Antigravity | VSCodium | Theia                                                                       |
+| :------------------------------------------------ | :------ | :----- | :------- | :---------- | :------- | :-------------------------------------------------------------------------- |
+| Themes / workbench colors (§17)                   | ✅      | ✅     | ✅       | ✅          | ✅       | ✅                                                                          |
+| Status-bar item + palette tints                   | ✅      | ✅     | ✅       | ✅          | ✅       | ✅                                                                          |
+| Toasts / modal escalation                         | ✅      | ✅     | ✅       | ✅          | ✅       | ✅                                                                          |
+| `globalState` persistence & multi-window locks    | ✅      | ✅     | ✅       | ✅          | ✅       | ✅                                                                          |
+| Webview dashboard                                 | ✅      | ✅     | ✅       | ✅          | ✅       | ✅                                                                          |
+| Keybinding chords (`Ctrl+Alt+*`)                  | ✅      | ✅     | ✅       | ✅          | ✅       | ✅                                                                          |
+| `accessibilityInformation` on status item (≥1.44) | ✅      | ✅     | ✅       | ✅          | ✅       | ⚠️ ignored harmlessly                                                       |
+| `contributes.walkthroughs`                        | ✅      | ✅     | ✅       | ✅          | ✅       | ⚠️ partial — unknown contributions are ignored; degrade to README/docs link |
 
 Rules: feature-detect nothing proprietary; never assume marketplace-only distribution — publish the wellness release to **OpenVSX** (existing roadmap §0) so VSCodium users get it; add a VSCodium install smoke test to the release checklist. AI-first surfaces (Cursor inline ghosts, Windsurf Cascade, Antigravity chat) additionally benefit from §17's ghost-text/chat token coverage.
 
@@ -510,12 +510,12 @@ Rules: feature-detect nothing proprietary; never assume marketplace-only distrib
 - Consume `tokens/wellness.json` (identical defaults) + `tokens/document-palette.css`; do not fork timings.
 - Activity adapter mapping (same accumulator math, different signals):
 
-| IDE signal | Web equivalent |
-| :--- | :--- |
+| IDE signal                       | Web equivalent                                                      |
+| :------------------------------- | :------------------------------------------------------------------ |
 | `onDidChangeWindowState` (focus) | `focus`/`blur` + `visibilitychange` (tab hidden ⇒ idle immediately) |
-| Selection / document edits | throttled `keydown`, `pointermove`, `pointerdown`, `wheel`/`scroll` |
-| Editor switch | SPA route change, iframe focus |
-| Long-read detection | IntersectionObserver dwell on content region |
+| Selection / document edits       | throttled `keydown`, `pointermove`, `pointerdown`, `wheel`/`scroll` |
+| Editor switch                    | SPA route change, iframe focus                                      |
+| Long-read detection              | IntersectionObserver dwell on content region                        |
 
 - Notification surfaces, escalating like F5: non-blocking corner toast → tab-title pulse (`(Break) MyApp`) → favicon hue swap to Warning amber (multi-dimensional signaling without modality).
 - Respect `prefers-reduced-motion` (disable pulses/animations) and `prefers-color-scheme` (serve Light/Night token sets natively; OS-follow replaces the extension's time-based switcher, which exists only because VS Code lacked it).
@@ -530,7 +530,7 @@ Rules: feature-detect nothing proprietary; never assume marketplace-only distrib
 ### 16.4 TV / 10-foot UI
 
 - Remote-key presses are the only activity signal (no pointer); status-bar patterns don't exist at distance — reminders are full-screen, high-legibility overlays using Night/high-contrast tokens by default.
-- Viewer-vs-operator distinction: passive playback is still continuous *exposure* — apply Guardian soft/hard limits as auto-dim + interstitial instead of dismissible toasts.
+- Viewer-vs-operator distinction: passive playback is still continuous _exposure_ — apply Guardian soft/hard limits as auto-dim + interstitial instead of dismissible toasts.
 - Honor system screensaver handoff rather than fighting it.
 
 ### 16.5 SaaS applications & generated documents (PDF / XLSX / DOCX / print)
@@ -539,23 +539,24 @@ Core principle: downstream documents reuse the suite's validated scales — Safe
 
 Role mapping for generators (PDF libs, OOXML styling, CSS print):
 
-| Document element | Token role | Hard rule |
-| :--- | :--- | :--- |
-| Body text / headers / footers | `fg` on `bg` / `bgSubtle`+`fgMuted` | ≥ 7:1 contrast everywhere |
-| Status chips (paid, failed, pending…) | `safe/caution/warning/panic` `.bg`+`.fg` pairs | chip = color + icon glyph + text label |
-| Negative amounts, overdue, failures | `panic.fg` | plus ▼/✕ glyph and accounting format `(1,234)` — not red alone |
-| Table row banding | sequential scale steps 1–2 at ≤ 8% alpha | banding must not reduce text contrast below 7:1 |
-| Categorical chart series | CVD-safe qualitative set | reuse validator ΔE_ok separation assertions |
-| Sequential heatmaps | ColorBrewer sequential ramp | annotate endpoint values numerically |
-| XLSX conditional formats | chip pairs + icon sets (✓ ! ✕) via icon-set rule | pair with number formats; sheet tab colors from accent variants |
-| DOCX headings / links | accent / `info.fg` | use named styles, not ad-hoc manual formatting |
-| Print stylesheet | force Light tokens; strip shadows/animations | `@media print { … }` block shipped in palette CSS |
+| Document element                      | Token role                                       | Hard rule                                                       |
+| :------------------------------------ | :----------------------------------------------- | :-------------------------------------------------------------- |
+| Body text / headers / footers         | `fg` on `bg` / `bgSubtle`+`fgMuted`              | ≥ 7:1 contrast everywhere                                       |
+| Status chips (paid, failed, pending…) | `safe/caution/warning/panic` `.bg`+`.fg` pairs   | chip = color + icon glyph + text label                          |
+| Negative amounts, overdue, failures   | `panic.fg`                                       | plus ▼/✕ glyph and accounting format `(1,234)` — not red alone  |
+| Table row banding                     | sequential scale steps 1–2 at ≤ 8% alpha         | banding must not reduce text contrast below 7:1                 |
+| Categorical chart series              | CVD-safe qualitative set                         | reuse validator ΔE_ok separation assertions                     |
+| Sequential heatmaps                   | ColorBrewer sequential ramp                      | annotate endpoint values numerically                            |
+| XLSX conditional formats              | chip pairs + icon sets (✓ ! ✕) via icon-set rule | pair with number formats; sheet tab colors from accent variants |
+| DOCX headings / links                 | accent / `info.fg`                               | use named styles, not ad-hoc manual formatting                  |
+| Print stylesheet                      | force Light tokens; strip shadows/animations     | `@media print { … }` block shipped in palette CSS               |
 
 Implementation vehicle (task P5.4): extend the planned `scripts/export-tokens.js` to emit
+
 - `tokens/wellness.json` — all timing/threshold constants mirroring §7 defaults (intervalMinutes 20, breakDurationSeconds 20, blink cadence 5, pomodoro 25/5/15×4, guardian 50/75/15, idle 120 s, grace 5 min);
 - `tokens/document-palette.css` — custom properties per role incl. the `@media print` block;
 - `tokens/document-palette.json` — hex pairs keyed for OOXML/XLSX/DOCX styling libraries;
-and add a `--tokens` assertion mode to `scripts/validate-contrast.js` proving every exported fg/bg pair passes ≥7:1 and CVD separation. Wire exports into `pnpm run build`.
+  and add a `--tokens` assertion mode to `scripts/validate-contrast.js` proving every exported fg/bg pair passes ≥7:1 and CVD separation. Wire exports into `pnpm run build`.
 
 ---
 
@@ -565,22 +566,22 @@ and add a `--tokens` assertion mode to `scripts/validate-contrast.js` proving ev
 
 Current themes already cover chrome comprehensively (title/activity/sidebar/status variants, full ANSI terminal, notifications, settings UI, indent guides 1–6, inline chat, git decorations — verified in generator lines ~791–1218). Gaps that materially affect human comfort, especially on AI-first IDEs:
 
-| Missing key group | Why it matters | Suggested source values |
-| :--- | :--- | :--- |
-| `editorGhostText.foreground` (+ `.background`) | Inline AI completions dominate Cursor/Windsurf/Antigravity screens; default ghost text pulls attention and adds halation load | `fgMuted` at ~55–60% alpha |
-| `editorStickyScroll.background` / `.border` | Sticky scope headers cut vertical eye travel during long files | `bgSubtle` / `border` |
-| `editorBracketHighlight.foreground1..6` | Depth perception for nesting (defaults are uncalibrated); hue-align with existing indent-guide hues | accent, safe.fg, caution.fg, syntax.function, syntax.type, warning.fg |
-| `editorUnnecessaryCode.opacity` (+ foreground) | De-emphasizing dead code lowers cognitive load | opacity `0.55`, fg `fgMuted` |
-| `editorOverviewRuler.errorForeground/.warningForeground/.infoForeground` | Peripheral problem scanning without gutter fixation | panic/warning/info fg |
-| `banner.background/.foreground` (+ icon variant keys) | Workspace-trust & extension banners currently unstyled | `bgSubtle` / `fg` |
-| `chat.*` (requestBackground/border, slashCommandBackground, editedFileForeground…) | Copilot/Antigravity/Windsurf chat panels render unthemed today | bg/bgSubtle/accent family |
-| `editorCommentsWidget.*` | Review threads legible across themes | bgSubtle/accent family |
-| `merge.currentHeader/.incomingHeader` (+ backgrounds) | Conflict-resolution clarity under stress | safe.bg / info.bg pairs |
-| `minimap.backgroundSlider/.hoverHighlight`, minimap error/warning marks | Peripheral navigation aid | subtle alphas of border/panic/warning |
-| `testing.*` (messageError/warning, runAction borders) | Test-runner states match log-badge semantics | panic/warning/safe |
-| `debugConsole.info/.warning/.errorForeground` | Debug output aligns with audit-log badge colors | caution/warning/panic fg |
-| `sash.hoverBorder` | Resize affordances discoverable | accent |
-| `walkthroughPage.*` / welcome tiles | Onboarding coherence with F8 walkthrough | bgSidebar/accent |
+| Missing key group                                                                  | Why it matters                                                                                                                | Suggested source values                                               |
+| :--------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| `editorGhostText.foreground` (+ `.background`)                                     | Inline AI completions dominate Cursor/Windsurf/Antigravity screens; default ghost text pulls attention and adds halation load | `fgMuted` at ~55–60% alpha                                            |
+| `editorStickyScroll.background` / `.border`                                        | Sticky scope headers cut vertical eye travel during long files                                                                | `bgSubtle` / `border`                                                 |
+| `editorBracketHighlight.foreground1..6`                                            | Depth perception for nesting (defaults are uncalibrated); hue-align with existing indent-guide hues                           | accent, safe.fg, caution.fg, syntax.function, syntax.type, warning.fg |
+| `editorUnnecessaryCode.opacity` (+ foreground)                                     | De-emphasizing dead code lowers cognitive load                                                                                | opacity `0.55`, fg `fgMuted`                                          |
+| `editorOverviewRuler.errorForeground/.warningForeground/.infoForeground`           | Peripheral problem scanning without gutter fixation                                                                           | panic/warning/info fg                                                 |
+| `banner.background/.foreground` (+ icon variant keys)                              | Workspace-trust & extension banners currently unstyled                                                                        | `bgSubtle` / `fg`                                                     |
+| `chat.*` (requestBackground/border, slashCommandBackground, editedFileForeground…) | Copilot/Antigravity/Windsurf chat panels render unthemed today                                                                | bg/bgSubtle/accent family                                             |
+| `editorCommentsWidget.*`                                                           | Review threads legible across themes                                                                                          | bgSubtle/accent family                                                |
+| `merge.currentHeader/.incomingHeader` (+ backgrounds)                              | Conflict-resolution clarity under stress                                                                                      | safe.bg / info.bg pairs                                               |
+| `minimap.backgroundSlider/.hoverHighlight`, minimap error/warning marks            | Peripheral navigation aid                                                                                                     | subtle alphas of border/panic/warning                                 |
+| `testing.*` (messageError/warning, runAction borders)                              | Test-runner states match log-badge semantics                                                                                  | panic/warning/safe                                                    |
+| `debugConsole.info/.warning/.errorForeground`                                      | Debug output aligns with audit-log badge colors                                                                               | caution/warning/panic fg                                              |
+| `sash.hoverBorder`                                                                 | Resize affordances discoverable                                                                                               | accent                                                                |
+| `walkthroughPage.*` / welcome tiles                                                | Onboarding coherence with F8 walkthrough                                                                                      | bgSidebar/accent                                                      |
 
 Extend `scripts/validate-contrast.js` to assert ≥ 7:1 for every newly introduced fg/background pair (no AA-large exceptions unless documented).
 
@@ -593,7 +594,7 @@ Ship only non-motion defaults globally (vestibular-safe); motion preferences sta
 {
   "editor.stickyScroll.enabled": true,
   "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": "active"
+  "editor.guides.bracketPairs": "active",
 }
 ```
 
@@ -623,4 +624,4 @@ VS Code natively supports `window.autoDetectColorScheme` + `workbench.preferredL
 
 ---
 
-*End of report. Implementation proceeds phase-by-phase per §11; Phase 0 items are safe standalone fixes.*
+_End of report. Implementation proceeds phase-by-phase per §11; Phase 0 items are safe standalone fixes._

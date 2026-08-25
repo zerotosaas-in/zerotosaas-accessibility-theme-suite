@@ -3,6 +3,7 @@ layout: default
 title: Human Health, Ocular Ergonomics & Medical Optics Guidelines
 redirect_from:
   - /docs/Guidelines.md
+  - /docs/guides/Guidelines.md
 ---
 
 # ZeroToSaaS Ocular Ergonomics & Accessibility Guidelines

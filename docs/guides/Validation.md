@@ -3,6 +3,7 @@ layout: default
 title: Automated Quad-System Validation Matrix & Verification Report
 redirect_from:
   - /docs/Validation.md
+  - /docs/guides/Validation.md
 ---
 
 # ZeroToSaaS Accessibility Theme Suite — Empirical Validation Report

@@ -298,7 +298,7 @@
       {
         "command": "zerotosaas.openGuidelines",
         "category": "ZeroToSaaS",
-        "title": "Open Eye-Health Guidelines (docs/Guidelines.md)"
+        "title": "Open Eye-Health Guidelines (docs/guides/Guidelines.md)"
       }
     ],
     "menus": {

@@ -25,7 +25,7 @@ const {
 } = require('./color-math');
 
 const THEMES_DIR = path.join(__dirname, '..', 'themes');
-const APCA_GAPS_FILE = path.join(__dirname, '..', 'docs', 'apca-gaps.json');
+const APCA_GAPS_FILE = path.join(__dirname, '..', 'docs', 'data', 'apca-gaps.json');
 
 // --- APCA thresholds (0.0.98G draft spec) --------------------------------
 const APCA_BODY = 75;    // |L^c| >= 75 for body text
@@ -242,7 +242,7 @@ console.log(``);
 console.log(`   APCA Checked: ${apcaChecked}`);
 console.log(`   APCA Passed: ${apcaPassed}`);
 console.log(`   APCA Gaps: ${apcaGaps.length} (soft gate — does not fail build)`);
-console.log(`   APCA Gaps written to: docs/apca-gaps.json`);
+console.log(`   APCA Gaps written to: docs/data/apca-gaps.json`);
 
 if (apcaGaps.length > 0) {
   console.log(`\n⚠️  APCA GAP SUMMARY (WCAG 3.0 draft — informational, build stays green):`);
@@ -260,7 +260,7 @@ if (apcaGaps.length > 0) {
       const wcag = g.wcagRatio ? ` WCAG ${g.wcagRatio}:1` : '';
       console.log(`     • ${g.theme} → ${g.scope}: L^c=${g.apcaLc} (need ≥${g.threshold})${wcag}`);
     });
-    if (gaps.length > 5) console.log(`     … and ${gaps.length - 5} more (see docs/apca-gaps.json)`);
+    if (gaps.length > 5) console.log(`     … and ${gaps.length - 5} more (see docs/data/apca-gaps.json)`);
   }
 }
 
@@ -274,7 +274,7 @@ if (failedTests.length === 0) {
   console.log(`   ✅ 4. Farnsworth-Munsell 100-Hue Quadrant Distribution`);
   console.log(`   ✅ 5. WCAG AAA (>= 7:1 Contrast Ratio) Across All Tokens — HARD GATE PASSED`);
   console.log(`   ✅ 6. Polarity Sanity Across All Light & Night Themes`);
-  console.log(`   ${apcaGaps.length === 0 ? '✅' : '⚠️'} 7. APCA (WCAG 3.0 draft) — ${apcaPassed}/${apcaChecked} passed${apcaGaps.length > 0 ? `, ${apcaGaps.length} gaps tracked in docs/apca-gaps.json` : ' — ALL PASSED'}`);
+  console.log(`   ${apcaGaps.length === 0 ? '✅' : '⚠️'} 7. APCA (WCAG 3.0 draft) — ${apcaPassed}/${apcaChecked} passed${apcaGaps.length > 0 ? `, ${apcaGaps.length} gaps tracked in docs/data/apca-gaps.json` : ' — ALL PASSED'}`);
   process.exit(0);
 } else {
   console.error(`\n❌ Failed WCAG tokens detected:`, failedTests);

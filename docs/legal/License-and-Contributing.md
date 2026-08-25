@@ -166,7 +166,7 @@ We welcome contributions from developers, color scientists, accessibility resear
 
 To ensure long-term legal protection and open distribution under **AGPL-3.0**, all contributors must execute a Contributor License Agreement prior to having pull requests merged:
 
-- ✍️ **Individual Contributors**: Please review and sign the [**Individual Contributor License Agreement (ICLA.md)**](CLA-INDIVIDUAL.md).
-- 🏢 **Corporate / Entity Contributors**: If you are contributing on behalf of your employer or corporation, please have an authorized corporate officer execute the [**Corporate Contributor License Agreement (CCLA.md)**](CLA-CORPORATE.md).
+- ✍️ **Individual Contributors**: Please review and sign the [**Individual Contributor License Agreement (ICLA)**](CLA-INDIVIDUAL.md).
+- 🏢 **Corporate / Entity Contributors**: If you are contributing on behalf of your employer or corporation, please have an authorized corporate officer execute the [**Corporate Contributor License Agreement (CCLA)**](CLA-CORPORATE.md).
 
 Signed agreements can be submitted directly via pull request or by emailing `legal@zerotosaas.in`.

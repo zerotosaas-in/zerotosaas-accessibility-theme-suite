@@ -1255,17 +1255,17 @@ async function markDarkAdvisoryShownToday(context, themeLabel) {
   await context.globalState.update(key, true);
 }
 
-// Opens docs/Guidelines.md (full medical rationale) in the Markdown preview.
+// Opens docs/guides/Guidelines.md (full medical rationale) in the Markdown preview.
 function openGuidelinesDoc() {
   const fs = require('fs');
   // Resolve relative to the extension root (extension.js lives in src/).
   const candidates = [
-    path.join(__dirname, '..', 'docs', 'Guidelines.md'),
-    path.join(__dirname, 'docs', 'Guidelines.md')
+    path.join(__dirname, '..', 'docs', 'guides', 'Guidelines.md'),
+    path.join(__dirname, 'docs', 'guides', 'Guidelines.md')
   ];
   const docPath = candidates.find(p => { try { return fs.existsSync(p); } catch (e) { return false; } });
   if (!docPath) {
-    vscode.window.showErrorMessage('Could not locate docs/Guidelines.md in the extension bundle.');
+    vscode.window.showErrorMessage('Could not locate docs/guides/Guidelines.md in the extension bundle.');
     return;
   }
   vscode.commands.executeCommand('markdown.showPreview', vscode.Uri.file(docPath));
@@ -1368,7 +1368,7 @@ function activate(context) {
               `⚠️ "${themeName}" is a dark theme. Prolonged dark-theme use can ` +
               `increase ocular accommodation effort and worsen halation for users ` +
               `with astigmatism, contributing to digital eye strain. Prefer light ` +
-              `themes for daytime extended coding. See docs/Guidelines.md for details.`,
+              `themes for daytime extended coding. See docs/guides/Guidelines.md for details.`,
               'Switch to Light Theme',
               "Don't remind me again",
               'Dismiss'

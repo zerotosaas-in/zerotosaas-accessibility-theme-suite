@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 - **Design token exporter** (`scripts/export-tokens.js`): generates CSS custom properties, Tailwind v3 preset, Tailwind v4 theme, and Style Dictionary JSON for all 20 themes (4 files in `tokens/`).
 - **Terminal color scheme exporter**: generates 140 terminal profiles across 7 targets (iTerm2, macOS Terminal.app, Windows Terminal, Alacritty, Kitty, Ghostty, Warp) × 20 themes.
 - **macOS Terminal.app support**: `.terminal` files with correct NSKeyedArchiver format (`NSColorSpace = 2`, null-terminated NSRGB, `type = "Window Settings"`, `ProfileCurrentVersion = 2.09`).
-- **APCA 0.0.98G contrast validation** (`scripts/color-math.js`, `scripts/validate-contrast.js`): perceptual L^c scoring as a soft gate alongside the existing WCAG AAA hard gate. Gap report written to `docs/apca-gaps.json`.
+- **APCA 0.0.98G contrast validation** (`scripts/color-math.js`, `scripts/validate-contrast.js`): perceptual L^c scoring as a soft gate alongside the existing WCAG AAA hard gate. Gap report written to `docs/data/apca-gaps.json`.
 - **Extension icon** (`media/icon.png`): 256×256 accessibility icon for marketplace listings.
 - **Themed GitHub Pages home page** (`_layouts/home.html`, `index.md`): custom Jekyll layout styled with ZeroToSaaS design tokens and an interactive switcher bar for all 20 theme variants.
 
