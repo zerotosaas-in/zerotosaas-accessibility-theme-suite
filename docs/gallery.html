@@ -1,41 +1,4 @@
-// Copyright (C) 2026 Sarvasv Technologies Pvt Ltd (ZeroToSaaS.in)
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-
-const fs = require('fs');
-const path = require('path');
-
-const THEMES_DIR = path.join(__dirname, '..', 'themes');
-const OUTPUT_HTML = path.join(__dirname, '..', 'docs', 'gallery.html');
-
-// Read all 20 theme definitions (10 Light + 10 Night)
-const themeFiles = [
-  { id: 'default', file: 'zerotosaas-light.json', name: 'ZeroToSaaS Light (Default)', icon: '💡', swatch: '#0B4F9C', systems: ['oklch', 'colorbrewer', 'fm100'], cvd: 'standard', desc: 'Cobalt-Slate balanced core palette', mode: 'light' },
-  { id: 'green', file: 'zerotosaas-green.json', name: 'Forest Calm (Green)', icon: '🌲', swatch: '#096032', systems: ['oklch', 'colorbrewer', 'fm100'], cvd: 'standard', desc: 'Restful botanical green palette', mode: 'light' },
-  { id: 'yellow', file: 'zerotosaas-yellow.json', name: 'Golden Sand (Yellow)', icon: '☀️', swatch: '#6E4E00', systems: ['oklch', 'colorbrewer'], cvd: 'standard', desc: 'High-acuity warm amber-gold', mode: 'light' },
-  { id: 'orange', file: 'zerotosaas-orange.json', name: 'Terracotta (Orange)', icon: '🔥', swatch: '#943800', systems: ['oklch'], cvd: 'standard', desc: 'Warm earth terracotta tone', mode: 'light' },
-  { id: 'brown', file: 'zerotosaas-brown.json', name: 'Warm Sepia (Brown)', icon: '☕', swatch: '#5C2C06', systems: ['oklch', 'fm100'], cvd: 'standard', desc: 'Earthy sepia low-strain palette', mode: 'light' },
-  { id: 'purple', file: 'zerotosaas-purple.json', name: 'Royal Plum (Purple)', icon: '🔮', swatch: '#6B21A8', systems: ['oklch'], cvd: 'standard', desc: 'Deep royal plum chromatic balance', mode: 'light' },
-  { id: 'deuteranopia', file: 'zerotosaas-deuteranopia.json', name: 'Deuteranopia Safe (Blue/Amber)', icon: '🌐', swatch: '#0043A4', systems: ['paultol'], cvd: 'deuteranopia', desc: 'SRON 470nm/600nm isolated axes', mode: 'light' },
-  { id: 'protanopia', file: 'zerotosaas-protanopia.json', name: 'Protanopia Safe (Magenta/Teal)', icon: '🌐', swatch: '#8C0064', systems: ['paultol'], cvd: 'protanopia', desc: 'SRON Magenta/Teal photoreceptor isolation', mode: 'light' },
-  { id: 'tritanopia', file: 'zerotosaas-tritanopia.json', name: 'Tritanopia Safe (Crimson/Cyan)', icon: '🌐', swatch: '#A00028', systems: ['paultol'], cvd: 'tritanopia', desc: 'Crimson/Cyan photoreceptor isolation', mode: 'light' },
-  { id: 'high-contrast', file: 'zerotosaas-high-contrast.json', name: 'High Contrast (ISO 9241-303)', icon: '⚡', swatch: '#002D80', systems: ['colorbrewer'], cvd: 'high-contrast', desc: 'Maximum 18.25:1 text acuity', mode: 'light' },
-  { id: 'default-night', file: 'zerotosaas-light-night.json', name: 'ZeroToSaaS Light Night (Default)', icon: '�', swatch: '#63A3DE', systems: ['oklch', 'colorbrewer', 'fm100'], cvd: 'standard', desc: 'Dark cobalt-slate, glare-free night coding', mode: 'dark' },
-  { id: 'green-night', file: 'zerotosaas-green-night.json', name: 'Forest Calm Night (Green)', icon: '🌲', swatch: '#6DB885', systems: ['oklch', 'colorbrewer', 'fm100'], cvd: 'standard', desc: 'Dark cypress & cedar tones', mode: 'dark' },
-  { id: 'yellow-night', file: 'zerotosaas-yellow-night.json', name: 'Golden Sand Night (Yellow)', icon: '☀️', swatch: '#C19F61', systems: ['oklch', 'colorbrewer'], cvd: 'standard', desc: 'Dark amber bronze & sandstone', mode: 'dark' },
-  { id: 'orange-night', file: 'zerotosaas-orange-night.json', name: 'Terracotta Night (Orange)', icon: '🔥', swatch: '#E9875D', systems: ['oklch'], cvd: 'standard', desc: 'Dark burnt orange & rich bronze', mode: 'dark' },
-  { id: 'brown-night', file: 'zerotosaas-brown-night.json', name: 'Warm Sepia Night (Brown)', icon: '☕', swatch: '#CF9673', systems: ['oklch', 'fm100'], cvd: 'standard', desc: 'Dark warm espresso & walnut tones', mode: 'dark' },
-  { id: 'purple-night', file: 'zerotosaas-purple-night.json', name: 'Royal Plum Night (Purple)', icon: '🔮', swatch: '#BD87F4', systems: ['oklch'], cvd: 'standard', desc: 'Dark iris & midnight-plum tones', mode: 'dark' },
-  { id: 'deuteranopia-night', file: 'zerotosaas-deuteranopia-night.json', name: 'Deuteranopia Night (Blue/Amber)', icon: '🌐', swatch: '#55A5F2', systems: ['paultol'], cvd: 'deuteranopia', desc: 'Dark SRON 470nm/600nm isolated axes', mode: 'dark' },
-  { id: 'protanopia-night', file: 'zerotosaas-protanopia-night.json', name: 'Protanopia Night (Magenta/Teal)', icon: '🌐', swatch: '#ED75B5', systems: ['paultol'], cvd: 'protanopia', desc: 'Dark SRON Magenta/Teal isolation', mode: 'dark' },
-  { id: 'tritanopia-night', file: 'zerotosaas-tritanopia-night.json', name: 'Tritanopia Night (Crimson/Cyan)', icon: '🌐', swatch: '#FC7291', systems: ['paultol'], cvd: 'tritanopia', desc: 'Dark Crimson/Cyan photoreceptor isolation', mode: 'dark' },
-  { id: 'high-contrast-night', file: 'zerotosaas-high-contrast-night.json', name: 'High Contrast Night (ISO 9241-303)', icon: '⚡', swatch: '#5B9BD6', systems: ['colorbrewer'], cvd: 'high-contrast', desc: 'Dark ultra-clear contrast, white borders', mode: 'dark' }
-];
-
-const htmlContent = `<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1023,7 +986,7 @@ const htmlContent = `<!DOCTYPE html>
   </main>
 
   <script>
-    const themeMetadata = ${JSON.stringify(themeFiles)};
+    const themeMetadata = [{"id":"default","file":"zerotosaas-light.json","name":"ZeroToSaaS Light (Default)","icon":"💡","swatch":"#0B4F9C","systems":["oklch","colorbrewer","fm100"],"cvd":"standard","desc":"Cobalt-Slate balanced core palette","mode":"light"},{"id":"green","file":"zerotosaas-green.json","name":"Forest Calm (Green)","icon":"🌲","swatch":"#096032","systems":["oklch","colorbrewer","fm100"],"cvd":"standard","desc":"Restful botanical green palette","mode":"light"},{"id":"yellow","file":"zerotosaas-yellow.json","name":"Golden Sand (Yellow)","icon":"☀️","swatch":"#6E4E00","systems":["oklch","colorbrewer"],"cvd":"standard","desc":"High-acuity warm amber-gold","mode":"light"},{"id":"orange","file":"zerotosaas-orange.json","name":"Terracotta (Orange)","icon":"🔥","swatch":"#943800","systems":["oklch"],"cvd":"standard","desc":"Warm earth terracotta tone","mode":"light"},{"id":"brown","file":"zerotosaas-brown.json","name":"Warm Sepia (Brown)","icon":"☕","swatch":"#5C2C06","systems":["oklch","fm100"],"cvd":"standard","desc":"Earthy sepia low-strain palette","mode":"light"},{"id":"purple","file":"zerotosaas-purple.json","name":"Royal Plum (Purple)","icon":"🔮","swatch":"#6B21A8","systems":["oklch"],"cvd":"standard","desc":"Deep royal plum chromatic balance","mode":"light"},{"id":"deuteranopia","file":"zerotosaas-deuteranopia.json","name":"Deuteranopia Safe (Blue/Amber)","icon":"🌐","swatch":"#0043A4","systems":["paultol"],"cvd":"deuteranopia","desc":"SRON 470nm/600nm isolated axes","mode":"light"},{"id":"protanopia","file":"zerotosaas-protanopia.json","name":"Protanopia Safe (Magenta/Teal)","icon":"🌐","swatch":"#8C0064","systems":["paultol"],"cvd":"protanopia","desc":"SRON Magenta/Teal photoreceptor isolation","mode":"light"},{"id":"tritanopia","file":"zerotosaas-tritanopia.json","name":"Tritanopia Safe (Crimson/Cyan)","icon":"🌐","swatch":"#A00028","systems":["paultol"],"cvd":"tritanopia","desc":"Crimson/Cyan photoreceptor isolation","mode":"light"},{"id":"high-contrast","file":"zerotosaas-high-contrast.json","name":"High Contrast (ISO 9241-303)","icon":"⚡","swatch":"#002D80","systems":["colorbrewer"],"cvd":"high-contrast","desc":"Maximum 18.25:1 text acuity","mode":"light"},{"id":"default-night","file":"zerotosaas-light-night.json","name":"ZeroToSaaS Light Night (Default)","icon":"�","swatch":"#63A3DE","systems":["oklch","colorbrewer","fm100"],"cvd":"standard","desc":"Dark cobalt-slate, glare-free night coding","mode":"dark"},{"id":"green-night","file":"zerotosaas-green-night.json","name":"Forest Calm Night (Green)","icon":"🌲","swatch":"#6DB885","systems":["oklch","colorbrewer","fm100"],"cvd":"standard","desc":"Dark cypress & cedar tones","mode":"dark"},{"id":"yellow-night","file":"zerotosaas-yellow-night.json","name":"Golden Sand Night (Yellow)","icon":"☀️","swatch":"#C19F61","systems":["oklch","colorbrewer"],"cvd":"standard","desc":"Dark amber bronze & sandstone","mode":"dark"},{"id":"orange-night","file":"zerotosaas-orange-night.json","name":"Terracotta Night (Orange)","icon":"🔥","swatch":"#E9875D","systems":["oklch"],"cvd":"standard","desc":"Dark burnt orange & rich bronze","mode":"dark"},{"id":"brown-night","file":"zerotosaas-brown-night.json","name":"Warm Sepia Night (Brown)","icon":"☕","swatch":"#CF9673","systems":["oklch","fm100"],"cvd":"standard","desc":"Dark warm espresso & walnut tones","mode":"dark"},{"id":"purple-night","file":"zerotosaas-purple-night.json","name":"Royal Plum Night (Purple)","icon":"🔮","swatch":"#BD87F4","systems":["oklch"],"cvd":"standard","desc":"Dark iris & midnight-plum tones","mode":"dark"},{"id":"deuteranopia-night","file":"zerotosaas-deuteranopia-night.json","name":"Deuteranopia Night (Blue/Amber)","icon":"🌐","swatch":"#55A5F2","systems":["paultol"],"cvd":"deuteranopia","desc":"Dark SRON 470nm/600nm isolated axes","mode":"dark"},{"id":"protanopia-night","file":"zerotosaas-protanopia-night.json","name":"Protanopia Night (Magenta/Teal)","icon":"🌐","swatch":"#ED75B5","systems":["paultol"],"cvd":"protanopia","desc":"Dark SRON Magenta/Teal isolation","mode":"dark"},{"id":"tritanopia-night","file":"zerotosaas-tritanopia-night.json","name":"Tritanopia Night (Crimson/Cyan)","icon":"🌐","swatch":"#FC7291","systems":["paultol"],"cvd":"tritanopia","desc":"Dark Crimson/Cyan photoreceptor isolation","mode":"dark"},{"id":"high-contrast-night","file":"zerotosaas-high-contrast-night.json","name":"High Contrast Night (ISO 9241-303)","icon":"⚡","swatch":"#5B9BD6","systems":["colorbrewer"],"cvd":"high-contrast","desc":"Dark ultra-clear contrast, white borders","mode":"dark"}];
     
     // Large, Comprehensive Single-Line Code Samples Database
     const codeSamples = {
@@ -1158,7 +1121,7 @@ const htmlContent = `<!DOCTYPE html>
           '<div class="line"><span class="ln">16</span><span class="code"><span style="color:' + t.keyword + '; font-weight:bold;">func</span> (<span style="color:' + t.param + ';">m</span> *<span style="color:' + t.type + ';">ClusterManager</span>) <span style="color:' + t.func + '; font-weight:bold;">StartHealthCheck</span>(<span style="color:' + t.param + ';">ctx</span> <span style="color:' + t.type + ';">context.Context</span>) <span style="color:' + t.type + ';">error</span> {</span></div>',
           '<div class="line"><span class="ln">17</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.param + ';">m</span>.<span style="color:' + t.fg + ';">mu</span>.<span style="color:' + t.func + ';">Lock</span>()</span></div>',
           '<div class="line"><span class="ln">18</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">defer</span> <span style="color:' + t.param + ';">m</span>.<span style="color:' + t.fg + ';">mu</span>.<span style="color:' + t.func + ';">Unlock</span>()</span></div>',
-          '<div class="line"><span class="ln">19</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.func + ';">fmt.Printf</span>(<span style="color:' + t.string + ';">"ZeroToSaaS Manager active: %s\\n"</span>, <span style="color:' + t.param + ';">m</span>.<span style="color:' + t.fg + ';">ClusterID</span>)</span></div>',
+          '<div class="line"><span class="ln">19</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.func + ';">fmt.Printf</span>(<span style="color:' + t.string + ';">"ZeroToSaaS Manager active: %s\n"</span>, <span style="color:' + t.param + ';">m</span>.<span style="color:' + t.fg + ';">ClusterID</span>)</span></div>',
           '<div class="line"><span class="ln">20</span><span class="code"><span class="indent-odd">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:' + t.keyword + '; font-weight:bold;">return</span> <span style="color:' + t.constant + '; font-weight:bold;">nil</span></span></div>',
           '<div class="line"><span class="ln">21</span><span class="code">}</span></div>'
         ].join('')
@@ -1377,7 +1340,7 @@ const htmlContent = `<!DOCTYPE html>
       const darkThemes = themeMetadata.filter(t => t.mode === 'dark');
 
       function shortLabel(theme) {
-        const match = theme.name.match(/\(([^)]+)\)/);
+        const match = theme.name.match(/(([^)]+))/);
         let base = match ? match[1] : theme.name.split(' ')[0];
         if (theme.mode === 'dark') base += ' Night';
         return base;
@@ -1495,7 +1458,3 @@ const htmlContent = `<!DOCTYPE html>
   </script>
 </body>
 </html>
-`;
-
-fs.writeFileSync(OUTPUT_HTML, htmlContent, 'utf8');
-console.log('✅ Generated 4-Column Multi-Panel Interactive Theme Showcase at docs/gallery.html');

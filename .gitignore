@@ -1,1 +1,4 @@
 *.vsix
+.DS_Store
+.jekyll-cache/
+.kilo/

@@ -107,7 +107,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 - **Kept 3 action commands**: `zerotosaas.resetRestTimer`, `zerotosaas.openSettings`, `zerotosaas.openGuidelines`.
 - **Theme count**: 10 → 20 (10 Light + 10 Night).
 - **Validation scope**: 420 → 860 token contrast tests, all passing 100% WCAG AAA (≥ 7:1).
-- **Gallery**: `docs/previews/gallery.html` updated with all 20 themes, night variants, and mobile-responsive CSS.
+- **Gallery**: `docs/gallery.html` updated with all 20 themes, night variants, and mobile-responsive CSS.
 - **Terminal ANSI semantics**: `terminal.ansiBlack`/`ansiWhite`/`ansiBrightBlack`/`ansiBrightWhite` now correctly invert meaning on dark themes.
 
 ### Removed

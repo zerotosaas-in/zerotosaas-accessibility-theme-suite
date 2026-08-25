@@ -18,7 +18,7 @@ Welcome to the official documentation portal for the **ZeroToSaaS Accessibility 
 
 ## Reports & References
 
-- **[Interactive Gallery & Live Playground](https://zerotosaas-in.github.io/zerotosaas-accessibility-theme-suite/docs/previews/gallery.html)**
+- **[Interactive Gallery & Live Playground](https://zerotosaas-in.github.io/zerotosaas-accessibility-theme-suite/docs/gallery.html)**
 - **[Automated Quad-System Validation Report](guides/Validation.md)**
 - **[Medical & Ophthalmic Guidelines](guides/Guidelines.md)**
 - **[APCA Gap Catalogue (WCAG 3.0 draft)](data/apca-gaps.json)**
