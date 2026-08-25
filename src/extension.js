@@ -1215,6 +1215,90 @@ function getCurrentThemeLabel(cfg) {
   return vscode.workspace.getConfiguration('workbench').get('colorTheme') || '';
 }
 
+// --- Persistent status bar hub widget ---
+// Shows `$(shield) ZeroToSaaS [AAA]` on the right side with a quick-access
+// QuickPick menu (Settings, Eye-Health Guidelines, Reset Rest Timer, active
+// theme). Built lightweight so the wellness layer (Phase 1, P1.4) can absorb
+// or extend it without conflict. Show/hide is gated by
+// `zerotosaas.statusBar.enabled` (default true).
+let hubStatusBar = null;
+
+function disposeHubStatusBar() {
+  if (hubStatusBar) {
+    hubStatusBar.dispose();
+    hubStatusBar = null;
+  }
+}
+
+function getActiveThemeName() {
+  return vscode.workspace.getConfiguration('workbench').get('colorTheme') || 'Unknown';
+}
+
+function updateHubStatusBarText() {
+  if (!hubStatusBar) return;
+  // Icon-only badge keeps the status bar minimal; the full identity
+  // (ZeroToSaaS [AAA], active theme) surfaces in the tooltip + QuickPick.
+  hubStatusBar.text = '$(eye)';
+  hubStatusBar.tooltip = `ZeroToSaaS [AAA] Accessibility Theme Suite — active theme: ${getActiveThemeName()}`;
+}
+
+function initHubStatusBar(context) {
+  disposeHubStatusBar();
+  const enabled = vscode.workspace
+    .getConfiguration('zerotosaas.statusBar')
+    .get('enabled', true);
+  if (!enabled) return;
+
+  // Priority 100 places it alongside (just left of) the rest-reminder badge
+  // when both are visible, matching the restStatusBar priority for a stable
+  // visual cluster that the wellness hub can later absorb.
+  hubStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+  hubStatusBar.command = 'zerotosaas.showStatusHub';
+  updateHubStatusBarText();
+  hubStatusBar.show();
+
+  if (context && context.subscriptions) {
+    context.subscriptions.push(hubStatusBar);
+  }
+}
+
+// QuickPick quick-access menu surfaced by the status bar badge click handler.
+// Items map to existing commands so this widget stays a thin presentation
+// layer — no business logic is duplicated here.
+function showStatusHubQuickPick() {
+  const themeName = getActiveThemeName();
+  const items = [
+    {
+      label: 'Open Settings',
+      description: 'ZeroToSaaS extension settings',
+      command: 'zerotosaas.openSettings'
+    },
+    {
+      label: 'Open Eye-Health Guidelines',
+      description: 'docs/guides/Guidelines.md',
+      command: 'zerotosaas.openGuidelines'
+    },
+    {
+      label: 'Reset 20-20-20 Rest Timer',
+      description: 'Restart the ocular rest assistant',
+      command: 'zerotosaas.resetRestTimer'
+    },
+    {
+      label: `Active theme: ${themeName}`,
+      description: 'Informational',
+      command: null
+    }
+  ];
+
+  vscode.window.showQuickPick(items, {
+    placeHolder: 'ZeroToSaaS Quick-Access'
+  }).then((picked) => {
+    if (picked && picked.command) {
+      vscode.commands.executeCommand(picked.command);
+    }
+  });
+}
+
 // --- Dark-theme eye-health advisory dedupe (Phase 0 / F9) ---
 // Fires at most once per theme-label per calendar day, plus a persistent
 // "Don't remind me again" suppression via zerotosaas.wellness.darkAdvisory.suppressed.
@@ -1324,6 +1408,9 @@ function activate(context) {
 
   initRestAssistant();
 
+  // Persistent status bar hub widget ($(shield) ZeroToSaaS [AAA]).
+  initHubStatusBar(context);
+
   // Apply the ZeroToSaaS default theme on first run only.
   applyDefaultThemeOnce(context);
 
@@ -1340,12 +1427,17 @@ function activate(context) {
     }),
     vscode.commands.registerCommand('zerotosaas.openGuidelines', () => {
       openGuidelinesDoc();
+    }),
+    vscode.commands.registerCommand('zerotosaas.showStatusHub', () => {
+      showStatusHubQuickPick();
     })
   );
 
   if (vscode.window.onDidChangeActiveColorTheme) {
     vscode.window.onDidChangeActiveColorTheme(async (newTheme) => {
       initDecorations(context);
+      // Refresh the hub badge tooltip so the active theme name stays current.
+      updateHubStatusBarText();
       if (vscode.window.activeTextEditor) {
         updateDecorations(vscode.window.activeTextEditor);
       }
@@ -1437,6 +1529,9 @@ function activate(context) {
     ) {
       initDecorations(context);
       initRestAssistant();
+      // Re-sync the hub widget: covers both the enabled toggle and any
+      // workbench.colorTheme change that updates the tooltip's theme name.
+      initHubStatusBar(context);
       if (vscode.window.activeTextEditor) {
         updateDecorations(vscode.window.activeTextEditor);
       }
@@ -1450,6 +1545,7 @@ function activate(context) {
 
 function deactivate() {
   disposeRestAssistant();
+  disposeHubStatusBar();
   if (documentChangeDebounceTimer) {
     clearTimeout(documentChangeDebounceTimer);
     documentChangeDebounceTimer = null;

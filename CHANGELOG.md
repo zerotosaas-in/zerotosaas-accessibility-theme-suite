@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- **Persistent status bar hub widget**: `$(eye)` icon-only badge on the right side of the status bar with a quick-access QuickPick menu (Open Settings, Open Eye-Health Guidelines, Reset 20-20-20 Rest Timer, active theme name). Gated by `zerotosaas.statusBar.enabled` (default `true`). Built lightweight so the wellness layer (Phase 1, P1.4) can absorb/extend it without conflict. The full identity (ZeroToSaaS [AAA], active theme) surfaces in the tooltip + QuickPick instead of the badge text to keep the status bar minimal.
+
 ## [0.5.2] - 2026-08-25
 
 ### Fixed

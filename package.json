@@ -281,6 +281,11 @@
           "type": "boolean",
           "default": false,
           "description": "Silence dark-theme eye-health advisories permanently (both the night-theme QuickPick notice and the external dark-activation warning). Re-enable any time from Settings. The full medical rationale remains available via the 'ZeroToSaaS: Open Eye-Health Guidelines' command."
+        },
+        "zerotosaas.statusBar.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the persistent ZeroToSaaS status bar badge ($(shield) ZeroToSaaS [AAA]) with a quick-access menu (Settings, Eye-Health Guidelines, Reset Rest Timer, active theme)."
         }
       }
     },
@@ -299,6 +304,11 @@
         "command": "zerotosaas.openGuidelines",
         "category": "ZeroToSaaS",
         "title": "Open Eye-Health Guidelines (docs/guides/Guidelines.md)"
+      },
+      {
+        "command": "zerotosaas.showStatusHub",
+        "category": "ZeroToSaaS",
+        "title": "Show Quick-Access Menu"
       }
     ],
     "menus": {
@@ -313,6 +323,10 @@
         },
         {
           "command": "zerotosaas.openGuidelines",
+          "when": "true"
+        },
+        {
+          "command": "zerotosaas.showStatusHub",
           "when": "true"
         }
       ]
@@ -329,46 +343,6 @@
       },
       "[plaintext]": {
         "editor.wordWrap": "on"
-      },
-      "[typescript]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[typescriptreact]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[javascript]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[javascriptreact]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[python]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[rust]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[go]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[kotlin]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[swift]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
-      },
-      "[dart]": {
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.bracketPairs": "active"
       },
       "[sql]": {
         "editor.suggest.insertMode": "replace"
