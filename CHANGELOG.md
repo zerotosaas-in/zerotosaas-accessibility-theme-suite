@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-08-25
+
+### Changed
+
+- **Keywords expanded** from 18 to 58 tags in `package.json`, covering all theme types, accessibility standards (WCAG, APCA, CVD), color-science systems (OkLCH, Paul Tol, ColorBrewer, FM 100-Hue), health/ergonomics terms, security features, editor features, cross-platform export targets, and supported IDEs — improving marketplace discoverability.
+
 ## [0.5.0] - 2026-08-25
 
 ### Added — Design Token & Terminal Exports
