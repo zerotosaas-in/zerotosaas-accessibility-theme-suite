@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-08-25
+
+### Fixed
+
+- **Open VSX README links**: Fixed 11 broken documentation links in the published README that pointed to old paths (`docs/Validation.md`, `docs/Guidelines.md`, `docs/TODO.md`, etc.) after the documentation reorganization. All links now point to the correct new paths under `docs/guides/`, `docs/legal/`, `docs/data/`, and `docs/plans/`.
+- **Icon URL**: Changed icon `<img>` src from relative (`media/icons/icon.png`) to absolute (`raw/HEAD/media/icons/icon.png`) so it renders correctly on Open VSX, not just on GitHub.
+
+### Changed
+
+- Version bumped to 0.5.2 to republish corrected README to Open VSX.
+
 ## [0.5.1] - 2026-08-25
 
 ### Changed

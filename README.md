@@ -1,7 +1,7 @@
 # ZeroToSaaS Accessibility Theme Suite
 
 <p align="center">
-  <img src="media/icons/icon.png" width="128" height="128" alt="ZeroToSaaS Accessibility Theme Suite" />
+  <img src="https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite/raw/HEAD/media/icons/icon.png" width="128" height="128" alt="ZeroToSaaS Accessibility Theme Suite" />
 </p>
 
 <p>
@@ -36,7 +36,7 @@ Featuring an active **Semantic Cognitive Status System** (`Safe 🟢` → `Cauti
 | [**Native-Setting Audit**](https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite/blob/main/docs/plans/native-setting-audit.md)              | Audit of `zerotosaas.*` settings for duplication of native VS Code/VSCodium capabilities.                                                                                                         |
 | [**License & Contributing**](https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite/blob/main/docs/legal/License-and-Contributing.md)        | AGPLv3 license terms, AGPL header templates for 6 language families, and Contributor License Agreements (ICLA/CCLA).                                                                              |
 | [**APCA Gap Catalogue**](https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite/blob/main/docs/data/apca-gaps.json)                          | Machine-readable catalogue of 400 APCA (WCAG 3.0 draft) L^c contrast gaps across the 20 themes, for future palette audit.                                                                         |
-| [**Interactive Gallery**](https://zerotosaas-in.github.io/zerotosaas-accessibility-theme-suite/docs/gallery.html)                                  | Live in-browser theme showcase and playground.                                                                                                                                                    |
+| [**Interactive Gallery**](https://zerotosaas-in.github.io/zerotosaas-accessibility-theme-suite/docs/gallery.html)                                           | Live in-browser theme showcase and playground.                                                                                                                                                    |
 
 ---
 
