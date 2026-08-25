@@ -54,5 +54,4 @@ jobs:
       - name: Publish to Open VSX
         env:
           OVSX_PAT: ${{ secrets.OPEN_VSX_TOKEN }}
-        run: |
-          npx ovsx publish zerotosaas-theme-*.vsix --pat "$OVSX_PAT"
+        run: pnpm publish:ovsx
