@@ -15,20 +15,20 @@ Featuring an active **Semantic Cognitive Status System** (`Safe 🟢` → `Cauti
 
 ## Documentation Index
 
-| Document | Description |
-| :--- | :--- |
-| [Themes Reference](docs/Themes-Reference.html) | All 20 theme variants (10 light + 10 night) with canvas colors, chromatic identities, CVD mappings, and day/night auto-switch setup. |
-| [Developer Health & Ergonomics](docs/Health-and-Ergonomics.html) | Ophthalmological rationale for light-mode-first design, pupil constriction optics, astigmatism halation elimination, age-graded ergonomics, CVD inclusivity, and the 20-20-20 clinical checklist. |
-| [Security & Human Firewall](docs/Security-and-Human-Firewall.html) | Semantic Cognitive Status System, secret detection regexes (AWS, GitHub, Slack, JWT, private keys, DB URIs), code-smell prevention, and granular scanner toggles. |
-| [IDE Features & Tooling](docs/IDE-Features.html) | Built-in Error Lens with Git blame, debounced decoration engine, indent shading, log file audit trails, recommended typography, supported IDEs, and installation instructions. |
-| [Cross-Platform: Tokens & Terminals](docs/Cross-Platform.html) | Design token exports (CSS, Tailwind v3/v4, Figma/Style Dictionary) and terminal color schemes (iTerm2, Terminal.app, Windows Terminal, Alacritty, Kitty, Ghostty, Warp) for all 20 themes. |
-| [Validation Report](docs/Validation.html) | Empirical quad-system validation report with figures (OkLCH, Paul Tol CVD, ColorBrewer, FM 100-Hue, WCAG AAA, APCA). |
-| [Medical Guidelines](docs/Guidelines.html) | Clinical ophthalmology citations and ergonomic guidelines underpinning the theme design. |
-| [Engineering Roadmap](docs/TODO.html) | Remaining work: wellness layer, status bar widget, settings UI grouping, APCA gap remediation. |
-| [Wellness & Focus Report](docs/plans/wellness-and-focus-report.html) | Full design and phased implementation plan for the wellness layer (Guardian, Eye-Break v2, Blink Coach, FocusFlow/Pomodoro). |
-| [License & Contributing](docs/License-and-Contributing.html) | AGPLv3 license terms, AGPL header templates for 6 language families, and Contributor License Agreements (ICLA/CCLA). |
-| [APCA Gap Catalogue](docs/apca-gaps.json) | Machine-readable catalogue of 400 APCA (WCAG 3.0 draft) L^c contrast gaps across the 20 themes, for future palette audit. |
-| [Interactive Gallery](docs/previews/gallery.html) | Live in-browser theme showcase and playground with code samples. |
+| Document                                                                                                               | Description                                                                                                                                                                                       |
+| :--------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Themes Reference](docs/Themes-Reference.html)                                                                         | All 20 theme variants (10 light + 10 night) with canvas colors, chromatic identities, CVD mappings, and day/night auto-switch setup.                                                              |
+| [Developer Health & Ergonomics](docs/Health-and-Ergonomics.html)                                                       | Ophthalmological rationale for light-mode-first design, pupil constriction optics, astigmatism halation elimination, age-graded ergonomics, CVD inclusivity, and the 20-20-20 clinical checklist. |
+| [Security & Human Firewall](docs/Security-and-Human-Firewall.html)                                                     | Semantic Cognitive Status System, secret detection regexes (AWS, GitHub, Slack, JWT, private keys, DB URIs), code-smell prevention, and granular scanner toggles.                                 |
+| [IDE Features & Tooling](docs/IDE-Features.html)                                                                       | Built-in Error Lens with Git blame, debounced decoration engine, indent shading, log file audit trails, recommended typography, supported IDEs, and installation instructions.                    |
+| [Cross-Platform: Tokens & Terminals](docs/Cross-Platform.html)                                                         | Design token exports (CSS, Tailwind v3/v4, Figma/Style Dictionary) and terminal color schemes (iTerm2, Terminal.app, Windows Terminal, Alacritty, Kitty, Ghostty, Warp) for all 20 themes.        |
+| [Validation Report](docs/Validation.html)                                                                              | Empirical quad-system validation report with figures (OkLCH, Paul Tol CVD, ColorBrewer, FM 100-Hue, WCAG AAA, APCA).                                                                              |
+| [Medical Guidelines](docs/Guidelines.html)                                                                             | Clinical ophthalmology citations and ergonomic guidelines underpinning the theme design.                                                                                                          |
+| [Engineering Roadmap](docs/TODO.html)                                                                                  | Remaining work: wellness layer, status bar widget, settings UI grouping, APCA gap remediation.                                                                                                    |
+| [Wellness & Focus Report](docs/plans/wellness-and-focus-report.html)                                                   | Full design and phased implementation plan for the wellness layer (Guardian, Eye-Break v2, Blink Coach, FocusFlow/Pomodoro).                                                                      |
+| [License & Contributing](docs/License-and-Contributing.html)                                                           | AGPLv3 license terms, AGPL header templates for 6 language families, and Contributor License Agreements (ICLA/CCLA).                                                                              |
+| [APCA Gap Catalogue](docs/apca-gaps.json)                                                                              | Machine-readable catalogue of 400 APCA (WCAG 3.0 draft) L^c contrast gaps across the 20 themes, for future palette audit.                                                                         |
+| [Interactive Gallery](https://zerotosaas-in.github.io/zerotosaas-accessibility-theme-suite/docs/previews/gallery.html) | Live in-browser theme showcase and playground with code samples.                                                                                                                                  |
 
 ---
 
@@ -44,12 +44,12 @@ Software engineering is one of the most visually and cognitively demanding profe
 
 ### Quad-System Compatibility
 
-| System | Standard | Implementation |
-| :--- | :--- | :--- |
-| **OkLCH Color Space** | Modern Web / Design | Perceptual lightness invariant, zero glare (C ≤ 0.010) |
-| **Paul Tol CVD-Safe** | SRON / Medical Research | Photoreceptor wavelength isolation across Deuteranopia, Protanopia, Tritanopia |
-| **ColorBrewer Scales** | Information Architecture | Qualitative, Sequential, Diverging scale classification |
-| **FM 100-Hue System** | Clinical Ophthalmology | 4-Quadrant optometric separation for alert/type/structure/function tokens |
+| System                 | Standard                 | Implementation                                                                 |
+| :--------------------- | :----------------------- | :----------------------------------------------------------------------------- |
+| **OkLCH Color Space**  | Modern Web / Design      | Perceptual lightness invariant, zero glare (C ≤ 0.010)                         |
+| **Paul Tol CVD-Safe**  | SRON / Medical Research  | Photoreceptor wavelength isolation across Deuteranopia, Protanopia, Tritanopia |
+| **ColorBrewer Scales** | Information Architecture | Qualitative, Sequential, Diverging scale classification                        |
+| **FM 100-Hue System**  | Clinical Ophthalmology   | 4-Quadrant optometric separation for alert/type/structure/function tokens      |
 
 Plus **APCA 0.0.98G** (WCAG 3.0 draft) L^c perceptual contrast scoring with soft-gate gap tracking.
 

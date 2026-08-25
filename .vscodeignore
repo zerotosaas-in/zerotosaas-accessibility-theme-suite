@@ -24,5 +24,6 @@ _config.yml
 _layouts/**
 index.md
 .jekyll-cache/**
+media/*.svg
 CCLA.md
 ICLA.md

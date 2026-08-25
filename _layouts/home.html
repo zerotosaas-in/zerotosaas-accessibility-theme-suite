@@ -1,433 +1,580 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-z2s-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} — ZeroToSaaS</title>
-  <link rel="stylesheet" href="{{ site.baseurl }}/tokens/zerotosaas.css">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }} — ZeroToSaaS</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/tokens/zerotosaas.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --page-font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
-      --page-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
+      :root {
+        --page-font-mono:
+          "Geist Mono", "JetBrains Mono", "Fira Code", "SF Mono", Consolas,
+          monospace;
+        --page-font-sans:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+      }
 
-    body {
-      font-family: var(--page-font-sans);
-      background: var(--z2s-canvas);
-      color: var(--z2s-fg);
-      line-height: 1.6;
-      transition: background 0.25s ease, color 0.25s ease;
-    }
+      body {
+        font-family: var(--page-font-sans);
+        background: var(--z2s-canvas);
+        color: var(--z2s-fg);
+        line-height: 1.6;
+        transition:
+          background 0.25s ease,
+          color 0.25s ease;
+      }
 
-    /* --- Header --- */
-    .site-header {
-      background: var(--z2s-activity-bar-bg);
-      border-bottom: 2px solid var(--z2s-focus-border);
-      padding: 1.5rem 2rem;
-      transition: background 0.25s ease, border-color 0.25s ease;
-    }
-    .site-header-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .site-header h1 {
-      font-size: 1.5rem;
-      color: var(--z2s-keywords-control-flow);
-      font-weight: 700;
-      transition: color 0.25s ease;
-    }
-    .site-header h1 a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .site-header .tagline {
-      font-size: 0.85rem;
-      color: var(--z2s-comments-documentation);
-      margin-top: 0.15rem;
-    }
-    .header-links {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-    .header-links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.4rem 0.85rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-decoration: none;
-      background: var(--z2s-canvas);
-      color: var(--z2s-info-fg);
-      border: 1px solid var(--z2s-indent-guide);
-      transition: all 0.25s ease;
-    }
-    .header-links a:hover {
-      border-color: var(--z2s-focus-border);
-      background: var(--z2s-selection);
-    }
+      /* --- Header --- */
+      .site-header {
+        background: var(--z2s-activity-bar-bg);
+        border-bottom: 2px solid var(--z2s-focus-border);
+        padding: 1.5rem 2rem;
+        transition:
+          background 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .site-header-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .site-header h1 {
+        font-size: 1.5rem;
+        color: var(--z2s-keywords-control-flow);
+        font-weight: 700;
+        transition: color 0.25s ease;
+      }
+      .site-header h1 a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .site-header .tagline {
+        font-size: 0.85rem;
+        color: var(--z2s-comments-documentation);
+        margin-top: 0.15rem;
+      }
+      .header-links {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .header-links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.4rem 0.85rem;
+        border-radius: 6px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        background: var(--z2s-canvas);
+        color: var(--z2s-info-fg);
+        border: 1px solid var(--z2s-indent-guide);
+        transition: all 0.25s ease;
+      }
+      .header-links a:hover {
+        border-color: var(--z2s-focus-border);
+        background: var(--z2s-selection);
+      }
 
-    /* --- Theme Switcher Bar --- */
-    .theme-switcher {
-      background: var(--z2s-sidebar-bg);
-      border-bottom: 1px solid var(--z2s-indent-guide);
-      padding: 0.6rem 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      transition: background 0.25s ease, border-color 0.25s ease;
-    }
-    .theme-switcher-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-    .theme-switcher-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--z2s-comments-documentation);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-right: 0.3rem;
-      white-space: nowrap;
-    }
-    .theme-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.3rem 0.65rem;
-      border-radius: 5px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-      background: var(--z2s-canvas);
-      color: var(--z2s-fg);
-      border: 1px solid var(--z2s-indent-guide);
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .theme-btn:hover {
-      border-color: var(--z2s-focus-border);
-      background: var(--z2s-selection);
-    }
-    .theme-btn.active {
-      border-color: var(--z2s-focus-border);
-      background: var(--z2s-selection);
-      box-shadow: 0 0 0 2px var(--z2s-focus-border);
-    }
-    .theme-swatch {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      border: 1px solid var(--z2s-indent-guide);
-    }
-    .theme-sep {
-      width: 1px;
-      height: 20px;
-      background: var(--z2s-indent-guide);
-      margin: 0 0.25rem;
-      flex-shrink: 0;
-    }
-    .theme-select-wrap { display: none; }
-    .theme-select {
-      padding: 0.35rem 0.6rem;
-      border-radius: 5px;
-      font-size: 0.82rem;
-      background: var(--z2s-canvas);
-      color: var(--z2s-fg);
-      border: 1px solid var(--z2s-indent-guide);
-    }
+      /* --- Theme Switcher Bar --- */
+      .theme-switcher {
+        background: var(--z2s-sidebar-bg);
+        border-bottom: 1px solid var(--z2s-indent-guide);
+        padding: 0.6rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition:
+          background 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .theme-switcher-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+      }
+      .theme-switcher-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--z2s-comments-documentation);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-right: 0.3rem;
+        white-space: nowrap;
+      }
+      .theme-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.3rem 0.65rem;
+        border-radius: 5px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: var(--z2s-canvas);
+        color: var(--z2s-fg);
+        border: 1px solid var(--z2s-indent-guide);
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+      .theme-btn:hover {
+        border-color: var(--z2s-focus-border);
+        background: var(--z2s-selection);
+      }
+      .theme-btn.active {
+        border-color: var(--z2s-focus-border);
+        background: var(--z2s-selection);
+        box-shadow: 0 0 0 2px var(--z2s-focus-border);
+      }
+      .theme-swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        border: 1px solid var(--z2s-indent-guide);
+      }
+      .theme-sep {
+        width: 1px;
+        height: 20px;
+        background: var(--z2s-indent-guide);
+        margin: 0 0.25rem;
+        flex-shrink: 0;
+      }
+      .theme-select-wrap {
+        display: none;
+      }
+      .theme-select {
+        padding: 0.35rem 0.6rem;
+        border-radius: 5px;
+        font-size: 0.82rem;
+        background: var(--z2s-canvas);
+        color: var(--z2s-fg);
+        border: 1px solid var(--z2s-indent-guide);
+      }
 
-    /* --- Main Content --- */
-    .main-content {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    .main-content h1 {
-      font-size: 1.8rem;
-      color: var(--z2s-keywords-control-flow);
-      font-weight: 700;
-      margin: 2rem 0 0.75rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--z2s-indent-guide);
-      transition: color 0.25s ease, border-color 0.25s ease;
-    }
-    .main-content h1:first-child { margin-top: 0; }
-    .main-content h2 {
-      font-size: 1.35rem;
-      color: var(--z2s-keywords-control-flow);
-      font-weight: 700;
-      margin: 1.75rem 0 0.6rem;
-      transition: color 0.25s ease;
-    }
-    .main-content h3 {
-      font-size: 1.1rem;
-      color: var(--z2s-types-classes-structs-interfaces);
-      font-weight: 700;
-      margin: 1.25rem 0 0.5rem;
-      transition: color 0.25s ease;
-    }
-    .main-content p {
-      margin: 0.6rem 0;
-    }
-    .main-content a {
-      color: var(--z2s-info-fg);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: color 0.25s ease, border-color 0.25s ease;
-    }
-    .main-content a:hover {
-      border-bottom-color: var(--z2s-info-fg);
-    }
-    .main-content strong {
-      color: var(--z2s-fg);
-      font-weight: 700;
-    }
-    .main-content code {
-      font-family: var(--page-font-mono);
-      font-size: 0.88em;
-      color: var(--z2s-functions-methods);
-      background: var(--z2s-activity-bar-bg);
-      padding: 0.12rem 0.35rem;
-      border-radius: 4px;
-      transition: color 0.25s ease, background 0.25s ease;
-    }
-    .main-content pre {
-      background: var(--z2s-activity-bar-bg);
-      border: 1px solid var(--z2s-indent-guide);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-      overflow-x: auto;
-      margin: 1rem 0;
-      transition: background 0.25s ease, border-color 0.25s ease;
-    }
-    .main-content pre code {
-      background: none;
-      padding: 0;
-      color: var(--z2s-fg);
-      font-size: 0.85rem;
-      line-height: 1.5;
-    }
-    .main-content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-      font-size: 0.9rem;
-    }
-    .main-content th {
-      background: var(--z2s-activity-bar-bg);
-      color: var(--z2s-keywords-control-flow);
-      font-weight: 700;
-      text-align: left;
-      padding: 0.6rem 0.8rem;
-      border-bottom: 2px solid var(--z2s-focus-border);
-      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-    }
-    .main-content td {
-      padding: 0.5rem 0.8rem;
-      border-bottom: 1px solid var(--z2s-indent-guide);
-      transition: border-color 0.25s ease;
-    }
-    .main-content tr:nth-child(even) td {
-      background: var(--z2s-sidebar-bg);
-      transition: background 0.25s ease;
-    }
-    .main-content blockquote {
-      border-left: 4px solid var(--z2s-caution-fg);
-      background: var(--z2s-sidebar-bg);
-      padding: 0.75rem 1.25rem;
-      margin: 1rem 0;
-      border-radius: 0 8px 8px 0;
-      transition: all 0.25s ease;
-    }
-    .main-content blockquote p { margin: 0.4rem 0; }
-    .main-content hr {
-      border: none;
-      border-top: 1px solid var(--z2s-indent-guide);
-      margin: 2rem 0;
-      transition: border-color 0.25s ease;
-    }
-    .main-content ul, .main-content ol {
-      margin: 0.6rem 0;
-      padding-left: 1.5rem;
-    }
-    .main-content li { margin: 0.3rem 0; }
+      /* --- Main Content --- */
+      .main-content {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      .main-content h1 {
+        font-size: 1.8rem;
+        color: var(--z2s-keywords-control-flow);
+        font-weight: 700;
+        margin: 2rem 0 0.75rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--z2s-indent-guide);
+        transition:
+          color 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .main-content h1:first-child {
+        margin-top: 0;
+      }
+      .main-content h2 {
+        font-size: 1.35rem;
+        color: var(--z2s-keywords-control-flow);
+        font-weight: 700;
+        margin: 1.75rem 0 0.6rem;
+        transition: color 0.25s ease;
+      }
+      .main-content h3 {
+        font-size: 1.1rem;
+        color: var(--z2s-types-classes-structs-interfaces);
+        font-weight: 700;
+        margin: 1.25rem 0 0.5rem;
+        transition: color 0.25s ease;
+      }
+      .main-content p {
+        margin: 0.6rem 0;
+      }
+      .main-content a {
+        color: var(--z2s-info-fg);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition:
+          color 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .main-content a:hover {
+        border-bottom-color: var(--z2s-info-fg);
+      }
+      .main-content strong {
+        color: var(--z2s-fg);
+        font-weight: 700;
+      }
+      .main-content code {
+        font-family: var(--page-font-mono);
+        font-size: 0.88em;
+        color: var(--z2s-functions-methods);
+        background: var(--z2s-activity-bar-bg);
+        padding: 0.12rem 0.35rem;
+        border-radius: 4px;
+        transition:
+          color 0.25s ease,
+          background 0.25s ease;
+      }
+      .main-content pre {
+        background: var(--z2s-activity-bar-bg);
+        border: 1px solid var(--z2s-indent-guide);
+        border-radius: 8px;
+        padding: 1rem 1.25rem;
+        overflow-x: auto;
+        margin: 1rem 0;
+        transition:
+          background 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .main-content pre code {
+        background: none;
+        padding: 0;
+        color: var(--z2s-fg);
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+      .main-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+        font-size: 0.9rem;
+      }
+      .main-content th {
+        background: var(--z2s-activity-bar-bg);
+        color: var(--z2s-keywords-control-flow);
+        font-weight: 700;
+        text-align: left;
+        padding: 0.6rem 0.8rem;
+        border-bottom: 2px solid var(--z2s-focus-border);
+        transition:
+          background 0.25s ease,
+          color 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .main-content td {
+        padding: 0.5rem 0.8rem;
+        border-bottom: 1px solid var(--z2s-indent-guide);
+        transition: border-color 0.25s ease;
+      }
+      .main-content tr:nth-child(even) td {
+        background: var(--z2s-sidebar-bg);
+        transition: background 0.25s ease;
+      }
+      .main-content blockquote {
+        border-left: 4px solid var(--z2s-caution-fg);
+        background: var(--z2s-sidebar-bg);
+        padding: 0.75rem 1.25rem;
+        margin: 1rem 0;
+        border-radius: 0 8px 8px 0;
+        transition: all 0.25s ease;
+      }
+      .main-content blockquote p {
+        margin: 0.4rem 0;
+      }
+      .main-content hr {
+        border: none;
+        border-top: 1px solid var(--z2s-indent-guide);
+        margin: 2rem 0;
+        transition: border-color 0.25s ease;
+      }
+      .main-content ul,
+      .main-content ol {
+        margin: 0.6rem 0;
+        padding-left: 1.5rem;
+      }
+      .main-content li {
+        margin: 0.3rem 0;
+      }
 
-    /* Badge images from README */
-    .main-content p img {
-      display: inline-block;
-      vertical-align: middle;
-    }
+      /* Badge images from README */
+      .main-content p img {
+        display: inline-block;
+        vertical-align: middle;
+      }
 
-    /* --- Footer --- */
-    .site-footer {
-      background: var(--z2s-activity-bar-bg);
-      border-top: 1px solid var(--z2s-indent-guide);
-      padding: 1.25rem 2rem;
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.82rem;
-      color: var(--z2s-comments-documentation);
-      transition: all 0.25s ease;
-    }
-    .site-footer a {
-      color: var(--z2s-info-fg);
-      text-decoration: none;
-    }
-    .site-footer a:hover { text-decoration: underline; }
+      /* --- Footer --- */
+      .site-footer {
+        background: var(--z2s-activity-bar-bg);
+        border-top: 1px solid var(--z2s-indent-guide);
+        padding: 1.25rem 2rem;
+        margin-top: 3rem;
+        text-align: center;
+        font-size: 0.82rem;
+        color: var(--z2s-comments-documentation);
+        transition: all 0.25s ease;
+      }
+      .site-footer a {
+        color: var(--z2s-info-fg);
+        text-decoration: none;
+      }
+      .site-footer a:hover {
+        text-decoration: underline;
+      }
 
-    /* --- Mobile --- */
-    @media (max-width: 640px) {
-      .theme-switcher-inner .theme-btn,
-      .theme-switcher-inner .theme-sep,
-      .theme-switcher-inner .theme-switcher-label { display: none; }
-      .theme-select-wrap { display: block; }
-      .site-header-inner { flex-direction: column; align-items: flex-start; }
-      .main-content { padding: 1.25rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <header class="site-header">
-    <div class="site-header-inner">
-      <div>
-        <h1><a href="{{ site.baseurl }}/">ZeroToSaaS</a></h1>
-        <div class="tagline">Accessibility Theme Suite — 20 WCAG AAA variants</div>
+      /* --- Mobile --- */
+      @media (max-width: 640px) {
+        .theme-switcher-inner .theme-btn,
+        .theme-switcher-inner .theme-sep,
+        .theme-switcher-inner .theme-switcher-label {
+          display: none;
+        }
+        .theme-select-wrap {
+          display: block;
+        }
+        .site-header-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .main-content {
+          padding: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div>
+          <h1><a href="{{ site.baseurl }}/">ZeroToSaaS</a></h1>
+          <div class="tagline">
+            Accessibility Theme Suite — 20 WCAG AAA variants
+          </div>
+        </div>
+        <div class="header-links">
+          <a
+            href="https://zerotosaas-in.github.io/zerotosaas-accessibility-theme-suite/docs/previews/gallery.html"
+            >Interactive Gallery</a
+          >
+          <a
+            href="https://open-vsx.org/extension/zerotosaas-in/zerotosaas-theme"
+            >Marketplace</a
+          >
+          <a
+            href="https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite"
+            >GitHub</a
+          >
+        </div>
       </div>
-      <div class="header-links">
-        <a href="{{ site.baseurl }}/docs/previews/gallery.html">Interactive Gallery</a>
-        <a href="https://open-vsx.org/extension/zerotosaas-in/zerotosaas-theme">Marketplace</a>
-        <a href="https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite">GitHub</a>
+    </header>
+
+    <nav class="theme-switcher" aria-label="Theme switcher">
+      <div class="theme-switcher-inner">
+        <span class="theme-switcher-label">Theme</span>
+        <!-- Desktop: buttons populated by JS -->
+        <div class="theme-select-wrap">
+          <select
+            class="theme-select"
+            id="theme-select"
+            aria-label="Select theme variant"
+          ></select>
+        </div>
       </div>
-    </div>
-  </header>
+    </nav>
 
-  <nav class="theme-switcher" aria-label="Theme switcher">
-    <div class="theme-switcher-inner">
-      <span class="theme-switcher-label">Theme</span>
-      <!-- Desktop: buttons populated by JS -->
-      <div class="theme-select-wrap">
-        <select class="theme-select" id="theme-select" aria-label="Select theme variant"></select>
-      </div>
-    </div>
-  </nav>
+    <main class="main-content">{{ content }}</main>
 
-  <main class="main-content">
-    {{ content }}
-  </main>
+    <footer class="site-footer">
+      <p>
+        This page is styled with ZeroToSaaS design tokens — switch themes above
+        to see all 20 variants.
+      </p>
+      <p>
+        <a
+          href="https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite"
+          >View on GitHub</a
+        >
+        · AGPLv3
+      </p>
+    </footer>
 
-  <footer class="site-footer">
-    <p>This page is styled with ZeroToSaaS design tokens — switch themes above to see all 20 variants.</p>
-    <p><a href="https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite">View on GitHub</a> · AGPLv3</p>
-  </footer>
+    <script>
+      const themes = [
+        { id: "light", name: "Light", swatch: "#0B4F9C", mode: "light" },
+        {
+          id: "high-contrast",
+          name: "High Contrast",
+          swatch: "#000000",
+          mode: "light",
+        },
+        {
+          id: "deuteranopia",
+          name: "Deuteranopia",
+          swatch: "#0043A4",
+          mode: "light",
+        },
+        {
+          id: "protanopia",
+          name: "Protanopia",
+          swatch: "#8C0064",
+          mode: "light",
+        },
+        {
+          id: "tritanopia",
+          name: "Tritanopia",
+          swatch: "#A00028",
+          mode: "light",
+        },
+        { id: "brown", name: "Warm Sepia", swatch: "#5C2C06", mode: "light" },
+        { id: "green", name: "Forest Calm", swatch: "#096032", mode: "light" },
+        { id: "purple", name: "Royal Plum", swatch: "#6B21A8", mode: "light" },
+        { id: "yellow", name: "Golden Sand", swatch: "#6E4E00", mode: "light" },
+        { id: "orange", name: "Terracotta", swatch: "#943800", mode: "light" },
+        {
+          id: "light-night",
+          name: "Light Night",
+          swatch: "#55A5F2",
+          mode: "dark",
+        },
+        {
+          id: "high-contrast-night",
+          name: "HC Night",
+          swatch: "#FFFFFF",
+          mode: "dark",
+        },
+        {
+          id: "deuteranopia-night",
+          name: "Deut. Night",
+          swatch: "#55A5F2",
+          mode: "dark",
+        },
+        {
+          id: "protanopia-night",
+          name: "Prot. Night",
+          swatch: "#ED75B5",
+          mode: "dark",
+        },
+        {
+          id: "tritanopia-night",
+          name: "Trit. Night",
+          swatch: "#FF6C95",
+          mode: "dark",
+        },
+        {
+          id: "brown-night",
+          name: "Sepia Night",
+          swatch: "#CF9673",
+          mode: "dark",
+        },
+        {
+          id: "green-night",
+          name: "Forest Night",
+          swatch: "#6BCB7A",
+          mode: "dark",
+        },
+        {
+          id: "purple-night",
+          name: "Plum Night",
+          swatch: "#BD87F4",
+          mode: "dark",
+        },
+        {
+          id: "yellow-night",
+          name: "Sand Night",
+          swatch: "#E8B85A",
+          mode: "dark",
+        },
+        {
+          id: "orange-night",
+          name: "Terracotta Night",
+          swatch: "#E9875D",
+          mode: "dark",
+        },
+      ];
 
-  <script>
-    const themes = [
-      { id: 'light', name: 'Light', swatch: '#0B4F9C', mode: 'light' },
-      { id: 'high-contrast', name: 'High Contrast', swatch: '#000000', mode: 'light' },
-      { id: 'deuteranopia', name: 'Deuteranopia', swatch: '#0043A4', mode: 'light' },
-      { id: 'protanopia', name: 'Protanopia', swatch: '#8C0064', mode: 'light' },
-      { id: 'tritanopia', name: 'Tritanopia', swatch: '#A00028', mode: 'light' },
-      { id: 'brown', name: 'Warm Sepia', swatch: '#5C2C06', mode: 'light' },
-      { id: 'green', name: 'Forest Calm', swatch: '#096032', mode: 'light' },
-      { id: 'purple', name: 'Royal Plum', swatch: '#6B21A8', mode: 'light' },
-      { id: 'yellow', name: 'Golden Sand', swatch: '#6E4E00', mode: 'light' },
-      { id: 'orange', name: 'Terracotta', swatch: '#943800', mode: 'light' },
-      { id: 'light-night', name: 'Light Night', swatch: '#55A5F2', mode: 'dark' },
-      { id: 'high-contrast-night', name: 'HC Night', swatch: '#FFFFFF', mode: 'dark' },
-      { id: 'deuteranopia-night', name: 'Deut. Night', swatch: '#55A5F2', mode: 'dark' },
-      { id: 'protanopia-night', name: 'Prot. Night', swatch: '#ED75B5', mode: 'dark' },
-      { id: 'tritanopia-night', name: 'Trit. Night', swatch: '#FF6C95', mode: 'dark' },
-      { id: 'brown-night', name: 'Sepia Night', swatch: '#CF9673', mode: 'dark' },
-      { id: 'green-night', name: 'Forest Night', swatch: '#6BCB7A', mode: 'dark' },
-      { id: 'purple-night', name: 'Plum Night', swatch: '#BD87F4', mode: 'dark' },
-      { id: 'yellow-night', name: 'Sand Night', swatch: '#E8B85A', mode: 'dark' },
-      { id: 'orange-night', name: 'Terracotta Night', swatch: '#E9875D', mode: 'dark' },
-    ];
+      const STORAGE_KEY = "z2s-theme";
+      const root = document.documentElement;
+      const switcherInner = document.querySelector(".theme-switcher-inner");
+      const selectWrap = document.querySelector(".theme-select-wrap");
+      const select = document.getElementById("theme-select");
 
-    const STORAGE_KEY = 'z2s-theme';
-    const root = document.documentElement;
-    const switcherInner = document.querySelector('.theme-switcher-inner');
-    const selectWrap = document.querySelector('.theme-select-wrap');
-    const select = document.getElementById('theme-select');
+      function applyTheme(id) {
+        root.setAttribute("data-z2s-theme", id);
+        try {
+          localStorage.setItem(STORAGE_KEY, id);
+        } catch (e) {}
+        document.querySelectorAll(".theme-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.theme === id);
+        });
+        if (select) select.value = id;
+      }
 
-    function applyTheme(id) {
-      root.setAttribute('data-z2s-theme', id);
-      try { localStorage.setItem(STORAGE_KEY, id); } catch (e) {}
-      document.querySelectorAll('.theme-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.theme === id);
+      // Populate desktop buttons
+      const lightThemes = themes.filter((t) => t.mode === "light");
+      const darkThemes = themes.filter((t) => t.mode === "dark");
+
+      lightThemes.forEach((t) => {
+        const btn = document.createElement("button");
+        btn.className = "theme-btn";
+        btn.dataset.theme = t.id;
+        btn.innerHTML =
+          '<span class="theme-swatch" style="background:' +
+          t.swatch +
+          '"></span>' +
+          t.name;
+        btn.onclick = () => applyTheme(t.id);
+        switcherInner.appendChild(btn);
       });
-      if (select) select.value = id;
-    }
 
-    // Populate desktop buttons
-    const lightThemes = themes.filter(t => t.mode === 'light');
-    const darkThemes = themes.filter(t => t.mode === 'dark');
+      const sep = document.createElement("div");
+      sep.className = "theme-sep";
+      switcherInner.appendChild(sep);
 
-    lightThemes.forEach(t => {
-      const btn = document.createElement('button');
-      btn.className = 'theme-btn';
-      btn.dataset.theme = t.id;
-      btn.innerHTML = '<span class="theme-swatch" style="background:' + t.swatch + '"></span>' + t.name;
-      btn.onclick = () => applyTheme(t.id);
-      switcherInner.appendChild(btn);
-    });
+      darkThemes.forEach((t) => {
+        const btn = document.createElement("button");
+        btn.className = "theme-btn";
+        btn.dataset.theme = t.id;
+        btn.innerHTML =
+          '<span class="theme-swatch" style="background:' +
+          t.swatch +
+          '"></span>' +
+          t.name;
+        btn.onclick = () => applyTheme(t.id);
+        switcherInner.appendChild(btn);
+      });
 
-    const sep = document.createElement('div');
-    sep.className = 'theme-sep';
-    switcherInner.appendChild(sep);
+      // Populate mobile dropdown
+      const lightGroup = document.createElement("optgroup");
+      lightGroup.label = "Light Themes";
+      lightThemes.forEach((t) => {
+        const opt = document.createElement("option");
+        opt.value = t.id;
+        opt.textContent = t.name;
+        lightGroup.appendChild(opt);
+      });
+      const darkGroup = document.createElement("optgroup");
+      darkGroup.label = "Night Themes";
+      darkThemes.forEach((t) => {
+        const opt = document.createElement("option");
+        opt.value = t.id;
+        opt.textContent = t.name;
+        darkGroup.appendChild(opt);
+      });
+      select.appendChild(lightGroup);
+      select.appendChild(darkGroup);
+      select.onchange = () => applyTheme(select.value);
 
-    darkThemes.forEach(t => {
-      const btn = document.createElement('button');
-      btn.className = 'theme-btn';
-      btn.dataset.theme = t.id;
-      btn.innerHTML = '<span class="theme-swatch" style="background:' + t.swatch + '"></span>' + t.name;
-      btn.onclick = () => applyTheme(t.id);
-      switcherInner.appendChild(btn);
-    });
-
-    // Populate mobile dropdown
-    const lightGroup = document.createElement('optgroup');
-    lightGroup.label = 'Light Themes';
-    lightThemes.forEach(t => {
-      const opt = document.createElement('option');
-      opt.value = t.id;
-      opt.textContent = t.name;
-      lightGroup.appendChild(opt);
-    });
-    const darkGroup = document.createElement('optgroup');
-    darkGroup.label = 'Night Themes';
-    darkThemes.forEach(t => {
-      const opt = document.createElement('option');
-      opt.value = t.id;
-      opt.textContent = t.name;
-      darkGroup.appendChild(opt);
-    });
-    select.appendChild(lightGroup);
-    select.appendChild(darkGroup);
-    select.onchange = () => applyTheme(select.value);
-
-    // Restore saved theme
-    let saved = 'light';
-    try { saved = localStorage.getItem(STORAGE_KEY) || 'light'; } catch (e) {}
-    if (!themes.find(t => t.id === saved)) saved = 'light';
-    applyTheme(saved);
-  </script>
-
-</body>
+      // Restore saved theme
+      let saved = "light";
+      try {
+        saved = localStorage.getItem(STORAGE_KEY) || "light";
+      } catch (e) {}
+      if (!themes.find((t) => t.id === saved)) saved = "light";
+      applyTheme(saved);
+    </script>
+  </body>
 </html>

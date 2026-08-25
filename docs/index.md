@@ -18,7 +18,7 @@ Welcome to the official documentation portal for the **ZeroToSaaS Accessibility 
 
 ## Reports & References
 
-- �🔬 **[Interactive Gallery & Live Playground](previews/gallery.html)**
+- 🔬 **[Interactive Gallery & Live Playground](https://zerotosaas-in.github.io/zerotosaas-accessibility-theme-suite/docs/previews/gallery.html)**
 - 📊 **[Automated Quad-System Validation Report](Validation.md)**
 - 🏥 **[Medical & Ophthalmic Guidelines](Guidelines.md)**
 - 🗺️ **[Engineering Roadmap & Architecture](TODO.md)**
