@@ -1,6 +1,9 @@
 ---
 layout: default
 title: The 20 Accessible Theme Variants
+redirect_from:
+  - /docs/Themes-Reference.md
+  - /docs/Themes-Reference.html
 ---
 
 # 🎨 The 20 Accessible Theme Variants (10 Light + 10 Night)

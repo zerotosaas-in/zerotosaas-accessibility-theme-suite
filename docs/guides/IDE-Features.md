@@ -1,6 +1,9 @@
 ---
 layout: default
 title: Built-in IDE Features & Tooling
+redirect_from:
+  - /docs/IDE-Features.md
+  - /docs/IDE-Features.html
 ---
 
 # ⚡ Built-in Developer Ergonomics & Tooling

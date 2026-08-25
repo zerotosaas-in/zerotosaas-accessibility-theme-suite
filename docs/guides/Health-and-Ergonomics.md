@@ -1,6 +1,9 @@
 ---
 layout: default
 title: Developer Health & Ophthalmological Ergonomics
+redirect_from:
+  - /docs/Health-and-Ergonomics.md
+  - /docs/Health-and-Ergonomics.html
 ---
 
 # 👁️ Developer Health & Ophthalmological Ergonomics

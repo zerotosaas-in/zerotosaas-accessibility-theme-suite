@@ -1,6 +1,9 @@
 ---
 layout: default
 title: License, AGPL Headers & Contributing
+redirect_from:
+  - /docs/License-and-Contributing.md
+  - /docs/License-and-Contributing.html
 ---
 
 # 📄 License & Attribution

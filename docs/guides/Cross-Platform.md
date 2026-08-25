@@ -1,6 +1,9 @@
 ---
 layout: default
 title: Cross-Platform — Terminals, Design Tokens & Web Frameworks
+redirect_from:
+  - /docs/Cross-Platform.md
+  - /docs/Cross-Platform.html
 ---
 
 # 🎨 Cross-Platform: Terminals, Design Tokens & Web Frameworks

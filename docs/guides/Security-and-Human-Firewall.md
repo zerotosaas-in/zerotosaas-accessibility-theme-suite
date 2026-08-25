@@ -1,6 +1,9 @@
 ---
 layout: default
 title: Digital Security, Data Privacy & Leak Prevention
+redirect_from:
+  - /docs/Security-and-Human-Firewall.md
+  - /docs/Security-and-Human-Firewall.html
 ---
 
 # 🛡️ Digital Security, Data Privacy & Leak Prevention
@@ -38,10 +41,10 @@ Data breaches and accidental secret leaks frequently originate from human oversi
 
 Each scanner category can be independently toggled via Settings (`Ctrl+,` → Extensions → ZeroToSaaS):
 
-| Setting | Default | Description |
-| :--- | :--- | :--- |
-| `zerotosaas.statusBadges.detectSecrets` | `true` | AWS keys, GitHub/Slack PATs, JWTs, private keys, Stripe keys, GCP keys, Bearer tokens, database URIs |
-| `zerotosaas.statusBadges.detectHardcodedStrings` | `true` | Non-secret hardcoded quoted strings in source code |
-| `zerotosaas.statusBadges.detectTypes` | `true` | Type definitions, function parameters, Markdown inline code |
-| `zerotosaas.statusBadges.detectLogSeverity` | `true` | Log severity keywords (FATAL, ERROR, WARN, INFO, DEBUG) in `.log` files |
-| `zerotosaas.statusBadges.detectConfigFiles` | `true` | Sensitive configuration keys (SECRET, TOKEN, KEY, PASSWORD) in TOML/YAML/JSON/INI |
+| Setting                                          | Default | Description                                                                                          |
+| :----------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------- |
+| `zerotosaas.statusBadges.detectSecrets`          | `true`  | AWS keys, GitHub/Slack PATs, JWTs, private keys, Stripe keys, GCP keys, Bearer tokens, database URIs |
+| `zerotosaas.statusBadges.detectHardcodedStrings` | `true`  | Non-secret hardcoded quoted strings in source code                                                   |
+| `zerotosaas.statusBadges.detectTypes`            | `true`  | Type definitions, function parameters, Markdown inline code                                          |
+| `zerotosaas.statusBadges.detectLogSeverity`      | `true`  | Log severity keywords (FATAL, ERROR, WARN, INFO, DEBUG) in `.log` files                              |
+| `zerotosaas.statusBadges.detectConfigFiles`      | `true`  | Sensitive configuration keys (SECRET, TOKEN, KEY, PASSWORD) in TOML/YAML/JSON/INI                    |

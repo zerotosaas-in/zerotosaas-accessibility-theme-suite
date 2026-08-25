@@ -3,6 +3,7 @@ layout: default
 title: Automated Quad-System Validation Matrix & Verification Report
 redirect_from:
   - /docs/Validation.md
+  - /docs/Validation.html
   - /docs/guides/Validation.md
 ---
 
