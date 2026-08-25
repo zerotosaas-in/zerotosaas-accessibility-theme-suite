@@ -307,6 +307,19 @@
         vertical-align: middle;
       }
 
+    /* --- Header Icon --- */
+    .site-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .site-header-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
       /* --- Footer --- */
       .site-footer {
         background: var(--z2s-activity-bar-bg);
@@ -349,10 +362,13 @@
   <body>
     <header class="site-header">
       <div class="site-header-inner">
-        <div>
-          <h1><a href="{{ site.baseurl }}/">ZeroToSaaS</a></h1>
-          <div class="tagline">
-            Accessibility Theme Suite — 20 WCAG AAA variants
+        <div class="site-header-title">
+          <img src="{{ site.baseurl }}/media/icon.png" class="site-icon" alt="ZeroToSaaS" />
+          <div>
+            <h1><a href="{{ site.baseurl }}/">ZeroToSaaS</a></h1>
+            <div class="tagline">
+              Accessibility Theme Suite — 20 WCAG AAA variants
+            </div>
           </div>
         </div>
         <div class="header-links">
