@@ -197,98 +197,137 @@
         "path": "./themes/zerotosaas-orange-night.json"
       }
     ],
-    "configuration": {
-      "title": "ZeroToSaaS Theme Suite",
-      "properties": {
-        "zerotosaas.errorLens.enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Print compilation diagnostics and linter warnings inline at the end of broken code lines (Error Lens)."
-        },
-        "zerotosaas.errorLens.showEntireLineBackground": {
-          "type": "boolean",
-          "default": false,
-          "description": "Highlight the entire line background in subtle Panic/Warning alert tint when an error occurs."
-        },
-        "zerotosaas.errorLens.showSeverityBadge": {
-          "type": "boolean",
-          "default": true,
-          "description": "Display semantic severity badges ([Error], [Warning], [Info]) in inline diagnostics."
-        },
-        "zerotosaas.errorLens.showGitBlame": {
-          "type": "boolean",
-          "default": true,
-          "description": "Inject instant line-by-line Git authorship history (Git Blame: author, time, commit) on Error Lens lines."
-        },
-        "zerotosaas.indentShading.enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable alternating odd-sequence visible indent column background shading."
-        },
-        "zerotosaas.statusBadges.enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable automatic Safe, Caution, Warning, and Panic background status badges on code tokens."
-        },
-        "zerotosaas.statusBadges.detectSecrets": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect high-entropy secrets and provider tokens (AWS keys, GitHub/Slack PATs, JWTs, private key headers, Stripe keys, Google Cloud keys, Bearer tokens, database URIs) and flag them as Panic. Also scans .env files for secret keys and values."
-        },
-        "zerotosaas.statusBadges.detectHardcodedStrings": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect non-secret hardcoded quoted strings in source code and flag them as Warning. String collection still runs internally for regex-literal exclusion even when disabled."
-        },
-        "zerotosaas.statusBadges.detectTypes": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect type definitions (interfaces, types, classes, enums, structs), function parameters, and Markdown inline code blocks, flagging them as Safe or Caution."
-        },
-        "zerotosaas.statusBadges.detectLogSeverity": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect log severity keywords (FATAL, ERROR, WARN, INFO, DEBUG, etc.) in .log files and flag them with the corresponding semantic status (Panic, Warning, Safe, Caution)."
-        },
-        "zerotosaas.statusBadges.detectConfigFiles": {
-          "type": "boolean",
-          "default": true,
-          "description": "Detect sensitive configuration keys (SECRET, TOKEN, KEY, PASSWORD, etc.) in TOML, YAML, JSON, and INI files and flag them as Panic."
-        },
-        "zerotosaas.maxFileSizeKB": {
-          "type": "number",
-          "default": 500,
-          "description": "Maximum file size in Kilobytes (KB) for full-document semantic status badge regex analysis."
-        },
-        "zerotosaas.restReminder.enabled": {
-          "type": "boolean",
-          "default": false,
-          "description": "Enable the 20-20-20 Ocular Rest Assistant and blink reminder in the status bar."
-        },
-        "zerotosaas.restReminder.intervalMinutes": {
-          "type": "number",
-          "default": 20,
-          "minimum": 1,
-          "description": "Minutes between 20-20-20 ocular rest reminders."
-        },
-        "zerotosaas.restReminder.breakDurationSeconds": {
-          "type": "number",
-          "default": 20,
-          "minimum": 5,
-          "description": "Duration in seconds of each 20-20-20 eye break."
-        },
-        "zerotosaas.wellness.darkAdvisory.suppressed": {
-          "type": "boolean",
-          "default": false,
-          "description": "Silence dark-theme eye-health advisories permanently (both the night-theme QuickPick notice and the external dark-activation warning). Re-enable any time from Settings. The full medical rationale remains available via the 'ZeroToSaaS: Open Eye-Health Guidelines' command."
-        },
-        "zerotosaas.statusBar.enabled": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show the persistent ZeroToSaaS status bar badge ($(shield) ZeroToSaaS [AAA]) with a quick-access menu (Settings, Eye-Health Guidelines, Reset Rest Timer, active theme)."
+    "configuration": [
+      {
+        "title": "ZeroToSaaS — Error Lens",
+        "properties": {
+          "zerotosaas.errorLens.enabled": {
+            "type": "boolean",
+            "default": true,
+            "order": 1,
+            "description": "Print compilation diagnostics and linter warnings inline at the end of broken code lines (Error Lens)."
+          },
+          "zerotosaas.errorLens.showSeverityBadge": {
+            "type": "boolean",
+            "default": true,
+            "order": 2,
+            "description": "Display semantic severity badges ([Error], [Warning], [Info]) in inline diagnostics."
+          },
+          "zerotosaas.errorLens.showEntireLineBackground": {
+            "type": "boolean",
+            "default": false,
+            "order": 3,
+            "description": "Highlight the entire line background in subtle Panic/Warning alert tint when an error occurs."
+          },
+          "zerotosaas.errorLens.showGitBlame": {
+            "type": "boolean",
+            "default": true,
+            "order": 4,
+            "description": "Inject instant line-by-line Git authorship history (Git Blame: author, time, commit) on Error Lens lines."
+          }
+        }
+      },
+      {
+        "title": "ZeroToSaaS — Status Badges",
+        "properties": {
+          "zerotosaas.statusBadges.enabled": {
+            "type": "boolean",
+            "default": true,
+            "order": 1,
+            "description": "Enable automatic Safe, Caution, Warning, and Panic background status badges on code tokens."
+          },
+          "zerotosaas.statusBadges.detectTypes": {
+            "type": "boolean",
+            "default": true,
+            "order": 2,
+            "description": "Detect type definitions (interfaces, types, classes, enums, structs), function parameters, and Markdown inline code blocks, flagging them as Safe or Caution."
+          },
+          "zerotosaas.statusBadges.detectSecrets": {
+            "type": "boolean",
+            "default": true,
+            "order": 3,
+            "description": "Detect high-entropy secrets and provider tokens (AWS keys, GitHub/Slack PATs, JWTs, private key headers, Stripe keys, Google Cloud keys, Bearer tokens, database URIs) and flag them as Panic. Also scans .env files for secret keys and values."
+          },
+          "zerotosaas.statusBadges.detectHardcodedStrings": {
+            "type": "boolean",
+            "default": true,
+            "order": 4,
+            "description": "Detect non-secret hardcoded quoted strings in source code and flag them as Warning. String collection still runs internally for regex-literal exclusion even when disabled."
+          },
+          "zerotosaas.statusBadges.detectLogSeverity": {
+            "type": "boolean",
+            "default": true,
+            "order": 5,
+            "description": "Detect log severity keywords (FATAL, ERROR, WARN, INFO, DEBUG, etc.) in .log files and flag them with the corresponding semantic status (Panic, Warning, Safe, Caution)."
+          },
+          "zerotosaas.statusBadges.detectConfigFiles": {
+            "type": "boolean",
+            "default": true,
+            "order": 6,
+            "description": "Detect sensitive configuration keys (SECRET, TOKEN, KEY, PASSWORD, etc.) in TOML, YAML, JSON, and INI files and flag them as Panic."
+          },
+          "zerotosaas.maxFileSizeKB": {
+            "type": "number",
+            "default": 500,
+            "order": 7,
+            "description": "Maximum file size in Kilobytes (KB) for full-document semantic status badge regex analysis."
+          },
+          "zerotosaas.statusBar.enabled": {
+            "type": "boolean",
+            "default": true,
+            "order": 8,
+            "description": "Show the persistent ZeroToSaaS status bar badge ($(shield) ZeroToSaaS [AAA]) with a quick-access menu (Settings, Eye-Health Guidelines, Reset Rest Timer, active theme)."
+          }
+        }
+      },
+      {
+        "title": "ZeroToSaaS — Indent Shading",
+        "properties": {
+          "zerotosaas.indentShading.enabled": {
+            "type": "boolean",
+            "default": true,
+            "order": 1,
+            "description": "Enable alternating odd-sequence visible indent column background shading."
+          }
+        }
+      },
+      {
+        "title": "ZeroToSaaS — Rest Reminder",
+        "properties": {
+          "zerotosaas.restReminder.enabled": {
+            "type": "boolean",
+            "default": false,
+            "order": 1,
+            "description": "Enable the 20-20-20 Ocular Rest Assistant and blink reminder in the status bar."
+          },
+          "zerotosaas.restReminder.intervalMinutes": {
+            "type": "number",
+            "default": 20,
+            "minimum": 1,
+            "order": 2,
+            "description": "Minutes between 20-20-20 ocular rest reminders."
+          },
+          "zerotosaas.restReminder.breakDurationSeconds": {
+            "type": "number",
+            "default": 20,
+            "minimum": 5,
+            "order": 3,
+            "description": "Duration in seconds of each 20-20-20 eye break."
+          }
+        }
+      },
+      {
+        "title": "ZeroToSaaS — Wellness",
+        "properties": {
+          "zerotosaas.wellness.darkAdvisory.suppressed": {
+            "type": "boolean",
+            "default": false,
+            "order": 1,
+            "description": "Silence dark-theme eye-health advisories permanently (both the night-theme QuickPick notice and the external dark-activation warning). Re-enable any time from Settings. The full medical rationale remains available via the 'ZeroToSaaS: Open Eye-Health Guidelines' command."
+          }
         }
       }
-    },
+    ],
     "commands": [
       {
         "command": "zerotosaas.resetRestTimer",
