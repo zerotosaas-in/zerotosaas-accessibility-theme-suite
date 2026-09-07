@@ -8,6 +8,24 @@ const version = pkg.version;
 const extId = `${pkg.publisher}.${pkg.name}`;
 const extDirName = `${extId}-${version}`;
 
+function isZerotosaasThemeId(id) {
+  return typeof id === 'string' && id.endsWith(`.${pkg.name}`);
+}
+
+function isZerotosaasThemeDirName(name) {
+  return name.includes(`.${pkg.name}-`);
+}
+
+function safeJoin(base, ...segments) {
+  for (const seg of segments) {
+    if (seg === '..' || seg === '.' || seg.includes('/') || seg.includes('\\')) {
+      throw new Error(`Refusing unsafe path segment: ${seg}`);
+    }
+  }
+  // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
+  return path.join(base, ...segments);
+}
+
 const targets = [
   {
     name: 'Codium',
@@ -23,13 +41,18 @@ const targets = [
     name: 'Antigravity IDE',
     extDir: path.join(os.homedir(), '.antigravity-ide', 'extensions'),
     cacheDir: path.join(os.homedir(), 'Library', 'Application Support', 'Antigravity IDE', 'CachedProfilesData')
+  },
+  {
+    name: 'Devin',
+    extDir: path.join(os.homedir(), '.devin', 'extensions'),
+    cacheDir: path.join(os.homedir(), 'Library', 'Application Support', 'Devin', 'CachedProfilesData')
   }
 ];
 
 let failed = false;
 
 function updateExtensionsJson(extDir, name) {
-  const jsonPath = path.join(extDir, 'extensions.json');
+  const jsonPath = safeJoin(extDir, 'extensions.json');
   if (!fs.existsSync(jsonPath)) return;
   let entries;
   try {
@@ -39,19 +62,20 @@ function updateExtensionsJson(extDir, name) {
     failed = true;
     return;
   }
-  // Remove any stale entries for this extension (any version)
+  // Remove any stale entries for this extension (any version, any publisher id)
   const before = entries.length;
-  entries = entries.filter(e => !(e.identifier && e.identifier.id === extId));
+  entries = entries.filter(e => !(e.identifier && isZerotosaasThemeId(e.identifier.id)));
   const removed = before - entries.length;
   // Add the current version entry
+  const locationPath = safeJoin(extDir, extDirName);
   entries.push({
     identifier: { id: extId },
     version,
     location: {
       $mid: 1,
-      fsPath: path.join(extDir, extDirName),
-      external: `file://${path.join(extDir, extDirName)}`,
-      path: path.join(extDir, extDirName),
+      fsPath: locationPath,
+      external: `file://${locationPath}`,
+      path: locationPath,
       scheme: 'file'
     },
     relativeLocation: extDirName
@@ -70,7 +94,7 @@ function clearCaches(cacheDir, name) {
   for (const profile of fs.readdirSync(cacheDir, { withFileTypes: true })) {
     if (!profile.isDirectory()) continue;
     for (const file of ['extensions.user.cache', 'extensions.builtin.cache']) {
-      const filePath = path.join(cacheDir, profile.name, file);
+      const filePath = safeJoin(cacheDir, profile.name, file);
       try {
         fs.rmSync(filePath, { force: true });
         console.log(`🧹 ${name}: cleared ${filePath}`);
@@ -89,8 +113,8 @@ for (const { name, extDir, cacheDir } of targets) {
   }
 
   for (const entry of fs.readdirSync(extDir, { withFileTypes: true })) {
-    if (!entry.name.startsWith(`${extId}-`)) continue;
-    const entryPath = path.join(extDir, entry.name);
+    if (!isZerotosaasThemeDirName(entry.name)) continue;
+    const entryPath = safeJoin(extDir, entry.name);
     try {
       fs.rmSync(entryPath, { recursive: true, force: true });
       console.log(`🗑  ${name}: removed ${entryPath}`);
@@ -100,7 +124,7 @@ for (const { name, extDir, cacheDir } of targets) {
     }
   }
 
-  const linkPath = path.join(extDir, extDirName);
+  const linkPath = safeJoin(extDir, extDirName);
   try {
     fs.symlinkSync(repoRoot, linkPath, 'dir');
     console.log(`✅ ${name}: ${linkPath} -> ${repoRoot}`);

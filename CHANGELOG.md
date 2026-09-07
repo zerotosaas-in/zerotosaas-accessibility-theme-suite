@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- **Theme persistence**: `applyDefaultThemeOnce` is now gated behind the new `zerotosaas.theme.applyDefaultOnFirstRun` setting (default `false`) and respects any explicitly set `workbench.colorTheme` via `workbench.inspect()`. The `globalState` gate is written to both a stable key and a versioned key so version bumps do not silently re-apply the theme.
+- **IDE install hygiene**: `scripts/update-ide-configs.js` now removes stale `*.zerotosaas-theme-*` folders and `*.zerotosaas-theme` `extensions.json` entries for both the current and old publisher ids, and adds a Devin IDE target.
+
 ## [0.6.0] - 2026-08-25
 
 ### Added

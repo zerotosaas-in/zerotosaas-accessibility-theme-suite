@@ -199,6 +199,17 @@
     ],
     "configuration": [
       {
+        "title": "ZeroToSaaS — Theme",
+        "properties": {
+          "zerotosaas.theme.applyDefaultOnFirstRun": {
+            "type": "boolean",
+            "default": false,
+            "order": 1,
+            "description": "Apply the ZeroToSaaS default theme on the very first activation if the current theme is still a VS Code built-in default. Disabled by default so it never overrides an explicit user choice."
+          }
+        }
+      },
+      {
         "title": "ZeroToSaaS — Error Lens",
         "properties": {
           "zerotosaas.errorLens.enabled": {
@@ -400,6 +411,8 @@
   "packageManager": "pnpm@11.23.0",
   "scripts": {
     "build": "node scripts/generate-themes.js && node scripts/update-ide-configs.js && node scripts/generate-gallery.js && node scripts/export-tokens.js",
+    "vscode:prepublish": "pnpm run build && pnpm run clean:vsix",
+    "clean:vsix": "node scripts/clean-vsix.js",
     "update-ide-configs": "node scripts/update-ide-configs.js",
     "validate": "node scripts/validate-contrast.js",
     "gallery": "node scripts/generate-gallery.js",

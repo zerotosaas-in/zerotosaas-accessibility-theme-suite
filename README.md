@@ -109,6 +109,14 @@ pnpm run package
 
 ---
 
+## Per-IDE Theme Persistence
+
+ZeroToSaaS does not share or synchronize themes between IDEs. The active color theme is stored in each IDE's own `workbench.colorTheme` user setting (`~/Library/Application Support/<IDE>/User/settings.json`) and in each IDE's own extension `globalState` (`state.vscdb`). Installing or symlinking the same extension folder into multiple IDEs shares only the source code, not the selected theme.
+
+If you change the theme in one IDE and see it appear in another, that is an IDE-level settings sync (for example Antigravity's Google Unified State Sync) overwriting `workbench.colorTheme`. To keep different themes per IDE, disable theme sync in that IDE's account settings. ZeroToSaaS only writes `workbench.colorTheme` at first activation when `zerotosaas.theme.applyDefaultOnFirstRun` is enabled (default: off).
+
+---
+
 ## 📄 License
 
 This project is free software licensed under the **[GNU Affero General Public License v3.0 (AGPLv3)](https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite/blob/main/LICENSE)**. For the full license text, AGPL header templates, and Contributor License Agreements, see [License & Contributing](https://github.com/zerotosaas-in/zerotosaas-accessibility-theme-suite/blob/main/docs/legal/License-and-Contributing.md).

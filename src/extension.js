@@ -1360,10 +1360,15 @@ function openGuidelinesDoc() {
 // is still on a VS Code built-in default theme. Also sets the native
 // preferredDark/preferredLight themes so that VS Code/VSCodium's built-in
 // `window.autoDetectColorScheme` (OS-appearance follow) uses ZeroToSaaS themes.
-// Fires once (gated by globalState); never overrides an explicit user choice.
+// Fires once (gated by globalState) and only when
+// `zerotosaas.theme.applyDefaultOnFirstRun` is enabled; never overrides an
+// explicit user choice.
 const Z2S_DEFAULT_THEME = 'ZeroToSaaS Light (Default)';
 const Z2S_DEFAULT_DARK_THEME = 'ZeroToSaaS Light Night (Default)';
+// Stable gate key shared across versions; a versioned alias is also written so
+// upgrades can migrate the flag without silently re-applying the theme.
 const Z2S_DEFAULT_APPLIED_KEY = 'z2s.defaultThemeApplied';
+const Z2S_DEFAULT_APPLIED_VERSIONED_KEY_PREFIX = `${Z2S_DEFAULT_APPLIED_KEY}.v`;
 const VSCODE_BUILTIN_DEFAULTS = new Set([
   'Default Dark+', 'Dark+', 'Default Light+', 'Light+',
   'Dark Modern', 'Light Modern', 'Dark', 'Light',
@@ -1371,12 +1376,46 @@ const VSCODE_BUILTIN_DEFAULTS = new Set([
   'High Contrast', 'High Contrast Light'
 ]);
 
+function defaultThemeAppliedKey(context) {
+  const version = context && context.extension && context.extension.packageJSON
+    ? context.extension.packageJSON.version
+    : null;
+  return version ? `${Z2S_DEFAULT_APPLIED_VERSIONED_KEY_PREFIX}${version}` : Z2S_DEFAULT_APPLIED_KEY;
+}
+
+function hasExplicitThemeSetting(inspect) {
+  if (!inspect) return false;
+  return inspect.globalValue !== undefined ||
+    inspect.workspaceValue !== undefined ||
+    inspect.workspaceFolderValue !== undefined;
+}
+
+async function markDefaultThemeApplied(context, versionedKey) {
+  await context.globalState.update(versionedKey, true);
+  await context.globalState.update(Z2S_DEFAULT_APPLIED_KEY, true);
+}
+
 async function applyDefaultThemeOnce(context) {
   if (!context || !context.globalState) return;
-  if (context.globalState.get(Z2S_DEFAULT_APPLIED_KEY, false)) return;
+
+  const z2sConfig = vscode.workspace.getConfiguration('zerotosaas');
+  if (!z2sConfig.get('theme.applyDefaultOnFirstRun', false)) return;
+
+  const appliedKey = defaultThemeAppliedKey(context);
+  if (context.globalState.get(appliedKey, context.globalState.get(Z2S_DEFAULT_APPLIED_KEY, false))) {
+    return;
+  }
 
   const workbench = vscode.workspace.getConfiguration('workbench');
   const current = workbench.get('colorTheme', '');
+  const colorThemeInspect = workbench.inspect('colorTheme');
+
+  // Respect any explicit user choice (user, workspace, or folder scope) even if
+  // the current value happens to equal a built-in default label.
+  if (hasExplicitThemeSetting(colorThemeInspect)) {
+    await markDefaultThemeApplied(context, appliedKey);
+    return;
+  }
 
   // Only switch if the user is on a known VS Code built-in default.
   // Never override a non-default theme (including other extensions' themes).
@@ -1400,7 +1439,7 @@ async function applyDefaultThemeOnce(context) {
 
   // Mark as applied regardless of whether we switched — so we never override
   // a user's explicit choice on subsequent activations.
-  await context.globalState.update(Z2S_DEFAULT_APPLIED_KEY, true);
+  await markDefaultThemeApplied(context, appliedKey);
 }
 
 function activate(context) {
