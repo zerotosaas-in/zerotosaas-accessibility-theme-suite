@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- **Marketplace keywords expanded** from 58 to 97 tags in `package.json`, adding plain-language health and comfort terms (`eye comfort`, `eye care`, `eye fatigue`, `digital eye strain`, `sensitive eyes`, `easy on eyes`, `soothing`, `calm`, `gentle`, `relaxed`, `relaxing`, `light sensitivity`, `low vision`, `vision health`, `blink reminder`, `break reminder`, `eye break`, `eye rest`), common search aliases (`dark mode`, `light mode`, `night mode`, `color theme`, `editor theme`, `ide theme`, `vscode`, `devin`, `a11y`, `accessible`, `contrast`, `readability`, `readable`, `comfortable`, `health`, `warm`, `sepia`, `forest`, `earth tones`, `color vision deficiency`) — every tag maps to an actual feature or design intent (20-20-20 rest/blink reminders, eye-health guidelines, dark-theme advisories, CVD variants, ISO 9241-303 high contrast, Warm Sepia/Forest Calm/Terracotta palettes, light + night families). No tags added for features the suite does not have (e.g. pastel, minimal, OLED, blue-light filter, dyslexia-specific support).
+
 ### Changed
 
 - **Theme persistence**: `applyDefaultThemeOnce` is now gated behind the new `zerotosaas.theme.applyDefaultOnFirstRun` setting (default `false`) and respects any explicitly set `workbench.colorTheme` via `workbench.inspect()`. The `globalState` gate is written to both a stable key and a versioned key so version bumps do not silently re-apply the theme.
