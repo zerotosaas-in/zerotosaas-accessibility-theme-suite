@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Minimal Night",
+  "background": "#0F0D08",
+  "foreground": "#E2E9F1",
+  "cursorColor": "#90A8BE",
+  "selectionBackground": "#1C3042",
+  "black": "#15130D",
+  "red": "#E18B8C",
+  "green": "#82BF90",
+  "yellow": "#CAB588",
+  "blue": "#90A8BE",
+  "purple": "#9DA5B3",
+  "cyan": "#8CAE9A",
+  "white": "#E2E9F1",
+  "brightBlack": "#181610",
+  "brightRed": "#E18B8C",
+  "brightGreen": "#82BF90",
+  "brightYellow": "#CAB588",
+  "brightBlue": "#A4BACF",
+  "brightPurple": "#9DA5B3",
+  "brightCyan": "#8CAE9A",
+  "brightWhite": "#FFFFFF"
+}

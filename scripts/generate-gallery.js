@@ -11,7 +11,9 @@ const path = require('path');
 const THEMES_DIR = path.join(__dirname, '..', 'themes');
 const OUTPUT_HTML = path.join(__dirname, '..', 'docs', 'gallery.html');
 
-// Read all 20 theme definitions (10 Light + 10 Night)
+// Curated theme definitions showcased in the gallery. Counts shown in the
+// page copy are derived from this list (see THEME_COUNT / CONTRAST_ASSERTIONS
+// below) so they stay accurate as themes are added or removed.
 const themeFiles = [
   { id: 'default', file: 'zerotosaas-light.json', name: 'ZeroToSaaS Light (Default)', icon: '💡', swatch: '#0B4F9C', systems: ['oklch', 'colorbrewer', 'fm100'], cvd: 'standard', desc: 'Cobalt-Slate balanced core palette', mode: 'light' },
   { id: 'green', file: 'zerotosaas-green.json', name: 'Forest Calm (Green)', icon: '🌲', swatch: '#096032', systems: ['oklch', 'colorbrewer', 'fm100'], cvd: 'standard', desc: 'Restful botanical green palette', mode: 'light' },
@@ -34,6 +36,16 @@ const themeFiles = [
   { id: 'tritanopia-night', file: 'zerotosaas-tritanopia-night.json', name: 'Tritanopia Night (Crimson/Cyan)', icon: '🌐', swatch: '#FC7291', systems: ['paultol'], cvd: 'tritanopia', desc: 'Dark Crimson/Cyan photoreceptor isolation', mode: 'dark' },
   { id: 'high-contrast-night', file: 'zerotosaas-high-contrast-night.json', name: 'High Contrast Night (ISO 9241-303)', icon: '⚡', swatch: '#5B9BD6', systems: ['colorbrewer'], cvd: 'high-contrast', desc: 'Dark ultra-clear contrast, white borders', mode: 'dark' }
 ];
+
+// Derived copy values — never hardcode theme/assertion counts in the page.
+// The assertion count mirrors scripts/validate-contrast.js: 1 polarity check +
+// 1 base-text check + one check per tokenColor with a foreground, per theme.
+const THEME_COUNT = themeFiles.length;
+const CONTRAST_ASSERTIONS = themeFiles.reduce((sum, t) => {
+  const theme = JSON.parse(fs.readFileSync(path.join(THEMES_DIR, t.file), 'utf8'));
+  const tokenChecks = theme.tokenColors.filter(tok => tok.settings && tok.settings.foreground).length;
+  return sum + 2 + tokenChecks;
+}, 0);
 
 const htmlContent = `<!DOCTYPE html>
 <html lang="en">
@@ -745,7 +757,7 @@ const htmlContent = `<!DOCTYPE html>
   <div class="top-header">
     <div>
       <h1>🔬 Zerotosaas Quad-System Interactive Gallery</h1>
-      <p style="font-size:0.85rem; color:#64748B;">Explore all 10 themes across Oklch, Paul Tol Cvd, Colorbrewer, and Fm 100-Hue systems.</p>
+      <p style="font-size:0.85rem; color:#64748B;">Explore all ${THEME_COUNT} themes across Oklch, Paul Tol Cvd, Colorbrewer, and Fm 100-Hue systems.</p>
     </div>
     <div class="header-links">
       <a href="../Validation.md" class="link-btn">📊 Validation</a>
@@ -1190,7 +1202,7 @@ const htmlContent = `<!DOCTYPE html>
           '<div class="line"><span class="ln">2</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:01.442</span> <span class="status-tag status-caution">[Warn]</span> <span style="color:' + t.string + ';">Re-trying network handshake with peer (latency: 48ms)</span></span></div>',
           '<div class="line"><span class="ln">3</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:02.910</span> <span class="status-tag status-warning">[Warn]</span> <span style="color:' + t.string + ';">Deprecated auth provider signature detected in header</span></span></div>',
           '<div class="line"><span class="ln">4</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:03.118</span> <span class="status-tag status-panic">[Error]</span> <span style="color:' + t.panicFg + '; font-weight:bold;">Secret Key exposure attempt blocked by ZeroToSaaS Human Firewall</span></span></div>',
-          '<div class="line"><span class="ln">5</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:04.550</span> <span class="status-tag status-safe">[Info]</span> <span style="color:' + t.type + ';">Verified all 420 contrast assertions across 10 themes</span></span></div>'
+          '<div class="line"><span class="ln">5</span><span class="code"><span style="color:' + t.comment + ';">2026-08-22 18:40:04.550</span> <span class="status-tag status-safe">[Info]</span> <span style="color:' + t.type + ';">Verified all ${CONTRAST_ASSERTIONS} contrast assertions across ${THEME_COUNT} themes</span></span></div>'
         ].join('')
       },
       config: {

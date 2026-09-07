@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Minimal",
+  "background": "#FCFCFC",
+  "foreground": "#1E2329",
+  "cursorColor": "#3D5266",
+  "selectionBackground": "#C9D2DA",
+  "black": "#1E2329",
+  "red": "#7A2E33",
+  "green": "#1F5C33",
+  "yellow": "#5C4A1F",
+  "blue": "#3D5266",
+  "purple": "#2E3440",
+  "cyan": "#3D5C4A",
+  "white": "#F7F7F7",
+  "brightBlack": "#47505A",
+  "brightRed": "#7A2E33",
+  "brightGreen": "#1F5C33",
+  "brightYellow": "#5C4A1F",
+  "brightBlue": "#2C3F50",
+  "brightPurple": "#2E3440",
+  "brightCyan": "#3D5C4A",
+  "brightWhite": "#1E2329"
+}

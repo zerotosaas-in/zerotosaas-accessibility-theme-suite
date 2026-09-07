@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T17:02:40.632Z",
+  "generatedAt": "2026-09-07T12:26:01.722Z",
   "apcaVersion": "0.0.98G",
   "policy": "soft-gate — APCA gaps are tracked and reported but do not fail the build. WCAG 2.1 AAA (7:1) remains the hard gate. Palettes were designed for WCAG 2.1; APCA gaps indicate pairs that may benefit from palette audit in a future effort.",
   "thresholds": {
@@ -8,9 +8,9 @@
     "nonText": 60
   },
   "summary": {
-    "totalChecked": 940,
-    "passed": 540,
-    "gaps": 400
+    "totalChecked": 1504,
+    "passed": 850,
+    "gaps": 654
   },
   "gaps": [
     {
@@ -454,6 +454,256 @@
       "wcagRatio": null
     },
     {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#AD9D84",
+      "bg": "#141009",
+      "apcaLc": 60.6,
+      "threshold": 90,
+      "wcagRatio": 7.16
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Keywords & Control Flow",
+      "category": "body",
+      "fg": "#E8A852",
+      "bg": "#141009",
+      "apcaLc": 72.8,
+      "threshold": 75,
+      "wcagRatio": 9.17
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Functions & Methods",
+      "category": "body",
+      "fg": "#D4B06A",
+      "bg": "#141009",
+      "apcaLc": 73.1,
+      "threshold": 75,
+      "wcagRatio": 9.22
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Panic: Invalid, Illegal & Deprecated Code",
+      "category": "body",
+      "fg": "#F67D7C",
+      "bg": "#260E10",
+      "apcaLc": 60.8,
+      "threshold": 75,
+      "wcagRatio": 7.06
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Panic: Secret Keys, Hex Colors, UUIDs & Hashes",
+      "category": "body",
+      "fg": "#F67D7C",
+      "bg": "#260E10",
+      "apcaLc": 60.8,
+      "threshold": 75,
+      "wcagRatio": 7.06
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Panic: Regular Expressions",
+      "category": "body",
+      "fg": "#F67D7C",
+      "bg": "#260E10",
+      "apcaLc": 60.8,
+      "threshold": 75,
+      "wcagRatio": 7.06
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Warning: Hardcoded Strings in Source Code (Python, JS, TS, React, Rust, Go, Kotlin, Swift, Dart)",
+      "category": "body",
+      "fg": "#E8945A",
+      "bg": "#26160C",
+      "apcaLc": 63.5,
+      "threshold": 75,
+      "wcagRatio": 7.33
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Warning: Template Literals & Unparsed Primitives",
+      "category": "body",
+      "fg": "#E8945A",
+      "bg": "#26160C",
+      "apcaLc": 63.5,
+      "threshold": 75,
+      "wcagRatio": 7.33
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Safe: Verified Type Definitions & Structs",
+      "category": "body",
+      "fg": "#9CC47A",
+      "bg": "#1C2410",
+      "apcaLc": 70.9,
+      "threshold": 75,
+      "wcagRatio": 8.09
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Python: Magic Methods & Dunder",
+      "category": "body",
+      "fg": "#D4B06A",
+      "bg": "#141009",
+      "apcaLc": 73.1,
+      "threshold": 75,
+      "wcagRatio": 9.22
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "SQL: Keywords (Safe / Blue)",
+      "category": "body",
+      "fg": "#E8A852",
+      "bg": "#141009",
+      "apcaLc": 72.8,
+      "threshold": 75,
+      "wcagRatio": 9.17
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Rust: Lifetimes & Macros (Panic / Caution)",
+      "category": "body",
+      "fg": "#D4B06A",
+      "bg": "#141009",
+      "apcaLc": 73.1,
+      "threshold": 75,
+      "wcagRatio": 9.22
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Go: Packages & Channels",
+      "category": "body",
+      "fg": "#E8A852",
+      "bg": "#141009",
+      "apcaLc": 72.8,
+      "threshold": 75,
+      "wcagRatio": 9.17
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Kotlin/Swift: Annotations & Optionals",
+      "category": "body",
+      "fg": "#D4B06A",
+      "bg": "#141009",
+      "apcaLc": 73.1,
+      "threshold": 75,
+      "wcagRatio": 9.22
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Config: ENV Sensitive Keys (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#F67D7C",
+      "bg": "#260E10",
+      "apcaLc": 60.8,
+      "threshold": 75,
+      "wcagRatio": 7.06
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Markdown: Headings (Caution / Bold)",
+      "category": "body",
+      "fg": "#E8A852",
+      "bg": "#141009",
+      "apcaLc": 72.8,
+      "threshold": 75,
+      "wcagRatio": 9.17
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#9CC47A",
+      "bg": "#1C2410",
+      "apcaLc": 70.9,
+      "threshold": 90,
+      "wcagRatio": 8.09
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Markdown: Links & URLs (Safe / Blue)",
+      "category": "body",
+      "fg": "#E8A852",
+      "bg": "#141009",
+      "apcaLc": 72.8,
+      "threshold": 75,
+      "wcagRatio": 9.17
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#AD9D84",
+      "bg": "#141009",
+      "apcaLc": 60.6,
+      "threshold": 90,
+      "wcagRatio": 7.16
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "HTML & XML: Element Tags",
+      "category": "body",
+      "fg": "#E8A852",
+      "bg": "#141009",
+      "apcaLc": 72.8,
+      "threshold": 75,
+      "wcagRatio": 9.17
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "HTML & XML: Attributes",
+      "category": "body",
+      "fg": "#D4B06A",
+      "bg": "#141009",
+      "apcaLc": 73.1,
+      "threshold": 75,
+      "wcagRatio": 9.22
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Log: Error & Fatal (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#F67D7C",
+      "bg": "#141009",
+      "apcaLc": 61.8,
+      "threshold": 75,
+      "wcagRatio": 7.35
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Log: Warning (Warning / Amber)",
+      "category": "body",
+      "fg": "#E8945A",
+      "bg": "#141009",
+      "apcaLc": 65.6,
+      "threshold": 75,
+      "wcagRatio": 7.96
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#AD9D84",
+      "bg": "#141009",
+      "apcaLc": 60.6,
+      "threshold": 90,
+      "wcagRatio": 7.16
+    },
+    {
+      "theme": "ZeroToSaaS Circadian Night (Low Blue)",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#33291C",
+      "bg": "#141009",
+      "apcaLc": 15,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
       "theme": "ZeroToSaaS Deuteranopia Night (Blue / Orange)",
       "scope": "Comments & Documentation",
       "category": "fine",
@@ -890,6 +1140,846 @@
       "fg": "#C8D9EE",
       "bg": "#FAFCFE",
       "apcaLc": 20.6,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#A9A499",
+      "bg": "#110D05",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.8
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Keywords & Control Flow",
+      "category": "body",
+      "fg": "#6BA9ED",
+      "bg": "#110D05",
+      "apcaLc": 64.6,
+      "threshold": 75,
+      "wcagRatio": 7.87
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Functions & Methods",
+      "category": "body",
+      "fg": "#B68CF2",
+      "bg": "#110D05",
+      "apcaLc": 61.8,
+      "threshold": 75,
+      "wcagRatio": 7.4
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Types, Classes, Structs & Interfaces",
+      "category": "body",
+      "fg": "#6EB4A6",
+      "bg": "#110D05",
+      "apcaLc": 65.8,
+      "threshold": 75,
+      "wcagRatio": 8.07
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Constants & Language Built-ins",
+      "category": "body",
+      "fg": "#C39E61",
+      "bg": "#110D05",
+      "apcaLc": 63.8,
+      "threshold": 75,
+      "wcagRatio": 7.74
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Panic: Invalid, Illegal & Deprecated Code",
+      "category": "body",
+      "fg": "#F97C81",
+      "bg": "#1C1412",
+      "apcaLc": 61.1,
+      "threshold": 75,
+      "wcagRatio": 7.1
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Panic: Secret Keys, Hex Colors, UUIDs & Hashes",
+      "category": "body",
+      "fg": "#F97C81",
+      "bg": "#1C1412",
+      "apcaLc": 61.1,
+      "threshold": 75,
+      "wcagRatio": 7.1
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Panic: Regular Expressions",
+      "category": "body",
+      "fg": "#F97C81",
+      "bg": "#1C1412",
+      "apcaLc": 61.1,
+      "threshold": 75,
+      "wcagRatio": 7.1
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Warning: Hardcoded Strings in Source Code (Python, JS, TS, React, Rust, Go, Kotlin, Swift, Dart)",
+      "category": "body",
+      "fg": "#D9A070",
+      "bg": "#1B150C",
+      "apcaLc": 66.6,
+      "threshold": 75,
+      "wcagRatio": 7.95
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Warning: Template Literals & Unparsed Primitives",
+      "category": "body",
+      "fg": "#D9A070",
+      "bg": "#1B150C",
+      "apcaLc": 66.6,
+      "threshold": 75,
+      "wcagRatio": 7.95
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Caution: Function Parameters & Dynamic Arguments",
+      "category": "body",
+      "fg": "#D0B47A",
+      "bg": "#1E1A0D",
+      "apcaLc": 72.3,
+      "threshold": 75,
+      "wcagRatio": 8.68
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Safe: Verified Type Definitions & Structs",
+      "category": "body",
+      "fg": "#7FC091",
+      "bg": "#151710",
+      "apcaLc": 69.9,
+      "threshold": 75,
+      "wcagRatio": 8.48
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Python: Decorators & Self",
+      "category": "body",
+      "fg": "#ADB1F1",
+      "bg": "#110D05",
+      "apcaLc": 74.4,
+      "threshold": 75,
+      "wcagRatio": 9.54
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Python: Magic Methods & Dunder",
+      "category": "body",
+      "fg": "#B68CF2",
+      "bg": "#110D05",
+      "apcaLc": 61.8,
+      "threshold": 75,
+      "wcagRatio": 7.4
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "React: Component Tags (Safe / Green)",
+      "category": "body",
+      "fg": "#7FC091",
+      "bg": "#110D05",
+      "apcaLc": 71.9,
+      "threshold": 75,
+      "wcagRatio": 9.09
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "SQL: Keywords (Safe / Blue)",
+      "category": "body",
+      "fg": "#6BA9ED",
+      "bg": "#110D05",
+      "apcaLc": 64.6,
+      "threshold": 75,
+      "wcagRatio": 7.87
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "SQL: Table & Column Names",
+      "category": "body",
+      "fg": "#6EB4A6",
+      "bg": "#110D05",
+      "apcaLc": 65.8,
+      "threshold": 75,
+      "wcagRatio": 8.07
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Rust: Lifetimes & Macros (Panic / Caution)",
+      "category": "body",
+      "fg": "#B68CF2",
+      "bg": "#110D05",
+      "apcaLc": 61.8,
+      "threshold": 75,
+      "wcagRatio": 7.4
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Go: Packages & Channels",
+      "category": "body",
+      "fg": "#6BA9ED",
+      "bg": "#110D05",
+      "apcaLc": 64.6,
+      "threshold": 75,
+      "wcagRatio": 7.87
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Kotlin/Swift: Annotations & Optionals",
+      "category": "body",
+      "fg": "#B68CF2",
+      "bg": "#110D05",
+      "apcaLc": 61.8,
+      "threshold": 75,
+      "wcagRatio": 7.4
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Dart: Annotations & Widgets",
+      "category": "body",
+      "fg": "#7FC091",
+      "bg": "#110D05",
+      "apcaLc": 71.9,
+      "threshold": 75,
+      "wcagRatio": 9.09
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Config: JSON Property Names (Safe / Green)",
+      "category": "body",
+      "fg": "#7FC091",
+      "bg": "#110D05",
+      "apcaLc": 71.9,
+      "threshold": 75,
+      "wcagRatio": 9.09
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Config: YAML Keys (Safe / Green)",
+      "category": "body",
+      "fg": "#7FC091",
+      "bg": "#110D05",
+      "apcaLc": 71.9,
+      "threshold": 75,
+      "wcagRatio": 9.09
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Config: TOML Table Headers & Keys (Safe)",
+      "category": "body",
+      "fg": "#7FC091",
+      "bg": "#110D05",
+      "apcaLc": 71.9,
+      "threshold": 75,
+      "wcagRatio": 9.09
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Config: INI Section Headers & Properties",
+      "category": "body",
+      "fg": "#7FC091",
+      "bg": "#110D05",
+      "apcaLc": 71.9,
+      "threshold": 75,
+      "wcagRatio": 9.09
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Config: ENV Sensitive Keys (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#F97C81",
+      "bg": "#1C1412",
+      "apcaLc": 61.1,
+      "threshold": 75,
+      "wcagRatio": 7.1
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Markdown: Headings (Caution / Bold)",
+      "category": "body",
+      "fg": "#6BA9ED",
+      "bg": "#110D05",
+      "apcaLc": 64.6,
+      "threshold": 75,
+      "wcagRatio": 7.87
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#7FC091",
+      "bg": "#151710",
+      "apcaLc": 69.9,
+      "threshold": 90,
+      "wcagRatio": 8.48
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Markdown: Links & URLs (Safe / Blue)",
+      "category": "body",
+      "fg": "#999DE6",
+      "bg": "#110D05",
+      "apcaLc": 63.5,
+      "threshold": 75,
+      "wcagRatio": 7.68
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#A9A499",
+      "bg": "#110D05",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.8
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "HTML & XML: Element Tags",
+      "category": "body",
+      "fg": "#6BA9ED",
+      "bg": "#110D05",
+      "apcaLc": 64.6,
+      "threshold": 75,
+      "wcagRatio": 7.87
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "HTML & XML: Attributes",
+      "category": "body",
+      "fg": "#B68CF2",
+      "bg": "#110D05",
+      "apcaLc": 61.8,
+      "threshold": 75,
+      "wcagRatio": 7.4
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Log: Error & Fatal (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#F97C81",
+      "bg": "#110D05",
+      "apcaLc": 63,
+      "threshold": 75,
+      "wcagRatio": 7.59
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Log: Warning (Warning / Amber)",
+      "category": "body",
+      "fg": "#D9A070",
+      "bg": "#110D05",
+      "apcaLc": 68.4,
+      "threshold": 75,
+      "wcagRatio": 8.5
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Log: Info & Success (Safe / Green)",
+      "category": "body",
+      "fg": "#7FC091",
+      "bg": "#110D05",
+      "apcaLc": 71.9,
+      "threshold": 75,
+      "wcagRatio": 9.09
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#A19D92",
+      "bg": "#110D05",
+      "apcaLc": 60.2,
+      "threshold": 90,
+      "wcagRatio": 7.16
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort Night",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#312D27",
+      "bg": "#110D05",
+      "apcaLc": 15,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#4A463C",
+      "bg": "#FBF5E9",
+      "apcaLc": 85.3,
+      "threshold": 90,
+      "wcagRatio": 8.66
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#1A5C33",
+      "bg": "#F4F8EE",
+      "apcaLc": 81.9,
+      "threshold": 90,
+      "wcagRatio": 7.44
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#4A463C",
+      "bg": "#FBF5E9",
+      "apcaLc": 85.3,
+      "threshold": 90,
+      "wcagRatio": 8.66
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#4A463C",
+      "bg": "#FBF5E9",
+      "apcaLc": 85.3,
+      "threshold": 90,
+      "wcagRatio": 8.66
+    },
+    {
+      "theme": "ZeroToSaaS Dyslexia Comfort",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#D9CDB8",
+      "bg": "#FBF5E9",
+      "apcaLc": 21.9,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#9AA6B2",
+      "bg": "#070F0F",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.81
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Keywords & Control Flow",
+      "category": "body",
+      "fg": "#93A7BD",
+      "bg": "#070F0F",
+      "apcaLc": 64.5,
+      "threshold": 75,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Functions & Methods",
+      "category": "body",
+      "fg": "#A0A3B9",
+      "bg": "#070F0F",
+      "apcaLc": 64.1,
+      "threshold": 75,
+      "wcagRatio": 7.78
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Types, Classes, Structs & Interfaces",
+      "category": "body",
+      "fg": "#8CAE9A",
+      "bg": "#070F0F",
+      "apcaLc": 65.2,
+      "threshold": 75,
+      "wcagRatio": 7.96
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Constants & Language Built-ins",
+      "category": "body",
+      "fg": "#B0A486",
+      "bg": "#070F0F",
+      "apcaLc": 64.5,
+      "threshold": 75,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Panic: Invalid, Illegal & Deprecated Code",
+      "category": "body",
+      "fg": "#DC8D93",
+      "bg": "#191516",
+      "apcaLc": 61.3,
+      "threshold": 75,
+      "wcagRatio": 7.13
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Panic: Secret Keys, Hex Colors, UUIDs & Hashes",
+      "category": "body",
+      "fg": "#DC8D93",
+      "bg": "#191516",
+      "apcaLc": 61.3,
+      "threshold": 75,
+      "wcagRatio": 7.13
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Panic: Regular Expressions",
+      "category": "body",
+      "fg": "#DC8D93",
+      "bg": "#191516",
+      "apcaLc": 61.3,
+      "threshold": 75,
+      "wcagRatio": 7.13
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Warning: Hardcoded Strings in Source Code (Python, JS, TS, React, Rust, Go, Kotlin, Swift, Dart)",
+      "category": "body",
+      "fg": "#CEA580",
+      "bg": "#181612",
+      "apcaLc": 67.1,
+      "threshold": 75,
+      "wcagRatio": 8.02
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Warning: Template Literals & Unparsed Primitives",
+      "category": "body",
+      "fg": "#CEA580",
+      "bg": "#181612",
+      "apcaLc": 67.1,
+      "threshold": 75,
+      "wcagRatio": 8.02
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Caution: Function Parameters & Dynamic Arguments",
+      "category": "body",
+      "fg": "#C8B688",
+      "bg": "#1C1B14",
+      "apcaLc": 72.2,
+      "threshold": 75,
+      "wcagRatio": 8.64
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Safe: Verified Type Definitions & Structs",
+      "category": "body",
+      "fg": "#83BE95",
+      "bg": "#131715",
+      "apcaLc": 69.5,
+      "threshold": 75,
+      "wcagRatio": 8.41
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Python: Magic Methods & Dunder",
+      "category": "body",
+      "fg": "#A0A3B9",
+      "bg": "#070F0F",
+      "apcaLc": 64.1,
+      "threshold": 75,
+      "wcagRatio": 7.78
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "React: Component Tags (Safe / Green)",
+      "category": "body",
+      "fg": "#83BE95",
+      "bg": "#070F0F",
+      "apcaLc": 71.4,
+      "threshold": 75,
+      "wcagRatio": 9.01
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "SQL: Keywords (Safe / Blue)",
+      "category": "body",
+      "fg": "#93A7BD",
+      "bg": "#070F0F",
+      "apcaLc": 64.5,
+      "threshold": 75,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "SQL: Table & Column Names",
+      "category": "body",
+      "fg": "#8CAE9A",
+      "bg": "#070F0F",
+      "apcaLc": 65.2,
+      "threshold": 75,
+      "wcagRatio": 7.96
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Rust: Lifetimes & Macros (Panic / Caution)",
+      "category": "body",
+      "fg": "#A0A3B9",
+      "bg": "#070F0F",
+      "apcaLc": 64.1,
+      "threshold": 75,
+      "wcagRatio": 7.78
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Go: Packages & Channels",
+      "category": "body",
+      "fg": "#93A7BD",
+      "bg": "#070F0F",
+      "apcaLc": 64.5,
+      "threshold": 75,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Kotlin/Swift: Annotations & Optionals",
+      "category": "body",
+      "fg": "#A0A3B9",
+      "bg": "#070F0F",
+      "apcaLc": 64.1,
+      "threshold": 75,
+      "wcagRatio": 7.78
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Dart: Annotations & Widgets",
+      "category": "body",
+      "fg": "#83BE95",
+      "bg": "#070F0F",
+      "apcaLc": 71.4,
+      "threshold": 75,
+      "wcagRatio": 9.01
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Config: JSON Property Names (Safe / Green)",
+      "category": "body",
+      "fg": "#83BE95",
+      "bg": "#070F0F",
+      "apcaLc": 71.4,
+      "threshold": 75,
+      "wcagRatio": 9.01
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Config: YAML Keys (Safe / Green)",
+      "category": "body",
+      "fg": "#83BE95",
+      "bg": "#070F0F",
+      "apcaLc": 71.4,
+      "threshold": 75,
+      "wcagRatio": 9.01
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Config: TOML Table Headers & Keys (Safe)",
+      "category": "body",
+      "fg": "#83BE95",
+      "bg": "#070F0F",
+      "apcaLc": 71.4,
+      "threshold": 75,
+      "wcagRatio": 9.01
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Config: INI Section Headers & Properties",
+      "category": "body",
+      "fg": "#83BE95",
+      "bg": "#070F0F",
+      "apcaLc": 71.4,
+      "threshold": 75,
+      "wcagRatio": 9.01
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Config: ENV Sensitive Keys (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#DC8D93",
+      "bg": "#191516",
+      "apcaLc": 61.3,
+      "threshold": 75,
+      "wcagRatio": 7.13
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Markdown: Headings (Caution / Bold)",
+      "category": "body",
+      "fg": "#93A7BD",
+      "bg": "#070F0F",
+      "apcaLc": 64.5,
+      "threshold": 75,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#83BE95",
+      "bg": "#131715",
+      "apcaLc": 69.5,
+      "threshold": 90,
+      "wcagRatio": 8.41
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Markdown: Links & URLs (Safe / Blue)",
+      "category": "body",
+      "fg": "#93A7BD",
+      "bg": "#070F0F",
+      "apcaLc": 64.5,
+      "threshold": 75,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#9AA6B2",
+      "bg": "#070F0F",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.81
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "HTML & XML: Element Tags",
+      "category": "body",
+      "fg": "#93A7BD",
+      "bg": "#070F0F",
+      "apcaLc": 64.5,
+      "threshold": 75,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "HTML & XML: Attributes",
+      "category": "body",
+      "fg": "#A0A3B9",
+      "bg": "#070F0F",
+      "apcaLc": 64.1,
+      "threshold": 75,
+      "wcagRatio": 7.78
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Log: Error & Fatal (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#DC8D93",
+      "bg": "#070F0F",
+      "apcaLc": 63.2,
+      "threshold": 75,
+      "wcagRatio": 7.63
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Log: Warning (Warning / Amber)",
+      "category": "body",
+      "fg": "#CEA580",
+      "bg": "#070F0F",
+      "apcaLc": 69,
+      "threshold": 75,
+      "wcagRatio": 8.59
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Log: Info & Success (Safe / Green)",
+      "category": "body",
+      "fg": "#83BE95",
+      "bg": "#070F0F",
+      "apcaLc": 71.4,
+      "threshold": 75,
+      "wcagRatio": 9.01
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#929DA7",
+      "bg": "#070F0F",
+      "apcaLc": 59.3,
+      "threshold": 90,
+      "wcagRatio": 7.01
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "editorLineNumber.foreground (non-text UI)",
+      "category": "nonText",
+      "fg": "#929DA799",
+      "bg": "#070F0F",
+      "apcaLc": 59.3,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Focus Night (Low-Stimulation)",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#2D2E2E",
+      "bg": "#070F0F",
+      "apcaLc": 15,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Focus (Low-Stimulation)",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#45505A",
+      "bg": "#F9FAFA",
+      "apcaLc": 84.5,
+      "threshold": 90,
+      "wcagRatio": 7.88
+    },
+    {
+      "theme": "ZeroToSaaS Focus (Low-Stimulation)",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#215C38",
+      "bg": "#F1F7F3",
+      "apcaLc": 81.1,
+      "threshold": 90,
+      "wcagRatio": 7.29
+    },
+    {
+      "theme": "ZeroToSaaS Focus (Low-Stimulation)",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#45505A",
+      "bg": "#F9FAFA",
+      "apcaLc": 84.5,
+      "threshold": 90,
+      "wcagRatio": 7.88
+    },
+    {
+      "theme": "ZeroToSaaS Focus (Low-Stimulation)",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#45505A",
+      "bg": "#F9FAFA",
+      "apcaLc": 84.5,
+      "threshold": 90,
+      "wcagRatio": 7.88
+    },
+    {
+      "theme": "ZeroToSaaS Focus (Low-Stimulation)",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#D6DBDD",
+      "bg": "#F9FAFA",
+      "apcaLc": 17.9,
       "threshold": 60,
       "wcagRatio": null
     },
@@ -2054,6 +3144,606 @@
       "wcagRatio": null
     },
     {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#9CA6B1",
+      "bg": "#0F0D08",
+      "apcaLc": 64.6,
+      "threshold": 90,
+      "wcagRatio": 7.86
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Keywords & Control Flow",
+      "category": "body",
+      "fg": "#90A8BE",
+      "bg": "#0F0D08",
+      "apcaLc": 64.7,
+      "threshold": 75,
+      "wcagRatio": 7.89
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Functions & Methods",
+      "category": "body",
+      "fg": "#9DA5B3",
+      "bg": "#0F0D08",
+      "apcaLc": 64.4,
+      "threshold": 75,
+      "wcagRatio": 7.83
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Types, Classes, Structs & Interfaces",
+      "category": "body",
+      "fg": "#8CAE9A",
+      "bg": "#0F0D08",
+      "apcaLc": 65.3,
+      "threshold": 75,
+      "wcagRatio": 7.99
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Constants & Language Built-ins",
+      "category": "body",
+      "fg": "#A8A49D",
+      "bg": "#0F0D08",
+      "apcaLc": 64.3,
+      "threshold": 75,
+      "wcagRatio": 7.83
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Panic: Invalid, Illegal & Deprecated Code",
+      "category": "body",
+      "fg": "#E18B8C",
+      "bg": "#191515",
+      "apcaLc": 61.4,
+      "threshold": 75,
+      "wcagRatio": 7.14
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Panic: Secret Keys, Hex Colors, UUIDs & Hashes",
+      "category": "body",
+      "fg": "#E18B8C",
+      "bg": "#191515",
+      "apcaLc": 61.4,
+      "threshold": 75,
+      "wcagRatio": 7.14
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Panic: Regular Expressions",
+      "category": "body",
+      "fg": "#E18B8C",
+      "bg": "#191515",
+      "apcaLc": 61.4,
+      "threshold": 75,
+      "wcagRatio": 7.14
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Warning: Hardcoded Strings in Source Code (Python, JS, TS, React, Rust, Go, Kotlin, Swift, Dart)",
+      "category": "body",
+      "fg": "#D2A37E",
+      "bg": "#181612",
+      "apcaLc": 66.9,
+      "threshold": 75,
+      "wcagRatio": 7.98
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Warning: Template Literals & Unparsed Primitives",
+      "category": "body",
+      "fg": "#D2A37E",
+      "bg": "#181612",
+      "apcaLc": 66.9,
+      "threshold": 75,
+      "wcagRatio": 7.98
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Caution: Function Parameters & Dynamic Arguments",
+      "category": "body",
+      "fg": "#CAB588",
+      "bg": "#1D1A14",
+      "apcaLc": 72.2,
+      "threshold": 75,
+      "wcagRatio": 8.66
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Safe: Verified Type Definitions & Structs",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#141715",
+      "apcaLc": 69.7,
+      "threshold": 75,
+      "wcagRatio": 8.43
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Python: Magic Methods & Dunder",
+      "category": "body",
+      "fg": "#9DA5B3",
+      "bg": "#0F0D08",
+      "apcaLc": 64.4,
+      "threshold": 75,
+      "wcagRatio": 7.83
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "React: Component Tags (Safe / Green)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#0F0D08",
+      "apcaLc": 71.7,
+      "threshold": 75,
+      "wcagRatio": 9.07
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "SQL: Keywords (Safe / Blue)",
+      "category": "body",
+      "fg": "#90A8BE",
+      "bg": "#0F0D08",
+      "apcaLc": 64.7,
+      "threshold": 75,
+      "wcagRatio": 7.89
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "SQL: Table & Column Names",
+      "category": "body",
+      "fg": "#8CAE9A",
+      "bg": "#0F0D08",
+      "apcaLc": 65.3,
+      "threshold": 75,
+      "wcagRatio": 7.99
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Rust: Lifetimes & Macros (Panic / Caution)",
+      "category": "body",
+      "fg": "#9DA5B3",
+      "bg": "#0F0D08",
+      "apcaLc": 64.4,
+      "threshold": 75,
+      "wcagRatio": 7.83
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Go: Packages & Channels",
+      "category": "body",
+      "fg": "#90A8BE",
+      "bg": "#0F0D08",
+      "apcaLc": 64.7,
+      "threshold": 75,
+      "wcagRatio": 7.89
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Kotlin/Swift: Annotations & Optionals",
+      "category": "body",
+      "fg": "#9DA5B3",
+      "bg": "#0F0D08",
+      "apcaLc": 64.4,
+      "threshold": 75,
+      "wcagRatio": 7.83
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Dart: Annotations & Widgets",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#0F0D08",
+      "apcaLc": 71.7,
+      "threshold": 75,
+      "wcagRatio": 9.07
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Config: JSON Property Names (Safe / Green)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#0F0D08",
+      "apcaLc": 71.7,
+      "threshold": 75,
+      "wcagRatio": 9.07
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Config: YAML Keys (Safe / Green)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#0F0D08",
+      "apcaLc": 71.7,
+      "threshold": 75,
+      "wcagRatio": 9.07
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Config: TOML Table Headers & Keys (Safe)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#0F0D08",
+      "apcaLc": 71.7,
+      "threshold": 75,
+      "wcagRatio": 9.07
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Config: INI Section Headers & Properties",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#0F0D08",
+      "apcaLc": 71.7,
+      "threshold": 75,
+      "wcagRatio": 9.07
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Config: ENV Sensitive Keys (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#E18B8C",
+      "bg": "#191515",
+      "apcaLc": 61.4,
+      "threshold": 75,
+      "wcagRatio": 7.14
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Markdown: Headings (Caution / Bold)",
+      "category": "body",
+      "fg": "#90A8BE",
+      "bg": "#0F0D08",
+      "apcaLc": 64.7,
+      "threshold": 75,
+      "wcagRatio": 7.89
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#82BF90",
+      "bg": "#141715",
+      "apcaLc": 69.7,
+      "threshold": 90,
+      "wcagRatio": 8.43
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Markdown: Links & URLs (Safe / Blue)",
+      "category": "body",
+      "fg": "#90A8BE",
+      "bg": "#0F0D08",
+      "apcaLc": 64.7,
+      "threshold": 75,
+      "wcagRatio": 7.89
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#9CA6B1",
+      "bg": "#0F0D08",
+      "apcaLc": 64.6,
+      "threshold": 90,
+      "wcagRatio": 7.86
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "HTML & XML: Element Tags",
+      "category": "body",
+      "fg": "#90A8BE",
+      "bg": "#0F0D08",
+      "apcaLc": 64.7,
+      "threshold": 75,
+      "wcagRatio": 7.89
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "HTML & XML: Attributes",
+      "category": "body",
+      "fg": "#9DA5B3",
+      "bg": "#0F0D08",
+      "apcaLc": 64.4,
+      "threshold": 75,
+      "wcagRatio": 7.83
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Log: Error & Fatal (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#E18B8C",
+      "bg": "#0F0D08",
+      "apcaLc": 63.3,
+      "threshold": 75,
+      "wcagRatio": 7.65
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Log: Warning (Warning / Amber)",
+      "category": "body",
+      "fg": "#D2A37E",
+      "bg": "#0F0D08",
+      "apcaLc": 68.9,
+      "threshold": 75,
+      "wcagRatio": 8.58
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Log: Info & Success (Safe / Green)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#0F0D08",
+      "apcaLc": 71.7,
+      "threshold": 75,
+      "wcagRatio": 9.07
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#949EAA",
+      "bg": "#0F0D08",
+      "apcaLc": 60.1,
+      "threshold": 90,
+      "wcagRatio": 7.15
+    },
+    {
+      "theme": "ZeroToSaaS Minimal Night",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#2E2E2E",
+      "bg": "#0F0D08",
+      "apcaLc": 15,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Minimal",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#47505A",
+      "bg": "#FCFCFC",
+      "apcaLc": 85.6,
+      "threshold": 90,
+      "wcagRatio": 7.99
+    },
+    {
+      "theme": "ZeroToSaaS Minimal",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#1F5C33",
+      "bg": "#F2F7F4",
+      "apcaLc": 81.4,
+      "threshold": 90,
+      "wcagRatio": 7.35
+    },
+    {
+      "theme": "ZeroToSaaS Minimal",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#47505A",
+      "bg": "#FCFCFC",
+      "apcaLc": 85.6,
+      "threshold": 90,
+      "wcagRatio": 7.99
+    },
+    {
+      "theme": "ZeroToSaaS Minimal",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#47505A",
+      "bg": "#FCFCFC",
+      "apcaLc": 85.6,
+      "threshold": 90,
+      "wcagRatio": 7.99
+    },
+    {
+      "theme": "ZeroToSaaS Minimal",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#D9DDE1",
+      "bg": "#FCFCFC",
+      "apcaLc": 17.8,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#9E9E9E",
+      "bg": "#000000",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Keywords & Control Flow",
+      "category": "body",
+      "fg": "#6FB3FF",
+      "bg": "#000000",
+      "apcaLc": 73.9,
+      "threshold": 75,
+      "wcagRatio": 9.57
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Panic: Invalid, Illegal & Deprecated Code",
+      "category": "body",
+      "fg": "#FF7A8C",
+      "bg": "#240A10",
+      "apcaLc": 62.9,
+      "threshold": 75,
+      "wcagRatio": 7.47
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Panic: Secret Keys, Hex Colors, UUIDs & Hashes",
+      "category": "body",
+      "fg": "#FF7A8C",
+      "bg": "#240A10",
+      "apcaLc": 62.9,
+      "threshold": 75,
+      "wcagRatio": 7.47
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Panic: Regular Expressions",
+      "category": "body",
+      "fg": "#FF7A8C",
+      "bg": "#240A10",
+      "apcaLc": 62.9,
+      "threshold": 75,
+      "wcagRatio": 7.47
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Warning: Hardcoded Strings in Source Code (Python, JS, TS, React, Rust, Go, Kotlin, Swift, Dart)",
+      "category": "body",
+      "fg": "#F0A066",
+      "bg": "#241408",
+      "apcaLc": 70,
+      "threshold": 75,
+      "wcagRatio": 8.42
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Warning: Template Literals & Unparsed Primitives",
+      "category": "body",
+      "fg": "#F0A066",
+      "bg": "#241408",
+      "apcaLc": 70,
+      "threshold": 75,
+      "wcagRatio": 8.42
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Safe: Verified Type Definitions & Structs",
+      "category": "body",
+      "fg": "#6BD17E",
+      "bg": "#0A1F10",
+      "apcaLc": 75,
+      "threshold": 75,
+      "wcagRatio": 9.08
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "SQL: Keywords (Safe / Blue)",
+      "category": "body",
+      "fg": "#6FB3FF",
+      "bg": "#000000",
+      "apcaLc": 73.9,
+      "threshold": 75,
+      "wcagRatio": 9.57
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Go: Packages & Channels",
+      "category": "body",
+      "fg": "#6FB3FF",
+      "bg": "#000000",
+      "apcaLc": 73.9,
+      "threshold": 75,
+      "wcagRatio": 9.57
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Config: ENV Sensitive Keys (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#FF7A8C",
+      "bg": "#240A10",
+      "apcaLc": 62.9,
+      "threshold": 75,
+      "wcagRatio": 7.47
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Markdown: Headings (Caution / Bold)",
+      "category": "body",
+      "fg": "#6FB3FF",
+      "bg": "#000000",
+      "apcaLc": 73.9,
+      "threshold": 75,
+      "wcagRatio": 9.57
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#6BD17E",
+      "bg": "#0A1F10",
+      "apcaLc": 75,
+      "threshold": 90,
+      "wcagRatio": 9.08
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Markdown: Links & URLs (Safe / Blue)",
+      "category": "body",
+      "fg": "#6FB3FF",
+      "bg": "#000000",
+      "apcaLc": 73.9,
+      "threshold": 75,
+      "wcagRatio": 9.57
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#9E9E9E",
+      "bg": "#000000",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "HTML & XML: Element Tags",
+      "category": "body",
+      "fg": "#6FB3FF",
+      "bg": "#000000",
+      "apcaLc": 73.9,
+      "threshold": 75,
+      "wcagRatio": 9.57
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Log: Error & Fatal (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#FF7A8C",
+      "bg": "#000000",
+      "apcaLc": 67.6,
+      "threshold": 75,
+      "wcagRatio": 8.41
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#9E9E9E",
+      "bg": "#000000",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.84
+    },
+    {
+      "theme": "ZeroToSaaS OLED Night (True Black)",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#2E2E2E",
+      "bg": "#000000",
+      "apcaLc": 15,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
       "theme": "ZeroToSaaS Terracotta Night (Orange)",
       "scope": "Comments & Documentation",
       "category": "fine",
@@ -2490,6 +4180,446 @@
       "fg": "#D0B296",
       "bg": "#FCF8F4",
       "apcaLc": 35.8,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#A7A1B0",
+      "bg": "#120C09",
+      "apcaLc": 63.8,
+      "threshold": 90,
+      "wcagRatio": 7.73
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Keywords & Control Flow",
+      "category": "body",
+      "fg": "#D28BB4",
+      "bg": "#120C09",
+      "apcaLc": 62.2,
+      "threshold": 75,
+      "wcagRatio": 7.48
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Functions & Methods",
+      "category": "body",
+      "fg": "#B793D8",
+      "bg": "#120C09",
+      "apcaLc": 62.7,
+      "threshold": 75,
+      "wcagRatio": 7.56
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Types, Classes, Structs & Interfaces",
+      "category": "body",
+      "fg": "#77B494",
+      "bg": "#120C09",
+      "apcaLc": 65.9,
+      "threshold": 75,
+      "wcagRatio": 8.08
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Constants & Language Built-ins",
+      "category": "body",
+      "fg": "#C39E69",
+      "bg": "#120C09",
+      "apcaLc": 64.1,
+      "threshold": 75,
+      "wcagRatio": 7.78
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Panic: Invalid, Illegal & Deprecated Code",
+      "category": "body",
+      "fg": "#F07E94",
+      "bg": "#1A1416",
+      "apcaLc": 60.6,
+      "threshold": 75,
+      "wcagRatio": 7.02
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Panic: Secret Keys, Hex Colors, UUIDs & Hashes",
+      "category": "body",
+      "fg": "#F07E94",
+      "bg": "#1A1416",
+      "apcaLc": 60.6,
+      "threshold": 75,
+      "wcagRatio": 7.02
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Panic: Regular Expressions",
+      "category": "body",
+      "fg": "#F07E94",
+      "bg": "#1A1416",
+      "apcaLc": 60.6,
+      "threshold": 75,
+      "wcagRatio": 7.02
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Warning: Hardcoded Strings in Source Code (Python, JS, TS, React, Rust, Go, Kotlin, Swift, Dart)",
+      "category": "body",
+      "fg": "#D4A27B",
+      "bg": "#191512",
+      "apcaLc": 66.8,
+      "threshold": 75,
+      "wcagRatio": 8
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Warning: Template Literals & Unparsed Primitives",
+      "category": "body",
+      "fg": "#D4A27B",
+      "bg": "#191512",
+      "apcaLc": 66.8,
+      "threshold": 75,
+      "wcagRatio": 8
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Caution: Function Parameters & Dynamic Arguments",
+      "category": "body",
+      "fg": "#D6B17B",
+      "bg": "#1D1A14",
+      "apcaLc": 72,
+      "threshold": 75,
+      "wcagRatio": 8.62
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Safe: Verified Type Definitions & Structs",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#131715",
+      "apcaLc": 69.7,
+      "threshold": 75,
+      "wcagRatio": 8.44
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Python: Decorators & Self",
+      "category": "body",
+      "fg": "#DEA3C3",
+      "bg": "#120C09",
+      "apcaLc": 73.4,
+      "threshold": 75,
+      "wcagRatio": 9.36
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Python: Magic Methods & Dunder",
+      "category": "body",
+      "fg": "#B793D8",
+      "bg": "#120C09",
+      "apcaLc": 62.7,
+      "threshold": 75,
+      "wcagRatio": 7.56
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "React: Component Tags (Safe / Green)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#120C09",
+      "apcaLc": 71.6,
+      "threshold": 75,
+      "wcagRatio": 9.06
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "React: Props & Attributes (Caution / Yellow)",
+      "category": "body",
+      "fg": "#D6B17B",
+      "bg": "#120C09",
+      "apcaLc": 74.9,
+      "threshold": 75,
+      "wcagRatio": 9.64
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "SQL: Keywords (Safe / Blue)",
+      "category": "body",
+      "fg": "#D28BB4",
+      "bg": "#120C09",
+      "apcaLc": 62.2,
+      "threshold": 75,
+      "wcagRatio": 7.48
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "SQL: Table & Column Names",
+      "category": "body",
+      "fg": "#77B494",
+      "bg": "#120C09",
+      "apcaLc": 65.9,
+      "threshold": 75,
+      "wcagRatio": 8.08
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Rust: Lifetimes & Macros (Panic / Caution)",
+      "category": "body",
+      "fg": "#B793D8",
+      "bg": "#120C09",
+      "apcaLc": 62.7,
+      "threshold": 75,
+      "wcagRatio": 7.56
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Go: Packages & Channels",
+      "category": "body",
+      "fg": "#D28BB4",
+      "bg": "#120C09",
+      "apcaLc": 62.2,
+      "threshold": 75,
+      "wcagRatio": 7.48
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Kotlin/Swift: Annotations & Optionals",
+      "category": "body",
+      "fg": "#B793D8",
+      "bg": "#120C09",
+      "apcaLc": 62.7,
+      "threshold": 75,
+      "wcagRatio": 7.56
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Dart: Annotations & Widgets",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#120C09",
+      "apcaLc": 71.6,
+      "threshold": 75,
+      "wcagRatio": 9.06
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Config: JSON Property Names (Safe / Green)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#120C09",
+      "apcaLc": 71.6,
+      "threshold": 75,
+      "wcagRatio": 9.06
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Config: YAML Keys (Safe / Green)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#120C09",
+      "apcaLc": 71.6,
+      "threshold": 75,
+      "wcagRatio": 9.06
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Config: TOML Table Headers & Keys (Safe)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#120C09",
+      "apcaLc": 71.6,
+      "threshold": 75,
+      "wcagRatio": 9.06
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Config: INI Section Headers & Properties",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#120C09",
+      "apcaLc": 71.6,
+      "threshold": 75,
+      "wcagRatio": 9.06
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Config: ENV Sensitive Keys (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#F07E94",
+      "bg": "#1A1416",
+      "apcaLc": 60.6,
+      "threshold": 75,
+      "wcagRatio": 7.02
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Markdown: Headings (Caution / Bold)",
+      "category": "body",
+      "fg": "#D28BB4",
+      "bg": "#120C09",
+      "apcaLc": 62.2,
+      "threshold": 75,
+      "wcagRatio": 7.48
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#82BF90",
+      "bg": "#131715",
+      "apcaLc": 69.7,
+      "threshold": 90,
+      "wcagRatio": 8.44
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Markdown: Links & URLs (Safe / Blue)",
+      "category": "body",
+      "fg": "#D28BB4",
+      "bg": "#120C09",
+      "apcaLc": 62.2,
+      "threshold": 75,
+      "wcagRatio": 7.48
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#A7A1B0",
+      "bg": "#120C09",
+      "apcaLc": 63.8,
+      "threshold": 90,
+      "wcagRatio": 7.73
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "HTML & XML: Element Tags",
+      "category": "body",
+      "fg": "#D28BB4",
+      "bg": "#120C09",
+      "apcaLc": 62.2,
+      "threshold": 75,
+      "wcagRatio": 7.48
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "HTML & XML: Attributes",
+      "category": "body",
+      "fg": "#B793D8",
+      "bg": "#120C09",
+      "apcaLc": 62.7,
+      "threshold": 75,
+      "wcagRatio": 7.56
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Log: Error & Fatal (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#F07E94",
+      "bg": "#120C09",
+      "apcaLc": 62.4,
+      "threshold": 75,
+      "wcagRatio": 7.5
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Log: Warning (Warning / Amber)",
+      "category": "body",
+      "fg": "#D4A27B",
+      "bg": "#120C09",
+      "apcaLc": 68.7,
+      "threshold": 75,
+      "wcagRatio": 8.55
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Log: Info & Success (Safe / Green)",
+      "category": "body",
+      "fg": "#82BF90",
+      "bg": "#120C09",
+      "apcaLc": 71.6,
+      "threshold": 75,
+      "wcagRatio": 9.06
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Log: Debug & Trace (Caution / Subtle)",
+      "category": "body",
+      "fg": "#D6B17B",
+      "bg": "#120C09",
+      "apcaLc": 74.9,
+      "threshold": 75,
+      "wcagRatio": 9.64
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#9F9BA8",
+      "bg": "#120C09",
+      "apcaLc": 60.1,
+      "threshold": 90,
+      "wcagRatio": 7.14
+    },
+    {
+      "theme": "ZeroToSaaS Pastel Night",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#2F2D2D",
+      "bg": "#120C09",
+      "apcaLc": 15,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Pastel",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#4E4956",
+      "bg": "#FDFBFA",
+      "apcaLc": 86.8,
+      "threshold": 90,
+      "wcagRatio": 8.44
+    },
+    {
+      "theme": "ZeroToSaaS Pastel",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#1F5C33",
+      "bg": "#F2F8F4",
+      "apcaLc": 81.8,
+      "threshold": 90,
+      "wcagRatio": 7.4
+    },
+    {
+      "theme": "ZeroToSaaS Pastel",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#4E4956",
+      "bg": "#FDFBFA",
+      "apcaLc": 86.8,
+      "threshold": 90,
+      "wcagRatio": 8.44
+    },
+    {
+      "theme": "ZeroToSaaS Pastel",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#4E4956",
+      "bg": "#FDFBFA",
+      "apcaLc": 86.8,
+      "threshold": 90,
+      "wcagRatio": 8.44
+    },
+    {
+      "theme": "ZeroToSaaS Pastel",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#DBD2D9",
+      "bg": "#FDFBFA",
+      "apcaLc": 21.8,
       "threshold": 60,
       "wcagRatio": null
     },
@@ -3300,6 +5430,416 @@
       "fg": "#CBBED5",
       "bg": "#FAF8FD",
       "apcaLc": 30,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#AAA497",
+      "bg": "#100D07",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.82
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Keywords & Control Flow",
+      "category": "body",
+      "fg": "#9DA2C3",
+      "bg": "#100D07",
+      "apcaLc": 63.9,
+      "threshold": 75,
+      "wcagRatio": 7.75
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Functions & Methods",
+      "category": "body",
+      "fg": "#A99DC6",
+      "bg": "#100D07",
+      "apcaLc": 63.5,
+      "threshold": 75,
+      "wcagRatio": 7.69
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Types, Classes, Structs & Interfaces",
+      "category": "body",
+      "fg": "#8EAE9A",
+      "bg": "#100D07",
+      "apcaLc": 65.5,
+      "threshold": 75,
+      "wcagRatio": 8.01
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Constants & Language Built-ins",
+      "category": "body",
+      "fg": "#B6A27C",
+      "bg": "#100D07",
+      "apcaLc": 64.2,
+      "threshold": 75,
+      "wcagRatio": 7.8
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Panic: Invalid, Illegal & Deprecated Code",
+      "category": "body",
+      "fg": "#D58E95",
+      "bg": "#1A1413",
+      "apcaLc": 60.7,
+      "threshold": 75,
+      "wcagRatio": 7.05
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Panic: Secret Keys, Hex Colors, UUIDs & Hashes",
+      "category": "body",
+      "fg": "#D58E95",
+      "bg": "#1A1413",
+      "apcaLc": 60.7,
+      "threshold": 75,
+      "wcagRatio": 7.05
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Panic: Regular Expressions",
+      "category": "body",
+      "fg": "#D58E95",
+      "bg": "#1A1413",
+      "apcaLc": 60.7,
+      "threshold": 75,
+      "wcagRatio": 7.05
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Warning: Hardcoded Strings in Source Code (Python, JS, TS, React, Rust, Go, Kotlin, Swift, Dart)",
+      "category": "body",
+      "fg": "#D0A47A",
+      "bg": "#1A150E",
+      "apcaLc": 67,
+      "threshold": 75,
+      "wcagRatio": 8.01
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Warning: Template Literals & Unparsed Primitives",
+      "category": "body",
+      "fg": "#D0A47A",
+      "bg": "#1A150E",
+      "apcaLc": 67,
+      "threshold": 75,
+      "wcagRatio": 8.01
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Caution: Function Parameters & Dynamic Arguments",
+      "category": "body",
+      "fg": "#C9B680",
+      "bg": "#1E1A10",
+      "apcaLc": 72.2,
+      "threshold": 75,
+      "wcagRatio": 8.66
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Safe: Verified Type Definitions & Structs",
+      "category": "body",
+      "fg": "#8ABC97",
+      "bg": "#141710",
+      "apcaLc": 69.3,
+      "threshold": 75,
+      "wcagRatio": 8.38
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Python: Magic Methods & Dunder",
+      "category": "body",
+      "fg": "#A99DC6",
+      "bg": "#100D07",
+      "apcaLc": 63.5,
+      "threshold": 75,
+      "wcagRatio": 7.69
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "React: Component Tags (Safe / Green)",
+      "category": "body",
+      "fg": "#8ABC97",
+      "bg": "#100D07",
+      "apcaLc": 71.2,
+      "threshold": 75,
+      "wcagRatio": 8.98
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "SQL: Keywords (Safe / Blue)",
+      "category": "body",
+      "fg": "#9DA2C3",
+      "bg": "#100D07",
+      "apcaLc": 63.9,
+      "threshold": 75,
+      "wcagRatio": 7.75
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "SQL: Table & Column Names",
+      "category": "body",
+      "fg": "#8EAE9A",
+      "bg": "#100D07",
+      "apcaLc": 65.5,
+      "threshold": 75,
+      "wcagRatio": 8.01
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Rust: Lifetimes & Macros (Panic / Caution)",
+      "category": "body",
+      "fg": "#A99DC6",
+      "bg": "#100D07",
+      "apcaLc": 63.5,
+      "threshold": 75,
+      "wcagRatio": 7.69
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Go: Packages & Channels",
+      "category": "body",
+      "fg": "#9DA2C3",
+      "bg": "#100D07",
+      "apcaLc": 63.9,
+      "threshold": 75,
+      "wcagRatio": 7.75
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Kotlin/Swift: Annotations & Optionals",
+      "category": "body",
+      "fg": "#A99DC6",
+      "bg": "#100D07",
+      "apcaLc": 63.5,
+      "threshold": 75,
+      "wcagRatio": 7.69
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Dart: Annotations & Widgets",
+      "category": "body",
+      "fg": "#8ABC97",
+      "bg": "#100D07",
+      "apcaLc": 71.2,
+      "threshold": 75,
+      "wcagRatio": 8.98
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Config: JSON Property Names (Safe / Green)",
+      "category": "body",
+      "fg": "#8ABC97",
+      "bg": "#100D07",
+      "apcaLc": 71.2,
+      "threshold": 75,
+      "wcagRatio": 8.98
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Config: YAML Keys (Safe / Green)",
+      "category": "body",
+      "fg": "#8ABC97",
+      "bg": "#100D07",
+      "apcaLc": 71.2,
+      "threshold": 75,
+      "wcagRatio": 8.98
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Config: TOML Table Headers & Keys (Safe)",
+      "category": "body",
+      "fg": "#8ABC97",
+      "bg": "#100D07",
+      "apcaLc": 71.2,
+      "threshold": 75,
+      "wcagRatio": 8.98
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Config: INI Section Headers & Properties",
+      "category": "body",
+      "fg": "#8ABC97",
+      "bg": "#100D07",
+      "apcaLc": 71.2,
+      "threshold": 75,
+      "wcagRatio": 8.98
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Config: ENV Sensitive Keys (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#D58E95",
+      "bg": "#1A1413",
+      "apcaLc": 60.7,
+      "threshold": 75,
+      "wcagRatio": 7.05
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Markdown: Headings (Caution / Bold)",
+      "category": "body",
+      "fg": "#9DA2C3",
+      "bg": "#100D07",
+      "apcaLc": 63.9,
+      "threshold": 75,
+      "wcagRatio": 7.75
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#8ABC97",
+      "bg": "#141710",
+      "apcaLc": 69.3,
+      "threshold": 90,
+      "wcagRatio": 8.38
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Markdown: Links & URLs (Safe / Blue)",
+      "category": "body",
+      "fg": "#9DA2C3",
+      "bg": "#100D07",
+      "apcaLc": 63.9,
+      "threshold": 75,
+      "wcagRatio": 7.75
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#AAA497",
+      "bg": "#100D07",
+      "apcaLc": 64.3,
+      "threshold": 90,
+      "wcagRatio": 7.82
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "HTML & XML: Element Tags",
+      "category": "body",
+      "fg": "#9DA2C3",
+      "bg": "#100D07",
+      "apcaLc": 63.9,
+      "threshold": 75,
+      "wcagRatio": 7.75
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "HTML & XML: Attributes",
+      "category": "body",
+      "fg": "#A99DC6",
+      "bg": "#100D07",
+      "apcaLc": 63.5,
+      "threshold": 75,
+      "wcagRatio": 7.69
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Log: Error & Fatal (Panic / Red Alert)",
+      "category": "body",
+      "fg": "#D58E95",
+      "bg": "#100D07",
+      "apcaLc": 62.4,
+      "threshold": 75,
+      "wcagRatio": 7.51
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Log: Warning (Warning / Amber)",
+      "category": "body",
+      "fg": "#D0A47A",
+      "bg": "#100D07",
+      "apcaLc": 68.8,
+      "threshold": 75,
+      "wcagRatio": 8.57
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Log: Info & Success (Safe / Green)",
+      "category": "body",
+      "fg": "#8ABC97",
+      "bg": "#100D07",
+      "apcaLc": 71.2,
+      "threshold": 75,
+      "wcagRatio": 8.98
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#A29D90",
+      "bg": "#100D07",
+      "apcaLc": 60.3,
+      "threshold": 90,
+      "wcagRatio": 7.17
+    },
+    {
+      "theme": "ZeroToSaaS Soft Night (Comfort)",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#302E27",
+      "bg": "#100D07",
+      "apcaLc": 15,
+      "threshold": 60,
+      "wcagRatio": null
+    },
+    {
+      "theme": "ZeroToSaaS Soft (Comfort)",
+      "scope": "Comments & Documentation",
+      "category": "fine",
+      "fg": "#4A453A",
+      "bg": "#F4F0E7",
+      "apcaLc": 82.7,
+      "threshold": 90,
+      "wcagRatio": 8.38
+    },
+    {
+      "theme": "ZeroToSaaS Soft (Comfort)",
+      "scope": "Markdown: Inline & Fenced Code (Safe / Green Badge)",
+      "category": "fine",
+      "fg": "#205030",
+      "bg": "#F0F5EA",
+      "apcaLc": 83.8,
+      "threshold": 90,
+      "wcagRatio": 8.42
+    },
+    {
+      "theme": "ZeroToSaaS Soft (Comfort)",
+      "scope": "Markdown: Quotes & Notes (Warning / Amber)",
+      "category": "fine",
+      "fg": "#4A453A",
+      "bg": "#F4F0E7",
+      "apcaLc": 82.7,
+      "threshold": 90,
+      "wcagRatio": 8.38
+    },
+    {
+      "theme": "ZeroToSaaS Soft (Comfort)",
+      "scope": "Log: Date & Timestamp",
+      "category": "fine",
+      "fg": "#4A453A",
+      "bg": "#F4F0E7",
+      "apcaLc": 82.7,
+      "threshold": 90,
+      "wcagRatio": 8.38
+    },
+    {
+      "theme": "ZeroToSaaS Soft (Comfort)",
+      "scope": "editorIndentGuide.background (non-text UI)",
+      "category": "nonText",
+      "fg": "#D3C9B4",
+      "bg": "#F4F0E7",
+      "apcaLc": 21.3,
       "threshold": 60,
       "wcagRatio": null
     },

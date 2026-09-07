@@ -1,4 +1,510 @@
 {
+  "ZeroToSaaS Circadian Night (Low Blue)": {
+    "color": {
+      "canvas": {
+        "value": "#141009",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#EDE4D2",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#5C3D14",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#F67D7C",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#F67D7C",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#F67D7C",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#F67D7C",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#E8945A",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#E8945A",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#E8945A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#E8A852",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#9CC47A",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#9CC47A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#E8945A",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#E8B85A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#E8A852",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#252019",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#1F1A13",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#4A3512",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#E8A852",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#AD9D84",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#33291C",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#AD9D84",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#E8A852",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#D4B06A",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#A8C47A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#E8C07A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#EDE4D2",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#EDE4D2",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#F0C078",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#D4B06A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#9CC47A",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#E8B85A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#E8A852",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#A8C47A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#D4B06A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#E8A852",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#D4B06A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#9CC47A",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#9CC47A",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#9CC47A",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#9CC47A",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#9CC47A",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#F67D7C",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#EDE4D2",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#E8A852",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#9CC47A",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#E8A852",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#AD9D84",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#E8A852",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#D4B06A",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#F67D7C",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#E8945A",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#9CC47A",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#E8B85A",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#AD9D84",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
   "ZeroToSaaS Deuteranopia (Blue / Orange)": {
     "color": {
       "canvas": {
@@ -1005,6 +1511,2030 @@
         "date": {
           "timestamp": {
             "value": "#91A2BA",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Dyslexia Comfort": {
+    "color": {
+      "canvas": {
+        "value": "#FBF5E9",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#26221B",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#D9C89F",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#8C1428",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#8C1428",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#8C1428",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#8C1428",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#6B3A00",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#6B3A00",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#6B3A00",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#4A4A8C",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#1A5C33",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#1A5C33",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#6B3A00",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#5C4300",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#4A4A8C",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#EDE5D4",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#F2EBDD",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#42351C",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#4A4A8C",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#4A463C",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#D9CDB8",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#4A463C",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#0B4F8C",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#5A2E8C",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#0A5C50",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#6B4A00",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#26221B",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#26221B",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#3A3A70",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#5A2E8C",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#1A5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#5C4300",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#0B4F8C",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#0A5C50",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#5A2E8C",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#0B4F8C",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#5A2E8C",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#1A5C33",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#1A5C33",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#1A5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#1A5C33",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#1A5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#8C1428",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#26221B",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#0B4F8C",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#1A5C33",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#4A4A8C",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#4A463C",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#0B4F8C",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#5A2E8C",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#8C1428",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#6B3A00",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#1A5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#5C4300",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#4A463C",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Dyslexia Comfort Night": {
+    "color": {
+      "canvas": {
+        "value": "#110D05",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#EDE7DE",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#272361",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#F97C81",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#F97C81",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#F97C81",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#F97C81",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#D9A070",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#D9A070",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#D9A070",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#999DE6",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#7FC091",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#7FC091",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#D9A070",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#D0B47A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#999DE6",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#1D1910",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#1A150D",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#33270E",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#999DE6",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#A19D92",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#312D27",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#A9A499",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#6BA9ED",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#B68CF2",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#6EB4A6",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#C39E61",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#E9E4DA",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#E9E4DA",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#ADB1F1",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#B68CF2",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#7FC091",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#D0B47A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#6BA9ED",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#6EB4A6",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#B68CF2",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#6BA9ED",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#B68CF2",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#7FC091",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#7FC091",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#7FC091",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#7FC091",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#7FC091",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#F97C81",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#EDE7DE",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#6BA9ED",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#7FC091",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#999DE6",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#A9A499",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#6BA9ED",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#B68CF2",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#F97C81",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#D9A070",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#7FC091",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#D0B47A",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#A19D92",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Focus (Low-Stimulation)": {
+    "color": {
+      "canvas": {
+        "value": "#F9FAFA",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#22272C",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#C4CED4",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#722E36",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#722E36",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#722E36",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#722E36",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#66421F",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#66421F",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#66421F",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#3E5063",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#215C38",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#215C38",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#66421F",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#5A4A1E",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#3E5063",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#EBEEEE",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#F1F3F3",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#363E46",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#3E5063",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#45505A",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#D6DBDD",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#45505A",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#3E5063",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#45475A",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#3D5C4A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#54492E",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#22272C",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#22272C",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#2E3E4E",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#45475A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#215C38",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#5A4A1E",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#3E5063",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#3D5C4A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#45475A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#3E5063",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#45475A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#215C38",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#215C38",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#215C38",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#215C38",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#215C38",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#722E36",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#22272C",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#3E5063",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#215C38",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#3E5063",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#45505A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#3E5063",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#45475A",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#722E36",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#66421F",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#215C38",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#5A4A1E",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#45505A",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Focus Night (Low-Stimulation)": {
+    "color": {
+      "canvas": {
+        "value": "#070F0F",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#E2E9F0",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#1E2F41",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#DC8D93",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#DC8D93",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#DC8D93",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#DC8D93",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#CEA580",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#CEA580",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#CEA580",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#93A7BD",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#83BE95",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#83BE95",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#CEA580",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#C8B688",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#93A7BD",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#131B1B",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#101818",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#222A31",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#93A7BD",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#929DA7",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#2D2E2E",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#9AA6B2",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#93A7BD",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#A0A3B9",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#8CAE9A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#B0A486",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#DFE5EC",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#DFE5EC",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#A7BACD",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#A0A3B9",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#83BE95",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#C8B688",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#93A7BD",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#8CAE9A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#A0A3B9",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#93A7BD",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#A0A3B9",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#83BE95",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#83BE95",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#83BE95",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#83BE95",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#83BE95",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#DC8D93",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#E2E9F0",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#93A7BD",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#83BE95",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#93A7BD",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#9AA6B2",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#93A7BD",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#A0A3B9",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#DC8D93",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#CEA580",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#83BE95",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#C8B688",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#929DA7",
             "type": "color"
           }
         }
@@ -5059,6 +7589,2536 @@
       }
     }
   },
+  "ZeroToSaaS Minimal": {
+    "color": {
+      "canvas": {
+        "value": "#FCFCFC",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#1E2329",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#C9D2DA",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#7A2E33",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#7A2E33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#7A2E33",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#7A2E33",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#6B421F",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#6B421F",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#6B421F",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#3D5266",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#1F5C33",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#6B421F",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#5C4A1F",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#3D5266",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#EFEFEF",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#F4F4F4",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#30363D",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#3D5266",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#47505A",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#D9DDE1",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#47505A",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#3D5266",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#2E3440",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#3D5C4A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#4A4640",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#1E2329",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#1E2329",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#2C3F50",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#2E3440",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#5C4A1F",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#3D5266",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#3D5C4A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#2E3440",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#3D5266",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#2E3440",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#1F5C33",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#1F5C33",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#1F5C33",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#7A2E33",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#1E2329",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#3D5266",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#1F5C33",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#3D5266",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#47505A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#3D5266",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#2E3440",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#7A2E33",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#6B421F",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#5C4A1F",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#47505A",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Minimal Night": {
+    "color": {
+      "canvas": {
+        "value": "#0F0D08",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#E2E9F1",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#1C3042",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#E18B8C",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#E18B8C",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#E18B8C",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#E18B8C",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#D2A37E",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#D2A37E",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#D2A37E",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#90A8BE",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#82BF90",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#D2A37E",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#CAB588",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#90A8BE",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#1C1913",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#181610",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#242930",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#90A8BE",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#949EAA",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#2E2E2E",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#9CA6B1",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#90A8BE",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#9DA5B3",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#8CAE9A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#A8A49D",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#DEE5EE",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#DEE5EE",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#A4BACF",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#9DA5B3",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#CAB588",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#90A8BE",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#8CAE9A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#9DA5B3",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#90A8BE",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#9DA5B3",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#82BF90",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#82BF90",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#82BF90",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#E18B8C",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#E2E9F1",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#90A8BE",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#82BF90",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#90A8BE",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#9CA6B1",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#90A8BE",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#9DA5B3",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#E18B8C",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#D2A37E",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#CAB588",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#949EAA",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS OLED Night (True Black)": {
+    "color": {
+      "canvas": {
+        "value": "#000000",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#F0F0F0",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#2A4A7A",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#FF7A8C",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#FF7A8C",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#FF7A8C",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#FF7A8C",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#F0A066",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#F0A066",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#F0A066",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#6FB3FF",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#6BD17E",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#6BD17E",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#F0A066",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#E8C46A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#6FB3FF",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#131313",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#0E0E0E",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#FFFFFF",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#6FB3FF",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#9E9E9E",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#2E2E2E",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#9E9E9E",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#6FB3FF",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#C4A0FF",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#6BDB9A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#FFD070",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#F0F0F0",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#F0F0F0",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#8FC4FF",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#C4A0FF",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#6BD17E",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#E8C46A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#6FB3FF",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#6BDB9A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#C4A0FF",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#6FB3FF",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#C4A0FF",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#6BD17E",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#6BD17E",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#6BD17E",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#6BD17E",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#6BD17E",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#FF7A8C",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#F0F0F0",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#6FB3FF",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#6BD17E",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#6FB3FF",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#9E9E9E",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#6FB3FF",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#C4A0FF",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#FF7A8C",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#F0A066",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#6BD17E",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#E8C46A",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#9E9E9E",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Pastel": {
+    "color": {
+      "canvas": {
+        "value": "#FDFBFA",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#2E2A33",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#D9C4D4",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#8C2340",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#8C2340",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#8C2340",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#8C2340",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#6B4019",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#6B4019",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#6B4019",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#7A3B62",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#1F5C33",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#6B4019",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#6B4A12",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#7A3B62",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#EFEBEA",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#F5F2F1",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#6E4B62",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#7A3B62",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#4E4956",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#DBD2D9",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#4E4956",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#7A3B62",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#5C3A78",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#17573B",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#6B4A12",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#2E2A33",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#2E2A33",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#5C2B48",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#5C3A78",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#6B4A12",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#7A3B62",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#17573B",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#5C3A78",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#7A3B62",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#5C3A78",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#1F5C33",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#1F5C33",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#1F5C33",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#8C2340",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#2E2A33",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#7A3B62",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#1F5C33",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#7A3B62",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#4E4956",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#7A3B62",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#5C3A78",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#8C2340",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#6B4019",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#1F5C33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#6B4A12",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#4E4956",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Pastel Night": {
+    "color": {
+      "canvas": {
+        "value": "#120C09",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#EAE5F0",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#4E123A",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#F07E94",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#F07E94",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#F07E94",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#F07E94",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#D4A27B",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#D4A27B",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#D4A27B",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#D28BB4",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#82BF90",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#D4A27B",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#D6B17B",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#D28BB4",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#1E1815",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#1B1411",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#3B1C32",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#D28BB4",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#9F9BA8",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#2F2D2D",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#A7A1B0",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#D28BB4",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#B793D8",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#77B494",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#C39E69",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#E7E2EE",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#E7E2EE",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#DEA3C3",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#B793D8",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#D6B17B",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#D28BB4",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#77B494",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#B793D8",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#D28BB4",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#B793D8",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#82BF90",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#82BF90",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#82BF90",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#F07E94",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#EAE5F0",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#D28BB4",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#82BF90",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#D28BB4",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#A7A1B0",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#D28BB4",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#B793D8",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#F07E94",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#D4A27B",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#82BF90",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#D6B17B",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#9F9BA8",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
   "ZeroToSaaS Protanopia (Magenta / Teal)": {
     "color": {
       "canvas": {
@@ -7077,6 +12137,1018 @@
         "date": {
           "timestamp": {
             "value": "#A09AA7",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Soft (Comfort)": {
+    "color": {
+      "canvas": {
+        "value": "#F4F0E7",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#2E2A24",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#CFC0A0",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#662A33",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#662A33",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#662A33",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#662A33",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#5F3A0E",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#5F3A0E",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#5F3A0E",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#4A4E6B",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#205030",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#205030",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#5F3A0E",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#544308",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#4A4E6B",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#E6DFCF",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#ECE6DA",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#453B30",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#4A4E6B",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#4A453A",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#D3C9B4",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#4A453A",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#4A4E6B",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#4E4266",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#33503F",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#5C4A26",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#2E2A24",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#2E2A24",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#3A3E56",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#4E4266",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#205030",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#544308",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#4A4E6B",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#33503F",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#4E4266",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#4A4E6B",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#4E4266",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#205030",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#205030",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#205030",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#205030",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#205030",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#662A33",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#2E2A24",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#4A4E6B",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#205030",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#4A4E6B",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#4A453A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#4A4E6B",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#4E4266",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#662A33",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#5F3A0E",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#205030",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#544308",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#4A453A",
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "ZeroToSaaS Soft Night (Comfort)": {
+    "color": {
+      "canvas": {
+        "value": "#100D07",
+        "type": "color"
+      },
+      "fg": {
+        "value": "#ECE7DF",
+        "type": "color"
+      },
+      "selection": {
+        "value": "#282B46",
+        "type": "color"
+      },
+      "panic": {
+        "fg": {
+          "value": "#D58E95",
+          "type": "color"
+        },
+        "invalid": {
+          "illegal": {
+            "deprecated": {
+              "code": {
+                "value": "#D58E95",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "secret": {
+          "keys": {
+            "hex": {
+              "colors": {
+                "uuids": {
+                  "hashes": {
+                    "value": "#D58E95",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "regular": {
+          "expressions": {
+            "value": "#D58E95",
+            "type": "color"
+          }
+        }
+      },
+      "warning": {
+        "fg": {
+          "value": "#D0A47A",
+          "type": "color"
+        },
+        "hardcoded": {
+          "strings": {
+            "in": {
+              "source": {
+                "code": {
+                  "python": {
+                    "js": {
+                      "ts": {
+                        "react": {
+                          "rust": {
+                            "go": {
+                              "kotlin": {
+                                "swift": {
+                                  "dart": {
+                                    "value": "#D0A47A",
+                                    "type": "color"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "template": {
+          "literals": {
+            "unparsed": {
+              "primitives": {
+                "value": "#D0A47A",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "info": {
+        "fg": {
+          "value": "#9DA2C3",
+          "type": "color"
+        }
+      },
+      "safe": {
+        "fg": {
+          "value": "#8ABC97",
+          "type": "color"
+        },
+        "verified": {
+          "type": {
+            "definitions": {
+              "structs": {
+                "value": "#8ABC97",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "caution": {
+        "fg": {
+          "value": "#D0A47A",
+          "type": "color"
+        },
+        "function": {
+          "parameters": {
+            "dynamic": {
+              "arguments": {
+                "value": "#C9B680",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "focus": {
+        "border": {
+          "value": "#9DA2C3",
+          "type": "color"
+        }
+      },
+      "activity": {
+        "bar": {
+          "bg": {
+            "value": "#1C1913",
+            "type": "color"
+          }
+        }
+      },
+      "sidebar": {
+        "bg": {
+          "value": "#19160F",
+          "type": "color"
+        }
+      },
+      "status": {
+        "bar": {
+          "bg": {
+            "value": "#30271D",
+            "type": "color"
+          }
+        }
+      },
+      "cursor": {
+        "value": "#9DA2C3",
+        "type": "color"
+      },
+      "line": {
+        "number": {
+          "value": "#A29D90",
+          "type": "color"
+        }
+      },
+      "indent": {
+        "guide": {
+          "value": "#302E27",
+          "type": "color"
+        }
+      },
+      "comments": {
+        "documentation": {
+          "value": "#AAA497",
+          "type": "color"
+        }
+      },
+      "keywords": {
+        "control": {
+          "flow": {
+            "value": "#9DA2C3",
+            "type": "color"
+          }
+        }
+      },
+      "functions": {
+        "methods": {
+          "value": "#A99DC6",
+          "type": "color"
+        }
+      },
+      "types": {
+        "classes": {
+          "structs": {
+            "interfaces": {
+              "value": "#8EAE9A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "constants": {
+        "language": {
+          "built": {
+            "ins": {
+              "value": "#B6A27C",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "variables": {
+        "identifiers": {
+          "value": "#E9E4DC",
+          "type": "color"
+        }
+      },
+      "operators": {
+        "punctuation": {
+          "value": "#E9E4DC",
+          "type": "color"
+        }
+      },
+      "python": {
+        "decorators": {
+          "self": {
+            "value": "#B0B6D3",
+            "type": "color"
+          }
+        },
+        "magic": {
+          "methods": {
+            "dunder": {
+              "value": "#A99DC6",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "react": {
+        "component": {
+          "tags": {
+            "safe": {
+              "green": {
+                "value": "#8ABC97",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "props": {
+          "attributes": {
+            "caution": {
+              "yellow": {
+                "value": "#C9B680",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "sql": {
+        "keywords": {
+          "safe": {
+            "blue": {
+              "value": "#9DA2C3",
+              "type": "color"
+            }
+          }
+        },
+        "table": {
+          "column": {
+            "names": {
+              "value": "#8EAE9A",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "rust": {
+        "lifetimes": {
+          "macros": {
+            "panic": {
+              "caution": {
+                "value": "#A99DC6",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "go": {
+        "packages": {
+          "channels": {
+            "value": "#9DA2C3",
+            "type": "color"
+          }
+        }
+      },
+      "kotlin": {
+        "swift": {
+          "annotations": {
+            "optionals": {
+              "value": "#A99DC6",
+              "type": "color"
+            }
+          }
+        }
+      },
+      "dart": {
+        "annotations": {
+          "widgets": {
+            "value": "#8ABC97",
+            "type": "color"
+          }
+        }
+      },
+      "config": {
+        "json": {
+          "property": {
+            "names": {
+              "safe": {
+                "green": {
+                  "value": "#8ABC97",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "yaml": {
+          "keys": {
+            "safe": {
+              "green": {
+                "value": "#8ABC97",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "toml": {
+          "table": {
+            "headers": {
+              "keys": {
+                "safe": {
+                  "value": "#8ABC97",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "ini": {
+          "section": {
+            "headers": {
+              "properties": {
+                "value": "#8ABC97",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "env": {
+          "sensitive": {
+            "keys": {
+              "panic": {
+                "red": {
+                  "alert": {
+                    "value": "#D58E95",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "markdown": {
+        "clean": {
+          "prose": {
+            "un": {
+              "tinted": {
+                "natural": {
+                  "reading": {
+                    "value": "#ECE7DF",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "headings": {
+          "caution": {
+            "bold": {
+              "value": "#9DA2C3",
+              "type": "color"
+            }
+          }
+        },
+        "inline": {
+          "fenced": {
+            "code": {
+              "safe": {
+                "green": {
+                  "badge": {
+                    "value": "#8ABC97",
+                    "type": "color"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "links": {
+          "urls": {
+            "safe": {
+              "blue": {
+                "value": "#9DA2C3",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "quotes": {
+          "notes": {
+            "warning": {
+              "amber": {
+                "value": "#AAA497",
+                "type": "color"
+              }
+            }
+          }
+        }
+      },
+      "html": {
+        "xml": {
+          "element": {
+            "tags": {
+              "value": "#9DA2C3",
+              "type": "color"
+            }
+          },
+          "attributes": {
+            "value": "#A99DC6",
+            "type": "color"
+          }
+        }
+      },
+      "log": {
+        "error": {
+          "fatal": {
+            "panic": {
+              "red": {
+                "alert": {
+                  "value": "#D58E95",
+                  "type": "color"
+                }
+              }
+            }
+          }
+        },
+        "warning": {
+          "warning": {
+            "amber": {
+              "value": "#D0A47A",
+              "type": "color"
+            }
+          }
+        },
+        "info": {
+          "success": {
+            "safe": {
+              "green": {
+                "value": "#8ABC97",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "debug": {
+          "trace": {
+            "caution": {
+              "subtle": {
+                "value": "#C9B680",
+                "type": "color"
+              }
+            }
+          }
+        },
+        "date": {
+          "timestamp": {
+            "value": "#A29D90",
             "type": "color"
           }
         }

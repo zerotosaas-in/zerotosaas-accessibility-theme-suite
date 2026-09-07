@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Focus Night (Low-Stimulation)",
+  "background": "#070F0F",
+  "foreground": "#E2E9F0",
+  "cursorColor": "#93A7BD",
+  "selectionBackground": "#1E2F41",
+  "black": "#0C1414",
+  "red": "#DC8D93",
+  "green": "#83BE95",
+  "yellow": "#C8B688",
+  "blue": "#93A7BD",
+  "purple": "#A0A3B9",
+  "cyan": "#8CAE9A",
+  "white": "#E2E9F0",
+  "brightBlack": "#101818",
+  "brightRed": "#DC8D93",
+  "brightGreen": "#83BE95",
+  "brightYellow": "#C8B688",
+  "brightBlue": "#A7BACD",
+  "brightPurple": "#A0A3B9",
+  "brightCyan": "#8CAE9A",
+  "brightWhite": "#FFFFFF"
+}

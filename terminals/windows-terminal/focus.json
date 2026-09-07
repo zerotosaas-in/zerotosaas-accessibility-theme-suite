@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Focus (Low-Stimulation)",
+  "background": "#F9FAFA",
+  "foreground": "#22272C",
+  "cursorColor": "#3E5063",
+  "selectionBackground": "#C4CED4",
+  "black": "#22272C",
+  "red": "#722E36",
+  "green": "#215C38",
+  "yellow": "#5A4A1E",
+  "blue": "#3E5063",
+  "purple": "#45475A",
+  "cyan": "#3D5C4A",
+  "white": "#F4F6F6",
+  "brightBlack": "#45505A",
+  "brightRed": "#722E36",
+  "brightGreen": "#215C38",
+  "brightYellow": "#5A4A1E",
+  "brightBlue": "#2E3E4E",
+  "brightPurple": "#45475A",
+  "brightCyan": "#3D5C4A",
+  "brightWhite": "#22272C"
+}

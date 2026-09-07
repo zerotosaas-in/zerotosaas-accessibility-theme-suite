@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Pastel",
+  "background": "#FDFBFA",
+  "foreground": "#2E2A33",
+  "cursorColor": "#7A3B62",
+  "selectionBackground": "#D9C4D4",
+  "black": "#2E2A33",
+  "red": "#8C2340",
+  "green": "#1F5C33",
+  "yellow": "#6B4A12",
+  "blue": "#7A3B62",
+  "purple": "#5C3A78",
+  "cyan": "#17573B",
+  "white": "#F8F5F4",
+  "brightBlack": "#4E4956",
+  "brightRed": "#8C2340",
+  "brightGreen": "#1F5C33",
+  "brightYellow": "#6B4A12",
+  "brightBlue": "#5C2B48",
+  "brightPurple": "#5C3A78",
+  "brightCyan": "#17573B",
+  "brightWhite": "#2E2A33"
+}

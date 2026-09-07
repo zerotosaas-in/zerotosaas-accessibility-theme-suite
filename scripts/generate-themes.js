@@ -442,6 +442,218 @@ const themeDefinitions = [
       uuid: '#961103',
       secret: '#961103'
     }
+  },
+  {
+    id: 'zerotosaas-pastel',
+    name: 'ZeroToSaaS Pastel',
+    type: 'light',
+    // Soft low-chroma UI tints; text tokens stay deep so WCAG AAA still holds.
+    bg: '#FDFBFA',
+    bgSubtle: '#F8F5F4',
+    bgSidebar: '#F5F2F1',
+    bgActivityBar: '#EFEBEA',
+    bgStatusBar: '#6E4B62',
+    fgStatusBar: '#FFFFFF',
+    bgActive: '#E9E2E6',
+    bgSelection: '#D9C4D4B3',
+    border: '#DBD2D9',
+    borderStrong: '#B9A8B5',
+    fg: '#2E2A33',
+    fgMuted: '#4E4956',
+    accent: '#7A3B62',
+    accentFocus: '#5C2B48',
+    safe: { fg: '#1F5C33', bg: '#F2F8F4', border: '#BCDDC6' },
+    caution: { fg: '#6B4A12', bg: '#FBF7EE', border: '#EBD9A8' },
+    warning: { fg: '#6B4019', bg: '#FAF5F0', border: '#E8CBA8' },
+    panic: { fg: '#8C2340', bg: '#FAF2F4', border: '#E8B4C2' },
+    syntax: {
+      keyword: '#7A3B62',
+      string: '#6B4019',
+      function: '#5C3A78',
+      type: '#17573B',
+      constant: '#6B4A12',
+      number: '#8C2340',
+      variable: '#2E2A33',
+      parameter: '#6B4A12',
+      comment: '#4E4956',
+      tag: '#7A3B62',
+      attribute: '#5C3A78',
+      property: '#2E2A33',
+      operator: '#2E2A33',
+      regex: '#8C2340',
+      uuid: '#8C2340',
+      secret: '#8C2340'
+    }
+  },
+  {
+    id: 'zerotosaas-minimal',
+    name: 'ZeroToSaaS Minimal',
+    type: 'light',
+    // Near-monochrome syntax: one accent hue + one warm string hue + neutrals.
+    bg: '#FCFCFC',
+    bgSubtle: '#F7F7F7',
+    bgSidebar: '#F4F4F4',
+    bgActivityBar: '#EFEFEF',
+    bgStatusBar: '#30363D',
+    fgStatusBar: '#FFFFFF',
+    bgActive: '#E8EAEC',
+    bgSelection: '#C9D2DAB3',
+    border: '#D9DDE1',
+    borderStrong: '#B0B7BE',
+    fg: '#1E2329',
+    fgMuted: '#47505A',
+    accent: '#3D5266',
+    accentFocus: '#2C3F50',
+    safe: { fg: '#1F5C33', bg: '#F2F7F4', border: '#BCD5C2' },
+    caution: { fg: '#5C4A1F', bg: '#F8F5EC', border: '#DCCFA6' },
+    warning: { fg: '#6B421F', bg: '#F8F4EF', border: '#D9C3A6' },
+    panic: { fg: '#7A2E33', bg: '#F8F2F2', border: '#DCB4B8' },
+    syntax: {
+      keyword: '#3D5266',
+      string: '#6B4A1F',
+      function: '#2E3440',
+      type: '#3D5C4A',
+      constant: '#4A4640',
+      number: '#6B2E33',
+      variable: '#1E2329',
+      parameter: '#4A4640',
+      comment: '#47505A',
+      tag: '#3D5266',
+      attribute: '#2E3440',
+      property: '#1E2329',
+      operator: '#1E2329',
+      regex: '#6B2E33',
+      uuid: '#6B2E33',
+      secret: '#6B2E33'
+    }
+  },
+  {
+    id: 'zerotosaas-dyslexia',
+    name: 'ZeroToSaaS Dyslexia Comfort',
+    type: 'light',
+    // Warm cream canvas (reduces visual stress vs pure white), deep warm-gray
+    // text (not pure black), and maximally hue-separated token categories.
+    bg: '#FBF5E9',
+    bgSubtle: '#F5EFE2',
+    bgSidebar: '#F2EBDD',
+    bgActivityBar: '#EDE5D4',
+    bgStatusBar: '#42351C',
+    fgStatusBar: '#FFFFFF',
+    bgActive: '#E9E0CE',
+    bgSelection: '#D9C89FB3',
+    border: '#D9CDB8',
+    borderStrong: '#B8A88C',
+    fg: '#26221B',
+    fgMuted: '#4A463C',
+    accent: '#4A4A8C',
+    accentFocus: '#3A3A70',
+    safe: { fg: '#1A5C33', bg: '#F4F8EE', border: '#B8D4B0' },
+    caution: { fg: '#5C4300', bg: '#F9F4E2', border: '#E3D2A0' },
+    warning: { fg: '#6B3A00', bg: '#F9F1E4', border: '#E5C4A0' },
+    panic: { fg: '#8C1428', bg: '#F9EDEA', border: '#E5B4AE' },
+    syntax: {
+      keyword: '#0B4F8C',
+      string: '#7A3A00',
+      function: '#5A2E8C',
+      type: '#0A5C50',
+      constant: '#6B4A00',
+      number: '#8C1428',
+      variable: '#26221B',
+      parameter: '#6B4A00',
+      comment: '#4A463C',
+      tag: '#0B4F8C',
+      attribute: '#5A2E8C',
+      property: '#26221B',
+      operator: '#26221B',
+      regex: '#8C1428',
+      uuid: '#8C1428',
+      secret: '#8C1428'
+    }
+  },
+  {
+    id: 'zerotosaas-focus',
+    name: 'ZeroToSaaS Focus (Low-Stimulation)',
+    type: 'light',
+    // Desaturated slate identity for reduced visual stimulation (ADHD-friendly).
+    bg: '#F9FAFA',
+    bgSubtle: '#F4F6F6',
+    bgSidebar: '#F1F3F3',
+    bgActivityBar: '#EBEEEE',
+    bgStatusBar: '#363E46',
+    fgStatusBar: '#FFFFFF',
+    bgActive: '#E6EAEB',
+    bgSelection: '#C4CED4B3',
+    border: '#D6DBDD',
+    borderStrong: '#AEB6BA',
+    fg: '#22272C',
+    fgMuted: '#45505A',
+    accent: '#3E5063',
+    accentFocus: '#2E3E4E',
+    safe: { fg: '#215C38', bg: '#F1F7F3', border: '#BAD4C0' },
+    caution: { fg: '#5A4A1E', bg: '#F8F6ED', border: '#DACFA4' },
+    warning: { fg: '#66421F', bg: '#F8F4EF', border: '#D8C2A6' },
+    panic: { fg: '#722E36', bg: '#F7F1F2', border: '#D9B4BA' },
+    syntax: {
+      keyword: '#3E5063',
+      string: '#5F4A2E',
+      function: '#45475A',
+      type: '#3D5C4A',
+      constant: '#54492E',
+      number: '#662E33',
+      variable: '#22272C',
+      parameter: '#54492E',
+      comment: '#45505A',
+      tag: '#3E5063',
+      attribute: '#45475A',
+      property: '#22272C',
+      operator: '#22272C',
+      regex: '#662E33',
+      uuid: '#662E33',
+      secret: '#662E33'
+    }
+  },
+  {
+    id: 'zerotosaas-soft',
+    name: 'ZeroToSaaS Soft (Comfort)',
+    type: 'light',
+    // Migraine/photophobia-aware: warm dim canvas, no pure white or pure black,
+    // reduced luminance range — while still holding WCAG AAA (>= 7:1).
+    bg: '#F4F0E7',
+    bgSubtle: '#EFEBE0',
+    bgSidebar: '#ECE6DA',
+    bgActivityBar: '#E6DFCF',
+    bgStatusBar: '#453B30',
+    fgStatusBar: '#FFFFFF',
+    bgActive: '#E3DCCB',
+    bgSelection: '#CFC0A0B3',
+    border: '#D3C9B4',
+    borderStrong: '#A99C82',
+    fg: '#2E2A24',
+    fgMuted: '#4A453A',
+    accent: '#4A4E6B',
+    accentFocus: '#3A3E56',
+    safe: { fg: '#205030', bg: '#F0F5EA', border: '#B8CCAE' },
+    caution: { fg: '#544308', bg: '#F7F2E4', border: '#DACFA0' },
+    warning: { fg: '#5F3A0E', bg: '#F7F0E6', border: '#D5BE9C' },
+    panic: { fg: '#662A33', bg: '#F6EDEB', border: '#D3AFB2' },
+    syntax: {
+      keyword: '#4A4E6B',
+      string: '#6E4626',
+      function: '#4E4266',
+      type: '#33503F',
+      constant: '#5C4A26',
+      number: '#703040',
+      variable: '#2E2A24',
+      parameter: '#5C4A26',
+      comment: '#4A453A',
+      tag: '#4A4E6B',
+      attribute: '#4E4266',
+      property: '#2E2A24',
+      operator: '#2E2A24',
+      regex: '#703040',
+      uuid: '#703040',
+      secret: '#703040'
+    }
   }
 ];
 
@@ -771,6 +983,98 @@ const darkThemeDefinitions = themeDefinitions.map(light => {
   const derived = deriveDarkFromLight(light, overrides);
   return tuneDarkPalette(derived);
 });
+
+// Dark-only palettes that have no light counterpart to derive from:
+// - OLED Night: pure #000000 canvas for power saving on OLED panels.
+// - Circadian Night: warm amber/red hue family that minimizes blue
+//   wavelength emission for late-night coding (reduced blue emission —
+//   a theme cannot filter OS-level blue light).
+// Both are passed through tuneDarkPalette like every other dark palette,
+// so WCAG AAA (>= 7:1) is guaranteed.
+const darkOnlyDefinitions = [
+  {
+    id: 'zerotosaas-oled-night',
+    name: 'ZeroToSaaS OLED Night (True Black)',
+    type: 'dark',
+    bg: '#000000',
+    bgSubtle: '#0A0A0A',
+    bgSidebar: '#0E0E0E',
+    bgActivityBar: '#131313',
+    bgStatusBar: '#FFFFFF',
+    fgStatusBar: '#000000',
+    bgActive: '#1A1A1A',
+    bgSelection: '#2A4A7AE6',
+    border: '#2E2E2E',
+    borderStrong: '#4D4D4D',
+    fg: '#F0F0F0',
+    fgMuted: '#9E9E9E',
+    accent: '#6FB3FF',
+    accentFocus: '#8FC4FF',
+    safe: { fg: '#6BD17E', bg: '#0A1F10', border: '#6BD17E' },
+    caution: { fg: '#E8C46A', bg: '#241E0A', border: '#E8C46A' },
+    warning: { fg: '#F0A066', bg: '#241408', border: '#F0A066' },
+    panic: { fg: '#FF7A8C', bg: '#240A10', border: '#FF7A8C' },
+    syntax: {
+      keyword: '#6FB3FF',
+      string: '#FFB870',
+      function: '#C4A0FF',
+      type: '#6BDB9A',
+      constant: '#FFD070',
+      number: '#FF7A8C',
+      variable: '#F0F0F0',
+      parameter: '#FFD070',
+      comment: '#9E9E9E',
+      tag: '#6FB3FF',
+      attribute: '#C4A0FF',
+      property: '#F0F0F0',
+      operator: '#F0F0F0',
+      regex: '#FF7A8C',
+      uuid: '#FF7A8C',
+      secret: '#FF7A8C'
+    }
+  },
+  {
+    id: 'zerotosaas-circadian-night',
+    name: 'ZeroToSaaS Circadian Night (Low Blue)',
+    type: 'dark',
+    bg: '#141009',
+    bgSubtle: '#1A1510',
+    bgSidebar: '#1F1A13',
+    bgActivityBar: '#252019',
+    bgStatusBar: '#4A3512',
+    fgStatusBar: '#F7ECD4',
+    bgActive: '#2A241A',
+    bgSelection: '#5C3D14B3',
+    border: '#33291C',
+    borderStrong: '#4D3F2A',
+    fg: '#EDE4D2',
+    fgMuted: '#A89880',
+    accent: '#E8A852',
+    accentFocus: '#F0C078',
+    safe: { fg: '#9CC47A', bg: '#1C2410', border: '#9CC47A' },
+    caution: { fg: '#E8B85A', bg: '#26200E', border: '#E8B85A' },
+    warning: { fg: '#E8945A', bg: '#26160C', border: '#E8945A' },
+    panic: { fg: '#F07878', bg: '#260E10', border: '#F07878' },
+    syntax: {
+      keyword: '#E8A852',
+      string: '#E88A6B',
+      function: '#D4B06A',
+      type: '#A8C47A',
+      constant: '#E8C07A',
+      number: '#E87A7A',
+      variable: '#EDE4D2',
+      parameter: '#E8C07A',
+      comment: '#A89880',
+      tag: '#E8A852',
+      attribute: '#D4B06A',
+      property: '#EDE4D2',
+      operator: '#EDE4D2',
+      regex: '#E87A7A',
+      uuid: '#E87A7A',
+      secret: '#E87A7A'
+    }
+  }
+].map(d => tuneDarkPalette(d));
 
 function buildThemeJson(theme) {
   const isHc = theme.type === 'hc-light' || theme.type === 'hc-dark';
@@ -1911,9 +2215,11 @@ function buildThemeJson(theme) {
   };
 }
 
-// Generate all 20 theme JSON files (10 Light + 10 Night)
-const allThemes = [...themeDefinitions, ...darkThemeDefinitions];
-console.log(`🚀 Generating ZeroToSaaS ${allThemes.length} Accessible Themes (10 Light + 10 Night)...`);
+// Generate all theme JSON files: every light palette plus every night palette
+// (derived + dark-only).
+const allThemes = [...themeDefinitions, ...darkThemeDefinitions, ...darkOnlyDefinitions];
+const nightCount = darkThemeDefinitions.length + darkOnlyDefinitions.length;
+console.log(`🚀 Generating ZeroToSaaS ${allThemes.length} Accessible Themes (${themeDefinitions.length} Light + ${nightCount} Night)...`);
 allThemes.forEach(theme => {
   const filePath = path.join(THEMES_DIR, `${theme.id}.json`);
   const jsonContent = JSON.stringify(buildThemeJson(theme), null, 2);

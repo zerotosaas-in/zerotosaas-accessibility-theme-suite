@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS OLED Night (True Black)",
+  "background": "#000000",
+  "foreground": "#F0F0F0",
+  "cursorColor": "#6FB3FF",
+  "selectionBackground": "#2A4A7A",
+  "black": "#0A0A0A",
+  "red": "#FF7A8C",
+  "green": "#6BD17E",
+  "yellow": "#E8C46A",
+  "blue": "#6FB3FF",
+  "purple": "#C4A0FF",
+  "cyan": "#6BDB9A",
+  "white": "#F0F0F0",
+  "brightBlack": "#0E0E0E",
+  "brightRed": "#FF7A8C",
+  "brightGreen": "#6BD17E",
+  "brightYellow": "#E8C46A",
+  "brightBlue": "#8FC4FF",
+  "brightPurple": "#C4A0FF",
+  "brightCyan": "#6BDB9A",
+  "brightWhite": "#FFFFFF"
+}

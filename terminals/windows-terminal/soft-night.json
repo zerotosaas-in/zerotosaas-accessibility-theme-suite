@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Soft Night (Comfort)",
+  "background": "#100D07",
+  "foreground": "#ECE7DF",
+  "cursorColor": "#9DA2C3",
+  "selectionBackground": "#282B46",
+  "black": "#15120C",
+  "red": "#D58E95",
+  "green": "#8ABC97",
+  "yellow": "#C9B680",
+  "blue": "#9DA2C3",
+  "purple": "#A99DC6",
+  "cyan": "#8EAE9A",
+  "white": "#ECE7DF",
+  "brightBlack": "#19160F",
+  "brightRed": "#D58E95",
+  "brightGreen": "#8ABC97",
+  "brightYellow": "#C9B680",
+  "brightBlue": "#B0B6D3",
+  "brightPurple": "#A99DC6",
+  "brightCyan": "#8EAE9A",
+  "brightWhite": "#FFFFFF"
+}

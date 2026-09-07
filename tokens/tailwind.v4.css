@@ -21,6 +21,24 @@
   --color-z2s-comments: #485260;
 }
 
+[data-z2s-theme="circadian-night"] {
+  --color-z2s-canvas: #141009;
+  --color-z2s-fg: #EDE4D2;
+  --color-z2s-selection: #5C3D14;
+  --color-z2s-panic-fg: #F67D7C;
+  --color-z2s-warning-fg: #E8945A;
+  --color-z2s-info-fg: #E8A852;
+  --color-z2s-safe-fg: #9CC47A;
+  --color-z2s-caution-fg: #E8945A;
+  --color-z2s-focus-border: #E8A852;
+  --color-z2s-keywords: #E8A852;
+  --color-z2s-functions: #D4B06A;
+  --color-z2s-types: #A8C47A;
+  --color-z2s-constants: #E8C07A;
+  --color-z2s-variables: #EDE4D2;
+  --color-z2s-comments: #AD9D84;
+}
+
 [data-z2s-theme="deuteranopia"] {
   --color-z2s-canvas: #FAFCFE;
   --color-z2s-fg: #0A1B38;
@@ -55,6 +73,78 @@
   --color-z2s-constants: #E8A05A;
   --color-z2s-variables: #E8EEF4;
   --color-z2s-comments: #91A2BA;
+}
+
+[data-z2s-theme="dyslexia"] {
+  --color-z2s-canvas: #FBF5E9;
+  --color-z2s-fg: #26221B;
+  --color-z2s-selection: #D9C89F;
+  --color-z2s-panic-fg: #8C1428;
+  --color-z2s-warning-fg: #6B3A00;
+  --color-z2s-info-fg: #4A4A8C;
+  --color-z2s-safe-fg: #1A5C33;
+  --color-z2s-caution-fg: #6B3A00;
+  --color-z2s-focus-border: #4A4A8C;
+  --color-z2s-keywords: #0B4F8C;
+  --color-z2s-functions: #5A2E8C;
+  --color-z2s-types: #0A5C50;
+  --color-z2s-constants: #6B4A00;
+  --color-z2s-variables: #26221B;
+  --color-z2s-comments: #4A463C;
+}
+
+[data-z2s-theme="dyslexia-night"] {
+  --color-z2s-canvas: #110D05;
+  --color-z2s-fg: #EDE7DE;
+  --color-z2s-selection: #272361;
+  --color-z2s-panic-fg: #F97C81;
+  --color-z2s-warning-fg: #D9A070;
+  --color-z2s-info-fg: #999DE6;
+  --color-z2s-safe-fg: #7FC091;
+  --color-z2s-caution-fg: #D9A070;
+  --color-z2s-focus-border: #999DE6;
+  --color-z2s-keywords: #6BA9ED;
+  --color-z2s-functions: #B68CF2;
+  --color-z2s-types: #6EB4A6;
+  --color-z2s-constants: #C39E61;
+  --color-z2s-variables: #E9E4DA;
+  --color-z2s-comments: #A9A499;
+}
+
+[data-z2s-theme="focus"] {
+  --color-z2s-canvas: #F9FAFA;
+  --color-z2s-fg: #22272C;
+  --color-z2s-selection: #C4CED4;
+  --color-z2s-panic-fg: #722E36;
+  --color-z2s-warning-fg: #66421F;
+  --color-z2s-info-fg: #3E5063;
+  --color-z2s-safe-fg: #215C38;
+  --color-z2s-caution-fg: #66421F;
+  --color-z2s-focus-border: #3E5063;
+  --color-z2s-keywords: #3E5063;
+  --color-z2s-functions: #45475A;
+  --color-z2s-types: #3D5C4A;
+  --color-z2s-constants: #54492E;
+  --color-z2s-variables: #22272C;
+  --color-z2s-comments: #45505A;
+}
+
+[data-z2s-theme="focus-night"] {
+  --color-z2s-canvas: #070F0F;
+  --color-z2s-fg: #E2E9F0;
+  --color-z2s-selection: #1E2F41;
+  --color-z2s-panic-fg: #DC8D93;
+  --color-z2s-warning-fg: #CEA580;
+  --color-z2s-info-fg: #93A7BD;
+  --color-z2s-safe-fg: #83BE95;
+  --color-z2s-caution-fg: #CEA580;
+  --color-z2s-focus-border: #93A7BD;
+  --color-z2s-keywords: #93A7BD;
+  --color-z2s-functions: #A0A3B9;
+  --color-z2s-types: #8CAE9A;
+  --color-z2s-constants: #B0A486;
+  --color-z2s-variables: #DFE5EC;
+  --color-z2s-comments: #9AA6B2;
 }
 
 [data-z2s-theme="green"] {
@@ -183,6 +273,96 @@
   --color-z2s-comments: #95A0B0;
 }
 
+[data-z2s-theme="minimal"] {
+  --color-z2s-canvas: #FCFCFC;
+  --color-z2s-fg: #1E2329;
+  --color-z2s-selection: #C9D2DA;
+  --color-z2s-panic-fg: #7A2E33;
+  --color-z2s-warning-fg: #6B421F;
+  --color-z2s-info-fg: #3D5266;
+  --color-z2s-safe-fg: #1F5C33;
+  --color-z2s-caution-fg: #6B421F;
+  --color-z2s-focus-border: #3D5266;
+  --color-z2s-keywords: #3D5266;
+  --color-z2s-functions: #2E3440;
+  --color-z2s-types: #3D5C4A;
+  --color-z2s-constants: #4A4640;
+  --color-z2s-variables: #1E2329;
+  --color-z2s-comments: #47505A;
+}
+
+[data-z2s-theme="minimal-night"] {
+  --color-z2s-canvas: #0F0D08;
+  --color-z2s-fg: #E2E9F1;
+  --color-z2s-selection: #1C3042;
+  --color-z2s-panic-fg: #E18B8C;
+  --color-z2s-warning-fg: #D2A37E;
+  --color-z2s-info-fg: #90A8BE;
+  --color-z2s-safe-fg: #82BF90;
+  --color-z2s-caution-fg: #D2A37E;
+  --color-z2s-focus-border: #90A8BE;
+  --color-z2s-keywords: #90A8BE;
+  --color-z2s-functions: #9DA5B3;
+  --color-z2s-types: #8CAE9A;
+  --color-z2s-constants: #A8A49D;
+  --color-z2s-variables: #DEE5EE;
+  --color-z2s-comments: #9CA6B1;
+}
+
+[data-z2s-theme="oled-night"] {
+  --color-z2s-canvas: #000000;
+  --color-z2s-fg: #F0F0F0;
+  --color-z2s-selection: #2A4A7A;
+  --color-z2s-panic-fg: #FF7A8C;
+  --color-z2s-warning-fg: #F0A066;
+  --color-z2s-info-fg: #6FB3FF;
+  --color-z2s-safe-fg: #6BD17E;
+  --color-z2s-caution-fg: #F0A066;
+  --color-z2s-focus-border: #6FB3FF;
+  --color-z2s-keywords: #6FB3FF;
+  --color-z2s-functions: #C4A0FF;
+  --color-z2s-types: #6BDB9A;
+  --color-z2s-constants: #FFD070;
+  --color-z2s-variables: #F0F0F0;
+  --color-z2s-comments: #9E9E9E;
+}
+
+[data-z2s-theme="pastel"] {
+  --color-z2s-canvas: #FDFBFA;
+  --color-z2s-fg: #2E2A33;
+  --color-z2s-selection: #D9C4D4;
+  --color-z2s-panic-fg: #8C2340;
+  --color-z2s-warning-fg: #6B4019;
+  --color-z2s-info-fg: #7A3B62;
+  --color-z2s-safe-fg: #1F5C33;
+  --color-z2s-caution-fg: #6B4019;
+  --color-z2s-focus-border: #7A3B62;
+  --color-z2s-keywords: #7A3B62;
+  --color-z2s-functions: #5C3A78;
+  --color-z2s-types: #17573B;
+  --color-z2s-constants: #6B4A12;
+  --color-z2s-variables: #2E2A33;
+  --color-z2s-comments: #4E4956;
+}
+
+[data-z2s-theme="pastel-night"] {
+  --color-z2s-canvas: #120C09;
+  --color-z2s-fg: #EAE5F0;
+  --color-z2s-selection: #4E123A;
+  --color-z2s-panic-fg: #F07E94;
+  --color-z2s-warning-fg: #D4A27B;
+  --color-z2s-info-fg: #D28BB4;
+  --color-z2s-safe-fg: #82BF90;
+  --color-z2s-caution-fg: #D4A27B;
+  --color-z2s-focus-border: #D28BB4;
+  --color-z2s-keywords: #D28BB4;
+  --color-z2s-functions: #B793D8;
+  --color-z2s-types: #77B494;
+  --color-z2s-constants: #C39E69;
+  --color-z2s-variables: #E7E2EE;
+  --color-z2s-comments: #A7A1B0;
+}
+
 [data-z2s-theme="protanopia"] {
   --color-z2s-canvas: #FCFAFC;
   --color-z2s-fg: #1E0E22;
@@ -253,6 +433,42 @@
   --color-z2s-constants: #C79C64;
   --color-z2s-variables: #ECDDFF;
   --color-z2s-comments: #AE9BC7;
+}
+
+[data-z2s-theme="soft"] {
+  --color-z2s-canvas: #F4F0E7;
+  --color-z2s-fg: #2E2A24;
+  --color-z2s-selection: #CFC0A0;
+  --color-z2s-panic-fg: #662A33;
+  --color-z2s-warning-fg: #5F3A0E;
+  --color-z2s-info-fg: #4A4E6B;
+  --color-z2s-safe-fg: #205030;
+  --color-z2s-caution-fg: #5F3A0E;
+  --color-z2s-focus-border: #4A4E6B;
+  --color-z2s-keywords: #4A4E6B;
+  --color-z2s-functions: #4E4266;
+  --color-z2s-types: #33503F;
+  --color-z2s-constants: #5C4A26;
+  --color-z2s-variables: #2E2A24;
+  --color-z2s-comments: #4A453A;
+}
+
+[data-z2s-theme="soft-night"] {
+  --color-z2s-canvas: #100D07;
+  --color-z2s-fg: #ECE7DF;
+  --color-z2s-selection: #282B46;
+  --color-z2s-panic-fg: #D58E95;
+  --color-z2s-warning-fg: #D0A47A;
+  --color-z2s-info-fg: #9DA2C3;
+  --color-z2s-safe-fg: #8ABC97;
+  --color-z2s-caution-fg: #D0A47A;
+  --color-z2s-focus-border: #9DA2C3;
+  --color-z2s-keywords: #9DA2C3;
+  --color-z2s-functions: #A99DC6;
+  --color-z2s-types: #8EAE9A;
+  --color-z2s-constants: #B6A27C;
+  --color-z2s-variables: #E9E4DC;
+  --color-z2s-comments: #AAA497;
 }
 
 [data-z2s-theme="orange"] {

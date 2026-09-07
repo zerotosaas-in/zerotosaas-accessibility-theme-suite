@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Pastel Night",
+  "background": "#120C09",
+  "foreground": "#EAE5F0",
+  "cursorColor": "#D28BB4",
+  "selectionBackground": "#4E123A",
+  "black": "#17110E",
+  "red": "#F07E94",
+  "green": "#82BF90",
+  "yellow": "#D6B17B",
+  "blue": "#D28BB4",
+  "purple": "#B793D8",
+  "cyan": "#77B494",
+  "white": "#EAE5F0",
+  "brightBlack": "#1B1411",
+  "brightRed": "#F07E94",
+  "brightGreen": "#82BF90",
+  "brightYellow": "#D6B17B",
+  "brightBlue": "#DEA3C3",
+  "brightPurple": "#B793D8",
+  "brightCyan": "#77B494",
+  "brightWhite": "#FFFFFF"
+}

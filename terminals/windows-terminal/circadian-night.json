@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Circadian Night (Low Blue)",
+  "background": "#141009",
+  "foreground": "#EDE4D2",
+  "cursorColor": "#E8A852",
+  "selectionBackground": "#5C3D14",
+  "black": "#1A1510",
+  "red": "#F67D7C",
+  "green": "#9CC47A",
+  "yellow": "#E8B85A",
+  "blue": "#E8A852",
+  "purple": "#D4B06A",
+  "cyan": "#A8C47A",
+  "white": "#EDE4D2",
+  "brightBlack": "#1F1A13",
+  "brightRed": "#F67D7C",
+  "brightGreen": "#9CC47A",
+  "brightYellow": "#E8B85A",
+  "brightBlue": "#F0C078",
+  "brightPurple": "#D4B06A",
+  "brightCyan": "#A8C47A",
+  "brightWhite": "#FFFFFF"
+}

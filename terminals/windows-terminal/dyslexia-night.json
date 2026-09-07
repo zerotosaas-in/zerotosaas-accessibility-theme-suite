@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Dyslexia Comfort Night",
+  "background": "#110D05",
+  "foreground": "#EDE7DE",
+  "cursorColor": "#999DE6",
+  "selectionBackground": "#272361",
+  "black": "#16120A",
+  "red": "#F97C81",
+  "green": "#7FC091",
+  "yellow": "#D0B47A",
+  "blue": "#999DE6",
+  "purple": "#B68CF2",
+  "cyan": "#6EB4A6",
+  "white": "#EDE7DE",
+  "brightBlack": "#1A150D",
+  "brightRed": "#F97C81",
+  "brightGreen": "#7FC091",
+  "brightYellow": "#D0B47A",
+  "brightBlue": "#ADB1F1",
+  "brightPurple": "#B68CF2",
+  "brightCyan": "#6EB4A6",
+  "brightWhite": "#FFFFFF"
+}

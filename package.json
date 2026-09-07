@@ -23,14 +23,17 @@
     "a11y",
     "accessibility",
     "accessible",
+    "adhd",
     "ai-theme",
     "alacritty",
     "antigravity",
     "apca",
     "blink reminder",
+    "blue light",
     "break reminder",
     "calm",
     "cascade",
+    "circadian",
     "code smell",
     "color theme",
     "color vision deficiency",
@@ -50,6 +53,7 @@
     "developer health",
     "devin",
     "digital eye strain",
+    "dyslexia",
     "earth tones",
     "easy on eyes",
     "editor theme",
@@ -64,6 +68,8 @@
     "eye rest",
     "eye strain",
     "fm-100-hue",
+    "focus",
+    "focus mode",
     "forest",
     "gentle",
     "ghostty",
@@ -79,17 +85,27 @@
     "light mode",
     "light sensitivity",
     "light theme",
+    "low blue",
     "low vision",
     "medical optics",
+    "migraine",
+    "minimal",
+    "neurodivergent",
     "night mode",
     "night theme",
     "ocular health",
     "oklch",
+    "oled",
     "openvsx",
+    "pastel",
     "paul-tol",
+    "photophobia",
+    "pomodoro",
+    "productivity",
     "protanopia",
     "readability",
     "readable",
+    "reading comfort",
     "relaxed",
     "relaxing",
     "rest reminder",
@@ -98,6 +114,7 @@
     "semantic highlighting",
     "sensitive eyes",
     "sepia",
+    "soft contrast",
     "soothing",
     "syntax highlighting",
     "tailwind",
@@ -234,6 +251,66 @@
         "label": "ZeroToSaaS Terracotta Night (Orange)",
         "uiTheme": "vs-dark",
         "path": "./themes/zerotosaas-orange-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Pastel",
+        "uiTheme": "vs",
+        "path": "./themes/zerotosaas-pastel.json"
+      },
+      {
+        "label": "ZeroToSaaS Pastel Night",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-pastel-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Minimal",
+        "uiTheme": "vs",
+        "path": "./themes/zerotosaas-minimal.json"
+      },
+      {
+        "label": "ZeroToSaaS Minimal Night",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-minimal-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Dyslexia Comfort",
+        "uiTheme": "vs",
+        "path": "./themes/zerotosaas-dyslexia.json"
+      },
+      {
+        "label": "ZeroToSaaS Dyslexia Comfort Night",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-dyslexia-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Focus (Low-Stimulation)",
+        "uiTheme": "vs",
+        "path": "./themes/zerotosaas-focus.json"
+      },
+      {
+        "label": "ZeroToSaaS Focus Night (Low-Stimulation)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-focus-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Soft (Comfort)",
+        "uiTheme": "vs",
+        "path": "./themes/zerotosaas-soft.json"
+      },
+      {
+        "label": "ZeroToSaaS Soft Night (Comfort)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-soft-night.json"
+      },
+      {
+        "label": "ZeroToSaaS OLED Night (True Black)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-oled-night.json"
+      },
+      {
+        "label": "ZeroToSaaS Circadian Night (Low Blue)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zerotosaas-circadian-night.json"
       }
     ],
     "configuration": [
@@ -326,7 +403,7 @@
             "type": "boolean",
             "default": true,
             "order": 8,
-            "description": "Show the persistent ZeroToSaaS status bar badge ($(shield) ZeroToSaaS [AAA]) with a quick-access menu (Settings, Eye-Health Guidelines, Reset Rest Timer, active theme)."
+            "description": "Show the single ZeroToSaaS status bar icon ($(eye)) with a quick-access menu (Settings, Eye-Health Guidelines, Reset Rest Timer, active theme). This is the suite's only status-bar item — timers and modes report through its tooltip and menu."
           }
         }
       },
@@ -348,7 +425,7 @@
             "type": "boolean",
             "default": false,
             "order": 1,
-            "description": "Enable the 20-20-20 Ocular Rest Assistant and blink reminder in the status bar."
+            "description": "Enable the 20-20-20 Ocular Rest Assistant and blink reminder. Countdown surfaces on the ZeroToSaaS status icon's tooltip and menu; break alerts arrive as notifications."
           },
           "zerotosaas.restReminder.intervalMinutes": {
             "type": "number",
@@ -376,6 +453,56 @@
             "description": "Silence dark-theme eye-health advisories permanently (both the night-theme QuickPick notice and the external dark-activation warning). Re-enable any time from Settings. The full medical rationale remains available via the 'ZeroToSaaS: Open Eye-Health Guidelines' command."
           }
         }
+      },
+      {
+        "title": "ZeroToSaaS — Reading Comfort",
+        "properties": {
+          "zerotosaas.readingComfort.letterSpacing": {
+            "type": "number",
+            "default": 0.5,
+            "minimum": 0,
+            "order": 1,
+            "description": "Letter spacing applied by the 'ZeroToSaaS: Apply Reading Comfort Preset' command (dyslexia-friendly). Increase for more separation between characters."
+          },
+          "zerotosaas.readingComfort.lineHeight": {
+            "type": "number",
+            "default": 1.6,
+            "minimum": 1,
+            "order": 2,
+            "description": "Line height (em multiplier → converted to pixels from your font size) applied by the Reading Comfort preset. Dyslexia-friendly spacing is typically 1.5+."
+          },
+          "zerotosaas.readingComfort.fontLigatures": {
+            "type": "boolean",
+            "default": false,
+            "order": 3,
+            "description": "Value applied to editor.fontLigatures by the Reading Comfort preset. Off by default — ligatured character pairs can hinder letter recognition."
+          }
+        }
+      },
+      {
+        "title": "ZeroToSaaS — Focus Timer",
+        "properties": {
+          "zerotosaas.focusTimer.enabled": {
+            "type": "boolean",
+            "default": false,
+            "order": 1,
+            "description": "Enable the Pomodoro-style focus timer. Phase and countdown surface on the ZeroToSaaS status icon's tooltip and menu; phase changes arrive as notifications."
+          },
+          "zerotosaas.focusTimer.workMinutes": {
+            "type": "number",
+            "default": 25,
+            "minimum": 1,
+            "order": 2,
+            "description": "Minutes per focus block."
+          },
+          "zerotosaas.focusTimer.breakMinutes": {
+            "type": "number",
+            "default": 5,
+            "minimum": 1,
+            "order": 3,
+            "description": "Minutes per break between focus blocks."
+          }
+        }
       }
     ],
     "commands": [
@@ -398,6 +525,26 @@
         "command": "zerotosaas.showStatusHub",
         "category": "ZeroToSaaS",
         "title": "Show Quick-Access Menu"
+      },
+      {
+        "command": "zerotosaas.applyReadingComfort",
+        "category": "ZeroToSaaS",
+        "title": "Apply Reading Comfort Preset (Dyslexia-Friendly)"
+      },
+      {
+        "command": "zerotosaas.resetReadingComfort",
+        "category": "ZeroToSaaS",
+        "title": "Restore Previous Editor Typography"
+      },
+      {
+        "command": "zerotosaas.toggleFocusMode",
+        "category": "ZeroToSaaS",
+        "title": "Toggle Focus Mode (Suppress Decorations)"
+      },
+      {
+        "command": "zerotosaas.toggleFocusTimer",
+        "category": "ZeroToSaaS",
+        "title": "Toggle Focus Timer (Pomodoro)"
       }
     ],
     "menus": {
@@ -416,6 +563,22 @@
         },
         {
           "command": "zerotosaas.showStatusHub",
+          "when": "true"
+        },
+        {
+          "command": "zerotosaas.applyReadingComfort",
+          "when": "true"
+        },
+        {
+          "command": "zerotosaas.resetReadingComfort",
+          "when": "true"
+        },
+        {
+          "command": "zerotosaas.toggleFocusMode",
+          "when": "true"
+        },
+        {
+          "command": "zerotosaas.toggleFocusTimer",
           "when": "true"
         }
       ]

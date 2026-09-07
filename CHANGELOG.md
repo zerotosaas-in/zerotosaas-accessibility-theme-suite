@@ -9,12 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 
 ### Added
 
-- **Marketplace keywords expanded** from 58 to 97 tags in `package.json`, adding plain-language health and comfort terms (`eye comfort`, `eye care`, `eye fatigue`, `digital eye strain`, `sensitive eyes`, `easy on eyes`, `soothing`, `calm`, `gentle`, `relaxed`, `relaxing`, `light sensitivity`, `low vision`, `vision health`, `blink reminder`, `break reminder`, `eye break`, `eye rest`), common search aliases (`dark mode`, `light mode`, `night mode`, `color theme`, `editor theme`, `ide theme`, `vscode`, `devin`, `a11y`, `accessible`, `contrast`, `readability`, `readable`, `comfortable`, `health`, `warm`, `sepia`, `forest`, `earth tones`, `color vision deficiency`) — every tag maps to an actual feature or design intent (20-20-20 rest/blink reminders, eye-health guidelines, dark-theme advisories, CVD variants, ISO 9241-303 high contrast, Warm Sepia/Forest Calm/Terracotta palettes, light + night families). No tags added for features the suite does not have (e.g. pastel, minimal, OLED, blue-light filter, dyslexia-specific support).
+- **12 new theme variants** (theme count 20 → 32), every token still WCAG AAA (≥ 7:1) — "gentle" is achieved via warm canvases and low chroma, never lower contrast:
+  - `ZeroToSaaS Pastel` + `Pastel Night`: warm off-white canvas, low-chroma pastel accents.
+  - `ZeroToSaaS Minimal` + `Minimal Night`: near-monochrome syntax (one accent hue, one warm string hue, neutrals).
+  - `ZeroToSaaS Dyslexia Comfort` + `Dyslexia Comfort Night`: warm cream canvas, deep warm-gray text, maximally hue-separated tokens.
+  - `ZeroToSaaS Focus (Low-Stimulation)` + `Focus Night`: desaturated accents, minimal visual noise.
+  - `ZeroToSaaS Soft (Comfort)` + `Soft Night`: warm dim canvas without pure white/black extremes — migraine/photophobia-friendly.
+  - `ZeroToSaaS OLED Night (True Black)`: `#000000` canvas stack for OLED panels.
+  - `ZeroToSaaS Circadian Night (Low Blue)`: warm amber/red palette with reduced blue emission for late-night sessions.
+- **Focus Mode** (`zerotosaas.toggleFocusMode`): runtime-only toggle that hides all ZeroToSaaS decorations (status badges, error lens, indent shading) for low-stimulation, ADHD-friendly editing. Never writes settings; toggling back re-renders.
+- **Focus Timer** (`zerotosaas.toggleFocusTimer`, `zerotosaas.focusTimer.{enabled,workMinutes,breakMinutes}`): Pomodoro-style focus/break blocks with phase-change notifications; countdown surfaces in the hub tooltip and QuickPick menu.
+- **Reading Comfort preset** (`zerotosaas.applyReadingComfort` / `zerotosaas.resetReadingComfort`, `zerotosaas.readingComfort.{letterSpacing,lineHeight,fontLigatures}`): dyslexia-friendly editor typography applied at Global scope only after a modal confirmation listing every change; previous values are backed up to `globalState` and restored exactly.
+- **Marketplace keywords expanded** from 58 to 97+ tags in `package.json`, adding plain-language health and comfort terms (`eye comfort`, `eye care`, `eye fatigue`, `digital eye strain`, `sensitive eyes`, `easy on eyes`, `soothing`, `calm`, `gentle`, `relaxed`, `relaxing`, `light sensitivity`, `low vision`, `vision health`, `blink reminder`, `break reminder`, `eye break`, `eye rest`), common search aliases (`dark mode`, `light mode`, `night mode`, `color theme`, `editor theme`, `ide theme`, `vscode`, `devin`, `a11y`, `accessible`, `contrast`, `readability`, `readable`, `comfortable`, `health`, `warm`, `sepia`, `forest`, `earth tones`, `color vision deficiency`), and tags for the new families and features (`pastel`, `minimal`, `oled`, `circadian`, `low blue`, `blue light`, `dyslexia`, `adhd`, `neurodivergent`, `migraine`, `photophobia`, `soft contrast`, `focus`, `focus mode`, `pomodoro`, `productivity`, `reading comfort`) — every tag maps to an actual feature or design intent. `low contrast` is deliberately absent: all themes remain WCAG AAA.
 
 ### Changed
 
+- **Single status-bar icon**: the suite now owns exactly one `StatusBarItem` — the `$(eye)` hub. The dedicated 20-20-20 countdown widget was removed; the rest countdown, Focus Timer countdown, and Focus Mode state surface through the hub tooltip and QuickPick menu instead. Break and phase alerts still arrive as notifications. Standing rule: timers/modes report via the hub, never their own widgets.
 - **Theme persistence**: `applyDefaultThemeOnce` is now gated behind the new `zerotosaas.theme.applyDefaultOnFirstRun` setting (default `false`) and respects any explicitly set `workbench.colorTheme` via `workbench.inspect()`. The `globalState` gate is written to both a stable key and a versioned key so version bumps do not silently re-apply the theme.
 - **IDE install hygiene**: `scripts/update-ide-configs.js` now removes stale `*.zerotosaas-theme-*` folders and `*.zerotosaas-theme` `extensions.json` entries for both the current and old publisher ids, and adds a Devin IDE target.
+- **Validation scope**: 860 → 1376 token contrast tests across 32 themes, all passing 100% WCAG AAA (≥ 7:1).
+- **Gallery copy**: `docs/gallery.html` header and audit-log counts are now derived from the theme list instead of hardcoded numbers.
 
 ## [0.6.0] - 2026-08-25
 

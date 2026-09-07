@@ -46,6 +46,14 @@ let documentChangeDebounceTimer = null;
 let selectionChangeDebounceTimer = null;
 let scrollThrottleTimer = null;
 
+// Focus Mode — runtime-only suppression of all ZeroToSaaS decorations.
+// Never writes settings; toggling back re-renders.
+let focusModeActive = false;
+
+// Reading Comfort preset — previous editor values are backed up here so
+// "Restore Previous Editor Typography" can revert exactly.
+const READING_COMFORT_BACKUP_KEY = 'z2s.readingComfort.backup';
+
 function scheduleDocumentUpdate(editor, delayMs = 180) {
   if (documentChangeDebounceTimer) {
     clearTimeout(documentChangeDebounceTimer);
@@ -358,6 +366,133 @@ function getThemePalette(themeId) {
     };
   }
 
+  if (tid.includes('pastel')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#1E1A20',
+        safe: { fg: '#8FD4A0', bg: '#1A241C', border: '#8FD4A0' },
+        caution: { fg: '#E0BC7A', bg: '#241E12', border: '#E0BC7A' },
+        warning: { fg: '#E8A87A', bg: '#241A12', border: '#E8A87A' },
+        panic: { fg: '#F08AA0', bg: '#241418', border: '#F08AA0' },
+        info: { fg: '#D48CB4', bg: '#201420', border: '#D48CB4' }
+      };
+    }
+    return {
+      oddIndentBg: '#EFE7EE',
+      safe: { fg: '#1F5C33', bg: '#F2F8F4', border: '#BCDDC6' },
+      caution: { fg: '#6B4A12', bg: '#FBF7EE', border: '#EBD9A8' },
+      warning: { fg: '#6B4019', bg: '#FAF5F0', border: '#E8CBA8' },
+      panic: { fg: '#8C2340', bg: '#FAF2F4', border: '#E8B4C2' },
+      info: { fg: '#7A3B62', bg: '#F8F1F5', border: '#D9C2D4' }
+    };
+  }
+
+  if (tid.includes('minimal')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#16181B',
+        safe: { fg: '#7BC98C', bg: '#12180F', border: '#7BC98C' },
+        caution: { fg: '#D0B068', bg: '#1E1A0E', border: '#D0B068' },
+        warning: { fg: '#D89B70', bg: '#1E160F', border: '#D89B70' },
+        panic: { fg: '#E08090', bg: '#1E1013', border: '#E08090' },
+        info: { fg: '#8AA8BF', bg: '#141A20', border: '#8AA8BF' }
+      };
+    }
+    return {
+      oddIndentBg: '#ECEDEF',
+      safe: { fg: '#1F5C33', bg: '#F2F7F4', border: '#BCD5C2' },
+      caution: { fg: '#5C4A1F', bg: '#F8F5EC', border: '#DCCFA6' },
+      warning: { fg: '#6B421F', bg: '#F8F4EF', border: '#D9C3A6' },
+      panic: { fg: '#7A2E33', bg: '#F8F2F2', border: '#DCB4B8' },
+      info: { fg: '#3D5266', bg: '#EFF2F5', border: '#C2CCD6' }
+    };
+  }
+
+  if (tid.includes('dyslexia')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#1E1A12',
+        safe: { fg: '#8FCC96', bg: '#181F10', border: '#8FCC96' },
+        caution: { fg: '#E0BC6E', bg: '#221C0C', border: '#E0BC6E' },
+        warning: { fg: '#E89B66', bg: '#221508', border: '#E89B66' },
+        panic: { fg: '#EE8FA0', bg: '#221014', border: '#EE8FA0' },
+        info: { fg: '#8F8FD6', bg: '#191922', border: '#8F8FD6' }
+      };
+    }
+    return {
+      oddIndentBg: '#EFE7D2',
+      safe: { fg: '#1A5C33', bg: '#F4F8EE', border: '#B8D4B0' },
+      caution: { fg: '#5C4300', bg: '#F9F4E2', border: '#E3D2A0' },
+      warning: { fg: '#6B3A00', bg: '#F9F1E4', border: '#E5C4A0' },
+      panic: { fg: '#8C1428', bg: '#F9EDEA', border: '#E5B4AE' },
+      info: { fg: '#4A4A8C', bg: '#F0F0F8', border: '#C4C4E0' }
+    };
+  }
+
+  if (tid.includes('focus')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#16191C',
+        safe: { fg: '#74BD84', bg: '#121A14', border: '#74BD84' },
+        caution: { fg: '#CBAF6E', bg: '#1D1A10', border: '#CBAF6E' },
+        warning: { fg: '#D2906B', bg: '#1D150F', border: '#D2906B' },
+        panic: { fg: '#DB7C88', bg: '#1D1013', border: '#DB7C88' },
+        info: { fg: '#7E9AAB', bg: '#14181D', border: '#7E9AAB' }
+      };
+    }
+    return {
+      oddIndentBg: '#E9ECEC',
+      safe: { fg: '#215C38', bg: '#F1F7F3', border: '#BAD4C0' },
+      caution: { fg: '#5A4A1E', bg: '#F8F6ED', border: '#DACFA4' },
+      warning: { fg: '#66421F', bg: '#F8F4EF', border: '#D8C2A6' },
+      panic: { fg: '#722E36', bg: '#F7F1F2', border: '#D9B4BA' },
+      info: { fg: '#3E5063', bg: '#EEF1F4', border: '#C0CBD4' }
+    };
+  }
+
+  if (tid.includes('soft')) {
+    if (isNight) {
+      return {
+        oddIndentBg: '#1B1813',
+        safe: { fg: '#84BC8A', bg: '#141B11', border: '#84BC8A' },
+        caution: { fg: '#CBAF6E', bg: '#1E1A0E', border: '#CBAF6E' },
+        warning: { fg: '#D0956B', bg: '#1E140D', border: '#D0956B' },
+        panic: { fg: '#D97E8C', bg: '#1E1012', border: '#D97E8C' },
+        info: { fg: '#8B8FB8', bg: '#171620', border: '#8B8FB8' }
+      };
+    }
+    return {
+      oddIndentBg: '#EAE4D6',
+      safe: { fg: '#205030', bg: '#F0F5EA', border: '#B8CCAE' },
+      caution: { fg: '#544308', bg: '#F7F2E4', border: '#DACFA0' },
+      warning: { fg: '#5F3A0E', bg: '#F7F0E6', border: '#D5BE9C' },
+      panic: { fg: '#662A33', bg: '#F6EDEB', border: '#D3AFB2' },
+      info: { fg: '#4A4E6B', bg: '#EFEDF2', border: '#C6C2D6' }
+    };
+  }
+
+  if (tid.includes('oled')) {
+    return {
+      oddIndentBg: '#0D0D0D',
+      safe: { fg: '#6BD17E', bg: '#0A1F10', border: '#6BD17E' },
+      caution: { fg: '#E8C46A', bg: '#241E0A', border: '#E8C46A' },
+      warning: { fg: '#F0A066', bg: '#241408', border: '#F0A066' },
+      panic: { fg: '#FF7A8C', bg: '#240A10', border: '#FF7A8C' },
+      info: { fg: '#6FB3FF', bg: '#0A1624', border: '#6FB3FF' }
+    };
+  }
+
+  if (tid.includes('circadian')) {
+    return {
+      oddIndentBg: '#1C1710',
+      safe: { fg: '#9CC47A', bg: '#1C2410', border: '#9CC47A' },
+      caution: { fg: '#E8B85A', bg: '#26200E', border: '#E8B85A' },
+      warning: { fg: '#E8945A', bg: '#26160C', border: '#E8945A' },
+      panic: { fg: '#F07878', bg: '#260E10', border: '#F07878' },
+      info: { fg: '#E8A852', bg: '#261C0A', border: '#E8A852' }
+    };
+  }
+
   // Default: ZeroToSaaS Light (Default Cobalt-Slate) or Light Night
   if (isNight) {
     return {
@@ -648,8 +783,35 @@ function subtractSelectionsFromRanges(ranges, selections) {
   return current;
 }
 
+// Clears every ZeroToSaaS decoration from an editor. Used by Focus Mode and
+// by dispose-time cleanup paths that must not leave stale highlights behind.
+function clearAllDecorations(editor) {
+  if (!editor) return;
+  const types = [
+    safeDecorationType,
+    cautionDecorationType,
+    warningDecorationType,
+    panicDecorationType,
+    commentDecorationType,
+    oddIndentDecorationType,
+    errorLensDecorationType,
+    warningLensDecorationType,
+    infoLensDecorationType,
+    hintLensDecorationType
+  ];
+  for (const dt of types) {
+    if (dt) editor.setDecorations(dt, []);
+  }
+}
+
 function updateDecorations(editor) {
   if (!editor || !editor.document) return;
+
+  // Focus Mode: suppress all ZeroToSaaS decorations without touching settings.
+  if (focusModeActive) {
+    clearAllDecorations(editor);
+    return;
+  }
 
   const doc = editor.document;
   const langId = doc.languageId;
@@ -1128,7 +1290,9 @@ function updateErrorLens(editor, palette, showSeverityBadge, showGitBlame, chunk
 }
 
 // Ocular Rest Assistant (20-20-20 rule + blink reminder)
-let restStatusBar = null;
+// The countdown surfaces on the single hub icon's tooltip and in the hub
+// QuickPick — the suite owns exactly one status-bar item, so this feature
+// never creates its own widget.
 let restTickInterval = null;
 let restNextBreakAt = 0;
 let restBreakUntil = 0;
@@ -1138,57 +1302,47 @@ function disposeRestAssistant() {
     clearInterval(restTickInterval);
     restTickInterval = null;
   }
-  if (restStatusBar) {
-    restStatusBar.dispose();
-    restStatusBar = null;
-  }
   restNextBreakAt = 0;
   restBreakUntil = 0;
 }
 
-function beginRestBreak(intervalMs, breakDurationMs) {
+function beginRestBreak(breakDurationMs) {
   restBreakUntil = Date.now() + breakDurationMs;
-  if (restStatusBar) {
-    restStatusBar.text = '$(eye) break';
-    restStatusBar.tooltip = '20-20-20 eye break in progress';
-  }
   const breakSeconds = Math.round(breakDurationMs / 1000);
   vscode.window.showInformationMessage(
     `20-20-20 Ergonomic Break: take a ${breakSeconds}-second break to look at an object 20 feet away and blink consciously to re-lubricate your eyes.`
   );
 }
 
-function updateRestStatusText() {
-  if (!restStatusBar) return;
+// Human-readable rest status for the hub tooltip and QuickPick.
+// Returns null when the assistant is disabled or not running.
+function getRestSummary() {
+  const cfg = vscode.workspace.getConfiguration('zerotosaas.restReminder');
+  if (!cfg.get('enabled', false) || !restTickInterval) return null;
   const now = Date.now();
   if (restBreakUntil > 0) {
     const remaining = Math.max(0, Math.ceil((restBreakUntil - now) / 1000));
-    restStatusBar.text = `$(eye) ${remaining}s break`;
-    restStatusBar.tooltip = `${remaining}s of 20-20-20 eye break remaining`;
-    return;
+    return `eye break in progress — ${remaining}s remaining`;
   }
   const remainingSec = Math.max(0, Math.ceil((restNextBreakAt - now) / 1000));
   const min = Math.floor(remainingSec / 60);
   const sec = remainingSec % 60;
-  restStatusBar.text = `$(eye) ${min}m ${sec}s`;
-  restStatusBar.tooltip = `Next 20-20-20 eye break in ${min}m ${sec}s — look 20ft away for 20s`;
+  return `next eye break in ${min}m ${sec}s`;
 }
 
 function initRestAssistant() {
   const cfg = vscode.workspace.getConfiguration('zerotosaas.restReminder');
   const enabled = cfg.get('enabled', false);
   disposeRestAssistant();
-  if (!enabled) return;
+  if (!enabled) {
+    updateHubStatusBarText();
+    return;
+  }
 
   const intervalMinutes = Math.max(1, Number(cfg.get('intervalMinutes', 20)) || 20);
   const breakSeconds = Math.max(5, Number(cfg.get('breakDurationSeconds', 20)) || 20);
   const intervalMs = intervalMinutes * 60 * 1000;
   const breakDurationMs = breakSeconds * 1000;
-
-  restStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-  restStatusBar.command = 'zerotosaas.resetRestTimer';
-  restStatusBar.tooltip = 'ZeroToSaaS 20-20-20 Ocular Rest Assistant';
-  restStatusBar.show();
 
   restNextBreakAt = Date.now() + intervalMs;
 
@@ -1199,16 +1353,177 @@ function initRestAssistant() {
         restBreakUntil = 0;
         restNextBreakAt = now + intervalMs;
       }
-      updateRestStatusText();
+      updateHubStatusBarText();
       return;
     }
     if (now >= restNextBreakAt) {
-      beginRestBreak(intervalMs, breakDurationMs);
+      beginRestBreak(breakDurationMs);
     }
-    updateRestStatusText();
+    updateHubStatusBarText();
   }, 1000);
 
-  updateRestStatusText();
+  updateHubStatusBarText();
+}
+
+// --- Focus Mode (low-stimulation runtime toggle) ---
+// Hides every ZeroToSaaS decoration (status badges, error lens, indent
+// shading) without writing any setting — flipping the flag re-renders.
+function toggleFocusMode() {
+  focusModeActive = !focusModeActive;
+  if (focusModeActive) {
+    for (const editor of vscode.window.visibleTextEditors) {
+      clearAllDecorations(editor);
+    }
+    vscode.window.showInformationMessage(
+      'ZeroToSaaS Focus Mode ON — status badges, error lens, and indent shading are hidden. Run "Toggle Focus Mode" again to restore.'
+    );
+  } else {
+    if (vscode.window.activeTextEditor) {
+      updateDecorations(vscode.window.activeTextEditor);
+    }
+    vscode.window.showInformationMessage('ZeroToSaaS Focus Mode OFF — decorations restored.');
+  }
+  updateHubStatusBarText();
+}
+
+// --- Reading Comfort preset (dyslexia-friendly typography) ---
+// Applies editor.letterSpacing, editor.lineHeight (em multiplier × fontSize),
+// and editor.fontLigatures at Global scope — only after a modal confirmation
+// that lists every change. Previous values are backed up to globalState and
+// restored by resetReadingComfort().
+function getReadingComfortTargets() {
+  const rc = vscode.workspace.getConfiguration('zerotosaas.readingComfort');
+  const editorCfg = vscode.workspace.getConfiguration('editor');
+  const fontSize = Math.max(1, Number(editorCfg.get('fontSize', 14)) || 14);
+  const lineHeightMult = Math.max(1, Number(rc.get('lineHeight', 1.6)) || 1.6);
+  const letterSpacing = Math.max(0, Number(rc.get('letterSpacing', 0.5)) || 0.5);
+  const fontLigatures = Boolean(rc.get('fontLigatures', false));
+  return [
+    { key: 'letterSpacing', value: letterSpacing, label: 'editor.letterSpacing' },
+    { key: 'lineHeight', value: Math.round(fontSize * lineHeightMult), label: `editor.lineHeight (${lineHeightMult} × fontSize ${fontSize}px)` },
+    { key: 'fontLigatures', value: fontLigatures, label: 'editor.fontLigatures' }
+  ];
+}
+
+async function applyReadingComfort(context) {
+  const editorCfg = vscode.workspace.getConfiguration('editor');
+  const targets = getReadingComfortTargets();
+  const lines = targets.map(t => {
+    const cur = editorCfg.get(t.key);
+    return `• ${t.label}: ${cur === undefined ? '(default)' : JSON.stringify(cur)} → ${JSON.stringify(t.value)}`;
+  });
+  const pick = await vscode.window.showInformationMessage(
+    `Apply the ZeroToSaaS Reading Comfort preset (dyslexia-friendly)?\n\n${lines.join('\n')}\n\nCurrent values are backed up — revert anytime via "ZeroToSaaS: Restore Previous Editor Typography".`,
+    { modal: true },
+    'Apply'
+  );
+  if (pick !== 'Apply') return;
+
+  const backup = {};
+  for (const t of targets) backup[t.key] = editorCfg.get(t.key);
+  await context.globalState.update(READING_COMFORT_BACKUP_KEY, backup);
+  for (const t of targets) {
+    await editorCfg.update(t.key, t.value, vscode.ConfigurationTarget.Global);
+  }
+  vscode.window.showInformationMessage(
+    'Reading Comfort preset applied. Restore via "ZeroToSaaS: Restore Previous Editor Typography".'
+  );
+}
+
+async function resetReadingComfort(context) {
+  const backup = context.globalState.get(READING_COMFORT_BACKUP_KEY);
+  if (!backup) {
+    vscode.window.showInformationMessage('No Reading Comfort backup found — nothing to restore.');
+    return;
+  }
+  const editorCfg = vscode.workspace.getConfiguration('editor');
+  for (const [key, value] of Object.entries(backup)) {
+    await editorCfg.update(key, value === undefined ? undefined : value, vscode.ConfigurationTarget.Global);
+  }
+  await context.globalState.update(READING_COMFORT_BACKUP_KEY, undefined);
+  vscode.window.showInformationMessage('Previous editor typography restored.');
+}
+
+// --- Focus Timer (Pomodoro-style focus blocks) ---
+// Like the rest reminder, the countdown surfaces on the single hub icon's
+// tooltip and QuickPick — it never creates its own status-bar widget.
+let focusTickInterval = null;
+let focusPhase = null; // 'work' | 'break'
+let focusPhaseEndAt = 0;
+let focusTimerActive = false;
+
+function disposeFocusTimer() {
+  if (focusTickInterval) {
+    clearInterval(focusTickInterval);
+    focusTickInterval = null;
+  }
+  focusPhase = null;
+  focusPhaseEndAt = 0;
+}
+
+function focusTimerDurations() {
+  const cfg = vscode.workspace.getConfiguration('zerotosaas.focusTimer');
+  const workMin = Math.max(1, Number(cfg.get('workMinutes', 25)) || 25);
+  const breakMin = Math.max(1, Number(cfg.get('breakMinutes', 5)) || 5);
+  return { workMs: workMin * 60000, breakMs: breakMin * 60000 };
+}
+
+function beginFocusPhase(phase, silent = false) {
+  const { workMs, breakMs } = focusTimerDurations();
+  focusPhase = phase;
+  focusPhaseEndAt = Date.now() + (phase === 'work' ? workMs : breakMs);
+  if (silent) return;
+  vscode.window.showInformationMessage(
+    phase === 'work'
+      ? 'Focus Timer: break over — back to focus.'
+      : 'Focus Timer: focus block complete — take a break.'
+  );
+}
+
+// Human-readable focus status for the hub tooltip and QuickPick.
+function getFocusSummary() {
+  const parts = [];
+  if (focusModeActive) parts.push('focus mode on');
+  if (focusTimerActive && focusPhase) {
+    const remainingSec = Math.max(0, Math.ceil((focusPhaseEndAt - Date.now()) / 1000));
+    const min = Math.floor(remainingSec / 60);
+    const sec = remainingSec % 60;
+    parts.push(`${focusPhase} ${min}m ${sec}s`);
+  }
+  return parts.length ? parts.join(' · ') : null;
+}
+
+// Starts the timer loop iff focusTimerActive. Called on activation (seeded
+// from zerotosaas.focusTimer.enabled) and when focusTimer settings change.
+function initFocusTimer() {
+  disposeFocusTimer();
+  if (!focusTimerActive) {
+    updateHubStatusBarText();
+    return;
+  }
+  beginFocusPhase('work', true);
+  focusTickInterval = setInterval(() => {
+    if (Date.now() >= focusPhaseEndAt) {
+      beginFocusPhase(focusPhase === 'work' ? 'break' : 'work');
+    }
+    updateHubStatusBarText();
+  }, 1000);
+  updateHubStatusBarText();
+}
+
+function toggleFocusTimer() {
+  focusTimerActive = !focusTimerActive;
+  if (focusTimerActive) {
+    initFocusTimer();
+    const { workMs, breakMs } = focusTimerDurations();
+    vscode.window.showInformationMessage(
+      `Focus Timer started — ${Math.round(workMs / 60000)}m focus blocks with ${Math.round(breakMs / 60000)}m breaks. Countdown is on the ZeroToSaaS status icon.`
+    );
+  } else {
+    disposeFocusTimer();
+    updateHubStatusBarText();
+    vscode.window.showInformationMessage('Focus Timer stopped.');
+  }
 }
 
 function getCurrentThemeLabel(cfg) {
@@ -1238,8 +1553,16 @@ function updateHubStatusBarText() {
   if (!hubStatusBar) return;
   // Icon-only badge keeps the status bar minimal; the full identity
   // (ZeroToSaaS [AAA], active theme) surfaces in the tooltip + QuickPick.
+  // This is the suite's only status-bar item — timers and modes report
+  // through this tooltip and the QuickPick instead of their own widgets.
   hubStatusBar.text = '$(eye)';
-  hubStatusBar.tooltip = `ZeroToSaaS [AAA] Accessibility Theme Suite — active theme: ${getActiveThemeName()}`;
+  const rest = getRestSummary();
+  const focus = getFocusSummary();
+  hubStatusBar.tooltip = [
+    `ZeroToSaaS [AAA] Accessibility Theme Suite — active theme: ${getActiveThemeName()}`,
+    rest ? `20-20-20: ${rest}` : null,
+    focus ? `Focus: ${focus}` : null
+  ].filter(Boolean).join('\n');
 }
 
 function initHubStatusBar(context) {
@@ -1249,9 +1572,7 @@ function initHubStatusBar(context) {
     .get('enabled', true);
   if (!enabled) return;
 
-  // Priority 100 places it alongside (just left of) the rest-reminder badge
-  // when both are visible, matching the restStatusBar priority for a stable
-  // visual cluster that the wellness hub can later absorb.
+  // Priority 100 keeps the suite's single icon at a stable right-side slot.
   hubStatusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   hubStatusBar.command = 'zerotosaas.showStatusHub';
   updateHubStatusBarText();
@@ -1279,10 +1600,40 @@ function showStatusHubQuickPick() {
       command: 'zerotosaas.openGuidelines'
     },
     {
+      label: focusModeActive ? 'Turn Focus Mode Off' : 'Turn Focus Mode On',
+      description: 'Suppress or restore ZeroToSaaS decorations',
+      command: 'zerotosaas.toggleFocusMode'
+    },
+    {
+      label: focusTimerActive ? 'Stop Focus Timer' : 'Start Focus Timer',
+      description: 'Pomodoro-style focus blocks',
+      command: 'zerotosaas.toggleFocusTimer'
+    },
+    {
+      label: 'Apply Reading Comfort Preset',
+      description: 'Dyslexia-friendly typography (backs up current values)',
+      command: 'zerotosaas.applyReadingComfort'
+    },
+    {
+      label: 'Restore Previous Editor Typography',
+      description: 'Revert the Reading Comfort preset',
+      command: 'zerotosaas.resetReadingComfort'
+    },
+    {
       label: 'Reset 20-20-20 Rest Timer',
       description: 'Restart the ocular rest assistant',
       command: 'zerotosaas.resetRestTimer'
     },
+    ...(getRestSummary() ? [{
+      label: `20-20-20: ${getRestSummary()}`,
+      description: 'Ocular Rest Assistant',
+      command: null
+    }] : []),
+    ...(getFocusSummary() ? [{
+      label: `Focus: ${getFocusSummary()}`,
+      description: 'Focus Mode / Focus Timer',
+      command: null
+    }] : []),
     {
       label: `Active theme: ${themeName}`,
       description: 'Informational',
@@ -1447,6 +1798,13 @@ function activate(context) {
 
   initRestAssistant();
 
+  // Focus Timer — seeded from zerotosaas.focusTimer.enabled; the countdown
+  // surfaces on the hub icon, never as its own status-bar item.
+  focusTimerActive = vscode.workspace
+    .getConfiguration('zerotosaas.focusTimer')
+    .get('enabled', false);
+  initFocusTimer();
+
   // Persistent status bar hub widget ($(shield) ZeroToSaaS [AAA]).
   initHubStatusBar(context);
 
@@ -1469,6 +1827,18 @@ function activate(context) {
     }),
     vscode.commands.registerCommand('zerotosaas.showStatusHub', () => {
       showStatusHubQuickPick();
+    }),
+    vscode.commands.registerCommand('zerotosaas.applyReadingComfort', () => {
+      applyReadingComfort(context);
+    }),
+    vscode.commands.registerCommand('zerotosaas.resetReadingComfort', () => {
+      resetReadingComfort(context);
+    }),
+    vscode.commands.registerCommand('zerotosaas.toggleFocusMode', () => {
+      toggleFocusMode();
+    }),
+    vscode.commands.registerCommand('zerotosaas.toggleFocusTimer', () => {
+      toggleFocusTimer();
     })
   );
 
@@ -1568,6 +1938,15 @@ function activate(context) {
     ) {
       initDecorations(context);
       initRestAssistant();
+      // Follow the focusTimer.enabled switch; duration edits are picked up
+      // automatically at the next phase transition without resetting a
+      // running session.
+      if (event.affectsConfiguration('zerotosaas.focusTimer.enabled')) {
+        focusTimerActive = vscode.workspace
+          .getConfiguration('zerotosaas.focusTimer')
+          .get('enabled', false);
+        initFocusTimer();
+      }
       // Re-sync the hub widget: covers both the enabled toggle and any
       // workbench.colorTheme change that updates the tooltip's theme name.
       initHubStatusBar(context);
@@ -1584,6 +1963,7 @@ function activate(context) {
 
 function deactivate() {
   disposeRestAssistant();
+  disposeFocusTimer();
   disposeHubStatusBar();
   if (documentChangeDebounceTimer) {
     clearTimeout(documentChangeDebounceTimer);

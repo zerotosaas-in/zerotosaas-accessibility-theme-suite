@@ -1,0 +1,23 @@
+{
+  "name": "ZeroToSaaS Soft (Comfort)",
+  "background": "#F4F0E7",
+  "foreground": "#2E2A24",
+  "cursorColor": "#4A4E6B",
+  "selectionBackground": "#CFC0A0",
+  "black": "#2E2A24",
+  "red": "#662A33",
+  "green": "#205030",
+  "yellow": "#544308",
+  "blue": "#4A4E6B",
+  "purple": "#4E4266",
+  "cyan": "#33503F",
+  "white": "#EFEBE0",
+  "brightBlack": "#4A453A",
+  "brightRed": "#662A33",
+  "brightGreen": "#205030",
+  "brightYellow": "#544308",
+  "brightBlue": "#3A3E56",
+  "brightPurple": "#4E4266",
+  "brightCyan": "#33503F",
+  "brightWhite": "#2E2A24"
+}
