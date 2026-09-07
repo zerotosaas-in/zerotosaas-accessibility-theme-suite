@@ -33,11 +33,6 @@ const targets = [
     cacheDir: path.join(os.homedir(), 'Library', 'Application Support', 'VSCodium', 'CachedProfilesData')
   },
   {
-    name: 'Windsurf',
-    extDir: path.join(os.homedir(), '.windsurf', 'extensions'),
-    cacheDir: path.join(os.homedir(), 'Library', 'Application Support', 'Windsurf', 'CachedProfilesData')
-  },
-  {
     name: 'Antigravity IDE',
     extDir: path.join(os.homedir(), '.antigravity-ide', 'extensions'),
     cacheDir: path.join(os.homedir(), 'Library', 'Application Support', 'Antigravity IDE', 'CachedProfilesData')
