@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/2.0.0.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-07
+
 ### Added
 
 - **12 new theme variants** (theme count 20 → 32), every token still WCAG AAA (≥ 7:1) — "gentle" is achieved via warm canvases and low chroma, never lower contrast:
